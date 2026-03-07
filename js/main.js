@@ -311,6 +311,112 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ===================================
+    // Quick Consult Modal
+    // ===================================
+    const WEBHOOK_URL = ''; // Make 웹훅 URL을 여기에 입력
+
+    const consultBtn = document.getElementById('quickConsultBtn');
+    const consultModal = document.getElementById('consultModal');
+    const modalClose = document.getElementById('modalClose');
+    const consultForm = document.getElementById('consultForm');
+    const consultPhone = document.getElementById('consultPhone');
+    const consultSubmit = document.getElementById('consultSubmit');
+
+    // Open modal
+    consultBtn.addEventListener('click', () => {
+        consultModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+
+    // Close modal
+    function closeModal() {
+        consultModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+
+    consultModal.addEventListener('click', (e) => {
+        if (e.target === consultModal) closeModal();
+    });
+
+    // Phone number auto-format
+    consultPhone.addEventListener('input', (e) => {
+        let val = e.target.value.replace(/\D/g, '');
+        if (val.length > 11) val = val.slice(0, 11);
+        if (val.length > 7) {
+            val = val.slice(0, 3) + '-' + val.slice(3, 7) + '-' + val.slice(7);
+        } else if (val.length > 3) {
+            val = val.slice(0, 3) + '-' + val.slice(3);
+        }
+        e.target.value = val;
+    });
+
+    // Form submit
+    consultForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('consultName').value.trim();
+        const phone = consultPhone.value.trim();
+        const programs = [...document.querySelectorAll('input[name="program"]:checked')].map(c => c.value);
+        const goal = document.getElementById('consultGoal').value;
+
+        // Validation
+        if (!name) { alert('성함을 입력해주세요.'); return; }
+        if (!phone || phone.replace(/\D/g, '').length < 10) { alert('연락처를 정확히 입력해주세요.'); return; }
+        if (programs.length === 0) { alert('관심 프로그램을 선택해주세요.'); return; }
+
+        const data = {
+            name,
+            programs,
+            phone,
+            goal: goal || '미선택',
+            timestamp: new Date().toISOString()
+        };
+
+        consultSubmit.disabled = true;
+        consultSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 전송 중...';
+
+        try {
+            if (WEBHOOK_URL) {
+                await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+            } else {
+                console.log('상담 신청 데이터:', data);
+            }
+
+            consultSubmit.innerHTML = '<i class="fas fa-check"></i> 신청 완료!';
+            consultSubmit.classList.add('success');
+
+            setTimeout(() => {
+                closeModal();
+                consultForm.reset();
+                consultSubmit.disabled = false;
+                consultSubmit.innerHTML = '<i class="fas fa-paper-plane"></i> 상담 신청하기';
+                consultSubmit.classList.remove('success');
+            }, 2000);
+
+        } catch (err) {
+            console.error('웹훅 전송 실패:', err);
+            consultSubmit.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 전송 실패';
+            setTimeout(() => {
+                consultSubmit.disabled = false;
+                consultSubmit.innerHTML = '<i class="fas fa-paper-plane"></i> 상담 신청하기';
+            }, 2000);
+        }
+    });
+
+    // ESC key closes modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && consultModal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
     // Initial call
     handleScroll();
     updateActiveLink();
