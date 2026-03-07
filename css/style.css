@@ -939,6 +939,93 @@ ul {
 }
 
 /* ===================================
+   FITNESS NEWS SECTION
+   =================================== */
+.fitness-news {
+    padding: 120px 0;
+    background: var(--dark);
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.news-card {
+    display: block;
+    background: var(--dark-200);
+    border-radius: 20px;
+    padding: 36px 28px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: var(--transition);
+    text-decoration: none;
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+}
+
+.news-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(212,168,67,0.3);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.news-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--dark);
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.news-icon {
+    font-size: 36px;
+    color: var(--gold);
+    margin-bottom: 20px;
+}
+
+.news-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.news-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.news-link {
+    font-size: 14px;
+    color: var(--gold);
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.news-link i {
+    margin-left: 4px;
+    transition: transform 0.3s ease;
+}
+
+.news-card:hover .news-link i {
+    transform: translateX(5px);
+}
+
+.news-more {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* ===================================
    REVIEWS SECTION
    =================================== */
 .reviews {
