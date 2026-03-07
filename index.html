@@ -24,6 +24,7 @@
                 <li><a href="#about" class="nav-link">소개</a></li>
                 <li><a href="#programs" class="nav-link">프로그램</a></li>
                 <li><a href="#facilities" class="nav-link">시설</a></li>
+                <li><a href="#reviews" class="nav-link">후기</a></li>
                 <li><a href="#goods" class="nav-link">굿즈</a></li>
                 <li><a href="#contact" class="nav-link">오시는 길</a></li>
                 <li class="nav-menu-booking"><a href="https://m.booking.naver.com/booking/6/bizes/163929" target="_blank" class="nav-link">네이버 예약</a></li>
@@ -373,6 +374,54 @@
         </div>
     </section>
 
+    <!-- Reviews Section -->
+    <section class="reviews" id="reviews">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-tag">REVIEWS</span>
+                <h2 class="section-title">회원 후기</h2>
+                <p class="section-desc">노네임피트니스 회원님들의 생생한 후기</p>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card" data-aos="fade-up" data-delay="0">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">"시설이 정말 깨끗하고 넓어요. 트레이너분들도 친절하시고 체계적으로 운동을 알려주셔서 초보자도 쉽게 시작할 수 있었습니다!"</p>
+                    <div class="review-author">
+                        <span class="author-name">네이버 회원</span>
+                        <span class="author-date">방문 후기</span>
+                    </div>
+                </div>
+                <div class="review-card" data-aos="fade-up" data-delay="100">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">"PT 받으면서 체형이 많이 변했어요. 무제한 PT라 부담 없이 매일 올 수 있는 게 최고입니다. 강력 추천합니다!"</p>
+                    <div class="review-author">
+                        <span class="author-name">네이버 회원</span>
+                        <span class="author-date">방문 후기</span>
+                    </div>
+                </div>
+                <div class="review-card" data-aos="fade-up" data-delay="200">
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">"스피닝 수업이 정말 재밌어요! 음악에 맞춰 운동하니까 시간 가는 줄 몰라요. 다이어트에도 효과 만점입니다."</p>
+                    <div class="review-author">
+                        <span class="author-name">네이버 회원</span>
+                        <span class="author-date">방문 후기</span>
+                    </div>
+                </div>
+            </div>
+            <div class="reviews-cta" data-aos="fade-up">
+                <a href="https://map.naver.com/p/entry/place/1949630624" target="_blank" class="btn-naver-review">
+                    <i class="fas fa-external-link-alt"></i> 네이버에서 더 많은 후기 보기
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Goods Section -->
     <section class="goods" id="goods">
         <div class="container">
@@ -550,6 +599,26 @@
 
     <!-- Chatbot: 네이미 -->
     <style>
+      #naverBookingFloat {
+        position: fixed;
+        bottom: 30px;
+        left: 20px;
+        background: linear-gradient(135deg, #03C75A, #02b351);
+        color: white;
+        border-radius: 50px;
+        padding: 12px 20px;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        z-index: 9999;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        text-decoration: none;
+      }
+      #naverBookingFloat:hover {
+        box-shadow: 0 4px 15px rgba(3,199,90,0.4);
+        transform: translateY(-2px);
+        transition: all 0.3s ease;
+      }
       #gptBtn {
         position: fixed;
         bottom: 30px;
@@ -668,6 +737,7 @@
       }
     </style>
 
+    <a id="naverBookingFloat" href="https://m.booking.naver.com/booking/6/bizes/163929" target="_blank">📅 네이버 예약</a>
     <div id="gptBtn">💬 무엇이든 물어보세요</div>
     <div id="gptModal">
       <div id="gptHeader">
