@@ -1155,6 +1155,115 @@ ul {
 }
 
 /* ===================================
+   PARTNERS SECTION
+   =================================== */
+.partners {
+    padding: 120px 0;
+    background: var(--dark-100);
+}
+
+.partners-intro {
+    text-align: center;
+    font-size: 18px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 50px;
+}
+
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 50px;
+}
+
+.partner-card {
+    background: var(--dark-200);
+    border-radius: 20px;
+    padding: 36px 28px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: var(--transition);
+    text-align: center;
+}
+
+.partner-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(212,168,67,0.3);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.partner-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.partner-name {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 20px;
+}
+
+.partner-benefits {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.partner-benefits li {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.8;
+    padding: 4px 0;
+    padding-left: 16px;
+    position: relative;
+}
+
+.partner-benefits li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+}
+
+.partner-benefits li strong {
+    color: var(--gold-light);
+    font-weight: 700;
+}
+
+.partners-notice {
+    text-align: center;
+    padding: 30px;
+    background: var(--dark-300);
+    border-radius: 16px;
+    border: 1px solid rgba(212,168,67,0.15);
+}
+
+.partners-notice p {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+}
+
+.partners-notice .notice-info {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 400;
+}
+
+@media (max-width: 1024px) {
+    .partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .partners-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===================================
    CTA SECTION
    =================================== */
 .cta-section {
