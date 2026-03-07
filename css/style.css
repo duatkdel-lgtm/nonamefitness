@@ -212,6 +212,15 @@ ul {
     box-shadow: var(--shadow-gold);
 }
 
+.nav-cta.nav-booking {
+    background: linear-gradient(135deg, #03C75A, #02b351) !important;
+    color: #fff !important;
+}
+
+.nav-cta.nav-booking:hover {
+    box-shadow: 0 4px 15px rgba(3,199,90,0.4);
+}
+
 .hamburger {
     display: none;
     flex-direction: column;
