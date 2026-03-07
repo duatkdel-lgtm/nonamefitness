@@ -161,6 +161,10 @@ ul {
     mix-blend-mode: lighten;
 }
 
+.nav-menu-booking {
+    display: none;
+}
+
 .nav-menu {
     display: flex;
     align-items: center;
@@ -1457,7 +1461,19 @@ ul {
     .nav-cta {
         display: none;
     }
-    
+
+    .nav-menu-booking {
+        display: list-item;
+    }
+
+    .nav-menu-booking .nav-link {
+        background: linear-gradient(135deg, #03C75A, #02b351) !important;
+        color: #fff !important;
+        border-radius: 25px;
+        text-align: center;
+        margin-top: 10px;
+    }
+
     .hamburger {
         display: flex;
     }
