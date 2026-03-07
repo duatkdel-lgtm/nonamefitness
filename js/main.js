@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===================================
     // Quick Consult Modal
     // ===================================
-    const WEBHOOK_URL = ''; // Make 웹훅 URL을 여기에 입력
+    const WEBHOOK_URL = 'https://hook.eu2.make.com/lnb1y5o2v9a7pcd1uow4umptxax9jg70';
 
     const consultBtn = document.getElementById('quickConsultBtn');
     const consultModal = document.getElementById('consultModal');
