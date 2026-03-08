@@ -261,6 +261,18 @@
         /* ━━━━━━━━━━━━━━━━━━━━━━━━
            PRICING
         ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .price-reason {
+            margin-bottom: 32px;
+        }
+        .price-reason p {
+            font-size: clamp(14px, 2vw, 16px);
+            color: var(--g1); line-height: 2;
+            margin-bottom: 16px; font-weight: 300;
+        }
+        .price-reason p:last-child { margin-bottom: 0; }
+        .price-reason strong { color: var(--w); font-weight: 700; }
+        .price-reason .hl { color: var(--a); font-weight: 500; }
+
         .price-list {
             display: flex; flex-direction: column;
             gap: 0;
@@ -592,27 +604,42 @@
 <div class="divider"></div>
 <div class="sec reveal">
     <p class="nar-tag">PRICING</p>
-    <h2 class="nar-title">부담 없이,<br><span class="hl">오래</span> 다니세요</h2>
+    <h2 class="nar-title">10년 전에도<br>헬스는 <span class="hl">이 가격</span>이었습니다</h2>
+
+    <div class="price-reason">
+        <p>
+            솔직히 말하면, 주변보다 <strong>조금 비쌉니다.</strong><br>
+            그런데 10년 전에도 이 가격이었어요.
+        </p>
+        <p>
+            물가는 올랐고, 인건비도 올랐고, 관리비도 올랐는데<br>
+            <span class="hl">저희 가격은 그대로입니다.</span>
+        </p>
+        <p>
+            싸게 해서 트레이너를 줄이거나,<br>
+            관리를 포기하거나, 청소를 빼는 대신 —<br>
+            <strong>이 가격으로 유지할 수 있는 최선의 환경</strong>을 지킵니다.
+        </p>
+    </div>
 
     <div class="price-list">
         <div class="price-row">
             <div class="price-left">
                 <div class="price-month">1<span>개월</span></div>
-                <div class="price-type">입문</div>
+                <div class="price-type">시작</div>
             </div>
             <div class="price-right">
-                <div class="price-amount">50,000<span>원</span></div>
+                <div class="price-amount">95,000<span>원</span></div>
             </div>
         </div>
-        <div class="price-row featured">
-            <div class="price-badge-inline">인기</div>
+        <div class="price-row">
             <div class="price-left">
                 <div class="price-month">3<span>개월</span></div>
                 <div class="price-type">습관 만들기</div>
             </div>
             <div class="price-right">
-                <div class="price-amount">130,000<span>원</span></div>
-                <div class="price-sub">월 43,300원꼴</div>
+                <div class="price-amount">181,500<span>원</span></div>
+                <div class="price-sub">월 60,500원꼴</div>
             </div>
         </div>
         <div class="price-row">
@@ -621,19 +648,28 @@
                 <div class="price-type">본격 변화</div>
             </div>
             <div class="price-right">
-                <div class="price-amount">230,000<span>원</span></div>
-                <div class="price-sub">월 38,300원꼴</div>
+                <div class="price-amount">297,000<span>원</span></div>
+                <div class="price-sub">월 49,500원꼴</div>
             </div>
         </div>
-        <div class="price-row">
+        <div class="price-row featured">
+            <div class="price-badge-inline">최저 월 단가</div>
             <div class="price-left">
                 <div class="price-month">12<span>개월</span></div>
                 <div class="price-type">라이프스타일</div>
             </div>
             <div class="price-right">
-                <div class="price-amount">390,000<span>원</span></div>
-                <div class="price-sub">월 32,500원꼴</div>
+                <div class="price-amount">396,000<span>원</span></div>
+                <div class="price-sub">월 33,000원꼴</div>
             </div>
+        </div>
+    </div>
+
+    <div class="equip-quote" style="margin: 24px 0 0;">
+        <div class="big-text" style="font-size: clamp(16px, 3vw, 20px);">
+            싼 곳은 많습니다<br>
+            <span class="hl">이 가격에 이 관리</span>를 하는 곳은<br>
+            많지 않습니다
         </div>
     </div>
 
