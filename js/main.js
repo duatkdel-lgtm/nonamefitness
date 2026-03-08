@@ -422,124 +422,44 @@ document.addEventListener('DOMContentLoaded', () => {
     updateActiveLink();
 
     // ===================================
-    // Unlimited PT Slideshow Modal
+    // Unlimited PT Modal
     // ===================================
-    const SLIDE_COUNT = 12;
-    const slideshowModal = document.getElementById('slideshowModal');
-    const slideshowImage = document.getElementById('slideshowImage');
-    const slideshowCounter = document.getElementById('slideshowCounter');
-    const slideshowDots = document.querySelectorAll('.slideshow-dot');
-    const unlimitedPtCard = document.getElementById('unlimitedPtCard');
-    let currentSlide = 0;
-    let touchStartX = 0;
-    let touchEndX = 0;
+    const unlimitedPtModal = document.getElementById('unlimitedPtModal');
+    const unlimitedPtClose = document.getElementById('unlimitedPtClose');
+    const unlimitedPtCard  = document.getElementById('unlimitedPtCard');
 
-    function getSlideUrl(index) {
-        const num = String(index + 1).padStart(2, '0');
-        return `images/unlimited-pt/slide-${num}.jpg`;
-    }
-
-    function goToSlide(index) {
-        if (index < 0) index = SLIDE_COUNT - 1;
-        if (index >= SLIDE_COUNT) index = 0;
-        currentSlide = index;
-
-        // Fade transition
-        slideshowImage.classList.add('fade');
-        setTimeout(() => {
-            slideshowImage.src = getSlideUrl(currentSlide);
-            slideshowImage.classList.remove('fade');
-        }, 200);
-
-        // Update counter
-        slideshowCounter.textContent = `${currentSlide + 1} / ${SLIDE_COUNT}`;
-
-        // Update dots
-        slideshowDots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === currentSlide);
-        });
-    }
-
-    function openSlideshow() {
-        if (!slideshowModal) return;
-        currentSlide = 0;
-        slideshowImage.src = getSlideUrl(0);
-        slideshowCounter.textContent = `1 / ${SLIDE_COUNT}`;
-        slideshowDots.forEach((dot, i) => {
-            dot.classList.toggle('active', i === 0);
-        });
-        slideshowModal.classList.add('active');
+    function openUnlimitedPt() {
+        if (!unlimitedPtModal) return;
+        unlimitedPtModal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
 
-    function closeSlideshow() {
-        if (!slideshowModal) return;
-        slideshowModal.classList.remove('active');
+    function closeUnlimitedPt() {
+        if (!unlimitedPtModal) return;
+        unlimitedPtModal.classList.remove('active');
         document.body.style.overflow = '';
     }
 
-    // Open on card click
     if (unlimitedPtCard) {
         unlimitedPtCard.addEventListener('click', (e) => {
-            // Don't open if clicking on a link inside the card
             if (e.target.closest('a')) return;
-            openSlideshow();
+            openUnlimitedPt();
         });
     }
 
-    // Close button
-    const slideshowClose = document.getElementById('slideshowClose');
-    if (slideshowClose) {
-        slideshowClose.addEventListener('click', closeSlideshow);
+    if (unlimitedPtClose) {
+        unlimitedPtClose.addEventListener('click', closeUnlimitedPt);
     }
 
-    // Overlay click to close
-    if (slideshowModal) {
-        slideshowModal.addEventListener('click', (e) => {
-            if (e.target === slideshowModal) closeSlideshow();
+    if (unlimitedPtModal) {
+        unlimitedPtModal.addEventListener('click', (e) => {
+            if (e.target === unlimitedPtModal) closeUnlimitedPt();
         });
     }
 
-    // Prev / Next
-    const slideshowPrev = document.getElementById('slideshowPrev');
-    const slideshowNext = document.getElementById('slideshowNext');
-    if (slideshowPrev) slideshowPrev.addEventListener('click', () => goToSlide(currentSlide - 1));
-    if (slideshowNext) slideshowNext.addEventListener('click', () => goToSlide(currentSlide + 1));
-
-    // Dots
-    slideshowDots.forEach(dot => {
-        dot.addEventListener('click', () => {
-            goToSlide(parseInt(dot.dataset.index));
-        });
-    });
-
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
-        if (!slideshowModal || !slideshowModal.classList.contains('active')) return;
-        if (e.key === 'Escape') closeSlideshow();
-        if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
-        if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+        if (unlimitedPtModal && unlimitedPtModal.classList.contains('active') && e.key === 'Escape') {
+            closeUnlimitedPt();
+        }
     });
-
-    // Touch swipe support for mobile
-    if (slideshowModal) {
-        slideshowModal.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-
-        slideshowModal.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) goToSlide(currentSlide + 1);  // swipe left = next
-                else goToSlide(currentSlide - 1);            // swipe right = prev
-            }
-        }, { passive: true });
-    }
-
-    // Preload all slide images
-    for (let i = 0; i < SLIDE_COUNT; i++) {
-        const img = new Image();
-        img.src = getSlideUrl(i);
-    }
 });
