@@ -504,4 +504,46 @@ document.addEventListener('DOMContentLoaded', () => {
             closeUnlimitedPt();
         }
     });
+
+    // ===================================
+    // Tumbler Modal
+    // ===================================
+    const tumblerModal = document.getElementById('tumblerModal');
+    const tumblerClose = document.getElementById('tumblerClose');
+    const tumblerCard  = document.getElementById('tumblerCard');
+
+    function openTumbler() {
+        if (!tumblerModal) return;
+        tumblerModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeTumbler() {
+        if (!tumblerModal) return;
+        tumblerModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (tumblerCard) {
+        tumblerCard.addEventListener('click', (e) => {
+            if (e.target.closest('a')) return;
+            openTumbler();
+        });
+    }
+
+    if (tumblerClose) {
+        tumblerClose.addEventListener('click', closeTumbler);
+    }
+
+    if (tumblerModal) {
+        tumblerModal.addEventListener('click', (e) => {
+            if (e.target === tumblerModal) closeTumbler();
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (tumblerModal && tumblerModal.classList.contains('active') && e.key === 'Escape') {
+            closeTumbler();
+        }
+    });
 });
