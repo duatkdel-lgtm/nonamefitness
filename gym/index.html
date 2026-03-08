@@ -476,6 +476,52 @@
         footer p { font-size: 11px; color: var(--g3); }
 
         /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           STORY GRID — 추억 사진
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 32px;
+        }
+        .story-grid img,
+        .story-bottom-img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+            max-height: 180px;
+        }
+        /* fade-in/out on scroll */
+        .story-grid > div,
+        .story-bottom-img,
+        .story-caption {
+            opacity: 0; transform: translateY(20px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+        .story-grid > div.visible,
+        .story-bottom-img.visible,
+        .story-caption.visible {
+            opacity: 1; transform: translateY(0);
+        }
+        .story-grid > div.faded,
+        .story-bottom-img.faded,
+        .story-caption.faded {
+            opacity: 0; transform: translateY(-20px);
+        }
+        .story-grid .tall {
+            grid-row: span 2;
+        }
+        .story-grid .tall img {
+            max-height: 368px;
+        }
+        .story-caption {
+            font-size: 12px; color: var(--g3);
+            text-align: center; margin-top: 16px;
+            font-style: italic;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
            RESPONSIVE
         ━━━━━━━━━━━━━━━━━━━━━━━━ */
         @media (max-width: 500px) {
@@ -525,6 +571,16 @@
         어제보다 나아진 부분을 찾아서 말해드렸습니다.<br>
         그게 전부였어요. 그런데 그게 통했습니다.
     </p>
+
+    <div class="story-grid">
+        <div class="tall"><img src="../images/story-street.jpg" alt="길거리 홍보하던 시절"></div>
+        <div><img src="../images/story-opening.jpg" alt="소박한 오픈식"></div>
+        <div><img src="../images/story-gym1.jpg" alt="50평 PT샵 내부"></div>
+    </div>
+    <div style="margin-top:8px;">
+        <img src="../images/story-gym2.jpg" alt="초창기 운동 공간" class="story-bottom-img">
+    </div>
+    <p class="story-caption">그 50평이, 지금의 노네임피트니스가 되었습니다.</p>
 </div>
 
 <!-- ━━━ PULL QUOTE ━━━ -->
@@ -794,6 +850,29 @@
             });
         }, { threshold: 0.1 });
         els.forEach(function(el){ obs.observe(el); });
+    }
+
+    // Story photos: fade-in on enter, fade-out on leave
+    var storyEls = document.querySelectorAll('.story-grid > div, .story-bottom-img, .story-caption');
+    if (storyEls.length) {
+        var storyObs = new IntersectionObserver(function(entries){
+            entries.forEach(function(e){
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    e.target.classList.remove('faded');
+                } else if (e.target.classList.contains('visible')) {
+                    var rect = e.target.getBoundingClientRect();
+                    if (rect.top < 0) {
+                        e.target.classList.add('faded');
+                        e.target.classList.remove('visible');
+                    }
+                }
+            });
+        }, { threshold: 0.1 });
+        storyEls.forEach(function(el, i){
+            el.style.transitionDelay = (i * 0.1) + 's';
+            storyObs.observe(el);
+        });
     }
 
     // Detect: iframe or standalone
