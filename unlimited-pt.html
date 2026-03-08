@@ -907,16 +907,12 @@
     <div class="cta-bar"></div>
     <h2 class="cta-title">오늘, <span class="hl">구조</span>를 시작하세요</h2>
     <p class="cta-desc">고민하는 시간에도 몸은 변하지 않습니다.<br>의지에 기대지 말고, 검증된 시스템에 맡기세요.</p>
-    <button class="cta-btn">상담 및 방문 문의</button>
+    <button class="cta-btn" onclick="(function(){ var p = window.parent; var pt = p.document.getElementById('unlimitedPtModal'); var m = p.document.getElementById('consultModal'); if(pt){ pt.classList.remove('active'); } if(m){ m.classList.add('active'); p.document.body.style.overflow='hidden'; } })();">상담 및 방문 문의</button>
 
     <div class="cta-feats">
         <div class="cta-feat">
             <div class="cta-feat-ico">🏢</div>
             <p>방문 상담 환영</p>
-        </div>
-        <div class="cta-feat">
-            <div class="cta-feat-ico">💬</div>
-            <p>카카오톡 상담</p>
         </div>
         <div class="cta-feat">
             <div class="cta-feat-ico">🎟️</div>
