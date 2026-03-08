@@ -325,7 +325,7 @@
                 </div>
 
                 <!-- SPINNING -->
-                <div class="program-card" data-aos="fade-up" data-delay="300">
+                <div class="program-card" data-aos="fade-up" data-delay="300" id="spinningCard" style="cursor:pointer;">
                     <div class="program-image">
                         <img src="images/spinning1.jpg" alt="천안 두정동 스피닝 프로그램">
                         <div class="program-overlay">
@@ -343,6 +343,9 @@
                             <li><i class="fas fa-check"></i> 20명 정원 소규모 수업</li>
                             <li><i class="fas fa-check"></i> 하체·지구력·다이어트 효과</li>
                         </ul>
+                        <button class="slideshow-open-btn">
+                            <i class="fas fa-arrow-right"></i> 자세히 보기
+                        </button>
                     </div>
                 </div>
 
@@ -1187,6 +1190,14 @@
         <div class="slideshow-container">
             <button class="slideshow-close" id="powerbeltClose"><i class="fas fa-times"></i></button>
             <iframe class="slideshow-iframe" src="powerbelt.html" frameborder="0" title="파워헬스벨트 소개"></iframe>
+        </div>
+    </div>
+
+    <!-- Spinning Modal -->
+    <div class="slideshow-overlay" id="spinningModal">
+        <div class="slideshow-container">
+            <button class="slideshow-close" id="spinningClose"><i class="fas fa-times"></i></button>
+            <iframe class="slideshow-iframe" src="spinning.html" frameborder="0" title="스피닝 프로그램 소개"></iframe>
         </div>
     </div>
 </body>

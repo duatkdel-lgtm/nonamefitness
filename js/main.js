@@ -588,4 +588,46 @@ document.addEventListener('DOMContentLoaded', () => {
             closePowerbelt();
         }
     });
+
+    // ===================================
+    // Spinning Modal
+    // ===================================
+    const spinningModal = document.getElementById('spinningModal');
+    const spinningClose = document.getElementById('spinningClose');
+    const spinningCard  = document.getElementById('spinningCard');
+
+    function openSpinning() {
+        if (!spinningModal) return;
+        spinningModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSpinning() {
+        if (!spinningModal) return;
+        spinningModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (spinningCard) {
+        spinningCard.addEventListener('click', (e) => {
+            if (e.target.closest('a')) return;
+            openSpinning();
+        });
+    }
+
+    if (spinningClose) {
+        spinningClose.addEventListener('click', closeSpinning);
+    }
+
+    if (spinningModal) {
+        spinningModal.addEventListener('click', (e) => {
+            if (e.target === spinningModal) closeSpinning();
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (spinningModal && spinningModal.classList.contains('active') && e.key === 'Escape') {
+            closeSpinning();
+        }
+    });
 });

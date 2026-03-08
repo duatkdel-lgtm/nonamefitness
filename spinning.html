@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>노네임피트니스 스피닝 프로그램</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ─── RESET & BASE ─── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --y:   #F5BF23;
+            --y2:  #FFD556;
+            --bg:  #0c0c0c;
+            --s1:  #161616;
+            --s2:  #1e1e1e;
+            --s3:  #262626;
+            --bd:  #2e2e2e;
+            --w:   #ffffff;
+            --g1:  #cccccc;
+            --g2:  #999999;
+            --g3:  #555555;
+            --r: 8px;
+            --spin: #E040FB;
+            --spin2: #CE93D8;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--w);
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* ─── TYPOGRAPHY HELPERS ─── */
+        .tag {
+            font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
+            color: var(--spin); text-transform: uppercase; margin-bottom: 10px;
+        }
+        .stitle {
+            font-size: clamp(20px, 3.5vw, 30px);
+            font-weight: 900; line-height: 1.25; margin-bottom: 6px;
+        }
+        .sdesc {
+            font-size: 12px; color: var(--g2); margin-bottom: 20px; line-height: 1.6;
+        }
+        .hl { color: var(--spin); }
+
+        /* ─── SECTION WRAPPER ─── */
+        .sec { padding: 40px 20px; max-width: 860px; margin: 0 auto; }
+        .divider { width: 100%; height: 1px; background: var(--bd); }
+
+        /* ─── GRID HELPERS ─── */
+        .g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+        .g2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
+
+        /* ─── CARD BASE ─── */
+        .card {
+            background: var(--s2); border: 1px solid var(--bd);
+            border-radius: var(--r); padding: 16px 14px;
+        }
+
+        /* ─── NOTICE BAR ─── */
+        .note {
+            background: var(--s1); border-radius: 6px; padding: 12px 16px;
+            font-size: 12px; color: var(--g1); line-height: 1.6; text-align: center;
+        }
+        .note strong { color: var(--w); }
+        .note .hl { color: var(--spin); }
+
+        /* ━━━ 1. HERO ━━━ */
+        .hero {
+            position: relative; min-height: 100svh;
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 48px 24px; overflow: hidden; background: var(--bg);
+        }
+        .hero::before {
+            content: ''; position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 15% 60%, rgba(224,64,251,.08) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 30% at 85% 20%, rgba(224,64,251,.04) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .hero-inner {
+            position: relative; z-index: 1;
+            max-width: 860px; margin: 0 auto; width: 100%;
+        }
+        .hero-brand {
+            font-size: 10px; font-weight: 700; letter-spacing: 3px;
+            color: var(--g3); text-transform: uppercase; margin-bottom: 18px;
+        }
+        .hero-title {
+            font-size: clamp(30px, 6vw, 56px);
+            font-weight: 900; line-height: 1.15; margin-bottom: 14px;
+        }
+        .hero-sub {
+            font-size: clamp(12px, 2vw, 16px);
+            color: var(--g1); line-height: 1.7; margin-bottom: 28px;
+        }
+        .hero-btn {
+            display: inline-block; padding: 12px 28px;
+            border: 2px solid var(--spin); color: var(--spin);
+            font-size: 12px; font-weight: 700; letter-spacing: 1px;
+            background: transparent; cursor: pointer; border-radius: 3px;
+            transition: background .2s, color .2s;
+        }
+        .hero-btn:hover { background: var(--spin); color: #000; }
+
+        /* ━━━ INSTRUCTOR CARDS ━━━ */
+        .instructor-card {
+            background: var(--s2); border: 1px solid var(--bd);
+            border-radius: var(--r); padding: 22px 18px;
+            position: relative; overflow: hidden;
+        }
+        .instructor-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+        }
+        .instructor-card.morning::before { background: linear-gradient(90deg, #FF9800, #FFB74D); }
+        .instructor-card.evening::before { background: linear-gradient(90deg, var(--spin), var(--spin2)); }
+        .instructor-time {
+            display: inline-block; font-size: 10px; font-weight: 700;
+            padding: 3px 10px; border-radius: 12px; margin-bottom: 12px;
+            letter-spacing: .5px;
+        }
+        .morning .instructor-time { background: rgba(255,152,0,.15); color: #FFB74D; }
+        .evening .instructor-time { background: rgba(224,64,251,.15); color: var(--spin2); }
+        .instructor-name { font-size: 22px; font-weight: 900; margin-bottom: 4px; }
+        .instructor-sub { font-size: 11px; color: var(--g2); margin-bottom: 14px; }
+        .instructor-desc { font-size: 12px; color: var(--g1); line-height: 1.7; margin-bottom: 14px; }
+        .instructor-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+        .instructor-tags span {
+            font-size: 10px; padding: 4px 10px; border-radius: 14px;
+            background: var(--s3); color: var(--g1); font-weight: 500;
+        }
+
+        /* ━━━ SCHEDULE ━━━ */
+        .schedule-table {
+            width: 100%; border-collapse: collapse; margin-top: 18px;
+        }
+        .schedule-table th {
+            background: var(--s3); font-size: 11px; font-weight: 700;
+            padding: 10px 8px; text-align: center; color: var(--g1);
+            border: 1px solid var(--bd);
+        }
+        .schedule-table td {
+            font-size: 11px; padding: 12px 8px; text-align: center;
+            border: 1px solid var(--bd); background: var(--s2); color: var(--g1);
+        }
+        .schedule-table td.active {
+            color: var(--w); font-weight: 700;
+            background: rgba(224,64,251,.08);
+        }
+        .schedule-table td.morning-active {
+            color: var(--w); font-weight: 700;
+            background: rgba(255,152,0,.08);
+        }
+
+        /* ━━━ FEATURE ROW ━━━ */
+        .feat {
+            display: flex; gap: 12px; align-items: flex-start;
+            background: var(--s2); border: 1px solid var(--bd);
+            border-radius: var(--r); padding: 14px 14px;
+        }
+        .feat-ico {
+            width: 36px; height: 36px; border-radius: 7px;
+            background: var(--spin); color: #000;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 17px; flex-shrink: 0;
+        }
+        .feat-ico.dim { background: var(--s3); color: var(--spin); }
+        .feat h3 { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+        .feat p { font-size: 11px; color: var(--g2); line-height: 1.6; }
+
+        /* ━━━ STAT CARDS ━━━ */
+        .stat-num {
+            font-size: clamp(28px, 5vw, 40px); font-weight: 900; line-height: 1;
+        }
+        .stat-unit { font-size: 16px; font-weight: 700; }
+        .stat-lbl { font-size: 11px; font-weight: 700; color: var(--g1); margin: 4px 0 6px; }
+        .stat-desc { font-size: 10px; color: var(--g2); line-height: 1.5; }
+
+        /* ━━━ FOR YOU ━━━ */
+        .for-you-card {
+            display: flex; gap: 12px; align-items: flex-start;
+            background: var(--s2); border: 1px solid var(--bd);
+            border-radius: var(--r); padding: 14px;
+        }
+        .for-ico {
+            width: 36px; height: 36px; background: var(--s3);
+            border-radius: 8px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 17px;
+        }
+        .for-you-card h3 { font-size: 12px; font-weight: 700; margin-bottom: 4px; color: var(--g1); }
+        .for-you-card p { font-size: 11px; color: var(--g2); line-height: 1.6; }
+
+        /* ━━━ BIG QUOTE ━━━ */
+        .big-quote-sec {
+            min-height: 55vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            padding: 56px 24px;
+            background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%);
+        }
+        .big-quote-sec .open-q { font-size: 36px; color: var(--spin); margin-bottom: 10px; }
+        .big-quote-sec h2 {
+            font-size: clamp(26px, 5.5vw, 48px); font-weight: 900; line-height: 1.2;
+            margin-bottom: 16px;
+        }
+        .big-quote-bar { width: 36px; height: 2px; background: var(--g3); margin: 0 auto 16px; }
+        .big-quote-sec p { font-size: 13px; color: var(--g2); }
+
+        /* ━━━ CTA ━━━ */
+        .cta-sec {
+            text-align: center; padding: 56px 24px 48px;
+            background: #090909; border-top: 1px solid var(--s2);
+        }
+        .cta-bar { width: 2px; height: 30px; background: var(--spin); margin: 0 auto 16px; }
+        .cta-title { font-size: clamp(26px, 5vw, 42px); font-weight: 900; margin-bottom: 12px; }
+        .cta-desc { font-size: 13px; color: var(--g2); line-height: 1.8; margin-bottom: 28px; }
+        .cta-btn {
+            display: inline-block; padding: 16px 44px;
+            background: var(--spin); color: #fff;
+            font-size: 15px; font-weight: 900; letter-spacing: .5px;
+            border-radius: 4px; cursor: pointer; border: none;
+            transition: opacity .2s;
+        }
+        .cta-btn:hover { opacity: .85; }
+        .cta-feats {
+            display: flex; justify-content: center; gap: 28px; flex-wrap: wrap;
+            margin-top: 36px; padding-top: 36px; border-top: 1px solid var(--s2);
+        }
+        .cta-feat { text-align: center; }
+        .cta-feat-ico {
+            width: 46px; height: 46px; background: var(--s2); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; margin: 0 auto 7px;
+        }
+        .cta-feat p { font-size: 11px; color: var(--g2); }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: #080808; padding: 14px 24px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid var(--s2); flex-wrap: wrap; gap: 6px;
+        }
+        footer p { font-size: 10px; color: var(--g3); }
+
+        /* ━━━ RESPONSIVE ━━━ */
+        @media screen and (orientation: landscape) and (max-height: 480px) {
+            .sec { padding: 26px 18px; }
+            .hero { min-height: auto; padding: 36px 20px; }
+            .hero-title { font-size: 28px; }
+            .hero-sub { font-size: 12px; margin-bottom: 18px; }
+            .stitle { font-size: 18px; }
+            .big-quote-sec { min-height: 40vh; padding: 36px 20px; }
+            .big-quote-sec h2 { font-size: 24px; }
+            .cta-sec { padding: 36px 20px 30px; }
+            .cta-title { font-size: 24px; }
+        }
+
+        @media (max-width: 520px) {
+            .g3 { grid-template-columns: 1fr; }
+            .g2 { grid-template-columns: 1fr; }
+        }
+
+        @media (min-width: 521px) and (max-width: 700px) {
+            .g3 { grid-template-columns: repeat(3,1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ━━━ 1. HERO ━━━ -->
+<div class="hero">
+    <div class="hero-inner">
+        <p class="hero-brand">NONAME FITNESS · SPINNING</p>
+        <h1 class="hero-title">지루한 유산소는<br><span class="hl">끝.</span></h1>
+        <p class="hero-sub">음악과 조명, 에너지로 가득 찬 50분의 집중 라이딩<br>매일 다른 느낌, 매번 다른 짜릿함</p>
+        <button class="hero-btn" onclick="(function(){ var p=window.parent; var sm=p.document.getElementById('spinningModal'); var m=p.document.getElementById('consultModal'); if(sm) sm.classList.remove('active'); if(m){ m.classList.add('active'); p.document.body.style.overflow='hidden'; } })()">수업 문의하기</button>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━ 2. EFFECT ━━━ -->
+<div class="sec">
+    <p class="tag">EFFECT</p>
+    <h2 class="stitle">50분이면 충분합니다.<br><span class="hl">몸이 달라지는</span> 시간</h2>
+
+    <div class="g3" style="margin-top:20px;">
+        <div class="card">
+            <div style="font-size:18px;margin-bottom:8px;">🔥</div>
+            <div class="stat-num" style="color:var(--spin);">500<span class="stat-unit">+</span></div>
+            <div class="stat-lbl">평균 칼로리 소모 (kcal)</div>
+            <div class="stat-desc">50분 기준, 러닝머신 대비 2배 이상의 효율</div>
+        </div>
+        <div class="card">
+            <div style="font-size:18px;margin-bottom:8px;">🦵</div>
+            <div class="stat-num" style="color:var(--spin);">하체<span class="stat-unit">+코어</span></div>
+            <div class="stat-lbl">집중 근력 강화</div>
+            <div class="stat-desc">페달링으로 하체 근력과 코어 안정성 동시 향상</div>
+        </div>
+        <div class="card">
+            <div style="font-size:18px;margin-bottom:8px;">💓</div>
+            <div class="stat-num" style="color:var(--spin);">심폐<span class="stat-unit">UP</span></div>
+            <div class="stat-lbl">심폐 지구력 강화</div>
+            <div class="stat-desc">인터벌 구간 반복으로 심폐 기능 극대화</div>
+        </div>
+    </div>
+
+    <p class="note" style="margin-top:10px;">스피닝은 단순 유산소가 아닙니다. <strong>근력 + 유산소 + 스트레스 해소</strong>를 한 번에.</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━ 3. INSTRUCTOR ━━━ -->
+<div class="sec">
+    <p class="tag">INSTRUCTOR</p>
+    <h2 class="stitle">두 명의 강사,<br><span class="hl">두 가지 에너지</span></h2>
+    <p class="sdesc">같은 스피닝이지만 전혀 다른 느낌. 오전과 오후, 나에게 맞는 스타일을 선택하세요.</p>
+
+    <div class="g2" style="margin-top:18px;">
+        <div class="instructor-card morning">
+            <span class="instructor-time">🌅 오전 클래스</span>
+            <div class="instructor-name">에스템</div>
+            <div class="instructor-sub">S-TEM SPINNING</div>
+            <p class="instructor-desc">
+                하루를 깨우는 에너지 넘치는 모닝 라이딩. 경쾌한 음악과 함께 상쾌한 아침을 시작하세요. 초보자도 편하게 따라올 수 있는 친절한 리드가 특징입니다.
+            </p>
+            <div class="instructor-tags">
+                <span>🎵 밝은 에너지</span>
+                <span>🌟 초보 친화</span>
+                <span>💪 체계적 구성</span>
+            </div>
+        </div>
+        <div class="instructor-card evening">
+            <span class="instructor-time">🌙 오후 클래스</span>
+            <div class="instructor-name">도르라</div>
+            <div class="instructor-sub">DORLA SPINNING</div>
+            <p class="instructor-desc">
+                하루의 스트레스를 폭발적으로 날려버리는 나이트 라이딩. 강렬한 비트와 조명이 만들어내는 몰입감 속에서 한계를 넘어서는 경험을 선사합니다.
+            </p>
+            <div class="instructor-tags">
+                <span>🔥 고강도</span>
+                <span>🎧 강렬한 비트</span>
+                <span>⚡ 몰입 극대화</span>
+            </div>
+        </div>
+    </div>
+
+    <p class="note" style="margin-top:10px;">오전은 <strong>상쾌하게 시작</strong>, 오후는 <strong>강렬하게 마무리</strong> — 당신의 하루에 맞게 선택하세요.</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━ 4. SCHEDULE ━━━ -->
+<div class="sec">
+    <p class="tag">SCHEDULE</p>
+    <h2 class="stitle">주간 <span class="hl">스피닝</span> 시간표</h2>
+    <p class="sdesc">20명 정원 소규모 수업으로 진행됩니다.</p>
+
+    <table class="schedule-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>월</th>
+                <th>화</th>
+                <th>수</th>
+                <th>목</th>
+                <th>금</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="font-weight:700;color:var(--w);">오전 10:00</td>
+                <td class="morning-active">에스템</td>
+                <td class="morning-active">에스템</td>
+                <td class="morning-active">에스템</td>
+                <td class="morning-active">에스템</td>
+                <td class="morning-active">에스템</td>
+            </tr>
+            <tr>
+                <td style="font-weight:700;color:var(--w);">저녁</td>
+                <td class="active">19:30<br>도르라</td>
+                <td class="active">20:00<br>도르라</td>
+                <td class="active">19:30<br>도르라</td>
+                <td class="active">20:00<br>도르라</td>
+                <td class="active">19:30<br>도르라</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p class="note" style="margin-top:10px;">⏱️ 수업 시간 <strong>50분</strong> · 정원 <strong>20명</strong> · 사전 예약 권장</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━ 5. FEATURES ━━━ -->
+<div class="sec">
+    <p class="tag">FEATURES</p>
+    <h2 class="stitle">노네임 스피닝은<br><span class="hl">이렇게 다릅니다</span></h2>
+
+    <div class="g2" style="margin-top:18px;">
+        <div class="feat">
+            <div class="feat-ico">🎵</div>
+            <div>
+                <h3>음악 × 조명 시스템</h3>
+                <p>전문 사운드와 무드 조명이 만드는 클럽 같은 분위기. 운동이 아니라 놀러 온 기분으로 즐기세요.</p>
+            </div>
+        </div>
+        <div class="feat">
+            <div class="feat-ico dim">👥</div>
+            <div>
+                <h3>20명 소규모 수업</h3>
+                <p>강사가 한 명 한 명 케어할 수 있는 최적의 인원. 초보자도 안심하고 참여할 수 있습니다.</p>
+            </div>
+        </div>
+        <div class="feat">
+            <div class="feat-ico">🚴</div>
+            <div>
+                <h3>전문 스피닝 바이크</h3>
+                <p>체형에 맞게 세팅 가능한 전문 장비. 무릎과 관절에 무리 없이 안전하게 운동할 수 있습니다.</p>
+            </div>
+        </div>
+        <div class="feat">
+            <div class="feat-ico dim">🏠</div>
+            <div>
+                <h3>독립 스피닝 전용관</h3>
+                <p>헬스장과 분리된 전용 스피닝룸에서 집중도 높은 수업을 진행합니다.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━ 6. FOR YOU ━━━ -->
+<div class="sec">
+    <p class="tag">FOR YOU</p>
+    <h2 class="stitle">이런 분께 <span class="hl">특히</span> 추천합니다</h2>
+
+    <div class="g2" style="margin-top:18px;">
+        <div class="for-you-card">
+            <div class="for-ico">😴</div>
+            <div>
+                <h3>✓ 러닝머신이 지루한 분</h3>
+                <p>혼자 뛰는 유산소는 질렸다면, 음악과 함께 50분이 순삭되는 스피닝을 경험해보세요.</p>
+            </div>
+        </div>
+        <div class="for-you-card">
+            <div class="for-ico">⚡</div>
+            <div>
+                <h3>✓ 단기간 다이어트가 필요한 분</h3>
+                <p>50분에 500kcal 이상 소모. 단기간 체지방 감량에 가장 효율적인 운동입니다.</p>
+            </div>
+        </div>
+        <div class="for-you-card">
+            <div class="for-ico">🦵</div>
+            <div>
+                <h3>✓ 하체 라인을 잡고 싶은 분</h3>
+                <p>페달링은 허벅지, 종아리, 엉덩이를 동시에 자극하는 최고의 하체 운동입니다.</p>
+            </div>
+        </div>
+        <div class="for-you-card">
+            <div class="for-ico">😤</div>
+            <div>
+                <h3>✓ 스트레스를 풀고 싶은 분</h3>
+                <p>강렬한 비트에 맞춰 전력으로 페달을 밟는 순간, 하루의 스트레스가 한방에 날아갑니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <p class="note" style="margin-top:10px;">초보자도, 운동 고수도 — <strong>누구나 자기 페이스대로</strong> 즐길 수 있습니다.</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━ 7. BIG QUOTE ━━━ -->
+<div class="big-quote-sec">
+    <div class="open-q">"</div>
+    <h2>운동이 아니라<br><span class="hl">놀이</span>입니다</h2>
+    <div class="big-quote-bar"></div>
+    <p>땀 흘리는 50분이 기다려지는 경험</p>
+</div>
+
+<!-- ━━━ 8. CTA ━━━ -->
+<div class="cta-sec">
+    <div class="cta-bar"></div>
+    <h2 class="cta-title">오늘, <span class="hl">라이딩</span> 시작하세요</h2>
+    <p class="cta-desc">고민하는 시간에도 칼로리는 안 빠집니다.<br>페달 위에서 답을 찾으세요.</p>
+    <button class="cta-btn" onclick="(function(){ var p=window.parent; var sm=p.document.getElementById('spinningModal'); var m=p.document.getElementById('consultModal'); if(sm) sm.classList.remove('active'); if(m){ m.classList.add('active'); p.document.body.style.overflow='hidden'; } })()">상담 및 방문 문의</button>
+
+    <div class="cta-feats">
+        <div class="cta-feat">
+            <div class="cta-feat-ico">🏢</div>
+            <p>방문 상담 환영</p>
+        </div>
+        <div class="cta-feat">
+            <div class="cta-feat-ico">🎟️</div>
+            <p>첫 방문 무료 체험</p>
+        </div>
+    </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+    <p>내일의 나를 바꾸는 공간, NONAME FITNESS</p>
+    <p>천안 두정동 · 스피닝 프로그램</p>
+</footer>
+
+</body>
+</html>
