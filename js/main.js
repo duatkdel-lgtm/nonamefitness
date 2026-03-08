@@ -546,4 +546,46 @@ document.addEventListener('DOMContentLoaded', () => {
             closeTumbler();
         }
     });
+
+    // ===================================
+    // Powerbelt Modal
+    // ===================================
+    const powerbeltModal = document.getElementById('powerbeltModal');
+    const powerbeltClose = document.getElementById('powerbeltClose');
+    const powerbeltCard  = document.getElementById('powerbeltCard');
+
+    function openPowerbelt() {
+        if (!powerbeltModal) return;
+        powerbeltModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePowerbelt() {
+        if (!powerbeltModal) return;
+        powerbeltModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (powerbeltCard) {
+        powerbeltCard.addEventListener('click', (e) => {
+            if (e.target.closest('a')) return;
+            openPowerbelt();
+        });
+    }
+
+    if (powerbeltClose) {
+        powerbeltClose.addEventListener('click', closePowerbelt);
+    }
+
+    if (powerbeltModal) {
+        powerbeltModal.addEventListener('click', (e) => {
+            if (e.target === powerbeltModal) closePowerbelt();
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (powerbeltModal && powerbeltModal.classList.contains('active') && e.key === 'Escape') {
+            closePowerbelt();
+        }
+    });
 });

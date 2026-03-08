@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>노네임피트니스 파워벨트</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+        :root{
+            --y:#F5BF23;--y2:#FFD556;--y3:rgba(245,191,35,.10);
+            --bg:#0c0c0c;--s1:#161616;--s2:#1e1e1e;--s3:#262626;
+            --bd:#2e2e2e;--w:#fff;--g1:#ccc;--g2:#999;--g3:#555;
+            --r:8px;
+        }
+
+        html{scroll-behavior:smooth;}
+        body{background:var(--bg);color:var(--w);font-family:'Noto Sans KR',-apple-system,sans-serif;font-size:14px;line-height:1.5;overflow-x:hidden;}
+
+        /* ── TYPO ── */
+        .tag{font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--y);text-transform:uppercase;margin-bottom:10px;}
+        .stitle{font-size:clamp(20px,3.5vw,30px);font-weight:900;line-height:1.25;margin-bottom:6px;}
+        .sdesc{font-size:12px;color:var(--g2);margin-bottom:20px;line-height:1.6;}
+        .hl{color:var(--y);}
+
+        /* ── LAYOUT ── */
+        .sec{padding:40px 20px;max-width:860px;margin:0 auto;}
+        .divider{width:100%;height:1px;background:var(--bd);}
+        .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+        .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+        .note{background:var(--s1);border-radius:6px;padding:12px 16px;font-size:12px;color:var(--g1);line-height:1.6;text-align:center;}
+
+        /* ━━━━━━━━━━━━━━━━━━━━
+           1. HERO — 상품 메인
+        ━━━━━━━━━━━━━━━━━━━━ */
+        .hero{
+            position:relative;padding:48px 24px;overflow:hidden;background:var(--bg);
+        }
+        .hero::before{
+            content:'';position:absolute;inset:0;
+            background:radial-gradient(ellipse 50% 40% at 50% 60%,rgba(245,191,35,.06) 0%,transparent 60%);
+            pointer-events:none;
+        }
+        .hero-inner{
+            position:relative;z-index:1;max-width:860px;margin:0 auto;width:100%;
+            display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;
+        }
+        .hero-img-area{
+            display:flex;align-items:center;justify-content:center;
+            background:linear-gradient(145deg,#f5f5f5 0%,#e8e8e8 100%);
+            border-radius:16px;padding:32px 24px;min-height:320px;
+            position:relative;overflow:hidden;
+        }
+
+        /* 벨트 이미지 */
+        .belt-photo{
+            width:100%;max-width:320px;border-radius:8px;
+            object-fit:contain;
+        }
+
+        .hero-info{display:flex;flex-direction:column;gap:12px;}
+        .hero-brand{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--g3);text-transform:uppercase;}
+        .hero-badge{
+            display:inline-flex;align-items:center;gap:6px;
+            background:var(--y3);border:1px solid var(--y);
+            color:var(--y);font-size:10px;font-weight:700;
+            padding:4px 12px;border-radius:20px;width:fit-content;letter-spacing:.5px;
+        }
+        .hero-name{font-size:clamp(22px,4vw,34px);font-weight:900;line-height:1.2;}
+        .hero-desc-text{font-size:13px;color:var(--g1);line-height:1.7;}
+        .hero-price-row{display:flex;align-items:baseline;gap:10px;margin-top:4px;}
+        .hero-price{font-size:clamp(28px,5vw,40px);font-weight:900;color:var(--y);}
+        .hero-price-tax{font-size:11px;color:var(--g3);}
+        .hero-specs{
+            display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;
+        }
+        .hero-spec{
+            background:var(--s2);border:1px solid var(--bd);border-radius:6px;
+            padding:6px 12px;font-size:11px;color:var(--g1);
+        }
+        .hero-buy-btn{
+            display:inline-block;padding:14px 36px;
+            background:var(--y);color:#000;
+            font-size:14px;font-weight:900;letter-spacing:.5px;
+            border-radius:4px;cursor:pointer;border:none;
+            transition:opacity .2s;margin-top:8px;width:fit-content;
+        }
+        .hero-buy-btn:hover{opacity:.85;}
+
+        /* ━━━━━━━━━━━━━━━━━━━━
+           2. WHY BELT — 왜 필요한가
+        ━━━━━━━━━━━━━━━━━━━━ */
+        .why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px;}
+        .why-card{
+            background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);
+            padding:22px 18px;position:relative;overflow:hidden;
+        }
+        .why-card::before{
+            content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--y);
+        }
+        .why-num{
+            font-size:32px;font-weight:900;color:rgba(245,191,35,.12);
+            position:absolute;top:10px;right:14px;
+        }
+        .why-card h3{font-size:14px;font-weight:700;margin-bottom:6px;padding-left:6px;}
+        .why-card p{font-size:12px;color:var(--g2);line-height:1.7;padding-left:6px;}
+
+        /* ━━━━━━━━━━━━━━━━━━━━
+           3. DETAILS — 상세 스펙
+        ━━━━━━━━━━━━━━━━━━━━ */
+        .spec-grid{
+            display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px;
+        }
+        .spec-card{
+            background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);
+            padding:16px 14px;text-align:center;
+        }
+        .spec-ico{font-size:22px;margin-bottom:8px;}
+        .spec-val{font-size:18px;font-weight:900;margin-bottom:2px;}
+        .spec-lbl{font-size:10px;color:var(--g2);line-height:1.5;}
+
+        /* ━━━━━━━━━━━━━━━━━━━━
+           4. FEATURES
+        ━━━━━━━━━━━━━━━━━━━━ */
+        .feat{
+            display:flex;gap:12px;align-items:flex-start;
+            background:var(--s2);border:1px solid var(--bd);
+            border-radius:var(--r);padding:14px 14px;
+        }
+        .feat-ico{
+            width:36px;height:36px;border-radius:7px;
+            background:var(--y);color:#000;
+            display:flex;align-items:center;justify-content:center;
+            font-size:17px;flex-shrink:0;
+        }
+        .feat h3{font-size:13px;font-weight:700;margin-bottom:5px;}
+        .feat p{font-size:11px;color:var(--g2);line-height:1.6;}
+
+        /* ━━━━━━━━━━━━━━━━━━━━
+           5. HOW TO USE
+        ━━━━━━━━━━━━━━━━━━━━ */
+        .step-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px;}
+        .step-card{
+            background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);
+            padding:20px 16px;text-align:center;position:relative;
+        }
+        .step-num{
+            width:28px;height:28px;border-radius:50%;background:var(--y);color:#000;
+            font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;
+            margin:0 auto 12px;
+        }
+        .step-card h3{font-size:13px;font-weight:700;margin-bottom:6px;}
+        .step-card p{font-size:11px;color:var(--g2);line-height:1.6;}
+        .step-arrow{
+            position:absolute;right:-10px;top:50%;transform:translateY(-50%);
+            font-size:14px;color:var(--g3);z-index:2;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━
+           6. SIZE GUIDE
+        ━━━━━━━━━━━━━━━━━━━━ */
+        .size-table{
+            width:100%;border-collapse:collapse;margin-top:20px;
+            background:var(--s2);border-radius:var(--r);overflow:hidden;
+            border:1px solid var(--bd);
+        }
+        .size-table th{
+            background:var(--s3);padding:12px 14px;font-size:12px;font-weight:700;
+            text-align:center;border-bottom:1px solid var(--bd);color:var(--y);
+        }
+        .size-table td{
+            padding:11px 14px;font-size:12px;text-align:center;
+            border-bottom:1px solid var(--bd);color:var(--g1);
+        }
+        .size-table tr:last-child td{border-bottom:none;}
+        .size-table .rec{
+            background:rgba(245,191,35,.08);
+        }
+        .size-table .rec td{color:var(--w);font-weight:600;}
+        .size-tip{
+            background:var(--y3);border:1px solid rgba(245,191,35,.25);border-radius:var(--r);
+            padding:14px 18px;font-size:12px;color:var(--g1);line-height:1.7;margin-top:12px;
+        }
+        .size-tip strong{color:var(--y);}
+
+        /* ━━━━━━━━━━━━━━━━━━━━
+           7. NOTICE
+        ━━━━━━━━━━━━━━━━━━━━ */
+        .notice-list{
+            list-style:none;margin-top:16px;
+            background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);
+            padding:16px 18px;
+        }
+        .notice-list li{
+            font-size:11px;color:var(--g2);line-height:2;
+            padding-left:16px;position:relative;
+        }
+        .notice-list li::before{
+            content:'•';position:absolute;left:0;color:var(--g3);
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━
+           8. CTA
+        ━━━━━━━━━━━━━━━━━━━━ */
+        .cta-sec{
+            text-align:center;padding:56px 24px 48px;
+            background:#080808;border-top:1px solid var(--s2);
+        }
+        .cta-bar{width:2px;height:30px;background:var(--y);margin:0 auto 16px;}
+        .cta-title{font-size:clamp(22px,4vw,36px);font-weight:900;margin-bottom:10px;}
+        .cta-price-big{font-size:clamp(36px,6vw,56px);font-weight:900;color:var(--y);margin-bottom:6px;}
+        .cta-tax{font-size:12px;color:var(--g3);margin-bottom:24px;}
+        .cta-btn{
+            display:inline-block;padding:16px 52px;
+            background:var(--y);color:#000;
+            font-size:16px;font-weight:900;letter-spacing:.5px;
+            border-radius:4px;cursor:pointer;border:none;
+            transition:opacity .2s;
+        }
+        .cta-btn:hover{opacity:.85;}
+        .cta-trust{
+            display:flex;justify-content:center;gap:24px;flex-wrap:wrap;
+            margin-top:32px;padding-top:28px;border-top:1px solid var(--s2);
+        }
+        .cta-trust-item{text-align:center;}
+        .cta-trust-ico{font-size:20px;margin-bottom:4px;}
+        .cta-trust-item p{font-size:11px;color:var(--g2);}
+
+        /* ── FOOTER ── */
+        footer{
+            background:#080808;padding:14px 24px;
+            display:flex;justify-content:space-between;align-items:center;
+            border-top:1px solid var(--s2);flex-wrap:wrap;gap:6px;
+        }
+        footer p{font-size:10px;color:var(--g3);}
+
+        /* ━━━ MODAL ━━━ */
+        .modal-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;padding:20px;}
+        .modal-overlay.active{opacity:1;pointer-events:all;}
+        .modal-box{background:#1a1a1a;border:1px solid #333;border-radius:14px;padding:28px 24px;width:100%;max-width:400px;transform:translateY(16px);transition:transform .25s;}
+        .modal-overlay.active .modal-box{transform:translateY(0);}
+        .modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+        .modal-title{font-size:17px;font-weight:900;}
+        .modal-close{width:28px;height:28px;border-radius:50%;background:#2a2a2a;border:none;color:#aaa;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+        .modal-subtitle{font-size:12px;color:#999;margin-bottom:20px;}
+        .modal-options{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+        .modal-option{display:flex;align-items:center;gap:14px;background:#242424;border:1px solid #333;border-radius:10px;padding:14px 16px;text-decoration:none;color:#fff;cursor:pointer;transition:border-color .2s,background .2s;}
+        .modal-option:hover{border-color:var(--y);background:rgba(245,191,35,.05);}
+        .modal-opt-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+        .modal-opt-ico.kakao{background:#FEE500;}
+        .modal-opt-ico.call{background:#F5BF23;}
+        .modal-opt-ico.visit{background:#3D3D3D;}
+        .modal-opt-label{font-size:14px;font-weight:700;margin-bottom:2px;}
+        .modal-opt-desc{font-size:11px;color:#999;}
+        .modal-notice{font-size:10px;color:#555;text-align:center;line-height:1.6;padding-top:14px;border-top:1px solid #2a2a2a;}
+
+        /* ━━━ LANDSCAPE ━━━ */
+        @media screen and (orientation:landscape) and (max-height:480px){
+            .sec{padding:24px 18px;}
+            .hero{padding:28px 20px;}
+            .hero-img-area{min-height:200px;padding:20px 16px;}
+            .stitle{font-size:18px;}
+            .spec-grid{gap:8px;}
+            .cta-sec{padding:32px 20px 28px;}
+        }
+        @media (max-width:600px){
+            .hero-inner{grid-template-columns:1fr;}
+            .hero-img-area{min-height:220px;}
+            .spec-grid{grid-template-columns:repeat(2,1fr);}
+            .why-grid{grid-template-columns:1fr;}
+            .step-grid{grid-template-columns:1fr;}
+            .step-arrow{display:none;}
+        }
+    </style>
+</head>
+<body>
+
+<!-- ━━━ 1. HERO ━━━ -->
+<div class="hero">
+    <div class="hero-inner">
+        <!-- 왼쪽: 이미지 영역 -->
+        <div class="hero-img-area">
+            <img class="belt-photo" src="images/belt.png" alt="노네임피트니스 파워벨트">
+        </div>
+
+        <!-- 오른쪽: 정보 -->
+        <div class="hero-info">
+            <p class="hero-brand">NONAME FITNESS</p>
+            <div class="hero-badge">TRAINING GEAR</div>
+            <h1 class="hero-name">노네임피트니스<br>파워벨트</h1>
+            <p class="hero-desc-text">
+                무거운 중량을 들 때, 허리를 잡아주는 파트너.<br>
+                천연 가죽의 단단한 서포트로 코어를 보호합니다.
+            </p>
+            <div class="hero-price-row">
+                <div class="hero-price">49,000<span style="font-size:16px;">원</span></div>
+                <span class="hero-price-tax">배송비 별도</span>
+            </div>
+            <div class="hero-specs">
+                <span class="hero-spec">🐂 천연 가죽</span>
+                <span class="hero-spec">⚙️ 메탈 버클</span>
+                <span class="hero-spec">🛡️ 코어 서포트</span>
+            </div>
+            <button class="hero-buy-btn" onclick="(function(){ var p=window.parent; var pm=p.document.getElementById('powerbeltModal'); var m=p.document.getElementById('consultModal'); if(pm) pm.classList.remove('active'); if(m){ m.classList.add('active'); p.document.body.style.overflow='hidden'; } })()">구매 문의하기</button>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━ 2. WHY BELT — 왜 파워벨트인가 ━━━ -->
+<div class="sec">
+    <p class="tag">WHY BELT</p>
+    <h2 class="stitle">벨트가 <span class="hl">필요한 이유</span></h2>
+    <p class="sdesc">파워벨트는 패션이 아닙니다. 당신의 허리를 지키는 보호 장비입니다.</p>
+
+    <div class="why-grid">
+        <div class="why-card">
+            <div class="why-num">01</div>
+            <h3>🛡️ 복압 형성</h3>
+            <p>벨트가 복부를 감싸 복압을 극대화합니다. 데드리프트, 스쿼트 시 척추를 안정시키는 핵심 원리입니다.</p>
+        </div>
+        <div class="why-card">
+            <div class="why-num">02</div>
+            <h3>🏋️ 부상 예방</h3>
+            <p>고중량 리프팅에서 허리 부상 위험을 크게 줄여줍니다. 디스크·염좌 등 만성 부상을 사전에 차단합니다.</p>
+        </div>
+        <div class="why-card">
+            <div class="why-num">03</div>
+            <h3>💪 퍼포먼스 향상</h3>
+            <p>안정된 코어는 더 큰 힘을 발휘합니다. 벨트 착용 시 스쿼트·데드리프트 1RM이 평균 5~15% 향상됩니다.</p>
+        </div>
+        <div class="why-card">
+            <div class="why-num">04</div>
+            <h3>🧠 심리적 안정</h3>
+            <p>벨트의 조임감이 코어에 집중하는 신호가 됩니다. 고중량 앞에서 자신감을 가지고 리프팅할 수 있습니다.</p>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━ 3. DETAILS ━━━ -->
+<div class="sec">
+    <p class="tag">DETAILS</p>
+    <h2 class="stitle">꼼꼼하게 설계된 <span class="hl">디테일</span></h2>
+
+    <div class="spec-grid">
+        <div class="spec-card">
+            <div class="spec-ico">🐂</div>
+            <div class="spec-val">천연가죽</div>
+            <div class="spec-lbl">풀그레인 레더<br>내구성 최상급</div>
+        </div>
+        <div class="spec-card">
+            <div class="spec-ico">📐</div>
+            <div class="spec-val">4인치</div>
+            <div class="spec-lbl">벨트 너비 10cm<br>최적의 서포트</div>
+        </div>
+        <div class="spec-card">
+            <div class="spec-ico">⚙️</div>
+            <div class="spec-val">싱글핀</div>
+            <div class="spec-lbl">메탈 프롱 버클<br>빠른 착탈</div>
+        </div>
+        <div class="spec-card">
+            <div class="spec-ico">🧵</div>
+            <div class="spec-val">이중 스티칭</div>
+            <div class="spec-lbl">더블 바느질<br>내구성 강화</div>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━ 4. FEATURES ━━━ -->
+<div class="sec">
+    <p class="tag">FEATURES</p>
+    <h2 class="stitle">리프터가 <span class="hl">원하는 것</span>만 담았습니다</h2>
+
+    <div class="g2" style="margin-top:18px;">
+        <div class="feat">
+            <div class="feat-ico">🛡️</div>
+            <div>
+                <h3>균일한 4인치 너비</h3>
+                <p>앞뒤 동일한 너비로 복압을 고르게 형성합니다. 타 제품 대비 안정적인 서포트를 제공합니다.</p>
+            </div>
+        </div>
+        <div class="feat">
+            <div class="feat-ico">🔩</div>
+            <div>
+                <h3>싱글 프롱 버클</h3>
+                <p>더블 프롱 대비 착탈이 빠르고 간편합니다. 세트 간 빠르게 조절할 수 있어 실용적입니다.</p>
+            </div>
+        </div>
+        <div class="feat">
+            <div class="feat-ico">🐂</div>
+            <div>
+                <h3>풀그레인 천연 가죽</h3>
+                <p>사용할수록 몸에 맞춰 길들여집니다. 합성 소재와 비교할 수 없는 내구성과 착용감을 자랑합니다.</p>
+            </div>
+        </div>
+        <div class="feat">
+            <div class="feat-ico">✂️</div>
+            <div>
+                <h3>마감 디테일</h3>
+                <p>가장자리 이중 스티칭 + 엣지 코팅 처리. 갈라짐·벌어짐 없이 오래 사용할 수 있습니다.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━ 5. HOW TO USE ━━━ -->
+<div class="sec">
+    <p class="tag">HOW TO USE</p>
+    <h2 class="stitle">올바른 <span class="hl">착용 방법</span></h2>
+    <p class="sdesc">벨트를 제대로 착용해야 효과를 100% 누릴 수 있습니다.</p>
+
+    <div class="step-grid">
+        <div class="step-card">
+            <div class="step-num">1</div>
+            <h3>위치 잡기</h3>
+            <p>배꼽 위치 기준으로 벨트를 갈비뼈와 골반 사이에 위치시킵니다. 너무 높거나 낮으면 효과가 떨어집니다.</p>
+            <div class="step-arrow">→</div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">2</div>
+            <h3>조임 강도</h3>
+            <p>숨을 크게 들이마셨을 때 배가 벨트를 밀어내는 느낌이 드는 정도. 너무 조이면 오히려 호흡이 제한됩니다.</p>
+            <div class="step-arrow">→</div>
+        </div>
+        <div class="step-card">
+            <div class="step-num">3</div>
+            <h3>복압 활용</h3>
+            <p>리프팅 전 깊게 들이쉬고 배에 힘을 줘 벨트를 밀어냅니다. 이 복압이 척추를 안정시키는 핵심입니다.</p>
+        </div>
+    </div>
+
+    <div class="note" style="margin-top:14px;">
+        💡 <strong>TIP</strong> — 워밍업 세트에서는 벨트 없이, 메인 세트에서만 착용하면 코어 근력 발달과 안전을 동시에 챙길 수 있습니다.
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━ 6. SIZE GUIDE ━━━ -->
+<div class="sec">
+    <p class="tag">SIZE GUIDE</p>
+    <h2 class="stitle">내 허리에 맞는 <span class="hl">사이즈</span></h2>
+    <p class="sdesc">배꼽 라인을 기준으로 줄자로 허리둘레를 측정 후 아래 표를 참고하세요.</p>
+
+    <table class="size-table">
+        <thead>
+            <tr>
+                <th>사이즈</th>
+                <th>허리둘레</th>
+                <th>권장 체중</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>S</strong></td>
+                <td>65 ~ 75 cm</td>
+                <td>50 ~ 65 kg</td>
+            </tr>
+            <tr class="rec">
+                <td><strong>M ⭐</strong></td>
+                <td>75 ~ 85 cm</td>
+                <td>65 ~ 80 kg</td>
+            </tr>
+            <tr>
+                <td><strong>L</strong></td>
+                <td>85 ~ 95 cm</td>
+                <td>80 ~ 95 kg</td>
+            </tr>
+            <tr>
+                <td><strong>XL</strong></td>
+                <td>95 ~ 110 cm</td>
+                <td>95 kg ~</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="size-tip">
+        <strong>📏 측정 팁:</strong> 편안한 상태에서 배꼽 라인을 줄자로 둘러 측정합니다. 운동 시 복압으로 허리가 팽창하므로, 두 사이즈 사이라면 <strong>큰 사이즈</strong>를 추천합니다.
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━ 7. NOTICE ━━━ -->
+<div class="sec">
+    <p class="tag">NOTICE</p>
+    <h2 class="stitle">구매 전 <span class="hl">확인</span>해주세요</h2>
+
+    <ul class="notice-list">
+        <li>본 제품은 노네임피트니스 공식 트레이닝 기어로, 센터 현장 또는 문의를 통해 구매 가능합니다.</li>
+        <li>천연 가죽 특성상 초기에 뻣뻣하며, 5~10회 사용 후 몸에 맞게 길들여집니다.</li>
+        <li>사용 후 통풍이 잘 되는 곳에 보관하고, 직사광선·습기를 피해주세요.</li>
+        <li>가죽 전용 클리너로 관리하면 오래 사용할 수 있습니다.</li>
+        <li>사이즈 교환은 미사용 상태에서만 가능하며, 착용 흔적이 있을 경우 교환이 어렵습니다.</li>
+        <li>모니터 환경에 따라 실제 색상과 다소 차이가 있을 수 있습니다.</li>
+    </ul>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━ 8. CTA ━━━ -->
+<div class="cta-sec">
+    <div class="cta-bar"></div>
+    <h2 class="cta-title">무거운 중량 앞에서도 <span class="hl">흔들리지 않게</span></h2>
+    <div class="cta-price-big">49,000<span style="font-size:20px;">원</span></div>
+    <p class="cta-tax">배송비 별도 · VAT 포함</p>
+    <button class="cta-btn" onclick="(function(){ var p=window.parent; var pm=p.document.getElementById('powerbeltModal'); var m=p.document.getElementById('consultModal'); if(pm) pm.classList.remove('active'); if(m){ m.classList.add('active'); p.document.body.style.overflow='hidden'; } })()">구매 문의하기</button>
+
+    <div class="cta-trust">
+        <div class="cta-trust-item">
+            <div class="cta-trust-ico">🏢</div>
+            <p>센터 현장 구매</p>
+        </div>
+        <div class="cta-trust-item">
+            <div class="cta-trust-ico">💬</div>
+            <p>카카오톡 주문</p>
+        </div>
+        <div class="cta-trust-item">
+            <div class="cta-trust-ico">📐</div>
+            <p>사이즈 안내</p>
+        </div>
+        <div class="cta-trust-item">
+            <div class="cta-trust-ico">📦</div>
+            <p>택배 배송 가능</p>
+        </div>
+    </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <p>내일의 나를 바꾸는 공간, NONAME FITNESS</p>
+    <p>천안 두정동 · 공식 트레이닝 기어</p>
+</footer>
+
+</body>
+</html>
