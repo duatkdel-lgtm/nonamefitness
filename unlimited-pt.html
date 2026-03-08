@@ -380,50 +380,6 @@
             .price-grid { grid-template-columns: 1fr; }
         }
 
-        /* ━━━ MODAL ━━━ */
-        .modal-overlay {
-            position: fixed; inset: 0; z-index: 9999;
-            background: rgba(0,0,0,.75); backdrop-filter: blur(4px);
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none; transition: opacity .25s; padding: 20px;
-        }
-        .modal-overlay.active { opacity: 1; pointer-events: all; }
-        .modal-box {
-            background: #1a1a1a; border: 1px solid #333; border-radius: 14px;
-            padding: 28px 24px; width: 100%; max-width: 400px;
-            transform: translateY(16px); transition: transform .25s;
-        }
-        .modal-overlay.active .modal-box { transform: translateY(0); }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .modal-title { font-size: 17px; font-weight: 900; }
-        .modal-close {
-            width: 28px; height: 28px; border-radius: 50%; background: #2a2a2a;
-            border: none; color: #aaa; font-size: 16px; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .modal-subtitle { font-size: 12px; color: #999; margin-bottom: 20px; }
-        .modal-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-        .modal-option {
-            display: flex; align-items: center; gap: 14px;
-            background: #242424; border: 1px solid #333; border-radius: 10px;
-            padding: 14px 16px; text-decoration: none; color: #fff;
-            cursor: pointer; transition: border-color .2s, background .2s;
-        }
-        .modal-option:hover { border-color: var(--y); background: rgba(245,191,35,.05); }
-        .modal-opt-ico {
-            width: 40px; height: 40px; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px; flex-shrink: 0;
-        }
-        .modal-opt-ico.kakao { background: #FEE500; }
-        .modal-opt-ico.call  { background: #F5BF23; }
-        .modal-opt-ico.visit { background: #3D3D3D; }
-        .modal-opt-label { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
-        .modal-opt-desc  { font-size: 11px; color: #999; }
-        .modal-notice {
-            font-size: 10px; color: #555; text-align: center; line-height: 1.6;
-            padding-top: 14px; border-top: 1px solid #2a2a2a;
-        }
     </style>
 </head>
 <body>
@@ -437,7 +393,7 @@
             작심삼일을 끝내는 가장 현실적인 해답,<br>
             노네임피트니스 무제한 PT 시스템
         </p>
-        <button class="hero-btn" onclick="openModal()">상담 받아보기</button>
+        <button class="hero-btn" onclick="openConsult()">빈 시간 확인하기</button>
     </div>
     <div class="hero-scroll">
         <span>SCROLL</span>
@@ -653,10 +609,10 @@
     <div class="cta-bar rv"></div>
     <h2 class="rv">오늘, <span class="hl">구조</span>를 시작하세요</h2>
     <p class="cta-desc rv">
-        고민하는 시간에도 몸은 변하지 않습니다.<br>
-        의지에 기대지 말고, 검증된 시스템에 맡기세요.
+        시간대별 정원이 제한되어 있습니다.<br>
+        원하는 시간에 자리가 있는지 먼저 확인해보세요.
     </p>
-    <button class="cta-btn rv" onclick="openModal()">상담 및 방문 문의</button>
+    <button class="cta-btn rv" onclick="openConsult()">빈 시간 확인하기</button>
 </div>
 
 <footer>
@@ -664,57 +620,24 @@
     <p>천안 두정동 · 041-557-9291</p>
 </footer>
 
-<!-- ━━━ MODAL ━━━ -->
-<div class="modal-overlay" id="consultModal" onclick="handleOverlayClick(event)">
-    <div class="modal-box">
-        <div class="modal-header">
-            <div class="modal-title">상담 예약하기 📋</div>
-            <button class="modal-close" onclick="closeModal()">✕</button>
-        </div>
-        <p class="modal-subtitle">편하신 방법으로 문의주세요. 빠르게 답변드리겠습니다.</p>
-        <div class="modal-options">
-            <a class="modal-option" href="https://open.kakao.com/o/nonamefitness" target="_blank">
-                <div class="modal-opt-ico kakao">💬</div>
-                <div>
-                    <div class="modal-opt-label">카카오톡 상담</div>
-                    <div class="modal-opt-desc">채팅으로 편하게 문의하세요</div>
-                </div>
-            </a>
-            <a class="modal-option" href="tel:041-557-9291">
-                <div class="modal-opt-ico call">📞</div>
-                <div>
-                    <div class="modal-opt-label">전화 문의</div>
-                    <div class="modal-opt-desc">041-557-9291 · 운영시간 내 연결</div>
-                </div>
-            </a>
-            <div class="modal-option" onclick="closeModal()">
-                <div class="modal-opt-ico visit">🏢</div>
-                <div>
-                    <div class="modal-opt-label">방문 상담</div>
-                    <div class="modal-opt-desc">천안 두정동 · 첫 방문 무료 체험 가능</div>
-                </div>
-            </div>
-        </div>
-        <p class="modal-notice">
-            운영시간 평일 06:00 – 23:00 · 주말 08:00 – 20:00<br>
-            첫 상담은 무료입니다. 부담 없이 연락주세요.
-        </p>
-    </div>
-</div>
-
 <script>
-function openModal() {
-    document.getElementById('consultModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
+function openConsult() {
+    var isIframe = (window !== window.parent);
+    if (isIframe) {
+        // iframe 모드: 부모 페이지의 빠른 상담 모달 열기
+        var p = window.parent;
+        var ptModal = p.document.getElementById('unlimitedPtModal');
+        var consultModal = p.document.getElementById('consultModal');
+        if (ptModal) ptModal.classList.remove('active');
+        if (consultModal) {
+            consultModal.classList.add('active');
+            p.document.body.style.overflow = 'hidden';
+        }
+    } else {
+        // 독립 페이지: 메인 홈페이지로 이동 (빠른 상담 폼 이용)
+        window.location.href = 'https://nonamefitness.co.kr/';
+    }
 }
-function closeModal() {
-    document.getElementById('consultModal').classList.remove('active');
-    document.body.style.overflow = '';
-}
-function handleOverlayClick(e) {
-    if (e.target === document.getElementById('consultModal')) closeModal();
-}
-document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
 
 /* ━━━ SCROLL REVEAL ━━━ */
 (function(){
