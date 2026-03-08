@@ -1,1184 +1,353 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>노네임피트니스 무제한 PT 시스템</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --y:   #F5BF23;
-            --y2:  #FFD556;
-            --bg:  #0c0c0c;
-            --s1:  #161616;
-            --s2:  #1e1e1e;
-            --bd:  #2a2a2a;
-            --w:   #ffffff;
-            --g1:  #cccccc;
-            --g2:  #888888;
-            --g3:  #555555;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            background: var(--bg);
-            color: var(--w);
-            font-family: 'Noto Sans KR', -apple-system, sans-serif;
-            font-size: 16px;
-            line-height: 1.7;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .hl { color: var(--y); }
-
-        /* ━━━ SCROLL REVEAL ━━━ */
-        .rv {
-            opacity: 0; transform: translateY(40px);
-            transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
-        }
-        .rv.on { opacity: 1; transform: translateY(0); }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━
-           HERO
-        ━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .hero {
-            min-height: 100svh;
-            display: flex; flex-direction: column;
-            justify-content: center;
-            padding: 60px 28px;
-            position: relative; overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: radial-gradient(ellipse 60% 50% at 20% 60%, rgba(245,191,35,.07) 0%, transparent 60%);
-            pointer-events: none;
-        }
-        .hero-inner {
-            position: relative; z-index: 1;
-            max-width: 600px; margin: 0 auto; width: 100%;
-        }
-        .hero-tag {
-            font-size: 11px; font-weight: 700; letter-spacing: 4px;
-            color: var(--g3); margin-bottom: 24px;
-        }
-        .hero h1 {
-            font-size: clamp(32px, 8vw, 52px);
-            font-weight: 900; line-height: 1.2; margin-bottom: 20px;
-        }
-        .hero-sub {
-            font-size: clamp(15px, 3vw, 18px);
-            color: var(--g1); line-height: 1.8; margin-bottom: 36px;
-        }
-        .hero-btn {
-            display: inline-block;
-            padding: 16px 36px;
-            border: 2px solid var(--y); color: var(--y);
-            font-size: 14px; font-weight: 700; letter-spacing: 1px;
-            background: transparent; cursor: pointer; border-radius: 4px;
-            transition: background .2s, color .2s;
-        }
-        .hero-btn:hover { background: var(--y); color: #000; }
-        .hero-scroll {
-            position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-            display: flex; flex-direction: column; align-items: center; gap: 8px;
-        }
-        .hero-scroll span { font-size: 10px; color: var(--g3); letter-spacing: 3px; }
-        .scroll-line {
-            width: 1px; height: 40px;
-            background: linear-gradient(180deg, var(--y) 0%, transparent 100%);
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━
-           SECTION
-        ━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .sec {
-            padding: 80px 28px;
-            max-width: 640px;
-            margin: 0 auto;
-        }
-        .sec-tag {
-            font-size: 11px; font-weight: 700;
-            letter-spacing: 3px; color: var(--y);
-            text-transform: uppercase; margin-bottom: 16px;
-        }
-        .sec-title {
-            font-size: clamp(24px, 6vw, 38px);
-            font-weight: 900; line-height: 1.3;
-            margin-bottom: 20px;
-        }
-        .sec-desc {
-            font-size: clamp(15px, 2.5vw, 17px);
-            color: var(--g1); line-height: 1.9;
-        }
-        .divider {
-            max-width: 640px; margin: 0 auto;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--bd), transparent);
-        }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━
-           STAT ROW
-        ━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .stat-row {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 12px; margin-top: 40px;
-        }
-        .stat-box {
-            text-align: center;
-            padding: 24px 12px;
-            background: var(--s1);
-            border: 1px solid var(--bd);
-            border-radius: 12px;
-        }
-        .stat-num {
-            font-size: clamp(32px, 7vw, 44px);
-            font-weight: 900; line-height: 1;
-            margin-bottom: 6px;
-        }
-        .stat-label {
-            font-size: 12px; color: var(--g2);
-            line-height: 1.4;
-        }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━
-           FULL-WIDTH QUOTE
-        ━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .quote-sec {
-            text-align: center;
-            padding: 80px 28px;
-            background: linear-gradient(180deg, var(--bg) 0%, #111 50%, var(--bg) 100%);
-        }
-        .quote-mark {
-            font-size: 48px; color: rgba(245,191,35,.3);
-            line-height: 1; margin-bottom: 12px;
-        }
-        .quote-sec h2 {
-            font-size: clamp(22px, 5.5vw, 36px);
-            font-weight: 900; line-height: 1.4;
-            max-width: 500px; margin: 0 auto 16px;
-        }
-        .quote-bar {
-            width: 32px; height: 2px;
-            background: var(--g3); margin: 0 auto;
-        }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━
-           COMPARE
-        ━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .compare {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 12px; margin-top: 36px;
-        }
-        .compare-card {
-            background: var(--s1);
-            border: 1px solid var(--bd);
-            border-radius: 12px;
-            padding: 28px 20px;
-        }
-        .compare-card.pick {
-            border-color: var(--y);
-            background: rgba(245,191,35,.04);
-        }
-        .compare-card h3 {
-            font-size: 18px; font-weight: 900;
-            margin-bottom: 16px;
-        }
-        .compare-card.pick h3 { color: var(--y); }
-        .compare-li {
-            list-style: none;
-            font-size: 14px; line-height: 2.2;
-            color: var(--g2);
-        }
-        .compare-li li { display: flex; gap: 8px; align-items: flex-start; }
-        .compare-li li::before { flex-shrink: 0; margin-top: 2px; }
-        .compare-card:not(.pick) .compare-li li::before { content: '✗'; color: var(--g3); }
-        .compare-card.pick .compare-li li { color: var(--g1); }
-        .compare-card.pick .compare-li li::before { content: '✓'; color: var(--y); }
-        .compare-price {
-            margin-top: 20px; padding-top: 16px;
-            border-top: 1px solid var(--bd);
-            text-align: center;
-        }
-        .compare-price small { font-size: 12px; color: var(--g3); display: block; margin-bottom: 4px; }
-        .compare-price strong {
-            font-size: 22px; font-weight: 900;
-        }
-        .compare-card.pick .compare-price strong { color: var(--y); }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━
-           FEATURE LIST
-        ━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .feat-list {
-            display: flex; flex-direction: column;
-            gap: 16px; margin-top: 36px;
-        }
-        .feat-item {
-            display: flex; gap: 16px; align-items: center;
-            background: var(--s1);
-            border: 1px solid var(--bd);
-            border-radius: 12px;
-            padding: 24px 20px;
-        }
-        .feat-ico {
-            width: 48px; height: 48px; border-radius: 12px;
-            background: var(--y); color: #000;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 22px; flex-shrink: 0;
-        }
-        .feat-item h3 {
-            font-size: 16px; font-weight: 800;
-            margin-bottom: 4px;
-        }
-        .feat-item p {
-            font-size: 14px; color: var(--g2); line-height: 1.6;
-        }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━
-           FOR YOU
-        ━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .for-grid {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 12px; margin-top: 36px;
-        }
-        .for-card {
-            background: var(--s1);
-            border: 1px solid var(--bd);
-            border-radius: 12px;
-            padding: 24px 20px;
-            text-align: center;
-        }
-        .for-card .ico {
-            font-size: 28px; margin-bottom: 12px;
-        }
-        .for-card p {
-            font-size: 15px; font-weight: 700;
-            line-height: 1.5;
-        }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━
-           PRICING
-        ━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .price-group-label {
-            font-size: 13px; font-weight: 700;
-            color: var(--y); letter-spacing: 1px;
-            margin-bottom: 12px; margin-top: 36px;
-        }
-        .price-group-label span {
-            font-size: 11px; color: var(--g3);
-            font-weight: 400; letter-spacing: 0;
-        }
-        .price-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-        .price-card {
-            background: var(--s1);
-            border: 1px solid var(--bd);
-            border-radius: 12px;
-            padding: 24px 16px;
-            text-align: center;
-            position: relative;
-        }
-        .price-card.best {
-            border-color: var(--y);
-            background: rgba(245,191,35,.04);
-        }
-        .price-badge {
-            position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
-            background: var(--y); color: #000;
-            font-size: 10px; font-weight: 900; padding: 4px 14px;
-            border-radius: 20px; letter-spacing: .8px;
-        }
-        .price-period {
-            font-size: 14px; font-weight: 700;
-            color: var(--g2); margin-bottom: 8px;
-        }
-        .price-card.best .price-period { color: var(--y); }
-        .price-amt {
-            font-size: clamp(20px, 4vw, 26px);
-            font-weight: 900; line-height: 1;
-            margin-bottom: 6px;
-        }
-        .price-card.best .price-amt { color: var(--y); }
-        .price-note {
-            font-size: 12px; color: var(--g3);
-        }
-
-        .price-bottom-note {
-            background: var(--s1);
-            border-radius: 8px;
-            padding: 14px 20px;
-            margin-top: 16px;
-            text-align: center;
-            font-size: 14px; color: var(--g1);
-        }
-        .price-bottom-note strong { color: var(--w); }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━
-           CTA
-        ━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .cta {
-            text-align: center;
-            padding: 80px 28px 60px;
-            background: #080808;
-            border-top: 1px solid var(--s2);
-        }
-        .cta-tag {
-            font-size: 10px; font-weight: 700;
-            letter-spacing: 3px; color: var(--g3);
-            margin-bottom: 16px;
-        }
-        .cta-bar {
-            width: 2px; height: 32px;
-            background: var(--y); margin: 0 auto 20px;
-        }
-        .cta h2 {
-            font-size: clamp(26px, 6vw, 42px);
-            font-weight: 900; margin-bottom: 16px;
-        }
-        .cta-desc {
-            font-size: 15px; color: var(--g2);
-            line-height: 1.8; margin-bottom: 32px;
-        }
-        .cta-btn {
-            display: inline-block;
-            padding: 18px 52px;
-            background: var(--y); color: #000;
-            font-size: 16px; font-weight: 900;
-            border-radius: 50px; cursor: pointer; border: none;
-            transition: opacity .2s;
-        }
-        .cta-btn:hover { opacity: .85; }
-
-        /* ━━━ FOOTER ━━━ */
-        footer {
-            background: #080808; padding: 16px 28px;
-            display: flex; justify-content: space-between;
-            align-items: center; flex-wrap: wrap; gap: 8px;
-            border-top: 1px solid var(--s2);
-        }
-        footer p { font-size: 11px; color: var(--g3); }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━
-           STORY BLOCK
-        ━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .story-block {
-            border-left: 3px solid var(--y);
-            padding: 20px 24px;
-            margin: 24px 0;
-            background: var(--s1);
-            border-radius: 0 12px 12px 0;
-            font-size: clamp(14px, 2.3vw, 16px);
-            color: var(--g1);
-            line-height: 2;
-        }
-        .story-block strong { color: var(--w); }
-        .story-block + .story-block { margin-top: 16px; }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━
-           NUMBER LIST
-        ━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .num-list {
-            margin-top: 28px;
-            counter-reset: num;
-        }
-        .num-item {
-            counter-increment: num;
-            display: flex; gap: 16px;
-            align-items: flex-start;
-            padding: 24px 0;
-            border-bottom: 1px solid var(--bd);
-        }
-        .num-item:last-child { border-bottom: none; }
-        .num-item::before {
-            content: counter(num, decimal-leading-zero);
-            font-size: clamp(22px, 5vw, 28px);
-            font-weight: 900; color: var(--y);
-            flex-shrink: 0; min-width: 36px;
-            line-height: 1.3;
-        }
-        .num-item h4 {
-            font-size: clamp(16px, 3vw, 18px);
-            font-weight: 800; margin-bottom: 6px;
-        }
-        .num-item p {
-            font-size: clamp(14px, 2.3vw, 15px);
-            color: var(--g2); line-height: 1.8;
-        }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━
-           TIMELINE
-        ━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .timeline { margin-top: 40px; }
-        .tl-item {
-            display: flex; gap: 20px;
-            position: relative;
-            padding-bottom: 36px;
-        }
-        .tl-item:last-child { padding-bottom: 0; }
-        .tl-left {
-            display: flex; flex-direction: column;
-            align-items: center; flex-shrink: 0;
-            width: 48px;
-        }
-        .tl-dot {
-            width: 12px; height: 12px;
-            background: var(--y); border-radius: 50%;
-            margin-top: 6px; position: relative; z-index: 1;
-        }
-        .tl-line {
-            width: 1px; flex: 1;
-            background: var(--bd); margin-top: 8px;
-        }
-        .tl-item:last-child .tl-line { display: none; }
-        .tl-time {
-            font-size: 13px; font-weight: 900;
-            color: var(--y); margin-bottom: 4px;
-            letter-spacing: .5px;
-        }
-        .tl-content h4 {
-            font-size: clamp(16px, 3vw, 18px);
-            font-weight: 800; margin-bottom: 6px;
-        }
-        .tl-content p {
-            font-size: clamp(14px, 2.3vw, 15px);
-            color: var(--g2); line-height: 1.8;
-        }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━
-           DAILY BLOCK
-        ━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .daily-block {
-            background: var(--s1);
-            border: 1px solid var(--bd);
-            border-radius: 12px;
-            padding: 28px 24px;
-            margin-top: 20px;
-        }
-        .daily-block h4 {
-            font-size: 14px; font-weight: 700;
-            color: var(--y); margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-        .daily-block p {
-            font-size: clamp(14px, 2.3vw, 16px);
-            color: var(--g1); line-height: 2;
-        }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━
-           CONSULT MODAL
-        ━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .modal-overlay {
-            display: none; position: fixed; inset: 0;
-            background: rgba(0,0,0,.7);
-            z-index: 9999;
-            justify-content: center; align-items: center;
-            padding: 20px;
-            backdrop-filter: blur(4px);
-        }
-        .modal-overlay.active { display: flex; }
-        .modal-box {
-            background: var(--s1);
-            border: 1px solid var(--bd);
-            border-radius: 16px;
-            max-width: 420px; width: 100%;
-            max-height: 90vh; overflow-y: auto;
-            padding: 36px 28px;
-            position: relative;
-        }
-        .modal-close {
-            position: absolute; top: 16px; right: 16px;
-            background: none; border: none;
-            color: var(--g2); font-size: 24px;
-            cursor: pointer; line-height: 1;
-        }
-        .modal-title {
-            font-size: 22px; font-weight: 900;
-            margin-bottom: 6px;
-        }
-        .modal-sub {
-            font-size: 13px; color: var(--g2);
-            margin-bottom: 28px; line-height: 1.6;
-        }
-        .form-group { margin-bottom: 20px; }
-        .form-label {
-            display: block;
-            font-size: 13px; font-weight: 700;
-            color: var(--g1); margin-bottom: 8px;
-        }
-        .form-label .req { color: var(--y); margin-left: 2px; }
-        .form-input, .form-select, .form-textarea {
-            width: 100%;
-            padding: 14px 16px;
-            background: var(--bg);
-            border: 1px solid var(--bd);
-            border-radius: 8px;
-            color: var(--w);
-            font-size: 15px;
-            font-family: inherit;
-            outline: none;
-            transition: border-color .2s;
-        }
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
-            border-color: var(--y);
-        }
-        .form-input::placeholder, .form-textarea::placeholder {
-            color: var(--g3);
-        }
-        .form-select { appearance: none; cursor: pointer; }
-        .form-select option { background: var(--bg); color: var(--w); }
-        .form-textarea { resize: vertical; min-height: 80px; }
-        .form-hint {
-            font-size: 11px; color: var(--g3);
-            margin-top: 6px; line-height: 1.5;
-        }
-        .form-submit {
-            width: 100%;
-            padding: 16px;
-            background: var(--y); color: #000;
-            font-size: 16px; font-weight: 900;
-            border: none; border-radius: 8px;
-            cursor: pointer;
-            margin-top: 8px;
-            transition: opacity .2s;
-        }
-        .form-submit:hover { opacity: .85; }
-        .form-submit:disabled {
-            opacity: .5; cursor: not-allowed;
-        }
-        .form-result {
-            text-align: center;
-            padding: 20px 0;
-            display: none;
-        }
-        .form-result.show { display: block; }
-        .form-result .ico { font-size: 48px; margin-bottom: 12px; }
-        .form-result h3 {
-            font-size: 20px; font-weight: 900;
-            margin-bottom: 8px;
-        }
-        .form-result p {
-            font-size: 14px; color: var(--g2);
-            line-height: 1.7;
-        }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━
-           RESPONSIVE
-        ━━━━━━━━━━━━━━━━━━━━━━━━ */
-        @media (max-width: 520px) {
-            .sec { padding: 60px 22px; }
-            .stat-row { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-            .stat-box { padding: 18px 8px; }
-            .stat-num { font-size: 28px; }
-            .compare { grid-template-columns: 1fr; }
-            .for-grid { grid-template-columns: 1fr; }
-            .price-grid { grid-template-columns: 1fr; }
-        }
-
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
+<title>무제한 PT | 노네임피트니스 천안 두정동 - 월 18만원 매일 PT</title>
+<meta name="description" content="천안 두정동 노네임피트니스 무제한 PT. 월 18만원으로 매일 1:1 트레이너 코칭. 고정 시간 예약제로 운동 습관을 만드는 시스템. 일반 PT 3회 비용으로 한 달을 시작하세요.">
+<meta name="keywords" content="천안 PT, 천안 헬스장, 두정동 PT, 무제한 PT, 천안 피티, 천안 퍼스널트레이닝, 노네임피트니스, 저렴한 PT">
+<meta name="robots" content="index,follow">
+<meta name="author" content="노네임피트니스">
+<link rel="canonical" href="https://nonamefitness.co.kr/unlimited-pt.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="무제한 PT | 노네임피트니스 천안 두정동">
+<meta property="og:description" content="월 18만원으로 매일 1:1 트레이너 코칭. 고정 시간 예약제로 운동 습관을 만드는 구조.">
+<meta property="og:url" content="https://nonamefitness.co.kr/unlimited-pt.html">
+<meta property="og:site_name" content="노네임피트니스">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="무제한 PT | 노네임피트니스 천안 두정동">
+<meta name="twitter:description" content="월 18만원으로 매일 1:1 트레이너 코칭. 일반 PT 3회 비용으로 한 달을 시작하세요.">
+<meta name="theme-color" content="#F5BF23">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"노네임피트니스","description":"천안 두정동 무제한 PT 전문 피트니스. 월 18만원으로 매일 1:1 트레이너 코칭.","telephone":"041-557-9291","address":{"@type":"PostalAddress","addressLocality":"천안시","addressRegion":"충청남도","addressCountry":"KR","streetAddress":"두정동"},"priceRange":"₩162,000~₩180,000/월","openingHours":"Mo-Fr","url":"https://nonamefitness.co.kr/unlimited-pt.html"}</script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--y:#F5BF23;--bg:#0c0c0c;--s1:#161616;--s2:#1e1e1e;--bd:#2a2a2a;--w:#fff;--g1:#ccc;--g2:#888;--g3:#555}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--w);font-family:'Noto Sans KR',-apple-system,sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.hl{color:var(--y)}
+.rv{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rv.on{opacity:1;transform:translateY(0)}
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:60px 28px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 20% 60%,rgba(245,191,35,.07) 0%,transparent 60%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:600px;margin:0 auto;width:100%}
+.hero-tag{font-size:11px;font-weight:700;letter-spacing:4px;color:var(--g3);margin-bottom:24px}
+.hero h1{font-size:clamp(32px,8vw,52px);font-weight:900;line-height:1.2;margin-bottom:20px}
+.hero-sub{font-size:clamp(15px,3vw,18px);color:var(--g1);line-height:1.8;margin-bottom:36px}
+.hero-btn{display:inline-block;padding:16px 36px;border:2px solid var(--y);color:var(--y);font-size:14px;font-weight:700;letter-spacing:1px;background:0 0;cursor:pointer;border-radius:4px;transition:background .2s,color .2s}
+.hero-btn:hover{background:var(--y);color:#000}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px}
+.hero-scroll span{font-size:10px;color:var(--g3);letter-spacing:3px}
+.scroll-line{width:1px;height:40px;background:linear-gradient(180deg,var(--y) 0%,transparent 100%);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+.sec{padding:80px 28px;max-width:640px;margin:0 auto}
+.sec-tag{font-size:11px;font-weight:700;letter-spacing:3px;color:var(--y);text-transform:uppercase;margin-bottom:16px}
+.sec-title{font-size:clamp(24px,6vw,38px);font-weight:900;line-height:1.3;margin-bottom:20px}
+.sec-desc{font-size:clamp(15px,2.5vw,17px);color:var(--g1);line-height:1.9}
+.divider{max-width:640px;margin:0 auto;height:1px;background:linear-gradient(90deg,transparent,var(--bd),transparent)}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
+.stat-box{text-align:center;padding:24px 12px;background:var(--s1);border:1px solid var(--bd);border-radius:12px}
+.stat-num{font-size:clamp(32px,7vw,44px);font-weight:900;line-height:1;margin-bottom:6px}
+.stat-label{font-size:12px;color:var(--g2);line-height:1.4}
+.quote-sec{text-align:center;padding:80px 28px;background:linear-gradient(180deg,var(--bg) 0%,#111 50%,var(--bg) 100%)}
+.quote-mark{font-size:48px;color:rgba(245,191,35,.3);line-height:1;margin-bottom:12px}
+.quote-sec h2{font-size:clamp(22px,5.5vw,36px);font-weight:900;line-height:1.4;max-width:500px;margin:0 auto 16px}
+.quote-bar{width:32px;height:2px;background:var(--g3);margin:0 auto}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:36px}
+.compare-card{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:28px 20px}
+.compare-card.pick{border-color:var(--y);background:rgba(245,191,35,.04)}
+.compare-card h3{font-size:18px;font-weight:900;margin-bottom:16px}
+.compare-card.pick h3{color:var(--y)}
+.compare-li{list-style:none;font-size:14px;line-height:2.2;color:var(--g2)}
+.compare-li li{display:flex;gap:8px;align-items:flex-start}
+.compare-li li::before{flex-shrink:0;margin-top:2px}
+.compare-card:not(.pick) .compare-li li::before{content:'✗';color:var(--g3)}
+.compare-card.pick .compare-li li{color:var(--g1)}
+.compare-card.pick .compare-li li::before{content:'✓';color:var(--y)}
+.compare-price{margin-top:20px;padding-top:16px;border-top:1px solid var(--bd);text-align:center}
+.compare-price small{font-size:12px;color:var(--g3);display:block;margin-bottom:4px}
+.compare-price strong{font-size:22px;font-weight:900}
+.compare-card.pick .compare-price strong{color:var(--y)}
+.feat-list{display:flex;flex-direction:column;gap:16px;margin-top:36px}
+.feat-item{display:flex;gap:16px;align-items:center;background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:24px 20px}
+.feat-ico{width:48px;height:48px;border-radius:12px;background:var(--y);color:#000;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.feat-item h3{font-size:16px;font-weight:800;margin-bottom:4px}
+.feat-item p{font-size:14px;color:var(--g2);line-height:1.6}
+.for-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:36px}
+.for-card{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:24px 20px;text-align:center}
+.for-card .ico{font-size:28px;margin-bottom:12px}
+.for-card p{font-size:15px;font-weight:700;line-height:1.5}
+.price-group-label{font-size:13px;font-weight:700;color:var(--y);letter-spacing:1px;margin-bottom:12px;margin-top:36px}
+.price-group-label span{font-size:11px;color:var(--g3);font-weight:400;letter-spacing:0}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.price-card{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:24px 16px;text-align:center;position:relative}
+.price-card.best{border-color:var(--y);background:rgba(245,191,35,.04)}
+.price-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--y);color:#000;font-size:10px;font-weight:900;padding:4px 14px;border-radius:20px;letter-spacing:.8px}
+.price-period{font-size:14px;font-weight:700;color:var(--g2);margin-bottom:8px}
+.price-card.best .price-period{color:var(--y)}
+.price-amt{font-size:clamp(20px,4vw,26px);font-weight:900;line-height:1;margin-bottom:6px}
+.price-card.best .price-amt{color:var(--y)}
+.price-note{font-size:12px;color:var(--g3)}
+.price-bottom-note{background:var(--s1);border-radius:8px;padding:14px 20px;margin-top:16px;text-align:center;font-size:14px;color:var(--g1)}
+.price-bottom-note strong{color:var(--w)}
+.cta{text-align:center;padding:80px 28px 60px;background:#080808;border-top:1px solid var(--s2)}
+.cta-tag{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--g3);margin-bottom:16px}
+.cta-bar{width:2px;height:32px;background:var(--y);margin:0 auto 20px}
+.cta h2{font-size:clamp(26px,6vw,42px);font-weight:900;margin-bottom:16px}
+.cta-desc{font-size:15px;color:var(--g2);line-height:1.8;margin-bottom:32px}
+.cta-btn{display:inline-block;padding:18px 52px;background:var(--y);color:#000;font-size:16px;font-weight:900;border-radius:50px;cursor:pointer;border:none;transition:opacity .2s}
+.cta-btn:hover{opacity:.85}
+footer{background:#080808;padding:16px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-top:1px solid var(--s2)}
+footer p{font-size:11px;color:var(--g3)}
+.story-block{border-left:3px solid var(--y);padding:20px 24px;margin:24px 0;background:var(--s1);border-radius:0 12px 12px 0;font-size:clamp(14px,2.3vw,16px);color:var(--g1);line-height:2}
+.story-block strong{color:var(--w)}
+.story-block+.story-block{margin-top:16px}
+.num-list{margin-top:28px;counter-reset:num}
+.num-item{counter-increment:num;display:flex;gap:16px;align-items:flex-start;padding:24px 0;border-bottom:1px solid var(--bd)}
+.num-item:last-child{border-bottom:none}
+.num-item::before{content:counter(num,decimal-leading-zero);font-size:clamp(22px,5vw,28px);font-weight:900;color:var(--y);flex-shrink:0;min-width:36px;line-height:1.3}
+.num-item h4{font-size:clamp(16px,3vw,18px);font-weight:800;margin-bottom:6px}
+.num-item p{font-size:clamp(14px,2.3vw,15px);color:var(--g2);line-height:1.8}
+.timeline{margin-top:40px}
+.tl-item{display:flex;gap:20px;position:relative;padding-bottom:36px}
+.tl-item:last-child{padding-bottom:0}
+.tl-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:48px}
+.tl-dot{width:12px;height:12px;background:var(--y);border-radius:50%;margin-top:6px;position:relative;z-index:1}
+.tl-line{width:1px;flex:1;background:var(--bd);margin-top:8px}
+.tl-item:last-child .tl-line{display:none}
+.tl-time{font-size:13px;font-weight:900;color:var(--y);margin-bottom:4px;letter-spacing:.5px}
+.tl-content h4{font-size:clamp(16px,3vw,18px);font-weight:800;margin-bottom:6px}
+.tl-content p{font-size:clamp(14px,2.3vw,15px);color:var(--g2);line-height:1.8}
+.daily-block{background:var(--s1);border:1px solid var(--bd);border-radius:12px;padding:28px 24px;margin-top:20px}
+.daily-block h4{font-size:14px;font-weight:700;color:var(--y);margin-bottom:10px;letter-spacing:1px}
+.daily-block p{font-size:clamp(14px,2.3vw,16px);color:var(--g1);line-height:2}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;justify-content:center;align-items:center;padding:20px;backdrop-filter:blur(4px)}
+.modal-overlay.active{display:flex}
+.modal-box{background:var(--s1);border:1px solid var(--bd);border-radius:16px;max-width:420px;width:100%;max-height:90vh;overflow-y:auto;padding:36px 28px;position:relative}
+.modal-close{position:absolute;top:16px;right:16px;background:0 0;border:none;color:var(--g2);font-size:24px;cursor:pointer;line-height:1}
+.modal-title{font-size:22px;font-weight:900;margin-bottom:6px}
+.modal-sub{font-size:13px;color:var(--g2);margin-bottom:28px;line-height:1.6}
+.form-group{margin-bottom:20px}
+.form-label{display:block;font-size:13px;font-weight:700;color:var(--g1);margin-bottom:8px}
+.form-label .req{color:var(--y);margin-left:2px}
+.form-input,.form-select,.form-textarea{width:100%;padding:14px 16px;background:var(--bg);border:1px solid var(--bd);border-radius:8px;color:var(--w);font-size:15px;font-family:inherit;outline:0;transition:border-color .2s}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--y)}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--g3)}
+.form-select{appearance:none;cursor:pointer}
+.form-select option{background:var(--bg);color:var(--w)}
+.form-textarea{resize:vertical;min-height:80px}
+.form-hint{font-size:11px;color:var(--g3);margin-top:6px;line-height:1.5}
+.form-submit{width:100%;padding:16px;background:var(--y);color:#000;font-size:16px;font-weight:900;border:none;border-radius:8px;cursor:pointer;margin-top:8px;transition:opacity .2s}
+.form-submit:hover{opacity:.85}
+.form-submit:disabled{opacity:.5;cursor:not-allowed}
+.form-result{text-align:center;padding:20px 0;display:none}
+.form-result.show{display:block}
+.form-result .ico{font-size:48px;margin-bottom:12px}
+.form-result h3{font-size:20px;font-weight:900;margin-bottom:8px}
+.form-result p{font-size:14px;color:var(--g2);line-height:1.7}
+@media(max-width:520px){.sec{padding:60px 22px}.stat-row{gap:8px}.stat-box{padding:18px 8px}.stat-num{font-size:28px}.compare,.for-grid,.price-grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 
-<!-- ━━━ HERO ━━━ -->
-<div class="hero">
+<header class="hero" role="banner">
     <div class="hero-inner">
         <p class="hero-tag">NONAME FITNESS</p>
         <h1>운동은 의지가 아니라<br><span class="hl">구조</span>입니다</h1>
-        <p class="hero-sub">
-            작심삼일을 끝내는 가장 현실적인 해답,<br>
-            노네임피트니스 무제한 PT 시스템
-        </p>
+        <p class="hero-sub">작심삼일을 끝내는 가장 현실적인 해답,<br>노네임피트니스 무제한 PT 시스템</p>
         <button class="hero-btn" onclick="openConsult()">빈 시간 확인하기</button>
     </div>
-    <div class="hero-scroll">
-        <span>SCROLL</span>
-        <div class="scroll-line"></div>
-    </div>
-</div>
+    <div class="hero-scroll" aria-hidden="true"><span>SCROLL</span><div class="scroll-line"></div></div>
+</header>
 
-<!-- ━━━ PROBLEM ━━━ -->
+<main>
+
 <div class="divider"></div>
-<div class="sec">
+<section class="sec">
     <p class="sec-tag rv">PROBLEM</p>
     <h2 class="sec-title rv">헬스장 등록하고<br><span class="hl">3개월 안에</span> 포기합니다</h2>
-    <p class="sec-desc rv">
-        의지가 약해서가 아닙니다.<br>
-        혼자 하면 방법을 모르고,<br>
-        PT를 받으면 비용이 부담됩니다.<br>
-        <strong>어떻게 해도 오래 못 가는 구조</strong>였습니다.
-    </p>
-
+    <p class="sec-desc rv">의지가 약해서가 아닙니다.<br>혼자 하면 방법을 모르고,<br>PT를 받으면 비용이 부담됩니다.<br><strong>어떻게 해도 오래 못 가는 구조</strong>였습니다.</p>
     <div class="stat-row">
-        <div class="stat-box rv">
-            <div class="stat-num">60<span style="font-size:18px;">%</span></div>
-            <div class="stat-label">3개월 내<br>포기율</div>
-        </div>
-        <div class="stat-box rv">
-            <div class="stat-num">80<span style="font-size:14px;">만원</span></div>
-            <div class="stat-label">일반 PT<br>10회 비용</div>
-        </div>
-        <div class="stat-box rv">
-            <div class="stat-num" style="color:var(--y);">18<span style="font-size:14px;">만원</span></div>
-            <div class="stat-label">무제한PT<br>1개월</div>
-        </div>
+        <div class="stat-box rv"><div class="stat-num">60<span style="font-size:18px">%</span></div><div class="stat-label">3개월 내<br>포기율</div></div>
+        <div class="stat-box rv"><div class="stat-num">80<span style="font-size:14px">만원</span></div><div class="stat-label">일반 PT<br>10회 비용</div></div>
+        <div class="stat-box rv"><div class="stat-num" style="color:var(--y)">18<span style="font-size:14px">만원</span></div><div class="stat-label">무제한PT<br>1개월</div></div>
     </div>
-</div>
+</section>
 
-<!-- ━━━ SCENE ━━━ -->
 <div class="divider"></div>
-<div class="sec">
+<section class="sec">
     <p class="sec-tag rv">SCENE</p>
     <h2 class="sec-title rv">이 패턴,<br><span class="hl">익숙하지 않으신가요?</span></h2>
+    <div class="story-block rv"><strong>1월, 새해 결심</strong>과 함께 헬스장을 등록합니다.<br>첫 주는 매일 갑니다. 러닝머신, 가슴운동, 유튜브에서 본 루틴.<br>"이번엔 진짜 한다." 두 눈이 반짝입니다.</div>
+    <div class="story-block rv">둘째 주, <strong>야근이 생깁니다.</strong> "내일 가야지."<br>셋째 주, 비가 옵니다. "주말에 몰아서 해야지."<br>한 달 뒤, 남는 건 <strong>카드 결제 문자</strong>뿐입니다.</div>
+    <div class="story-block rv">그래서 <strong>PT를 등록합니다.</strong> 10회, 80만원.<br>트레이너가 잡아주니 확실히 다릅니다.<br>그런데 10회가 끝나면? <strong>다시 혼자입니다.</strong><br>다시 안 가게 됩니다. 다시 등록합니다. 다시 끊깁니다.</div>
+    <p class="sec-desc rv" style="margin-top:28px;text-align:center">이 패턴을 3번, 5번, 10번 반복하고<br>결국 스스로를 탓합니다.<br><strong style="color:var(--w);font-size:clamp(17px,3vw,20px)">"난 의지가 약해서."</strong></p>
+</section>
 
-    <div class="story-block rv">
-        <strong>1월, 새해 결심</strong>과 함께 헬스장을 등록합니다.<br>
-        첫 주는 매일 갑니다. 러닝머신, 가슴운동, 유튜브에서 본 루틴.<br>
-        "이번엔 진짜 한다." 두 눈이 반짝입니다.
-    </div>
-    <div class="story-block rv">
-        둘째 주, <strong>야근이 생깁니다.</strong> "내일 가야지."<br>
-        셋째 주, 비가 옵니다. "주말에 몰아서 해야지."<br>
-        한 달 뒤, 남는 건 <strong>카드 결제 문자</strong>뿐입니다.
-    </div>
-    <div class="story-block rv">
-        그래서 <strong>PT를 등록합니다.</strong> 10회, 80만원.<br>
-        트레이너가 잡아주니 확실히 다릅니다.<br>
-        그런데 10회가 끝나면? <strong>다시 혼자입니다.</strong><br>
-        다시 안 가게 됩니다. 다시 등록합니다. 다시 끊깁니다.
-    </div>
-
-    <p class="sec-desc rv" style="margin-top:28px; text-align:center;">
-        이 패턴을 3번, 5번, 10번 반복하고<br>
-        결국 스스로를 탓합니다.<br>
-        <strong style="color:var(--w); font-size:clamp(17px,3vw,20px);">"난 의지가 약해서."</strong>
-    </p>
-</div>
-
-<!-- ━━━ QUOTE ━━━ -->
-<div class="quote-sec">
+<section class="quote-sec">
     <div class="quote-mark rv">"</div>
     <h2 class="rv">비싸서 못 받거나,<br>혼자서 <span class="hl">포기</span>하거나</h2>
     <div class="quote-bar rv"></div>
-</div>
+</section>
 
-<!-- ━━━ WHY ━━━ -->
 <div class="divider"></div>
-<div class="sec">
+<section class="sec">
     <p class="sec-tag rv">WHY</p>
     <h2 class="sec-title rv">당신 잘못이 아닙니다.<br><span class="hl">구조</span>가 잘못된 겁니다.</h2>
-    <p class="sec-desc rv">
-        왜 매번 같은 결과가 반복될까요?<br>
-        의지의 문제가 아닙니다. 운동이 지속되지 않는 데에는<br>
-        <strong>세 가지 구조적 이유</strong>가 있습니다.
-    </p>
-
+    <p class="sec-desc rv">왜 매번 같은 결과가 반복될까요?<br>의지의 문제가 아닙니다. 운동이 지속되지 않는 데에는<br><strong>세 가지 구조적 이유</strong>가 있습니다.</p>
     <div class="num-list">
-        <div class="num-item rv">
-            <div class="num-item-text">
-                <h4>비용의 벽</h4>
-                <p>PT는 효과적이지만, 회당 5~8만원.<br>
-                한 달 20회를 받으려면 100~160만원.<br>
-                누구도 이 비용을 오래 감당할 수 없습니다.</p>
-            </div>
-        </div>
-        <div class="num-item rv">
-            <div class="num-item-text">
-                <h4>혼자라는 한계</h4>
-                <p>혼자 하면 강도를 올릴 수 없습니다.<br>
-                자세가 틀려도 모르고, 루틴도 매번 같아집니다.<br>
-                변화가 없으니 동기도 사라집니다.</p>
-            </div>
-        </div>
-        <div class="num-item rv">
-            <div class="num-item-text">
-                <h4>시스템의 부재</h4>
-                <p>출석을 안 해도 아무도 신경 쓰지 않습니다.<br>
-                안 가도 패널티가 없으니 발이 끊깁니다.<br>
-                <strong>의지로 이길 수 있는 구조가 아닙니다.</strong></p>
-            </div>
-        </div>
+        <div class="num-item rv"><div><h4>비용의 벽</h4><p>PT는 효과적이지만, 회당 5~8만원.<br>한 달 20회를 받으려면 100~160만원.<br>누구도 이 비용을 오래 감당할 수 없습니다.</p></div></div>
+        <div class="num-item rv"><div><h4>혼자라는 한계</h4><p>혼자 하면 강도를 올릴 수 없습니다.<br>자세가 틀려도 모르고, 루틴도 매번 같아집니다.<br>변화가 없으니 동기도 사라집니다.</p></div></div>
+        <div class="num-item rv"><div><h4>시스템의 부재</h4><p>출석을 안 해도 아무도 신경 쓰지 않습니다.<br>안 가도 패널티가 없으니 발이 끊깁니다.<br><strong>의지로 이길 수 있는 구조가 아닙니다.</strong></p></div></div>
     </div>
-</div>
+</section>
 
-<!-- ━━━ COMPARE ━━━ -->
 <div class="divider"></div>
-<div class="sec">
+<section class="sec">
     <p class="sec-tag rv">COMPARE</p>
     <h2 class="sec-title rv">같은 돈이면<br><span class="hl">어떤 구조</span>가 나을까요?</h2>
-
     <div class="compare">
-        <div class="compare-card rv">
+        <article class="compare-card rv">
             <h3>일반 PT</h3>
-            <ul class="compare-li">
-                <li>회당 5~8만원</li>
-                <li>10회 끝나면 다시 결제</li>
-                <li>부담되면 혼자 운동</li>
-                <li>결국 안 가게 됨</li>
-            </ul>
-            <div class="compare-price">
-                <small>월 평균 (주2회)</small>
-                <strong>40~60만원</strong>
-            </div>
-        </div>
-        <div class="compare-card pick rv">
+            <ul class="compare-li"><li>회당 5~8만원</li><li>10회 끝나면 다시 결제</li><li>부담되면 혼자 운동</li><li>결국 안 가게 됨</li></ul>
+            <div class="compare-price"><small>월 평균 (주2회)</small><strong>40~60만원</strong></div>
+        </article>
+        <article class="compare-card pick rv">
             <h3>무제한 PT</h3>
-            <ul class="compare-li">
-                <li>매일 트레이너가 잡아줌</li>
-                <li>횟수 제한 없이 코칭</li>
-                <li>고정 시간 예약제</li>
-                <li>습관이 될 때까지</li>
-            </ul>
-            <div class="compare-price">
-                <small>월 평균</small>
-                <strong>18만원</strong>
-            </div>
-        </div>
+            <ul class="compare-li"><li>매일 트레이너가 잡아줌</li><li>횟수 제한 없이 코칭</li><li>고정 시간 예약제</li><li>습관이 될 때까지</li></ul>
+            <div class="compare-price"><small>월 평균</small><strong>18만원</strong></div>
+        </article>
     </div>
-</div>
+</section>
 
-<!-- ━━━ QUOTE ━━━ -->
-<div class="quote-sec">
+<section class="quote-sec">
     <div class="quote-mark rv">"</div>
     <h2 class="rv">횟수가 아니라<br><span class="hl">습관</span>을 만드는 구조</h2>
     <div class="quote-bar rv"></div>
-</div>
+</section>
 
-<!-- ━━━ ONE DAY ━━━ -->
 <div class="divider"></div>
-<div class="sec">
+<section class="sec">
     <p class="sec-tag rv">ONE DAY</p>
     <h2 class="sec-title rv">하루를<br><span class="hl">보여드립니다</span></h2>
-    <p class="sec-desc rv">
-        무제한 PT의 하루는 이렇습니다.<br>
-        특별한 의지는 필요 없습니다.
-    </p>
+    <p class="sec-desc rv">무제한 PT의 하루는 이렇습니다.<br>특별한 의지는 필요 없습니다.</p>
+    <div class="daily-block rv"><h4>PM 6:00 — 퇴근</h4><p>퇴근길, 헬스장으로 향합니다.<br>예약된 시간이니까 가야 합니다.<br>안 가면 7일이 차감됩니다.<br><strong>그래서 그냥 갑니다.</strong></p></div>
+    <div class="daily-block rv"><h4>PM 6:30 — 도착, 몸풀기</h4><p>도착하면 먼저 개인 운동을 시작합니다.<br>가볍게 유산소로 몸을 풀고,<br>스트레칭으로 오늘의 운동을 준비합니다.<br><strong>30분, 나만의 워밍업 시간.</strong></p></div>
+    <div class="daily-block rv"><h4>PM 7:00 — 수업 시작, 30분 집중</h4><p>트레이너가 기다리고 있습니다.<br>오늘의 운동 부위, 이미 프로그래밍 되어 있습니다.<br>자세를 잡아주고, 한 개 더 밀어주고,<br>"잘했어요"가 아니라 <strong>"더 할 수 있어요"</strong>라고 말합니다.<br>혼자였다면 절대 못 했을 무게를 들어 올립니다.</p></div>
+    <div class="daily-block rv"><h4>PM 7:30 — 끝</h4><p>운동이 끝나면 내일 같은 시간에 또 봅니다.<br>이게 월요일부터 금요일까지 <strong>매일 반복</strong>됩니다.<br>정해져 있으니까 그냥 갑니다.</p></div>
+</section>
 
-    <div class="daily-block rv">
-        <h4>PM 6:00 — 퇴근</h4>
-        <p>퇴근길, 헬스장으로 향합니다.<br>
-        예약된 시간이니까 가야 합니다.<br>
-        안 가면 7일이 차감됩니다.<br>
-        <strong>그래서 그냥 갑니다.</strong></p>
-    </div>
-    <div class="daily-block rv">
-        <h4>PM 6:30 — 도착, 몸풀기</h4>
-        <p>도착하면 먼저 개인 운동을 시작합니다.<br>
-        가볍게 유산소로 몸을 풀고,<br>
-        스트레칭으로 오늘의 운동을 준비합니다.<br>
-        <strong>30분, 나만의 워밍업 시간.</strong></p>
-    </div>
-    <div class="daily-block rv">
-        <h4>PM 7:00 — 수업 시작, 30분 집중</h4>
-        <p>트레이너가 기다리고 있습니다.<br>
-        오늘의 운동 부위, 이미 프로그래밍 되어 있습니다.<br>
-        자세를 잡아주고, 한 개 더 밀어주고,<br>
-        "잘했어요"가 아니라 <strong>"더 할 수 있어요"</strong>라고 말합니다.<br>
-        혼자였다면 절대 못 했을 무게를 들어 올립니다.</p>
-    </div>
-    <div class="daily-block rv">
-        <h4>PM 7:30 — 끝</h4>
-        <p>운동이 끝나면 내일 같은 시간에 또 봅니다.<br>
-        이게 월요일부터 금요일까지 <strong>매일 반복</strong>됩니다.<br>
-        정해져 있으니까 그냥 갑니다.</p>
-    </div>
-</div>
-
-<!-- ━━━ SYSTEM ━━━ -->
 <div class="divider"></div>
-<div class="sec">
+<section class="sec">
     <p class="sec-tag rv">SYSTEM</p>
     <h2 class="sec-title rv">이렇게<br><span class="hl">운영됩니다</span></h2>
-    <p class="sec-desc rv">
-        의지에 기대지 않습니다.<br>
-        시스템이 당신을 끌고 갑니다.
-    </p>
-
+    <p class="sec-desc rv">의지에 기대지 않습니다.<br>시스템이 당신을 끌고 갑니다.</p>
     <div class="feat-list">
-        <div class="feat-item rv">
-            <div class="feat-ico">📅</div>
-            <div>
-                <h3>고정 시간 예약제</h3>
-                <p>월~금, 같은 시간에 출석. 출근하듯 운동합니다.</p>
-            </div>
-        </div>
-        <div class="feat-item rv">
-            <div class="feat-ico">🏋️</div>
-            <div>
-                <h3>트레이너 30분 독점</h3>
-                <p>1:1 집중 코칭. 온전히 나만의 시간입니다.</p>
-            </div>
-        </div>
-        <div class="feat-item rv">
-            <div class="feat-ico">🚫</div>
-            <div>
-                <h3>당일 취소 = 7일 차감</h3>
-                <p>벌칙이 아닌 약속. 나가야 할 이유를 만듭니다.</p>
-            </div>
-        </div>
-        <div class="feat-item rv">
-            <div class="feat-ico">🔁</div>
-            <div>
-                <h3>반복이 습관이 됩니다</h3>
-                <p>21일이면 몸이 기억합니다. 구조가 해냅니다.</p>
-            </div>
-        </div>
+        <div class="feat-item rv"><div class="feat-ico" aria-hidden="true">📅</div><div><h3>고정 시간 예약제</h3><p>월~금, 같은 시간에 출석. 출근하듯 운동합니다.</p></div></div>
+        <div class="feat-item rv"><div class="feat-ico" aria-hidden="true">🏋️</div><div><h3>트레이너 30분 독점</h3><p>1:1 집중 코칭. 온전히 나만의 시간입니다.</p></div></div>
+        <div class="feat-item rv"><div class="feat-ico" aria-hidden="true">🚫</div><div><h3>당일 취소 = 7일 차감</h3><p>벌칙이 아닌 약속. 나가야 할 이유를 만듭니다.</p></div></div>
+        <div class="feat-item rv"><div class="feat-ico" aria-hidden="true">🔁</div><div><h3>반복이 습관이 됩니다</h3><p>21일이면 몸이 기억합니다. 구조가 해냅니다.</p></div></div>
     </div>
-</div>
+</section>
 
-<!-- ━━━ JOURNEY ━━━ -->
 <div class="divider"></div>
-<div class="sec">
+<section class="sec">
     <p class="sec-tag rv">JOURNEY</p>
     <h2 class="sec-title rv">몸이 바뀌는<br><span class="hl">타임라인</span></h2>
-    <p class="sec-desc rv">
-        의지가 아니라 시간이 증명합니다.<br>
-        구조 안에 들어오면, 변화는 자연스럽게 따라옵니다.
-    </p>
-
+    <p class="sec-desc rv">의지가 아니라 시간이 증명합니다.<br>구조 안에 들어오면, 변화는 자연스럽게 따라옵니다.</p>
     <div class="timeline">
-        <div class="tl-item rv">
-            <div class="tl-left">
-                <div class="tl-dot"></div>
-                <div class="tl-line"></div>
-            </div>
-            <div class="tl-content">
-                <p class="tl-time">1주차</p>
-                <h4>몸이 기억합니다</h4>
-                <p>처음엔 근육통이 옵니다. 퇴근하면 쉬고 싶습니다.<br>
-                그런데 예약이 되어 있으니 갑니다.<br>
-                3일만 가면 몸이 리듬을 탑니다.</p>
-            </div>
-        </div>
-        <div class="tl-item rv">
-            <div class="tl-left">
-                <div class="tl-dot"></div>
-                <div class="tl-line"></div>
-            </div>
-            <div class="tl-content">
-                <p class="tl-time">2주차</p>
-                <h4>습관이 만들어집니다</h4>
-                <p>"가야 하는 곳"에서 "가는 곳"으로 바뀝니다.<br>
-                동선에 헬스장이 들어갑니다.<br>
-                운동복을 미리 챙겨 놓게 됩니다.</p>
-            </div>
-        </div>
-        <div class="tl-item rv">
-            <div class="tl-left">
-                <div class="tl-dot"></div>
-                <div class="tl-line"></div>
-            </div>
-            <div class="tl-content">
-                <p class="tl-time">1개월</p>
-                <h4>변화가 보입니다</h4>
-                <p>거울 속 몸이 달라집니다. 무게가 올라갑니다.<br>
-                "어? 좀 달라진 것 같은데?"<br>
-                주변에서 먼저 알아봅니다.</p>
-            </div>
-        </div>
-        <div class="tl-item rv">
-            <div class="tl-left">
-                <div class="tl-dot"></div>
-                <div class="tl-line"></div>
-            </div>
-            <div class="tl-content">
-                <p class="tl-time">3개월</p>
-                <h4>운동이 일상이 됩니다</h4>
-                <p>이제 안 가면 허전합니다.<br>
-                의지가 아니라 루틴입니다.<br>
-                처음의 나와 지금의 나를 비교하면 놀랍습니다.</p>
-            </div>
-        </div>
+        <div class="tl-item rv"><div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><p class="tl-time">1주차</p><h4>몸이 기억합니다</h4><p>처음엔 근육통이 옵니다. 퇴근하면 쉬고 싶습니다.<br>그런데 예약이 되어 있으니 갑니다.<br>3일만 가면 몸이 리듬을 탑니다.</p></div></div>
+        <div class="tl-item rv"><div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><p class="tl-time">2주차</p><h4>습관이 만들어집니다</h4><p>"가야 하는 곳"에서 "가는 곳"으로 바뀝니다.<br>동선에 헬스장이 들어갑니다.<br>운동복을 미리 챙겨 놓게 됩니다.</p></div></div>
+        <div class="tl-item rv"><div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><p class="tl-time">1개월</p><h4>변화가 보입니다</h4><p>거울 속 몸이 달라집니다. 무게가 올라갑니다.<br>"어? 좀 달라진 것 같은데?"<br>주변에서 먼저 알아봅니다.</p></div></div>
+        <div class="tl-item rv"><div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><p class="tl-time">3개월</p><h4>운동이 일상이 됩니다</h4><p>이제 안 가면 허전합니다.<br>의지가 아니라 루틴입니다.<br>처음의 나와 지금의 나를 비교하면 놀랍습니다.</p></div></div>
     </div>
-</div>
+</section>
 
-<!-- ━━━ QUOTE ━━━ -->
-<div class="quote-sec">
+<section class="quote-sec">
     <div class="quote-mark rv">"</div>
     <h2 class="rv">3개월이면 <span class="hl">습관</span>,<br>6개월이면 <span class="hl">체질</span>이 바뀝니다</h2>
     <div class="quote-bar rv"></div>
-</div>
+</section>
 
-<!-- ━━━ FOR YOU ━━━ -->
 <div class="divider"></div>
-<div class="sec">
+<section class="sec">
     <p class="sec-tag rv">FOR YOU</p>
     <h2 class="sec-title rv">이런 분이라면<br><span class="hl">지금 시작</span>하세요</h2>
-
     <div class="for-grid">
-        <div class="for-card rv">
-            <div class="ico">💸</div>
-            <p>PT 비용이<br>부담스러운 분</p>
-        </div>
-        <div class="for-card rv">
-            <div class="ico">😩</div>
-            <p>혼자 하면<br>작심삼일인 분</p>
-        </div>
-        <div class="for-card rv">
-            <div class="ico">🏢</div>
-            <p>등록만 하고<br>안 가게 되는 분</p>
-        </div>
-        <div class="for-card rv">
-            <div class="ico">🌱</div>
-            <p>운동을 습관으로<br>만들고 싶은 분</p>
-        </div>
+        <div class="for-card rv"><div class="ico" aria-hidden="true">💸</div><p>PT 비용이<br>부담스러운 분</p></div>
+        <div class="for-card rv"><div class="ico" aria-hidden="true">😩</div><p>혼자 하면<br>작심삼일인 분</p></div>
+        <div class="for-card rv"><div class="ico" aria-hidden="true">🏢</div><p>등록만 하고<br>안 가게 되는 분</p></div>
+        <div class="for-card rv"><div class="ico" aria-hidden="true">🌱</div><p>운동을 습관으로<br>만들고 싶은 분</p></div>
     </div>
-</div>
+</section>
 
-<!-- ━━━ PRICING ━━━ -->
 <div class="divider"></div>
-<div class="sec">
+<section class="sec">
     <p class="sec-tag rv">PRICING</p>
     <h2 class="sec-title rv">일반 PT 3회 비용으로<br><span class="hl">한 달</span>을 시작합니다</h2>
-
     <p class="price-group-label rv">무제한 PT <span>· VAT 별도</span></p>
     <div class="price-grid">
-        <div class="price-card rv">
-            <div class="price-period">1개월</div>
-            <div class="price-amt">180,000<small>원</small></div>
-        </div>
-        <div class="price-card best rv">
-            <div class="price-badge">BEST</div>
-            <div class="price-period">3개월</div>
-            <div class="price-amt">513,000<small>원</small></div>
-            <div class="price-note">월 171,000원</div>
-        </div>
-        <div class="price-card rv">
-            <div class="price-period">6개월</div>
-            <div class="price-amt">972,000<small>원</small></div>
-            <div class="price-note">월 162,000원</div>
-        </div>
+        <div class="price-card rv"><div class="price-period">1개월</div><div class="price-amt">180,000<small>원</small></div></div>
+        <div class="price-card best rv"><div class="price-badge">BEST</div><div class="price-period">3개월</div><div class="price-amt">513,000<small>원</small></div><div class="price-note">월 171,000원</div></div>
+        <div class="price-card rv"><div class="price-period">6개월</div><div class="price-amt">972,000<small>원</small></div><div class="price-note">월 162,000원</div></div>
     </div>
-
     <p class="price-group-label rv">헬스 회원권 <span>· VAT 포함 · 별도 등록</span></p>
     <div class="price-grid">
-        <div class="price-card rv">
-            <div class="price-period">1개월</div>
-            <div class="price-amt">50,000<small>원</small></div>
-        </div>
-        <div class="price-card rv">
-            <div class="price-period">3개월</div>
-            <div class="price-amt">120,000<small>원</small></div>
-            <div class="price-note">월 40,000원</div>
-        </div>
-        <div class="price-card rv">
-            <div class="price-period">6개월</div>
-            <div class="price-amt">180,000<small>원</small></div>
-            <div class="price-note">월 30,000원</div>
-        </div>
+        <div class="price-card rv"><div class="price-period">1개월</div><div class="price-amt">50,000<small>원</small></div></div>
+        <div class="price-card rv"><div class="price-period">3개월</div><div class="price-amt">120,000<small>원</small></div><div class="price-note">월 40,000원</div></div>
+        <div class="price-card rv"><div class="price-period">6개월</div><div class="price-amt">180,000<small>원</small></div><div class="price-note">월 30,000원</div></div>
     </div>
+    <div class="price-bottom-note rv">💰 일반 PT 3회 비용 = 무제한 PT <strong>한 달</strong></div>
+</section>
 
-    <div class="price-bottom-note rv">
-        💰 일반 PT 3회 비용 = 무제한 PT <strong>한 달</strong>
-    </div>
-</div>
-
-<!-- ━━━ BIG QUOTE ━━━ -->
-<div class="quote-sec" style="min-height:50vh; display:flex; flex-direction:column; justify-content:center;">
+<section class="quote-sec" style="min-height:50vh;display:flex;flex-direction:column;justify-content:center">
     <div class="quote-mark rv">"</div>
-    <h2 class="rv" style="font-size:clamp(26px,6vw,44px);">운동은 의지가 아니라<br><span class="hl">구조</span>입니다</h2>
+    <h2 class="rv" style="font-size:clamp(26px,6vw,44px)">운동은 의지가 아니라<br><span class="hl">구조</span>입니다</h2>
     <div class="quote-bar rv"></div>
-    <p class="rv" style="font-size:14px;color:var(--g2);margin-top:16px;">결심은 가벼워도, 구조는 단단해야 합니다</p>
-</div>
+    <p class="rv" style="font-size:14px;color:var(--g2);margin-top:16px">결심은 가벼워도, 구조는 단단해야 합니다</p>
+</section>
 
-<!-- ━━━ CTA ━━━ -->
-<div class="cta">
+</main>
+
+<section class="cta">
     <p class="cta-tag rv">NONAME FITNESS</p>
     <div class="cta-bar rv"></div>
     <h2 class="rv">오늘, <span class="hl">구조</span>를 시작하세요</h2>
-    <p class="cta-desc rv">
-        시간대별 정원이 제한되어 있습니다.<br>
-        원하는 시간에 자리가 있는지 먼저 확인해보세요.
-    </p>
+    <p class="cta-desc rv">시간대별 정원이 제한되어 있습니다.<br>원하는 시간에 자리가 있는지 먼저 확인해보세요.</p>
     <button class="cta-btn rv" onclick="openConsult()">빈 시간 확인하기</button>
-</div>
+</section>
 
-<!-- ━━━ CONSULT MODAL ━━━ -->
-<div class="modal-overlay" id="consultModal">
+<div class="modal-overlay" id="consultModal" role="dialog" aria-label="빈 시간 확인하기">
     <div class="modal-box">
-        <button class="modal-close" onclick="closeConsult()">&times;</button>
-
+        <button class="modal-close" onclick="closeConsult()" aria-label="닫기">&times;</button>
         <div id="consultForm">
             <h2 class="modal-title">빈 시간 <span class="hl">확인하기</span></h2>
-            <p class="modal-sub">
-                아래 정보를 남겨주시면 빈 시간을 확인 후 연락드립니다.<br>
-                자세한 시간은 전화 상담 후 배정됩니다.
-            </p>
-
-            <div class="form-group">
-                <label class="form-label">성함<span class="req">*</span></label>
-                <input type="text" class="form-input" id="cName" placeholder="홍길동" required>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">핸드폰 번호<span class="req">*</span></label>
-                <input type="tel" class="form-input" id="cPhone" placeholder="010-0000-0000" maxlength="13" required oninput="formatPhone(this)">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">희망 운동 시간대<span class="req">*</span></label>
-                <select class="form-select" id="cTime">
-                    <option value="" disabled selected>시간대를 선택해주세요</option>
-                    <option value="06:00 ~ 07:00">06:00 ~ 07:00</option>
-                    <option value="07:00 ~ 08:00">07:00 ~ 08:00</option>
-                    <option value="08:00 ~ 09:00">08:00 ~ 09:00</option>
-                    <option value="09:00 ~ 10:00">09:00 ~ 10:00</option>
-                    <option value="10:00 ~ 11:00">10:00 ~ 11:00</option>
-                    <option value="11:00 ~ 12:00">11:00 ~ 12:00</option>
-                    <option value="12:00 ~ 13:00">12:00 ~ 13:00</option>
-                    <option value="13:00 ~ 14:00">13:00 ~ 14:00</option>
-                    <option value="14:00 ~ 15:00">14:00 ~ 15:00</option>
-                    <option value="15:00 ~ 16:00">15:00 ~ 16:00</option>
-                    <option value="16:00 ~ 17:00">16:00 ~ 17:00</option>
-                    <option value="17:00 ~ 18:00">17:00 ~ 18:00</option>
-                    <option value="18:00 ~ 19:00">18:00 ~ 19:00</option>
-                    <option value="19:00 ~ 20:00">19:00 ~ 20:00</option>
-                    <option value="20:00 ~ 21:00">20:00 ~ 21:00</option>
-                    <option value="21:00 ~ 22:00">21:00 ~ 22:00</option>
-                </select>
-                <p class="form-hint">* 자세한 시간은 전화 상담 후 배정 가능합니다.</p>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">성별</label>
-                <select class="form-select" id="cGender">
-                    <option value="" disabled selected>선택해주세요</option>
-                    <option value="남성">남성</option>
-                    <option value="여성">여성</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">운동 경험</label>
-                <select class="form-select" id="cExp">
-                    <option value="" disabled selected>선택해주세요</option>
-                    <option value="처음">처음이에요</option>
-                    <option value="6개월 미만">6개월 미만</option>
-                    <option value="1년 이상">1년 이상</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">운동 목적</label>
-                <textarea class="form-textarea" id="cGoal" placeholder="예: 다이어트, 근력 강화, 체력 향상, 재활 등"></textarea>
-            </div>
-
+            <p class="modal-sub">아래 정보를 남겨주시면 빈 시간을 확인 후 연락드립니다.<br>자세한 시간은 전화 상담 후 배정됩니다.</p>
+            <div class="form-group"><label class="form-label" for="cName">성함<span class="req">*</span></label><input type="text" class="form-input" id="cName" placeholder="홍길동" required></div>
+            <div class="form-group"><label class="form-label" for="cPhone">핸드폰 번호<span class="req">*</span></label><input type="tel" class="form-input" id="cPhone" placeholder="010-0000-0000" maxlength="13" required oninput="formatPhone(this)"></div>
+            <div class="form-group"><label class="form-label" for="cTime">희망 운동 시간대<span class="req">*</span></label><select class="form-select" id="cTime"><option value="" disabled selected>시간대를 선택해주세요</option><option value="06:00 ~ 07:00">06:00 ~ 07:00</option><option value="07:00 ~ 08:00">07:00 ~ 08:00</option><option value="08:00 ~ 09:00">08:00 ~ 09:00</option><option value="09:00 ~ 10:00">09:00 ~ 10:00</option><option value="10:00 ~ 11:00">10:00 ~ 11:00</option><option value="11:00 ~ 12:00">11:00 ~ 12:00</option><option value="12:00 ~ 13:00">12:00 ~ 13:00</option><option value="13:00 ~ 14:00">13:00 ~ 14:00</option><option value="14:00 ~ 15:00">14:00 ~ 15:00</option><option value="15:00 ~ 16:00">15:00 ~ 16:00</option><option value="16:00 ~ 17:00">16:00 ~ 17:00</option><option value="17:00 ~ 18:00">17:00 ~ 18:00</option><option value="18:00 ~ 19:00">18:00 ~ 19:00</option><option value="19:00 ~ 20:00">19:00 ~ 20:00</option><option value="20:00 ~ 21:00">20:00 ~ 21:00</option><option value="21:00 ~ 22:00">21:00 ~ 22:00</option></select><p class="form-hint">* 자세한 시간은 전화 상담 후 배정 가능합니다.</p></div>
+            <div class="form-group"><label class="form-label" for="cGender">성별</label><select class="form-select" id="cGender"><option value="" disabled selected>선택해주세요</option><option value="남성">남성</option><option value="여성">여성</option></select></div>
+            <div class="form-group"><label class="form-label" for="cExp">운동 경험</label><select class="form-select" id="cExp"><option value="" disabled selected>선택해주세요</option><option value="처음">처음이에요</option><option value="6개월 미만">6개월 미만</option><option value="1년 이상">1년 이상</option></select></div>
+            <div class="form-group"><label class="form-label" for="cGoal">운동 목적</label><textarea class="form-textarea" id="cGoal" placeholder="예: 다이어트, 근력 강화, 체력 향상, 재활 등"></textarea></div>
             <button class="form-submit" id="submitBtn" onclick="submitConsult()">신청하기</button>
         </div>
-
-        <div class="form-result" id="consultResult">
-            <div class="ico">✅</div>
-            <h3>신청 완료!</h3>
-            <p>빈 시간 확인 후 빠르게 연락드리겠습니다.<br>감사합니다.</p>
-        </div>
+        <div class="form-result" id="consultResult"><div class="ico">✅</div><h3>신청 완료!</h3><p>빈 시간 확인 후 빠르게 연락드리겠습니다.<br>감사합니다.</p></div>
     </div>
 </div>
 
-<footer>
-    <p>내일의 나를 바꾸는 공간, NONAME FITNESS</p>
-    <p>천안 두정동 · 041-557-9291</p>
-</footer>
+<footer><p>내일의 나를 바꾸는 공간, NONAME FITNESS</p><p>천안 두정동 · <a href="tel:041-557-9291" style="color:var(--g3);text-decoration:none">041-557-9291</a></p></footer>
 
 <script>
-/* ━━━ MAKE WEBHOOK URL ━━━ */
-var MAKE_WEBHOOK_URL = 'https://hook.eu2.make.com/mq170llq61dlq9jis99u269krcwp9f6d';
-
-function formatPhone(el) {
-    var v = el.value.replace(/[^0-9]/g, '');
-    if (v.length > 3 && v.length <= 7) v = v.slice(0,3) + '-' + v.slice(3);
-    else if (v.length > 7) v = v.slice(0,3) + '-' + v.slice(3,7) + '-' + v.slice(7,11);
-    el.value = v;
-}
-
-function openConsult() {
-    document.getElementById('consultModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeConsult() {
-    document.getElementById('consultModal').classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-// 모달 바깥 클릭 시 닫기
-document.getElementById('consultModal').addEventListener('click', function(e) {
-    if (e.target === this) closeConsult();
-});
-
-function submitConsult() {
-    var name = document.getElementById('cName').value.trim();
-    var phone = document.getElementById('cPhone').value.trim();
-    var time = document.getElementById('cTime').value;
-    var gender = document.getElementById('cGender').value;
-    var exp = document.getElementById('cExp').value;
-    var goal = document.getElementById('cGoal').value.trim();
-
-    if (!name || !phone || !time) {
-        alert('성함, 핸드폰 번호, 희망 시간대는 필수 항목입니다.');
-        return;
-    }
-
-    var phoneDigits = phone.replace(/[^0-9]/g, '');
-    if (!/^01[0-9]{8,9}$/.test(phoneDigits)) {
-        alert('올바른 핸드폰 번호를 입력해주세요. (예: 010-0000-0000)');
-        return;
-    }
-
-    var btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.textContent = '전송 중...';
-
-    var data = {
-        name: name,
-        phone: phone,
-        time: time,
-        gender: gender || '미선택',
-        experience: exp || '미선택',
-        goal: goal || '미입력',
-        source: '무제한PT 페이지',
-        timestamp: new Date().toLocaleString('ko-KR')
-    };
-
-    fetch(MAKE_WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    })
-    .then(function(res) {
-        if (res.ok || res.status === 200) {
-            document.getElementById('consultForm').style.display = 'none';
-            document.getElementById('consultResult').classList.add('show');
-        } else {
-            throw new Error('전송 실패');
-        }
-    })
-    .catch(function() {
-        alert('전송에 실패했습니다. 전화(041-557-9291)로 문의해주세요.');
-        btn.disabled = false;
-        btn.textContent = '신청하기';
-    });
-}
-
-/* ━━━ SCROLL REVEAL ━━━ */
-(function(){
-    var io = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-            if(e.isIntersecting){
-                e.target.classList.add('on');
-                io.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
-})();
+var MAKE_WEBHOOK_URL='https://hook.eu2.make.com/mq170llq61dlq9jis99u269krcwp9f6d';
+function formatPhone(el){var v=el.value.replace(/[^0-9]/g,'');if(v.length>3&&v.length<=7)v=v.slice(0,3)+'-'+v.slice(3);else if(v.length>7)v=v.slice(0,3)+'-'+v.slice(3,7)+'-'+v.slice(7,11);el.value=v}
+function openConsult(){document.getElementById('consultModal').classList.add('active');document.body.style.overflow='hidden'}
+function closeConsult(){document.getElementById('consultModal').classList.remove('active');document.body.style.overflow=''}
+document.getElementById('consultModal').addEventListener('click',function(e){if(e.target===this)closeConsult()});
+function submitConsult(){var n=document.getElementById('cName').value.trim(),p=document.getElementById('cPhone').value.trim(),t=document.getElementById('cTime').value,g=document.getElementById('cGender').value,x=document.getElementById('cExp').value,gl=document.getElementById('cGoal').value.trim();if(!n||!p||!t){alert('성함, 핸드폰 번호, 희망 시간대는 필수 항목입니다.');return}var d=p.replace(/[^0-9]/g,'');if(!/^01[0-9]{8,9}$/.test(d)){alert('올바른 핸드폰 번호를 입력해주세요. (예: 010-0000-0000)');return}var b=document.getElementById('submitBtn');b.disabled=true;b.textContent='전송 중...';fetch(MAKE_WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,phone:p,time:t,gender:g||'미선택',experience:x||'미선택',goal:gl||'미입력',source:'무제한PT 페이지',timestamp:new Date().toLocaleString('ko-KR')})}).then(function(r){if(r.ok){document.getElementById('consultForm').style.display='none';document.getElementById('consultResult').classList.add('show')}else{throw new Error('fail')}}).catch(function(){alert('전송에 실패했습니다. 전화(041-557-9291)로 문의해주세요.');b.disabled=false;b.textContent='신청하기'})}
+(function(){var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.12});document.querySelectorAll('.rv').forEach(function(el){io.observe(el)})})();
 </script>
-
 </body>
 </html>
