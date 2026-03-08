@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://duatkdel-lgtm.github.io/nonamefitness/sitemap.xml
+Sitemap: https://nonamefitness.co.kr/sitemap.xml
