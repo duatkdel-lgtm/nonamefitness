@@ -295,7 +295,7 @@
                 </div>
 
                 <!-- UNLIMITED PT -->
-                <div class="program-card featured" data-aos="fade-up" data-delay="200">
+                <div class="program-card featured" data-aos="fade-up" data-delay="200" id="unlimitedPtCard" style="cursor:pointer;">
                     <div class="program-badge">NEW</div>
                     <div class="program-image">
                         <img src="images/facility-bench.jpg" alt="천안 무제한 PT 프로그램">
@@ -315,6 +315,9 @@
                             <li><i class="fas fa-check"></i> 빠른 체형 변화 보장</li>
                             <li><i class="fas fa-check"></i> 식단·컨디션 일일 체크</li>
                         </ul>
+                        <button class="slideshow-open-btn" id="slideshowOpenBtn">
+                            <i class="fas fa-images"></i> 자세히 보기
+                        </button>
                     </div>
                 </div>
 
@@ -1050,7 +1053,7 @@
       }
     </script>
 
-    <script src="js/main.js?v=20260308"></script>
+    <script src="js/main.js?v=20260308b"></script>
 
     <!-- Naver Analytics -->
     <script type="text/javascript" src="//wcs.pstatic.net/wcslog.js"></script>
@@ -1139,6 +1142,32 @@
                     <i class="fas fa-paper-plane"></i> 상담 신청하기
                 </button>
             </form>
+        </div>
+    </div>
+    <!-- Unlimited PT Slideshow Modal -->
+    <div class="slideshow-overlay" id="slideshowModal">
+        <div class="slideshow-container">
+            <button class="slideshow-close" id="slideshowClose"><i class="fas fa-times"></i></button>
+            <div class="slideshow-wrapper">
+                <img class="slideshow-image" id="slideshowImage" src="images/unlimited-pt/slide-01.jpg" alt="무제한 PT 소개">
+            </div>
+            <button class="slideshow-nav slideshow-prev" id="slideshowPrev"><i class="fas fa-chevron-left"></i></button>
+            <button class="slideshow-nav slideshow-next" id="slideshowNext"><i class="fas fa-chevron-right"></i></button>
+            <div class="slideshow-counter" id="slideshowCounter">1 / 12</div>
+            <div class="slideshow-dots" id="slideshowDots">
+                <span class="slideshow-dot active" data-index="0"></span>
+                <span class="slideshow-dot" data-index="1"></span>
+                <span class="slideshow-dot" data-index="2"></span>
+                <span class="slideshow-dot" data-index="3"></span>
+                <span class="slideshow-dot" data-index="4"></span>
+                <span class="slideshow-dot" data-index="5"></span>
+                <span class="slideshow-dot" data-index="6"></span>
+                <span class="slideshow-dot" data-index="7"></span>
+                <span class="slideshow-dot" data-index="8"></span>
+                <span class="slideshow-dot" data-index="9"></span>
+                <span class="slideshow-dot" data-index="10"></span>
+                <span class="slideshow-dot" data-index="11"></span>
+            </div>
         </div>
     </div>
 </body>
