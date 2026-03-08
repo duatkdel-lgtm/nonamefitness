@@ -473,6 +473,27 @@
         @media (min-width: 521px) and (max-width: 700px) {
             .g3 { grid-template-columns: repeat(3,1fr); }
         }
+
+        /* ━━━ SCROLL REVEAL ANIMATION ━━━ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* 카드 아이템 순차 등장 */
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1);
+        }
+        .reveal-item.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -491,23 +512,23 @@
 
 <!-- ━━━ 2. INSIGHT ━━━ -->
 <div class="sec">
-    <p class="tag">INSIGHT</p>
-    <h2 class="stitle">왜 결심은 3일을 넘기지 못할까요?<br>문제는 의지가 아니라 <span class="hl">'환경'</span>에 있습니다.</h2>
+    <p class="tag reveal">INSIGHT</p>
+    <h2 class="stitle reveal">왜 결심은 3일을 넘기지 못할까요?<br>문제는 의지가 아니라 <span class="hl">'환경'</span>에 있습니다.</h2>
 
     <div class="g3" style="margin-top:20px;">
-        <div class="card">
+        <div class="card reveal-item">
             <div style="font-size:18px;margin-bottom:8px;">🏢</div>
             <div class="stat-num"><span>60</span><span class="stat-unit">%</span></div>
             <div class="stat-lbl">헬스장 등록 후 포기율</div>
             <div class="stat-desc">등록만 하고 3개월 내 이탈하는 회원 비율</div>
         </div>
-        <div class="card">
+        <div class="card reveal-item">
             <div style="font-size:18px;margin-bottom:8px;">₩</div>
             <div class="stat-num">80<span class="stat-unit" style="font-size:15px;">만원</span></div>
             <div class="stat-lbl">평균 PT 10회 비용</div>
             <div class="stat-desc">회당 5~8만원의 고비용 구조로 지속 부담</div>
         </div>
-        <div class="card">
+        <div class="card reveal-item">
             <div style="font-size:18px;margin-bottom:8px;">👤</div>
             <div class="stat-num"><span>10</span><span class="stat-unit">%</span></div>
             <div class="stat-lbl">혼자 운동 지속 확률</div>
@@ -515,19 +536,19 @@
         </div>
     </div>
 
-    <p class="note" style="margin-top:12px;">문제는 의지가 아닙니다. <strong>구조</strong>가 없었을 뿐입니다.</p>
+    <p class="note reveal" style="margin-top:12px;">문제는 의지가 아닙니다. <strong>구조</strong>가 없었을 뿐입니다.</p>
 </div>
 
 <div class="divider"></div>
 
 <!-- ━━━ 3. PROBLEM & SOLUTION (COMPARISON) ━━━ -->
 <div class="sec">
-    <p class="tag">PROBLEM &amp; SOLUTION</p>
-    <h2 class="stitle">알고는 있지만,<br>못 하고 있는 이유</h2>
-    <p class="sdesc">기존 운동 방식은 '가격'과 '지속성' 사이에서 항상 딜레마를 줍니다.</p>
+    <p class="tag reveal">PROBLEM &amp; SOLUTION</p>
+    <h2 class="stitle reveal">알고는 있지만,<br>못 하고 있는 이유</h2>
+    <p class="sdesc reveal">기존 운동 방식은 '가격'과 '지속성' 사이에서 항상 딜레마를 줍니다.</p>
 
     <div class="g3">
-        <div class="comp-card">
+        <div class="comp-card reveal-item">
             <div class="comp-ico">🏋️</div>
             <div class="comp-name">혼자 운동</div>
             <div class="comp-sub">일반 헬스장 이용권</div>
@@ -542,7 +563,7 @@
                 <div class="comp-price-val">3~5 만원</div>
             </div>
         </div>
-        <div class="comp-card">
+        <div class="comp-card reveal-item">
             <div class="comp-ico">👥</div>
             <div class="comp-name">일반 1:1 PT</div>
             <div class="comp-sub">퍼스널 트레이닝</div>
@@ -557,7 +578,7 @@
                 <div class="comp-price-val">40~60 만원</div>
             </div>
         </div>
-        <div class="comp-card pick">
+        <div class="comp-card pick reveal-item">
             <div class="badge">RECOMMENDED</div>
             <div class="comp-ico" style="color:var(--y);">∞</div>
             <div class="comp-name" style="color:var(--y);">무제한 PT</div>
@@ -570,44 +591,44 @@
             </ul>
             <div class="comp-price">
                 <div class="comp-price-lbl">월 평균</div>
-                <div class="comp-price-val">10만원 대</div>
+                <div class="comp-price-val">18만원</div>
             </div>
         </div>
     </div>
 
-    <p class="note" style="margin-top:10px;">결국 중요한 것은 <strong>"비용 부담 없이 꾸준히 관리받을 수 있는가"</strong> 입니다.</p>
+    <p class="note reveal" style="margin-top:10px;">결국 중요한 것은 <strong>"비용 부담 없이 꾸준히 관리받을 수 있는가"</strong> 입니다.</p>
 </div>
 
 <div class="divider"></div>
 
 <!-- ━━━ 4. SYSTEM ━━━ -->
 <div class="sec">
-    <p class="tag">SYSTEM</p>
-    <h2 class="stitle">횟수가 아니라<br><span class="hl">습관</span>을 만드는 구조</h2>
+    <p class="tag reveal">SYSTEM</p>
+    <h2 class="stitle reveal">횟수가 아니라<br><span class="hl">습관</span>을 만드는 구조</h2>
 
     <div class="system-cards" style="margin-top:24px;">
-        <div class="sys-card">
+        <div class="sys-card reveal-item">
             <div class="sys-ico">📅</div>
             <div>
                 <h3>고정 시간 예약제</h3>
                 <p>월~금, 같은 시간. 같은 장소.</p>
             </div>
         </div>
-        <div class="sys-card">
+        <div class="sys-card reveal-item">
             <div class="sys-ico">⏱️</div>
             <div>
                 <h3>트레이너 30분 독점</h3>
                 <p>1:1 집중 코칭, 온전히 나만의 시간.</p>
             </div>
         </div>
-        <div class="sys-card">
+        <div class="sys-card reveal-item">
             <div class="sys-ico">🚫</div>
             <div>
                 <h3>당일 취소 = 7일 차감</h3>
                 <p>벌칙이 아닌 사전 약속.</p>
             </div>
         </div>
-        <div class="sys-card">
+        <div class="sys-card reveal-item">
             <div class="sys-ico">🔁</div>
             <div>
                 <h3>의지 대신 구조</h3>
@@ -622,14 +643,14 @@
 
 <!-- ━━━ 5. FOR YOU ━━━ -->
 <div class="sec">
-    <p class="tag">FOR YOU</p>
-    <h2 class="stitle">이런 분이라면,<br><span class="hl">지금 시작</span>하세요</h2>
+    <p class="tag reveal">FOR YOU</p>
+    <h2 class="stitle reveal">이런 분이라면,<br><span class="hl">지금 시작</span>하세요</h2>
 
     <div class="system-cards" style="margin-top:20px;">
-        <div class="sys-card"><div class="sys-ico">₩</div><div><h3>PT 비용이 부담스러운 분</h3></div></div>
-        <div class="sys-card"><div class="sys-ico">👤</div><div><h3>혼자 하면 작심삼일인 분</h3></div></div>
-        <div class="sys-card"><div class="sys-ico">🏢</div><div><h3>등록만 하고 안 가게 되는 분</h3></div></div>
-        <div class="sys-card"><div class="sys-ico">🌱</div><div><h3>운동을 습관으로 만들고 싶은 분</h3></div></div>
+        <div class="sys-card reveal-item"><div class="sys-ico">₩</div><div><h3>PT 비용이 부담스러운 분</h3></div></div>
+        <div class="sys-card reveal-item"><div class="sys-ico">👤</div><div><h3>혼자 하면 작심삼일인 분</h3></div></div>
+        <div class="sys-card reveal-item"><div class="sys-ico">🏢</div><div><h3>등록만 하고 안 가게 되는 분</h3></div></div>
+        <div class="sys-card reveal-item"><div class="sys-ico">🌱</div><div><h3>운동을 습관으로 만들고 싶은 분</h3></div></div>
     </div>
 </div>
 
@@ -638,50 +659,39 @@
 
 <!-- ━━━ 9. PRICING ━━━ -->
 <div class="sec">
-    <p class="tag">PRICING</p>
-    <h2 class="stitle">시작 부담은 <span class="hl">낮추고,</span><br>지속성은 <span class="hl">높인</span> 가격 구조</h2>
+    <p class="tag reveal">PRICING</p>
+    <h2 class="stitle reveal">무제한 PT<br><span class="hl">월 180,000원</span></h2>
+    <p class="sdesc reveal">헬스 회원권은 별도 등록이 필요합니다.</p>
 
-    <div class="g3" style="margin-top:26px;">
-        <div class="price-card">
+    <div class="system-cards" style="margin-top:20px;">
+        <div class="sys-card reveal-item" style="border-color:var(--y);">
+            <div class="sys-ico">∞</div>
+            <div>
+                <h3 style="color:var(--y);">무제한 PT</h3>
+                <p>월 180,000원 · 트레이너 30분 1:1 코칭</p>
+            </div>
+        </div>
+    </div>
+
+    <p class="tag reveal" style="margin-top:36px;">헬스 회원권</p>
+    <div class="g3" style="margin-top:12px;">
+        <div class="price-card reveal-item">
             <div class="price-period">1 개월</div>
-            <div class="price-amt">180,000<span style="font-size:12px;">원</span></div>
-            <div class="price-note">가볍게 시작하고 싶은 분</div>
-            <ul class="price-feats">
-                <li>자유 이용 및 코칭</li>
-                <li>개인별 루틴 제공</li>
-                <li>식단 가이드</li>
-            </ul>
+            <div class="price-amt">50,000<span style="font-size:12px;">원</span></div>
         </div>
-        <div class="price-card best">
-            <div class="price-badge">BEST CHOICE</div>
-            <div class="price-period" style="color:var(--y);">3 개월</div>
-            <div class="price-amt" style="color:var(--y);">513,000<span style="font-size:12px;">원</span></div>
-            <div class="price-note">월 171,000원 / 습관 형성 최적 기간</div>
-            <ul class="price-feats">
-                <li>5% 추가 할인 적용</li>
-                <li>중간 점검·루틴 업데이트</li>
-                <li>락커룸 1개월 무료</li>
-            </ul>
+        <div class="price-card reveal-item">
+            <div class="price-period">3 개월</div>
+            <div class="price-amt">120,000<span style="font-size:12px;">원</span></div>
+            <div class="price-note">월 40,000원</div>
         </div>
-        <div class="price-card">
+        <div class="price-card reveal-item">
             <div class="price-period">6 개월</div>
-            <div class="price-amt">972,000<span style="font-size:12px;">원</span></div>
-            <div class="price-note">월 162,000원 / 확실한 변화</div>
-            <ul class="price-feats">
-                <li>10% 장기 할인 적용</li>
-                <li>바디 프로필 준비 가능</li>
-                <li>심화 운동 프로그램</li>
-            </ul>
+            <div class="price-amt">180,000<span style="font-size:12px;">원</span></div>
+            <div class="price-note">월 30,000원</div>
         </div>
     </div>
 
-    <div class="price-extras">
-        <span>👕 운동복 <strong>월 10,000원</strong></span>
-        <span>🔒 개인 락커룸 <strong>월 5,000원</strong></span>
-        <span style="color:var(--g3);">* 부가세 별도</span>
-    </div>
-
-    <p class="note" style="margin-top:10px;">💰 일반 PT 1회 비용으로 <strong>한 달을 시작</strong>할 수 있습니다</p>
+    <p class="note reveal" style="margin-top:14px;">💰 일반 PT 1회 비용으로 <strong>한 달을 시작</strong>할 수 있습니다</p>
 </div>
 
 
@@ -689,19 +699,19 @@
 
 <!-- ━━━ 11. BIG QUOTE ━━━ -->
 <div class="big-quote-sec">
-    <div class="open-q">"</div>
-    <h2>운동은 의지가 아니라<br><span class="hl">구조</span>입니다</h2>
-    <div class="big-quote-bar"></div>
-    <p>결심은 가벼워도, 구조는 단단해야 합니다</p>
+    <div class="open-q reveal">"</div>
+    <h2 class="reveal">운동은 의지가 아니라<br><span class="hl">구조</span>입니다</h2>
+    <div class="big-quote-bar reveal"></div>
+    <p class="reveal">결심은 가벼워도, 구조는 단단해야 합니다</p>
 </div>
 
 <!-- ━━━ 12. CTA ━━━ -->
 <div class="cta-sec">
-    <p class="cta-brand">NONAME FITNESS</p>
-    <div class="cta-bar"></div>
-    <h2 class="cta-title">오늘, <span class="hl">구조</span>를 시작하세요</h2>
-    <p class="cta-desc">고민하는 시간에도 몸은 변하지 않습니다.<br>의지에 기대지 말고, 검증된 시스템에 맡기세요.</p>
-    <button class="cta-btn" onclick="openModal()">상담 및 방문 문의</button>
+    <p class="cta-brand reveal">NONAME FITNESS</p>
+    <div class="cta-bar reveal"></div>
+    <h2 class="cta-title reveal">오늘, <span class="hl">구조</span>를 시작하세요</h2>
+    <p class="cta-desc reveal">고민하는 시간에도 몸은 변하지 않습니다.<br>의지에 기대지 말고, 검증된 시스템에 맡기세요.</p>
+    <button class="cta-btn reveal" onclick="openModal()">상담 및 방문 문의</button>
 
     <div class="cta-feats">
         <div class="cta-feat">
@@ -822,6 +832,37 @@ function handleOverlayClick(e) {
     if (e.target === document.getElementById('consultModal')) closeModal();
 }
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+/* ━━━ SCROLL REVEAL ━━━ */
+(function(){
+    const io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+            if(entry.isIntersecting){
+                entry.target.classList.add('active');
+                io.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+    /* reveal-item: 순차 딜레이 */
+    const io2 = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+            if(entry.isIntersecting){
+                /* 같은 부모의 reveal-item 형제끼리 순서 계산 */
+                var parent = entry.target.parentElement;
+                var siblings = parent.querySelectorAll('.reveal-item');
+                var idx = Array.prototype.indexOf.call(siblings, entry.target);
+                entry.target.style.transitionDelay = (idx * 0.12) + 's';
+                entry.target.classList.add('active');
+                io2.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-item').forEach(function(el){ io2.observe(el); });
+})();
 </script>
 
 </body>
