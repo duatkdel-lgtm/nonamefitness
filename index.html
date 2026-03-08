@@ -1053,7 +1053,7 @@
                     <input type="text" id="consultName" class="form-input" placeholder="이름을 입력해주세요" required>
                 </div>
                 <div class="form-group">
-                    <label>관심 프로그램 <span class="required">*</span></label>
+                    <label>관심 프로그램 <span class="required">*</span> <span class="sub-label">(복수 선택 가능)</span></label>
                     <div class="checkbox-group">
                         <label class="checkbox-label">
                             <input type="checkbox" name="program" value="헬스">
@@ -1075,6 +1075,11 @@
                             <span class="checkbox-custom"></span>
                             <span>스피닝</span>
                         </label>
+                        <label class="checkbox-label event-label">
+                            <input type="checkbox" name="program" value="이달의 이벤트권">
+                            <span class="checkbox-custom"></span>
+                            <span>이달의 이벤트권</span>
+                        </label>
                     </div>
                 </div>
                 <div class="form-group">
@@ -1082,15 +1087,34 @@
                     <input type="tel" id="consultPhone" class="form-input" placeholder="010-0000-0000" required>
                 </div>
                 <div class="form-group">
-                    <label for="consultGoal">운동 목표</label>
-                    <select id="consultGoal" class="form-select">
-                        <option value="">선택해주세요</option>
-                        <option value="다이어트">다이어트</option>
-                        <option value="근력강화">근력강화</option>
-                        <option value="체형교정">체형교정</option>
-                        <option value="건강관리">건강관리</option>
-                        <option value="기타">기타</option>
-                    </select>
+                    <label>운동 목표 <span class="sub-label">(복수 선택 가능)</span></label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="goal" value="다이어트">
+                            <span class="checkbox-custom"></span>
+                            <span>다이어트</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="goal" value="근력강화">
+                            <span class="checkbox-custom"></span>
+                            <span>근력강화</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="goal" value="체형교정">
+                            <span class="checkbox-custom"></span>
+                            <span>체형교정</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="goal" value="건강관리">
+                            <span class="checkbox-custom"></span>
+                            <span>건강관리</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="goal" value="기타">
+                            <span class="checkbox-custom"></span>
+                            <span>기타</span>
+                        </label>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary btn-lg modal-submit" id="consultSubmit">
                     <i class="fas fa-paper-plane"></i> 상담 신청하기

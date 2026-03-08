@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = document.getElementById('consultName').value.trim();
         const phone = consultPhone.value.trim();
         const programs = [...document.querySelectorAll('input[name="program"]:checked')].map(c => c.value);
-        const goal = document.getElementById('consultGoal').value;
+        const goal = [...document.querySelectorAll('input[name="goal"]:checked')].map(c => c.value);
 
         // Validation
         if (!name) { alert('성함을 입력해주세요.'); return; }
@@ -371,7 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name,
             programs,
             phone,
-            goal: goal || '미선택',
+            goal: goal.length > 0 ? goal : ['미선택'],
             timestamp: new Date().toISOString()
         };
 

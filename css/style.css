@@ -349,6 +349,18 @@ ul {
     color: var(--gold);
 }
 
+.sub-label {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--gray-400);
+}
+
+.event-label {
+    grid-column: 1 / -1;
+    background: rgba(212, 168, 67, 0.08);
+    border-color: rgba(212, 168, 67, 0.2);
+}
+
 .form-input,
 .form-select {
     width: 100%;
