@@ -200,6 +200,59 @@
         .for-you-card h3 { font-size: 12px; font-weight: 700; margin-bottom: 4px; color: var(--g1); }
         .for-you-card p { font-size: 11px; color: var(--g2); line-height: 1.6; }
 
+        /* ━━━ PRICING ━━━ */
+        .pricing-wrap {
+            display: grid; grid-template-columns: repeat(3,1fr); gap: 12px;
+            margin-top: 24px;
+        }
+        .price-card {
+            background: var(--s2); border: 1px solid var(--bd);
+            border-radius: var(--r); padding: 22px 16px;
+            text-align: center; position: relative;
+            transition: border-color .3s, transform .2s;
+        }
+        .price-card:hover { transform: translateY(-3px); }
+        .price-card.best {
+            border-color: var(--spin);
+            background: linear-gradient(165deg, var(--s2) 0%, rgba(224,64,251,.06) 100%);
+        }
+        .price-badge {
+            position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+            background: var(--spin); color: #fff;
+            font-size: 9px; font-weight: 900; padding: 3px 12px;
+            border-radius: 20px; white-space: nowrap; letter-spacing: .8px;
+        }
+        .price-period { font-size: 13px; font-weight: 700; color: var(--g1); margin-bottom: 8px; }
+        .price-original {
+            font-size: 12px; color: var(--g3); text-decoration: line-through;
+            margin-bottom: 2px;
+        }
+        .price-discount {
+            display: inline-block; font-size: 10px; font-weight: 900;
+            background: rgba(224,64,251,.15); color: var(--spin2);
+            padding: 2px 8px; border-radius: 10px; margin-bottom: 6px;
+        }
+        .price-amt {
+            font-size: clamp(22px, 3.5vw, 30px);
+            font-weight: 900; line-height: 1; margin-bottom: 4px;
+        }
+        .price-card.best .price-amt { color: var(--spin); }
+        .price-per {
+            font-size: 11px; color: var(--g2); margin-bottom: 14px;
+        }
+        .price-feats {
+            list-style: none; text-align: left; font-size: 11px; line-height: 1.9;
+            border-top: 1px solid var(--bd); padding-top: 10px;
+        }
+        .price-feats li::before { content: '✓ '; color: var(--spin); }
+        .price-extras {
+            display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+            background: var(--s1); border-radius: 6px; padding: 10px 14px;
+            margin-top: 12px;
+        }
+        .price-extras span { font-size: 11px; color: var(--g2); }
+        .price-extras strong { color: var(--w); }
+
         /* ━━━ BIG QUOTE ━━━ */
         .big-quote-sec {
             min-height: 55vh; display: flex; flex-direction: column;
@@ -267,6 +320,7 @@
         @media (max-width: 520px) {
             .g3 { grid-template-columns: 1fr; }
             .g2 { grid-template-columns: 1fr; }
+            .pricing-wrap { grid-template-columns: 1fr; }
         }
 
         @media (min-width: 521px) and (max-width: 700px) {
@@ -481,7 +535,67 @@
 
 <div class="divider"></div>
 
-<!-- ━━━ 7. BIG QUOTE ━━━ -->
+<!-- ━━━ 7. PRICING ━━━ -->
+<div class="sec">
+    <p class="tag">PRICING</p>
+    <h2 class="stitle">부담 없이 시작하고,<br><span class="hl">오래 탈수록</span> 이득입니다</h2>
+    <p class="sdesc">장기 등록일수록 할인율이 커집니다. 나에게 맞는 플랜을 선택하세요.</p>
+
+    <div class="pricing-wrap">
+        <!-- 1개월 -->
+        <div class="price-card">
+            <div class="price-period">1 개월</div>
+            <div class="price-amt">160,000<span style="font-size:12px;">원</span></div>
+            <div class="price-per">일 5,000원 꼴</div>
+            <ul class="price-feats">
+                <li>스피닝 전 수업 참여</li>
+                <li>오전 · 저녁 자유 선택</li>
+                <li>체험 후 시작하고 싶은 분</li>
+            </ul>
+        </div>
+
+        <!-- 3개월 BEST -->
+        <div class="price-card best">
+            <div class="price-badge">BEST 🔥</div>
+            <div class="price-period" style="color:var(--spin);">3 개월</div>
+            <div class="price-original">정상가 450,000원</div>
+            <div class="price-discount">20% OFF</div>
+            <div class="price-amt">330,000<span style="font-size:12px;">원</span></div>
+            <div class="price-per">월 110,000원 · 일 4,000원 꼴</div>
+            <ul class="price-feats">
+                <li>가장 많이 선택하는 플랜</li>
+                <li>홀딩 10일 제공</li>
+                <li>습관 형성 최적 기간</li>
+            </ul>
+        </div>
+
+        <!-- 6개월 -->
+        <div class="price-card">
+            <div class="price-period">6 개월</div>
+            <div class="price-original">정상가 900,000원</div>
+            <div class="price-discount">30% OFF</div>
+            <div class="price-amt">540,000<span style="font-size:12px;">원</span></div>
+            <div class="price-per">월 90,000원 · 일 3,500원 꼴</div>
+            <ul class="price-feats">
+                <li>최대 할인 · 최저 단가</li>
+                <li>홀딩 20일 제공</li>
+                <li>확실한 체형 변화</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="price-extras">
+        <span>👕 운동복 <strong>월 10,000원</strong></span>
+        <span>🔒 개인 락커룸 <strong>월 5,000원</strong></span>
+        <span style="color:var(--g3);">* 부가세 포함</span>
+    </div>
+
+    <p class="note" style="margin-top:10px;">🎟️ <strong>하루 커피 한 잔 값</strong>으로 매일 스피닝을 즐길 수 있습니다</p>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━ 8. BIG QUOTE ━━━ -->
 <div class="big-quote-sec">
     <div class="open-q">"</div>
     <h2>운동이 아니라<br><span class="hl">놀이</span>입니다</h2>
