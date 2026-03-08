@@ -1019,7 +1019,7 @@
 
             <div class="form-group">
                 <label class="form-label">핸드폰 번호<span class="req">*</span></label>
-                <input type="tel" class="form-input" id="cPhone" placeholder="010-0000-0000" required>
+                <input type="tel" class="form-input" id="cPhone" placeholder="010-0000-0000" maxlength="13" required oninput="formatPhone(this)">
             </div>
 
             <div class="form-group">
@@ -1090,6 +1090,13 @@
 /* ━━━ MAKE WEBHOOK URL ━━━ */
 var MAKE_WEBHOOK_URL = 'https://hook.eu2.make.com/mq170llq61dlq9jis99u269krcwp9f6d';
 
+function formatPhone(el) {
+    var v = el.value.replace(/[^0-9]/g, '');
+    if (v.length > 3 && v.length <= 7) v = v.slice(0,3) + '-' + v.slice(3);
+    else if (v.length > 7) v = v.slice(0,3) + '-' + v.slice(3,7) + '-' + v.slice(7,11);
+    el.value = v;
+}
+
 function openConsult() {
     document.getElementById('consultModal').classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -1115,6 +1122,12 @@ function submitConsult() {
 
     if (!name || !phone || !time) {
         alert('성함, 핸드폰 번호, 희망 시간대는 필수 항목입니다.');
+        return;
+    }
+
+    var phoneDigits = phone.replace(/[^0-9]/g, '');
+    if (!/^01[0-9]{8,9}$/.test(phoneDigits)) {
+        alert('올바른 핸드폰 번호를 입력해주세요. (예: 010-0000-0000)');
         return;
     }
 
