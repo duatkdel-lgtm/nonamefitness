@@ -474,66 +474,6 @@
             .g3 { grid-template-columns: repeat(3,1fr); }
         }
 
-        /* ━━━ STORY SECTION ━━━ */
-        .story-sec {
-            padding: 80px 24px;
-            max-width: 860px;
-            margin: 0 auto;
-        }
-        .story-chapter {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            color: var(--g3);
-            text-transform: uppercase;
-            margin-bottom: 16px;
-        }
-        .story-title {
-            font-size: clamp(24px, 5vw, 40px);
-            font-weight: 900;
-            line-height: 1.2;
-            margin-bottom: 12px;
-        }
-        .story-desc {
-            font-size: 14px;
-            color: var(--g2);
-            line-height: 1.8;
-            margin-bottom: 36px;
-            max-width: 520px;
-        }
-        .story-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: auto auto;
-            gap: 10px;
-        }
-        .story-grid img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-            display: block;
-        }
-        .story-grid .tall {
-            grid-row: span 2;
-        }
-        .story-caption {
-            font-size: 12px;
-            color: var(--g3);
-            text-align: center;
-            margin-top: 16px;
-            font-style: italic;
-        }
-
-        @media (max-width: 520px) {
-            .story-grid {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-            }
-            .story-grid .tall { grid-row: span 1; }
-            .story-sec { padding: 56px 20px; }
-        }
-
         /* ━━━ SCROLL REVEAL ANIMATION ━━━ */
         .reveal {
             opacity: 0;
@@ -567,42 +507,6 @@
         <button class="hero-btn">등록이 아니라 습관의 시작</button>
     </div>
 </div>
-
-<!-- ━━━ STORY: CHAPTER 1 ━━━ -->
-<div style="background:linear-gradient(180deg,#0c0c0c 0%,#111 100%);">
-    <div class="story-sec">
-        <p class="story-chapter reveal">Chapter 1</p>
-        <h2 class="story-title reveal">50평짜리 PT샵이<br><span class="hl">전부</span>였습니다</h2>
-        <p class="story-desc reveal">
-            인형탈을 쓰고 약국 앞에서 전단지를 돌렸습니다.<br>
-            화환 두 개가 전부인 오픈식이었습니다.<br>
-            그래도 매일 새벽, 조용한 50평 안에서<br>
-            한 명 한 명 만들어간 변화가 있었습니다.
-        </p>
-
-        <div class="story-grid">
-            <div class="tall reveal-item">
-                <img src="images/story-street.jpg" alt="길거리 홍보하던 시절">
-            </div>
-            <div class="reveal-item">
-                <img src="images/story-opening.jpg" alt="소박한 오픈식">
-            </div>
-            <div class="reveal-item">
-                <img src="images/story-gym1.jpg" alt="50평 PT샵 내부">
-            </div>
-        </div>
-
-        <div style="margin-top:10px;">
-            <div class="reveal-item">
-                <img src="images/story-gym2.jpg" alt="초창기 운동 공간" style="width:100%;border-radius:10px;object-fit:cover;max-height:280px;">
-            </div>
-        </div>
-
-        <p class="story-caption reveal">그 50평이, 지금의 노네임피트니스가 되었습니다.</p>
-    </div>
-</div>
-
-<div class="divider"></div>
 
 <!-- ━━━ 2. INSIGHT ━━━ -->
 <div class="sec">
