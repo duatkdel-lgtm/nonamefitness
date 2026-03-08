@@ -825,7 +825,7 @@
       #gptHeader {
         background: #2d6cdf;
         color: white;
-        padding: 10px;
+        padding: 10px 10px 6px;
         font-weight: bold;
         font-size: 15px;
         text-align: center;
@@ -837,6 +837,24 @@
         right: 12px;
         cursor: pointer;
         font-weight: bold;
+      }
+      #gptPhoneBtn {
+        display: block;
+        margin: 6px auto 4px;
+        padding: 6px 16px;
+        background: #fff;
+        color: #2d6cdf;
+        border: none;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+      #gptPhoneBtn:hover {
+        background: #e8f0fe;
+        transform: scale(1.03);
       }
       #gptBody {
         flex: 1;
@@ -913,6 +931,7 @@
       <div id="gptHeader">
         노네임피트니스 상담사 네이미입니다🔍
         <span id="gptClose">✕</span>
+        <a id="gptPhoneBtn" href="tel:041-557-9291">📞 빠른 전화 상담</a>
       </div>
       <div id="gptBody">
         <div class="chat-bubble gpt-bubble">안녕하세요 😊 무엇이 궁금하시나요?</div>
