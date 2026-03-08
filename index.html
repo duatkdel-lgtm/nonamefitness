@@ -2,9 +2,6 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <script>
-    (function(){var ua=navigator.userAgent||'';if(/KAKAOTALK/i.test(ua)){var url=location.href;if(/iPhone|iPad/i.test(ua)){location.href='kakaotalk://web/openExternal?url='+encodeURIComponent(url)}else if(/Android/i.test(ua)){location.href='intent://'+url.replace(/https?:\/\//,'')+'#Intent;scheme=https;package=com.android.chrome;end'}}})();
-    </script>
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-S8M0M3Q0P3"></script>
     <script>
@@ -825,8 +822,12 @@
         font-size: 15px;
         font-weight: 500;
         cursor: pointer;
-        z-index: 9999;
+        z-index: 10000;
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+        touch-action: manipulation;
+        user-select: none;
+        -webkit-user-select: none;
       }
       #gptModal {
         display: none;
@@ -986,12 +987,18 @@
         gptModal.classList.add("open");
       }, 1000);
 
-      gptBtn.onclick = () => {
+      function toggleGpt(e) {
+        if (e) e.preventDefault();
         gptModal.classList.toggle("open");
-      };
-      gptClose.onclick = () => {
+      }
+      function closeGpt(e) {
+        if (e) e.preventDefault();
         gptModal.classList.remove("open");
-      };
+      }
+      gptBtn.addEventListener("click", toggleGpt);
+      gptBtn.addEventListener("touchend", toggleGpt);
+      gptClose.addEventListener("click", closeGpt);
+      gptClose.addEventListener("touchend", closeGpt);
 
       gptInput.addEventListener("keypress", function (e) {
         if (e.key === "Enter") sendGpt();
