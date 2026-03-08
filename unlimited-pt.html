@@ -1047,6 +1047,25 @@
             </div>
 
             <div class="form-group">
+                <label class="form-label">성별</label>
+                <select class="form-select" id="cGender">
+                    <option value="" disabled selected>선택해주세요</option>
+                    <option value="남성">남성</option>
+                    <option value="여성">여성</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">운동 경험</label>
+                <select class="form-select" id="cExp">
+                    <option value="" disabled selected>선택해주세요</option>
+                    <option value="처음">처음이에요</option>
+                    <option value="6개월 미만">6개월 미만</option>
+                    <option value="1년 이상">1년 이상</option>
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label class="form-label">운동 목적</label>
                 <textarea class="form-textarea" id="cGoal" placeholder="예: 다이어트, 근력 강화, 체력 향상, 재활 등"></textarea>
             </div>
@@ -1090,6 +1109,8 @@ function submitConsult() {
     var name = document.getElementById('cName').value.trim();
     var phone = document.getElementById('cPhone').value.trim();
     var time = document.getElementById('cTime').value;
+    var gender = document.getElementById('cGender').value;
+    var exp = document.getElementById('cExp').value;
     var goal = document.getElementById('cGoal').value.trim();
 
     if (!name || !phone || !time) {
@@ -1105,6 +1126,8 @@ function submitConsult() {
         name: name,
         phone: phone,
         time: time,
+        gender: gender || '미선택',
+        experience: exp || '미선택',
         goal: goal || '미입력',
         source: '무제한PT 페이지',
         timestamp: new Date().toLocaleString('ko-KR')
