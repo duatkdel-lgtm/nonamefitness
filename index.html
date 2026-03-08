@@ -250,7 +250,7 @@
             </div>
             <div class="programs-grid">
                 <!-- GYM -->
-                <div class="program-card" data-aos="fade-up" data-delay="0">
+                <div class="program-card" data-aos="fade-up" data-delay="0" id="gymCard" style="cursor:pointer;">
                     <div class="program-image">
                         <img src="images/facility-main.jpg" alt="천안 두정동 헬스장 GYM 시설">
                         <div class="program-overlay">
@@ -260,7 +260,7 @@
                     <div class="program-content">
                         <h3>헬스 <span class="text-gold">(GYM)</span></h3>
                         <p>
-                            노네임피트니스는 초보자도 쉽게 적응할 수 있는 쾌적한 공간, 
+                            노네임피트니스는 초보자도 쉽게 적응할 수 있는 쾌적한 공간,
                             체계적인 기구 배치, 운동 루틴 안내 자료를 제공합니다.
                         </p>
                         <ul class="program-features">
@@ -268,6 +268,9 @@
                             <li><i class="fas fa-check"></i> 자기 주도 운동 환경</li>
                             <li><i class="fas fa-check"></i> 초보자 운동 루틴 안내</li>
                         </ul>
+                        <button class="slideshow-open-btn">
+                            <i class="fas fa-arrow-right"></i> 자세히 보기
+                        </button>
                     </div>
                 </div>
 
@@ -1201,6 +1204,14 @@
         <div class="slideshow-container">
             <button class="slideshow-close" id="spinningClose"><i class="fas fa-times"></i></button>
             <iframe class="slideshow-iframe" src="spinning.html" frameborder="0" title="스피닝 프로그램 소개"></iframe>
+        </div>
+    </div>
+
+    <!-- Gym Modal -->
+    <div class="slideshow-overlay" id="gymModal">
+        <div class="slideshow-container">
+            <button class="slideshow-close" id="gymClose"><i class="fas fa-times"></i></button>
+            <iframe class="slideshow-iframe" src="gym.html" frameborder="0" title="노네임피트니스 헬스 소개"></iframe>
         </div>
     </div>
 </body>

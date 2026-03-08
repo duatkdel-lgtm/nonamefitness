@@ -630,4 +630,46 @@ document.addEventListener('DOMContentLoaded', () => {
             closeSpinning();
         }
     });
+
+    // ===================================
+    // Gym Modal
+    // ===================================
+    const gymModal = document.getElementById('gymModal');
+    const gymClose = document.getElementById('gymClose');
+    const gymCard  = document.getElementById('gymCard');
+
+    function openGym() {
+        if (!gymModal) return;
+        gymModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeGym() {
+        if (!gymModal) return;
+        gymModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (gymCard) {
+        gymCard.addEventListener('click', (e) => {
+            if (e.target.closest('a')) return;
+            openGym();
+        });
+    }
+
+    if (gymClose) {
+        gymClose.addEventListener('click', closeGym);
+    }
+
+    if (gymModal) {
+        gymModal.addEventListener('click', (e) => {
+            if (e.target === gymModal) closeGym();
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (gymModal && gymModal.classList.contains('active') && e.key === 'Escape') {
+            closeGym();
+        }
+    });
 });

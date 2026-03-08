@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>노네임피트니스 — 헬스</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --a:  #C8956C;          /* amber accent */
+            --a2: #D4A574;
+            --a3: rgba(200,149,108,.10);
+            --bg: #0a0a0a;
+            --s1: #111;
+            --s2: #181818;
+            --s3: #222;
+            --bd: #282828;
+            --w:  #f5f0eb;          /* warm white */
+            --g1: #c8c0b8;
+            --g2: #888078;
+            --g3: #4a4540;
+            --r:  12px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--w);
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* serif for storytelling headings */
+        .serif { font-family: 'Noto Serif KR', serif; }
+
+        /* ─── SCROLL REVEAL ─── */
+        .reveal {
+            opacity: 0; transform: translateY(36px);
+            transition: opacity .8s ease, transform .8s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           HERO
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .hero {
+            min-height: 100svh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center;
+            padding: 60px 28px;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 50% 50% at 50% 90%, rgba(200,149,108,.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .hero-inner { position: relative; z-index: 1; max-width: 600px; }
+        .hero-brand {
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 4px; color: var(--g3);
+            margin-bottom: 32px;
+        }
+        .hero h1 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: 900; line-height: 1.4;
+            margin-bottom: 24px;
+        }
+        .hero h1 .hl { color: var(--a); }
+        .hero-sub {
+            font-size: clamp(14px, 2.2vw, 17px);
+            color: var(--g2); line-height: 2;
+            font-weight: 300;
+        }
+        .hero-scroll {
+            position: absolute; bottom: 36px; left: 50%;
+            transform: translateX(-50%);
+            display: flex; flex-direction: column;
+            align-items: center; gap: 8px;
+        }
+        .hero-scroll span {
+            font-size: 10px; color: var(--g3);
+            letter-spacing: 3px;
+        }
+        .scroll-line {
+            width: 1px; height: 40px;
+            background: linear-gradient(180deg, var(--a) 0%, transparent 100%);
+            animation: scrollPulse 2s infinite;
+        }
+        @keyframes scrollPulse {
+            0%, 100% { opacity: .3; }
+            50% { opacity: 1; }
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           SECTION
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .sec {
+            padding: 80px 28px;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        .divider {
+            max-width: 680px; margin: 0 auto;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--bd), transparent);
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           NARRATIVE — storytelling paragraphs
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .nar-tag {
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 3px; color: var(--a);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .nar-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: clamp(22px, 4.5vw, 36px);
+            font-weight: 900; line-height: 1.4;
+            margin-bottom: 28px;
+        }
+        .nar-title .hl { color: var(--a); }
+        .nar p {
+            font-size: clamp(14px, 2vw, 16px);
+            color: var(--g1); line-height: 2;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        .nar p:last-child { margin-bottom: 0; }
+        .nar strong { color: var(--w); font-weight: 700; }
+        .nar .hl { color: var(--a); font-weight: 500; }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           PULL QUOTE — 큰 인용문
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .pull-quote {
+            padding: 60px 28px;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .pull-quote .q-mark {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 56px; color: rgba(200,149,108,.25);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+        .pull-quote h2 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: clamp(20px, 4vw, 32px);
+            font-weight: 700; line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .pull-quote h2 .hl { color: var(--a); }
+        .pull-quote-bar {
+            width: 32px; height: 2px;
+            background: var(--g3);
+            margin: 0 auto;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           GROWTH — 50 → 200 숫자 비주얼
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .growth-visual {
+            display: flex; align-items: center;
+            justify-content: center; gap: 20px;
+            padding: 48px 20px;
+            margin: 32px 0;
+        }
+        .growth-box {
+            text-align: center;
+            flex: 0 0 auto;
+        }
+        .growth-num {
+            font-family: 'Noto Serif KR', serif;
+            font-size: clamp(52px, 12vw, 80px);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .growth-box.from .growth-num { color: var(--g3); }
+        .growth-box.to .growth-num { color: var(--a); }
+        .growth-num span {
+            font-size: clamp(18px, 3vw, 26px);
+            font-weight: 400;
+        }
+        .growth-label {
+            font-size: 13px; color: var(--g2);
+            font-weight: 500;
+        }
+        .growth-arrow {
+            font-size: 28px; color: var(--g3);
+            flex-shrink: 0;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           VALUES — 핵심 가치 카드
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .value-list {
+            display: flex; flex-direction: column;
+            gap: 16px;
+        }
+        .value-item {
+            background: var(--s2);
+            border: 1px solid var(--bd);
+            border-radius: var(--r);
+            padding: 28px 24px;
+            border-left: 3px solid var(--a);
+            transition: border-color .3s, background .3s;
+        }
+        .value-item:hover {
+            background: rgba(200,149,108,.04);
+        }
+        .value-item h3 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 18px; font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .value-item h3 .hl { color: var(--a); }
+        .value-item p {
+            font-size: 14px; color: var(--g2);
+            line-height: 1.8; font-weight: 300;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           EQUIPMENT — 기구 이야기
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .equip-quote {
+            background: var(--s2);
+            border: 1px solid var(--bd);
+            border-radius: var(--r);
+            padding: 32px 28px;
+            text-align: center;
+            margin: 32px 0;
+        }
+        .equip-quote .big-text {
+            font-family: 'Noto Serif KR', serif;
+            font-size: clamp(20px, 4vw, 28px);
+            font-weight: 900;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .equip-quote .big-text .hl { color: var(--a); }
+        .equip-quote p {
+            font-size: 14px; color: var(--g2);
+            line-height: 1.8;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           PRICING
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .price-list {
+            display: flex; flex-direction: column;
+            gap: 0;
+        }
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--bd);
+            position: relative;
+        }
+        .price-row:first-child { border-top: 1px solid var(--bd); }
+        .price-row.featured {
+            background: rgba(200,149,108,.04);
+            padding: 24px 20px;
+            margin: 0 -20px;
+            border-radius: var(--r);
+            border: 1px solid rgba(200,149,108,.2);
+            border-bottom: 1px solid rgba(200,149,108,.2);
+        }
+        .price-badge-inline {
+            position: absolute; top: -10px; right: 20px;
+            background: var(--a); color: #0a0a0a;
+            font-size: 10px; font-weight: 900;
+            padding: 3px 12px; border-radius: 20px;
+            letter-spacing: 1px;
+        }
+        .price-left { flex: 1; }
+        .price-month {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 28px; font-weight: 900;
+            line-height: 1; margin-bottom: 4px;
+        }
+        .price-row.featured .price-month { color: var(--a); }
+        .price-month span {
+            font-size: 14px; font-weight: 400;
+            color: var(--g2);
+        }
+        .price-type {
+            font-size: 12px; color: var(--g2);
+        }
+        .price-right { text-align: right; }
+        .price-amount {
+            font-size: 22px; font-weight: 900;
+        }
+        .price-row.featured .price-amount { color: var(--a); }
+        .price-amount span {
+            font-size: 13px; font-weight: 400;
+        }
+        .price-sub {
+            font-size: 12px; color: var(--g2);
+            margin-top: 2px;
+        }
+        .price-row.featured .price-sub { color: var(--a); opacity: .7; }
+
+        .price-extras-gym {
+            display: flex; justify-content: center;
+            gap: 24px; flex-wrap: wrap;
+            background: var(--s1);
+            border-radius: var(--r);
+            padding: 16px 20px;
+            margin-top: 24px;
+            font-size: 13px; color: var(--g2);
+        }
+        .price-extras-gym strong { color: var(--w); }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           FINAL SECTION — 들어와 보기만 해도
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .final-sec {
+            min-height: 70vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center;
+            padding: 80px 28px;
+            background: linear-gradient(180deg, var(--bg) 0%, #10100c 50%, var(--bg) 100%);
+        }
+        .final-sec .nar-tag { margin-bottom: 24px; }
+        .final-sec h2 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: clamp(26px, 6vw, 44px);
+            font-weight: 900; line-height: 1.4;
+            margin-bottom: 20px;
+            max-width: 500px;
+        }
+        .final-sec h2 .hl { color: var(--a); }
+        .final-bar {
+            width: 40px; height: 2px;
+            background: var(--a);
+            margin: 0 auto 24px;
+        }
+        .final-sec p {
+            font-size: 16px; color: var(--g2);
+            line-height: 1.8; max-width: 440px;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           CTA
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .cta {
+            text-align: center;
+            padding: 80px 28px 60px;
+            background: #080806;
+            border-top: 1px solid var(--s2);
+        }
+        .cta-label {
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 3px; color: var(--g3);
+            margin-bottom: 20px;
+        }
+        .cta-bar {
+            width: 2px; height: 36px;
+            background: var(--a);
+            margin: 0 auto 24px;
+        }
+        .cta h2 {
+            font-family: 'Noto Serif KR', serif;
+            font-size: clamp(24px, 5vw, 38px);
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+        .cta h2 .hl { color: var(--a); }
+        .cta-desc {
+            font-size: 15px; color: var(--g2);
+            line-height: 1.9; margin-bottom: 36px;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 18px 52px;
+            background: var(--a); color: #0a0a0a;
+            font-size: 16px; font-weight: 900;
+            border-radius: 50px;
+            cursor: pointer; border: none;
+            transition: opacity .2s;
+            letter-spacing: .5px;
+        }
+        .cta-btn:hover { opacity: .85; }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: #080806;
+            padding: 16px 28px;
+            display: flex; justify-content: space-between;
+            align-items: center; flex-wrap: wrap; gap: 8px;
+            border-top: 1px solid var(--s2);
+        }
+        footer p { font-size: 11px; color: var(--g3); }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           RESPONSIVE
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        @media (max-width: 500px) {
+            .sec { padding: 60px 22px; }
+            .growth-visual { gap: 14px; }
+            .value-item { padding: 22px 18px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ━━━ HERO ━━━ -->
+<div class="hero">
+    <div class="hero-inner">
+        <p class="hero-brand">NONAME FITNESS</p>
+        <h1>들어와 보기만 해도<br><span class="hl">안다</span></h1>
+        <p class="hero-sub">
+            화려한 말이 아니라<br>
+            공간이, 사람이, 분위기가 말해주는 곳
+        </p>
+    </div>
+    <div class="hero-scroll">
+        <span>STORY</span>
+        <div class="scroll-line"></div>
+    </div>
+</div>
+
+<!-- ━━━ CHAPTER 1 — 시작 ━━━ -->
+<div class="divider"></div>
+<div class="sec nar reveal">
+    <p class="nar-tag">CHAPTER 01</p>
+    <h2 class="nar-title">50평짜리<br><span class="hl">PT샵</span>이 전부였습니다</h2>
+
+    <p>
+        처음엔 거창한 꿈 같은 거 없었습니다.<br>
+        <strong>트레이닝을 제대로 하고 싶다.</strong><br>
+        그 마음 하나로 작은 공간을 빌렸습니다.
+    </p>
+    <p>
+        최신 기구도 없었고, 인테리어도 허술했고,
+        이름도 없었습니다 — 그래서 <span class="hl">노네임</span>.<br>
+        이름 대신 <strong>결과</strong>로 알려지겠다고 생각했습니다.
+    </p>
+    <p>
+        처음 온 회원 한 분 한 분,<br>
+        매번 인사하고, 이름을 외우고,
+        어제보다 나아진 부분을 찾아서 말해드렸습니다.<br>
+        그게 전부였어요. 그런데 그게 통했습니다.
+    </p>
+</div>
+
+<!-- ━━━ PULL QUOTE ━━━ -->
+<div class="pull-quote reveal">
+    <div class="q-mark">"</div>
+    <h2>이름은 없어도<br><span class="hl">결과</span>는 있게 하자</h2>
+    <div class="pull-quote-bar"></div>
+</div>
+
+<!-- ━━━ CHAPTER 2 — 성장 ━━━ -->
+<div class="divider"></div>
+<div class="sec nar reveal">
+    <p class="nar-tag">CHAPTER 02</p>
+    <h2 class="nar-title">회원분들이<br><span class="hl">키워준</span> 헬스장</h2>
+
+    <p>
+        입소문이 났습니다.<br>
+        "거기 한번 가봐, <strong>분위기가 달라</strong>"<br>
+        그 말 한마디가 노네임을 키웠습니다.
+    </p>
+    <p>
+        50평이 좁아졌고, 기구를 놓을 데가 없어졌습니다.<br>
+        회원분들이 늘어날수록 <strong>더 좋은 환경</strong>을 만들어야 한다는
+        책임감도 함께 커졌습니다.
+    </p>
+
+    <div class="growth-visual">
+        <div class="growth-box from">
+            <div class="growth-num">50<span>평</span></div>
+            <div class="growth-label">PT 전문샵</div>
+        </div>
+        <div class="growth-arrow">→</div>
+        <div class="growth-box to">
+            <div class="growth-num">200<span>평</span></div>
+            <div class="growth-label">종합 피트니스</div>
+        </div>
+    </div>
+
+    <p>
+        지금의 <span class="hl">200평</span>은<br>
+        저 혼자 만든 것이 아닙니다.<br>
+        <strong>회원분들의 신뢰가 쌓여서</strong> 만들어진 공간입니다.
+    </p>
+</div>
+
+<!-- ━━━ CHAPTER 3 — 기구 이야기 ━━━ -->
+<div class="divider"></div>
+<div class="sec nar reveal">
+    <p class="nar-tag">CHAPTER 03</p>
+    <h2 class="nar-title">오래된 기구만큼<br><span class="hl">오래된 경력</span></h2>
+
+    <p>
+        헬스장에 들어오시면<br>
+        세월의 흔적이 묻은 기구들이 보일 겁니다.<br>
+        반짝반짝 새것만 있는 곳이 아닙니다.
+    </p>
+    <p>
+        하지만 그 기구들은<br>
+        수천 명의 회원분들과 함께 <strong>땀을 흘려온</strong> 장비입니다.<br>
+        하나하나 관리하고, 정비하고, 닦아온 시간이<br>
+        저희의 <span class="hl">경력</span>이자 <span class="hl">자부심</span>입니다.
+    </p>
+
+    <div class="equip-quote">
+        <div class="big-text">
+            새 기구가 많은 곳은 많습니다<br>
+            <span class="hl">오래 함께한 기구</span>가 있는 곳은<br>
+            그만큼 <span class="hl">오래 버텨온 곳</span>입니다
+        </div>
+        <p>기구의 나이가 곧 저희의 경험입니다</p>
+    </div>
+
+    <p>
+        물론 필요한 장비는 꾸준히 추가하고 있습니다.<br>
+        하지만 <strong>"새것 = 좋은 곳"</strong>이라는 공식은 믿지 않습니다.<br>
+        관리와 세팅이 되어 있는 곳이 좋은 곳입니다.
+    </p>
+</div>
+
+<!-- ━━━ PULL QUOTE ━━━ -->
+<div class="pull-quote reveal">
+    <div class="q-mark">"</div>
+    <h2>기구의 나이는<br>저희 <span class="hl">경험의 깊이</span>입니다</h2>
+    <div class="pull-quote-bar"></div>
+</div>
+
+<!-- ━━━ CHAPTER 4 — 사람 ━━━ -->
+<div class="divider"></div>
+<div class="sec nar reveal">
+    <p class="nar-tag">CHAPTER 04</p>
+    <h2 class="nar-title"><span class="hl">자격 없는 트레이너</span>는<br>쓰지 않습니다</h2>
+
+    <p>
+        노네임피트니스에서<br>
+        트레이너라는 이름을 다는 건 쉬운 일이 아닙니다.
+    </p>
+    <p>
+        자격증은 기본이고,<br>
+        <strong>사람을 대하는 태도</strong>가 되어야 합니다.<br>
+        운동을 잘 가르치는 것보다<br>
+        <span class="hl">인사를 먼저 하는 것</span>이 더 중요합니다.
+    </p>
+    <p>
+        회원분이 문을 열고 들어오는 순간,<br>
+        누가 시키지 않아도 <strong>먼저 인사합니다.</strong><br>
+        그게 저희의 기본입니다.
+    </p>
+
+    <div class="value-list" style="margin-top: 32px;">
+        <div class="value-item">
+            <h3>🤝 <span class="hl">인사</span>가 기본입니다</h3>
+            <p>문을 열고 들어오는 순간부터 달라야 합니다. 먼저 인사하고, 이름을 불러드리는 것. 이게 노네임의 출발점입니다.</p>
+        </div>
+        <div class="value-item">
+            <h3>📋 <span class="hl">자격</span>이 있는 사람만</h3>
+            <p>체육학 전공, 관련 자격증은 당연한 기본. 거기에 실제 현장 경험과 회원을 대하는 진심이 있어야 합니다.</p>
+        </div>
+        <div class="value-item">
+            <h3>💬 <span class="hl">친절</span>은 선택이 아닙니다</h3>
+            <p>운동이 처음이든, 오래 하셨든 똑같이. 모르는 게 있으면 물어보세요. 절대 불편하게 하지 않습니다.</p>
+        </div>
+        <div class="value-item">
+            <h3>🏠 <span class="hl">편한 곳</span>이어야 합니다</h3>
+            <p>매일 와야 하는 곳이니까, 편해야 합니다. 눈치 볼 필요 없이 내 집처럼 운동할 수 있는 분위기를 만듭니다.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ━━━ PRICING ━━━ -->
+<div class="divider"></div>
+<div class="sec reveal">
+    <p class="nar-tag">PRICING</p>
+    <h2 class="nar-title">부담 없이,<br><span class="hl">오래</span> 다니세요</h2>
+
+    <div class="price-list">
+        <div class="price-row">
+            <div class="price-left">
+                <div class="price-month">1<span>개월</span></div>
+                <div class="price-type">입문</div>
+            </div>
+            <div class="price-right">
+                <div class="price-amount">50,000<span>원</span></div>
+            </div>
+        </div>
+        <div class="price-row featured">
+            <div class="price-badge-inline">인기</div>
+            <div class="price-left">
+                <div class="price-month">3<span>개월</span></div>
+                <div class="price-type">습관 만들기</div>
+            </div>
+            <div class="price-right">
+                <div class="price-amount">130,000<span>원</span></div>
+                <div class="price-sub">월 43,300원꼴</div>
+            </div>
+        </div>
+        <div class="price-row">
+            <div class="price-left">
+                <div class="price-month">6<span>개월</span></div>
+                <div class="price-type">본격 변화</div>
+            </div>
+            <div class="price-right">
+                <div class="price-amount">230,000<span>원</span></div>
+                <div class="price-sub">월 38,300원꼴</div>
+            </div>
+        </div>
+        <div class="price-row">
+            <div class="price-left">
+                <div class="price-month">12<span>개월</span></div>
+                <div class="price-type">라이프스타일</div>
+            </div>
+            <div class="price-right">
+                <div class="price-amount">390,000<span>원</span></div>
+                <div class="price-sub">월 32,500원꼴</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="price-extras-gym">
+        <span>👕 운동복 <strong>월 10,000원</strong></span>
+        <span>🔒 락커룸 <strong>월 5,000원</strong></span>
+    </div>
+</div>
+
+<!-- ━━━ FINAL — 들어와 보세요 ━━━ -->
+<div class="final-sec reveal">
+    <p class="nar-tag">COME AND SEE</p>
+    <h2>들어와<br><span class="hl">보기만 해도</span><br>압니다</h2>
+    <div class="final-bar"></div>
+    <p>
+        말로 하면 다 좋습니다.<br>
+        한번 와보시면 느끼실 겁니다.<br>
+        공간이, 사람이, 분위기가 말해줍니다.
+    </p>
+</div>
+
+<!-- ━━━ CTA ━━━ -->
+<div class="cta">
+    <p class="cta-label">NONAME FITNESS</p>
+    <div class="cta-bar"></div>
+    <h2>내일의 나를<br><span class="hl">바꾸는 공간</span></h2>
+    <p class="cta-desc">
+        이름 없이 시작해서, 결과로 알려진 곳.<br>
+        천안 두정동, 노네임피트니스.
+    </p>
+    <button class="cta-btn" onclick="(function(){ var p=window.parent; var gm=p.document.getElementById('gymModal'); var m=p.document.getElementById('consultModal'); if(gm) gm.classList.remove('active'); if(m){ m.classList.add('active'); p.document.body.style.overflow='hidden'; } })();">상담 예약하기</button>
+</div>
+
+<footer>
+    <p>내일의 나를 바꾸는 공간, NONAME FITNESS</p>
+    <p>천안 두정동</p>
+</footer>
+
+<!-- ─── SCROLL REVEAL ─── -->
+<script>
+(function(){
+    var els = document.querySelectorAll('.reveal');
+    if (!els.length) return;
+    var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    els.forEach(function(el){ obs.observe(el); });
+})();
+</script>
+
+</body>
+</html>
