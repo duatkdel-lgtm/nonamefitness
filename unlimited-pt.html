@@ -368,6 +368,112 @@
         footer p { font-size: 11px; color: var(--g3); }
 
         /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           STORY BLOCK
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .story-block {
+            border-left: 3px solid var(--y);
+            padding: 20px 24px;
+            margin: 24px 0;
+            background: var(--s1);
+            border-radius: 0 12px 12px 0;
+            font-size: clamp(14px, 2.3vw, 16px);
+            color: var(--g1);
+            line-height: 2;
+        }
+        .story-block strong { color: var(--w); }
+        .story-block + .story-block { margin-top: 16px; }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           NUMBER LIST
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .num-list {
+            margin-top: 28px;
+            counter-reset: num;
+        }
+        .num-item {
+            counter-increment: num;
+            display: flex; gap: 16px;
+            align-items: flex-start;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--bd);
+        }
+        .num-item:last-child { border-bottom: none; }
+        .num-item::before {
+            content: counter(num, decimal-leading-zero);
+            font-size: clamp(22px, 5vw, 28px);
+            font-weight: 900; color: var(--y);
+            flex-shrink: 0; min-width: 36px;
+            line-height: 1.3;
+        }
+        .num-item h4 {
+            font-size: clamp(16px, 3vw, 18px);
+            font-weight: 800; margin-bottom: 6px;
+        }
+        .num-item p {
+            font-size: clamp(14px, 2.3vw, 15px);
+            color: var(--g2); line-height: 1.8;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           TIMELINE
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .timeline { margin-top: 40px; }
+        .tl-item {
+            display: flex; gap: 20px;
+            position: relative;
+            padding-bottom: 36px;
+        }
+        .tl-item:last-child { padding-bottom: 0; }
+        .tl-left {
+            display: flex; flex-direction: column;
+            align-items: center; flex-shrink: 0;
+            width: 48px;
+        }
+        .tl-dot {
+            width: 12px; height: 12px;
+            background: var(--y); border-radius: 50%;
+            margin-top: 6px; position: relative; z-index: 1;
+        }
+        .tl-line {
+            width: 1px; flex: 1;
+            background: var(--bd); margin-top: 8px;
+        }
+        .tl-item:last-child .tl-line { display: none; }
+        .tl-time {
+            font-size: 13px; font-weight: 900;
+            color: var(--y); margin-bottom: 4px;
+            letter-spacing: .5px;
+        }
+        .tl-content h4 {
+            font-size: clamp(16px, 3vw, 18px);
+            font-weight: 800; margin-bottom: 6px;
+        }
+        .tl-content p {
+            font-size: clamp(14px, 2.3vw, 15px);
+            color: var(--g2); line-height: 1.8;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           DAILY BLOCK
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .daily-block {
+            background: var(--s1);
+            border: 1px solid var(--bd);
+            border-radius: 12px;
+            padding: 28px 24px;
+            margin-top: 20px;
+        }
+        .daily-block h4 {
+            font-size: 14px; font-weight: 700;
+            color: var(--y); margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        .daily-block p {
+            font-size: clamp(14px, 2.3vw, 16px);
+            color: var(--g1); line-height: 2;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
            RESPONSIVE
         ━━━━━━━━━━━━━━━━━━━━━━━━ */
         @media (max-width: 520px) {
@@ -429,11 +535,80 @@
     </div>
 </div>
 
+<!-- ━━━ SCENE ━━━ -->
+<div class="divider"></div>
+<div class="sec">
+    <p class="sec-tag rv">SCENE</p>
+    <h2 class="sec-title rv">이 패턴,<br><span class="hl">익숙하지 않으신가요?</span></h2>
+
+    <div class="story-block rv">
+        <strong>1월, 새해 결심</strong>과 함께 헬스장을 등록합니다.<br>
+        첫 주는 매일 갑니다. 러닝머신, 가슴운동, 유튜브에서 본 루틴.<br>
+        "이번엔 진짜 한다." 두 눈이 반짝입니다.
+    </div>
+    <div class="story-block rv">
+        둘째 주, <strong>야근이 생깁니다.</strong> "내일 가야지."<br>
+        셋째 주, 비가 옵니다. "주말에 몰아서 해야지."<br>
+        한 달 뒤, 남는 건 <strong>카드 결제 문자</strong>뿐입니다.
+    </div>
+    <div class="story-block rv">
+        그래서 <strong>PT를 등록합니다.</strong> 10회, 80만원.<br>
+        트레이너가 잡아주니 확실히 다릅니다.<br>
+        그런데 10회가 끝나면? <strong>다시 혼자입니다.</strong><br>
+        다시 안 가게 됩니다. 다시 등록합니다. 다시 끊깁니다.
+    </div>
+
+    <p class="sec-desc rv" style="margin-top:28px; text-align:center;">
+        이 패턴을 3번, 5번, 10번 반복하고<br>
+        결국 스스로를 탓합니다.<br>
+        <strong style="color:var(--w); font-size:clamp(17px,3vw,20px);">"난 의지가 약해서."</strong>
+    </p>
+</div>
+
 <!-- ━━━ QUOTE ━━━ -->
 <div class="quote-sec">
     <div class="quote-mark rv">"</div>
     <h2 class="rv">비싸서 못 받거나,<br>혼자서 <span class="hl">포기</span>하거나</h2>
     <div class="quote-bar rv"></div>
+</div>
+
+<!-- ━━━ WHY ━━━ -->
+<div class="divider"></div>
+<div class="sec">
+    <p class="sec-tag rv">WHY</p>
+    <h2 class="sec-title rv">당신 잘못이 아닙니다.<br><span class="hl">구조</span>가 잘못된 겁니다.</h2>
+    <p class="sec-desc rv">
+        왜 매번 같은 결과가 반복될까요?<br>
+        의지의 문제가 아닙니다. 운동이 지속되지 않는 데에는<br>
+        <strong>세 가지 구조적 이유</strong>가 있습니다.
+    </p>
+
+    <div class="num-list">
+        <div class="num-item rv">
+            <div class="num-item-text">
+                <h4>비용의 벽</h4>
+                <p>PT는 효과적이지만, 회당 5~8만원.<br>
+                한 달 20회를 받으려면 100~160만원.<br>
+                누구도 이 비용을 오래 감당할 수 없습니다.</p>
+            </div>
+        </div>
+        <div class="num-item rv">
+            <div class="num-item-text">
+                <h4>혼자라는 한계</h4>
+                <p>혼자 하면 강도를 올릴 수 없습니다.<br>
+                자세가 틀려도 모르고, 루틴도 매번 같아집니다.<br>
+                변화가 없으니 동기도 사라집니다.</p>
+            </div>
+        </div>
+        <div class="num-item rv">
+            <div class="num-item-text">
+                <h4>시스템의 부재</h4>
+                <p>출석을 안 해도 아무도 신경 쓰지 않습니다.<br>
+                안 가도 패널티가 없으니 발이 끊깁니다.<br>
+                <strong>의지로 이길 수 있는 구조가 아닙니다.</strong></p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- ━━━ COMPARE ━━━ -->
@@ -479,6 +654,44 @@
     <div class="quote-bar rv"></div>
 </div>
 
+<!-- ━━━ ONE DAY ━━━ -->
+<div class="divider"></div>
+<div class="sec">
+    <p class="sec-tag rv">ONE DAY</p>
+    <h2 class="sec-title rv">하루를<br><span class="hl">보여드립니다</span></h2>
+    <p class="sec-desc rv">
+        무제한 PT의 하루는 이렇습니다.<br>
+        특별한 의지는 필요 없습니다.
+    </p>
+
+    <div class="daily-block rv">
+        <h4>PM 7:00 — 퇴근 후</h4>
+        <p>퇴근길, 헬스장으로 향합니다.<br>
+        예약된 시간이니까 가야 합니다.<br>
+        안 가면 7일이 차감됩니다.<br>
+        <strong>그래서 그냥 갑니다.</strong></p>
+    </div>
+    <div class="daily-block rv">
+        <h4>PM 7:05 — 도착</h4>
+        <p>트레이너가 기다리고 있습니다.<br>
+        오늘의 운동 부위, 이미 프로그래밍 되어 있습니다.<br>
+        컨디션을 물어보고, 그날에 맞춰 강도를 조절합니다.</p>
+    </div>
+    <div class="daily-block rv">
+        <h4>PM 7:05 ~ 7:35 — 30분 집중</h4>
+        <p>오직 나만을 위한 시간.<br>
+        자세를 잡아주고, 한 개 더 밀어주고,<br>
+        "잘했어요"가 아니라 <strong>"더 할 수 있어요"</strong>라고 말합니다.<br>
+        혼자였다면 절대 못 했을 무게를 들어 올립니다.</p>
+    </div>
+    <div class="daily-block rv">
+        <h4>PM 7:35 — 끝</h4>
+        <p>운동이 끝나면 내일 같은 시간에 또 봅니다.<br>
+        이게 월요일부터 금요일까지 <strong>매일 반복</strong>됩니다.<br>
+        정해져 있으니까 그냥 갑니다.</p>
+    </div>
+</div>
+
 <!-- ━━━ SYSTEM ━━━ -->
 <div class="divider"></div>
 <div class="sec">
@@ -519,6 +732,79 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- ━━━ JOURNEY ━━━ -->
+<div class="divider"></div>
+<div class="sec">
+    <p class="sec-tag rv">JOURNEY</p>
+    <h2 class="sec-title rv">몸이 바뀌는<br><span class="hl">타임라인</span></h2>
+    <p class="sec-desc rv">
+        의지가 아니라 시간이 증명합니다.<br>
+        구조 안에 들어오면, 변화는 자연스럽게 따라옵니다.
+    </p>
+
+    <div class="timeline">
+        <div class="tl-item rv">
+            <div class="tl-left">
+                <div class="tl-dot"></div>
+                <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+                <p class="tl-time">1주차</p>
+                <h4>몸이 기억합니다</h4>
+                <p>처음엔 근육통이 옵니다. 퇴근하면 쉬고 싶습니다.<br>
+                그런데 예약이 되어 있으니 갑니다.<br>
+                3일만 가면 몸이 리듬을 탑니다.</p>
+            </div>
+        </div>
+        <div class="tl-item rv">
+            <div class="tl-left">
+                <div class="tl-dot"></div>
+                <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+                <p class="tl-time">2주차</p>
+                <h4>습관이 만들어집니다</h4>
+                <p>"가야 하는 곳"에서 "가는 곳"으로 바뀝니다.<br>
+                동선에 헬스장이 들어갑니다.<br>
+                운동복을 미리 챙겨 놓게 됩니다.</p>
+            </div>
+        </div>
+        <div class="tl-item rv">
+            <div class="tl-left">
+                <div class="tl-dot"></div>
+                <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+                <p class="tl-time">1개월</p>
+                <h4>변화가 보입니다</h4>
+                <p>거울 속 몸이 달라집니다. 무게가 올라갑니다.<br>
+                "어? 좀 달라진 것 같은데?"<br>
+                주변에서 먼저 알아봅니다.</p>
+            </div>
+        </div>
+        <div class="tl-item rv">
+            <div class="tl-left">
+                <div class="tl-dot"></div>
+                <div class="tl-line"></div>
+            </div>
+            <div class="tl-content">
+                <p class="tl-time">3개월</p>
+                <h4>운동이 일상이 됩니다</h4>
+                <p>이제 안 가면 허전합니다.<br>
+                의지가 아니라 루틴입니다.<br>
+                처음의 나와 지금의 나를 비교하면 놀랍습니다.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ━━━ QUOTE ━━━ -->
+<div class="quote-sec">
+    <div class="quote-mark rv">"</div>
+    <h2 class="rv">3개월이면 <span class="hl">습관</span>,<br>6개월이면 <span class="hl">체질</span>이 바뀝니다</h2>
+    <div class="quote-bar rv"></div>
 </div>
 
 <!-- ━━━ FOR YOU ━━━ -->
