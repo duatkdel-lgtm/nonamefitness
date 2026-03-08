@@ -978,32 +978,27 @@
       let chatHistory = [];
 
       if (!localStorage.getItem("sessionId")) {
-        localStorage.setItem("sessionId", crypto.randomUUID());
+        try { localStorage.setItem("sessionId", crypto.randomUUID()); }
+        catch(e) { localStorage.setItem("sessionId", Date.now() + "" + Math.random().toString(36).slice(2)); }
       }
-      const sessionId = localStorage.getItem("sessionId");
+      var sessionId = localStorage.getItem("sessionId");
 
       // 사이트 열면 1초 후 자동 팝업
-      setTimeout(() => {
+      setTimeout(function() {
         gptModal.classList.add("open");
       }, 1000);
 
-      function toggleGpt(e) {
-        if (e) e.preventDefault();
+      gptBtn.addEventListener("click", function() {
         gptModal.classList.toggle("open");
-      }
-      function closeGpt(e) {
-        if (e) e.preventDefault();
+      });
+      gptClose.addEventListener("click", function() {
         gptModal.classList.remove("open");
-      }
-      gptBtn.addEventListener("click", toggleGpt);
-      gptBtn.addEventListener("touchend", toggleGpt);
-      gptClose.addEventListener("click", closeGpt);
-      gptClose.addEventListener("touchend", closeGpt);
+      });
 
       gptInput.addEventListener("keypress", function (e) {
         if (e.key === "Enter") sendGpt();
       });
-      sendBtn.onclick = () => sendGpt();
+      sendBtn.onclick = function() { sendGpt(); };
 
       function formatReply(text) {
         const escaped = text
