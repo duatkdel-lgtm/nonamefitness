@@ -422,6 +422,48 @@ document.addEventListener('DOMContentLoaded', () => {
     updateActiveLink();
 
     // ===================================
+    // Premium PT Modal
+    // ===================================
+    const premiumPtModal = document.getElementById('premiumPtModal');
+    const premiumPtClose = document.getElementById('premiumPtClose');
+    const premiumPtCard  = document.getElementById('premiumPtCard');
+
+    function openPremiumPt() {
+        if (!premiumPtModal) return;
+        premiumPtModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePremiumPt() {
+        if (!premiumPtModal) return;
+        premiumPtModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (premiumPtCard) {
+        premiumPtCard.addEventListener('click', (e) => {
+            if (e.target.closest('a')) return;
+            openPremiumPt();
+        });
+    }
+
+    if (premiumPtClose) {
+        premiumPtClose.addEventListener('click', closePremiumPt);
+    }
+
+    if (premiumPtModal) {
+        premiumPtModal.addEventListener('click', (e) => {
+            if (e.target === premiumPtModal) closePremiumPt();
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (premiumPtModal && premiumPtModal.classList.contains('active') && e.key === 'Escape') {
+            closePremiumPt();
+        }
+    });
+
+    // ===================================
     // Unlimited PT Modal
     // ===================================
     const unlimitedPtModal = document.getElementById('unlimitedPtModal');
