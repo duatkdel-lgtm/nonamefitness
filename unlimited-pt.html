@@ -222,6 +222,22 @@
         .feat h3 { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
         .feat p { font-size: 11px; color: var(--g2); line-height: 1.6; }
 
+        /* SYSTEM 섹션 강조 카드 */
+        .system-cards { display: flex; flex-direction: column; gap: 12px; }
+        .sys-card {
+            display: flex; gap: 16px; align-items: center;
+            background: var(--s2); border: 1px solid var(--bd);
+            border-radius: var(--r); padding: 18px 20px;
+        }
+        .sys-ico {
+            width: 44px; height: 44px; border-radius: 10px;
+            background: var(--y); color: #000;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; flex-shrink: 0;
+        }
+        .sys-card h3 { font-size: 15px; font-weight: 800; margin-bottom: 4px; }
+        .sys-card p { font-size: 13px; color: var(--g2); line-height: 1.7; }
+
         /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
            6. PROCESS
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
@@ -606,30 +622,30 @@
     <p class="tag">SYSTEM</p>
     <h2 class="stitle">운동을 안 하게 되는 <span class="hl">이유</span>를 줄이고,<br>하게 되는 <span class="hl">구조</span>를 늘립니다</h2>
 
-    <div class="g2" style="margin-top:18px;">
-        <div class="feat">
-            <div class="feat-ico">📅</div>
+    <div class="system-cards" style="margin-top:18px;">
+        <div class="sys-card">
+            <div class="sys-ico">📅</div>
             <div>
                 <h3>고정 시간 예약제</h3>
                 <p>월~금, 같은 시간에 나옵니다.<br>습관은 같은 시간·같은 장소에서 만들어집니다.</p>
             </div>
         </div>
-        <div class="feat">
-            <div class="feat-ico">⏱️</div>
+        <div class="sys-card">
+            <div class="sys-ico">⏱️</div>
             <div>
                 <h3>트레이너 30분 독점</h3>
                 <p>한 명의 트레이너, 30분 1:1 집중 코칭.<br>온전히 나만을 위한 시간입니다.</p>
             </div>
         </div>
-        <div class="feat">
-            <div class="feat-ico">🚫</div>
+        <div class="sys-card">
+            <div class="sys-ico">🚫</div>
             <div>
                 <h3>당일 취소 = 7일 차감</h3>
                 <p>벌칙이 아닌 사전 약속.<br>스스로 지키게 만드는 구조입니다.</p>
             </div>
         </div>
-        <div class="feat">
-            <div class="feat-ico">🔁</div>
+        <div class="sys-card">
+            <div class="sys-ico">🔁</div>
             <div>
                 <h3>의지 대신 구조</h3>
                 <p>정해진 시간에 나오는 것 자체가 루틴.<br>반복이 쌓이면 습관이 됩니다.</p>
