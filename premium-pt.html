@@ -5,26 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>노네임피트니스 프리미엄 PT</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        /* ─── RESET & BASE ─── */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --p:   #2ECC9A;   /* 프리미엄 민트 포인트 */
-            --p2:  #56DDB1;
-            --p3:  rgba(46,204,154,.12);
-            --bg:  #0c0c0c;
-            --s1:  #161616;
-            --s2:  #1e1e1e;
-            --s3:  #262626;
-            --bd:  #2e2e2e;
-            --w:   #ffffff;
-            --g1:  #cccccc;
-            --g2:  #999999;
-            --g3:  #555555;
-            --y:   #F5BF23;   /* 무제한PT 비교용 */
-            --r: 8px;
+            --p:  #2ECC9A;
+            --p2: #56DDB1;
+            --p3: rgba(46,204,154,.10);
+            --bg: #0a0a0a;
+            --s1: #131313;
+            --s2: #1a1a1a;
+            --s3: #222;
+            --bd: #2a2a2a;
+            --w:  #fff;
+            --g1: #ccc;
+            --g2: #888;
+            --g3: #555;
+            --y:  #F5BF23;
+            --r:  12px;
         }
 
         html { scroll-behavior: smooth; }
@@ -33,818 +32,984 @@
             background: var(--bg);
             color: var(--w);
             font-family: 'Noto Sans KR', -apple-system, sans-serif;
-            font-size: 14px;
-            line-height: 1.5;
+            line-height: 1.6;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ─── TYPOGRAPHY ─── */
-        .tag {
-            font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
-            color: var(--p); text-transform: uppercase; margin-bottom: 10px;
+        /* ─── SCROLL FADE-IN ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity .7s ease, transform .7s ease;
         }
-        .stitle {
-            font-size: clamp(20px, 3.5vw, 30px);
-            font-weight: 900; line-height: 1.25; margin-bottom: 6px;
-        }
-        .sdesc { font-size: 12px; color: var(--g2); margin-bottom: 20px; line-height: 1.6; }
-        .hl  { color: var(--p); }
-        .hly { color: var(--y); }
-
-        /* ─── LAYOUT ─── */
-        .sec {
-            padding: 40px 20px;
-            max-width: 860px; margin: 0 auto;
-        }
-        .divider { width: 100%; height: 1px; background: var(--bd); }
-
-        /* ─── GRIDS ─── */
-        .g2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
-        .g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
-        .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
-        .g6 { display: grid; grid-template-columns: repeat(6,1fr); gap: 8px; }
-
-        /* ─── CARD ─── */
-        .card {
-            background: var(--s2); border: 1px solid var(--bd);
-            border-radius: var(--r); padding: 16px 14px;
-        }
-        .card.mint { border-color: var(--p); }
-
-        /* ─── NOTE BAR ─── */
-        .note {
-            background: var(--s1); border-radius: 6px;
-            padding: 12px 16px; font-size: 12px; color: var(--g1);
-            line-height: 1.6; text-align: center;
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           1. HERO
-        ━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           HERO
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .hero {
-            position: relative;
             min-height: 100svh;
-            display: flex; flex-direction: column; justify-content: center;
-            padding: 48px 24px; overflow: hidden; background: var(--bg);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center;
+            padding: 60px 28px;
+            position: relative; overflow: hidden;
         }
         .hero::before {
             content: '';
             position: absolute; inset: 0;
             background:
-                radial-gradient(ellipse 55% 45% at 12% 65%, rgba(46,204,154,.09) 0%, transparent 60%),
-                radial-gradient(ellipse 40% 30% at 90% 20%, rgba(46,204,154,.05) 0%, transparent 50%);
+                radial-gradient(ellipse 60% 50% at 50% 80%, rgba(46,204,154,.08) 0%, transparent 60%),
+                radial-gradient(ellipse 30% 40% at 20% 30%, rgba(46,204,154,.04) 0%, transparent 50%);
             pointer-events: none;
         }
-        .hero-inner { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; width: 100%; }
-        .hero-brand { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--g3); text-transform: uppercase; margin-bottom: 10px; }
-        .hero-tag-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+        .hero-inner { position: relative; z-index: 1; max-width: 600px; }
         .hero-chip {
-            background: var(--p3); border: 1px solid var(--p);
-            color: var(--p); font-size: 10px; font-weight: 700;
-            padding: 4px 12px; border-radius: 20px; letter-spacing: 1px;
+            display: inline-block;
+            background: var(--p3); border: 1px solid rgba(46,204,154,.3);
+            color: var(--p); font-size: 11px; font-weight: 700;
+            padding: 6px 18px; border-radius: 30px;
+            letter-spacing: 2px; margin-bottom: 28px;
         }
-        .hero-title { font-size: clamp(28px, 5.5vw, 52px); font-weight: 900; line-height: 1.15; margin-bottom: 14px; }
-        .hero-sub { font-size: clamp(12px, 2vw, 15px); color: var(--g1); line-height: 1.8; margin-bottom: 28px; }
+        .hero h1 {
+            font-size: clamp(32px, 7vw, 56px);
+            font-weight: 900; line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .hero h1 .hl { color: var(--p); }
+        .hero-sub {
+            font-size: clamp(15px, 2.5vw, 18px);
+            color: var(--g1); line-height: 1.8;
+            margin-bottom: 40px; font-weight: 300;
+        }
         .hero-btn {
-            display: inline-block; padding: 13px 30px;
+            display: inline-block; padding: 16px 40px;
             border: 2px solid var(--p); color: var(--p);
-            font-size: 12px; font-weight: 700; letter-spacing: 1px;
-            background: transparent; cursor: pointer; border-radius: 3px;
-            transition: background .2s, color .2s;
+            font-size: 14px; font-weight: 700; letter-spacing: 1px;
+            background: transparent; cursor: pointer; border-radius: 50px;
+            transition: all .3s;
         }
         .hero-btn:hover { background: var(--p); color: #000; }
+        .hero-scroll {
+            position: absolute; bottom: 32px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px; color: var(--g3);
+            letter-spacing: 2px; text-transform: uppercase;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           2. WHY PREMIUM (4 POINTS)
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .point-card {
-            background: var(--s2); border: 1px solid var(--bd);
-            border-radius: var(--r); padding: 18px 16px;
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           SECTION COMMONS
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .sec {
+            padding: 80px 28px;
+            max-width: 720px;
+            margin: 0 auto;
         }
-        .point-num {
-            font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
-            color: var(--p); text-transform: uppercase; margin-bottom: 8px;
+        .sec-full {
+            padding: 80px 28px;
+            max-width: 100%;
         }
-        .point-title { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
-        .point-val { font-size: 18px; font-weight: 900; line-height: 1.2; margin-bottom: 6px; }
-        .point-val .hl { color: var(--p); }
-        .point-desc { font-size: 11px; color: var(--g2); line-height: 1.6; }
+        .sec-tag {
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 3px; color: var(--p);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .sec-title {
+            font-size: clamp(24px, 5vw, 40px);
+            font-weight: 900; line-height: 1.3;
+            margin-bottom: 16px;
+        }
+        .sec-title .hl { color: var(--p); }
+        .sec-desc {
+            font-size: clamp(14px, 2vw, 17px);
+            color: var(--g2); line-height: 1.8;
+            margin-bottom: 40px; font-weight: 300;
+        }
+        .divider {
+            max-width: 720px; margin: 0 auto;
+            height: 1px; background: var(--bd);
+        }
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           3. FITRIX AI
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .ai-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin: 20px 0 14px; }
-        .ai-step {
-            background: var(--s2); border: 1px solid var(--bd);
-            border-radius: var(--r); padding: 18px 14px;
-            text-align: center;
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           WHY PREMIUM — 핵심 4포인트
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .why-list {
+            display: flex; flex-direction: column;
+            gap: 0;
         }
-        .ai-step-num {
-            width: 32px; height: 32px; border-radius: 50%;
-            background: var(--p); color: #000;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 12px; font-weight: 900; margin: 0 auto 10px;
+        .why-item {
+            display: flex; align-items: flex-start; gap: 24px;
+            padding: 32px 0;
+            border-bottom: 1px solid var(--bd);
         }
-        .ai-step-ico { font-size: 22px; margin-bottom: 8px; }
-        .ai-step h3 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
-        .ai-step p { font-size: 11px; color: var(--g2); line-height: 1.6; }
-        .ai-highlight {
-            background: var(--p3); border: 1px solid var(--p);
-            border-radius: var(--r); padding: 16px 18px;
-            display: grid; grid-template-columns: repeat(3,1fr); gap: 14px;
+        .why-item:last-child { border-bottom: none; }
+        .why-num {
+            font-size: 48px; font-weight: 900;
+            color: rgba(46,204,154,.15);
+            line-height: 1; flex-shrink: 0;
+            min-width: 56px;
         }
-        .ai-stat { text-align: center; }
-        .ai-stat-num { font-size: 24px; font-weight: 900; color: var(--p); line-height: 1; margin-bottom: 4px; }
-        .ai-stat-lbl { font-size: 10px; color: var(--g2); line-height: 1.4; }
+        .why-body h3 {
+            font-size: clamp(18px, 3vw, 22px);
+            font-weight: 700; margin-bottom: 8px;
+        }
+        .why-body h3 .hl { color: var(--p); }
+        .why-body p {
+            font-size: clamp(13px, 2vw, 15px);
+            color: var(--g2); line-height: 1.7;
+        }
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           4. PLIC APP
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .plic-wrap {
-            display: grid; grid-template-columns: 1fr 1.4fr; gap: 16px;
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           HIGHLIGHT BAR
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .highlight-bar {
+            background: linear-gradient(135deg, rgba(46,204,154,.08) 0%, rgba(46,204,154,.02) 100%);
+            border-left: 3px solid var(--p);
+            border-radius: 0 var(--r) var(--r) 0;
+            padding: 24px 28px;
             margin-top: 20px;
         }
-        .plic-phone-mock {
-            background: linear-gradient(160deg, #1a2a24 0%, #111 100%);
-            border: 1px solid var(--bd); border-radius: 16px;
-            padding: 20px 16px;
-            display: flex; flex-direction: column; gap: 8px;
+        .highlight-bar p {
+            font-size: clamp(14px, 2vw, 16px);
+            color: var(--g1); line-height: 1.7;
         }
-        .plic-phone-bar {
-            height: 4px; background: var(--bd); border-radius: 2px; overflow: hidden;
+        .highlight-bar .hl { color: var(--p); font-weight: 700; }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           FITRIX AI — 3 STEPS
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .steps-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
         }
-        .plic-phone-bar-fill { height: 100%; background: var(--p); }
-        .plic-mock-title { font-size: 11px; font-weight: 700; color: var(--p); margin-bottom: 4px; }
-        .plic-mock-row {
-            background: var(--s3); border-radius: 6px; padding: 9px 12px;
-            display: flex; justify-content: space-between; align-items: center;
+        .step-card {
+            background: var(--s2);
+            border: 1px solid var(--bd);
+            border-radius: var(--r);
+            padding: 28px 20px;
+            text-align: center;
+            transition: border-color .3s;
         }
-        .plic-mock-row .label { font-size: 10px; color: var(--g2); }
-        .plic-mock-row .value { font-size: 13px; font-weight: 700; }
-        .plic-mock-row .value.done { color: var(--p); }
-        .plic-feats { display: flex; flex-direction: column; gap: 8px; }
-        .plic-feat {
-            display: flex; gap: 12px; align-items: flex-start;
-            background: var(--s2); border: 1px solid var(--bd);
-            border-radius: var(--r); padding: 13px 14px;
+        .step-card:hover { border-color: rgba(46,204,154,.3); }
+        .step-icon {
+            font-size: 36px;
+            margin-bottom: 16px;
         }
-        .plic-feat-ico {
-            width: 34px; height: 34px; border-radius: 7px;
+        .step-num {
+            display: inline-block;
+            width: 28px; height: 28px;
             background: var(--p); color: #000;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 15px; flex-shrink: 0;
+            border-radius: 50%;
+            font-size: 12px; font-weight: 900;
+            line-height: 28px;
+            margin-bottom: 12px;
         }
-        .plic-feat h3 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
-        .plic-feat p { font-size: 11px; color: var(--g2); line-height: 1.6; }
+        .step-card h3 {
+            font-size: 16px; font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .step-card p {
+            font-size: 13px; color: var(--g2);
+            line-height: 1.7;
+        }
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           5. PROCESS
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .step-wrap { display: grid; grid-template-columns: repeat(6,1fr); gap: 8px; margin: 22px 0 16px; }
-        .step { text-align: center; }
-        .step-circle {
-            width: 36px; height: 36px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 11px; font-weight: 900; margin: 0 auto 7px;
+        .ai-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            background: var(--p3);
+            border: 1px solid rgba(46,204,154,.2);
+            border-radius: var(--r);
+            overflow: hidden;
         }
-        .step-circle.on  { background: var(--p); color: #000; }
-        .step-circle.off { background: var(--s3); color: var(--g3); }
-        .step-t { font-size: 10px; font-weight: 700; line-height: 1.4; margin-bottom: 3px; }
-        .step-d { font-size: 9px; color: var(--g2); line-height: 1.5; }
+        .ai-stat {
+            text-align: center;
+            padding: 24px 16px;
+        }
+        .ai-stat + .ai-stat { border-left: 1px solid rgba(46,204,154,.15); }
+        .ai-stat-val {
+            font-size: clamp(28px, 4vw, 36px);
+            font-weight: 900; color: var(--p);
+            line-height: 1; margin-bottom: 6px;
+        }
+        .ai-stat-lbl {
+            font-size: 12px; color: var(--g2);
+        }
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           6. FOR YOU
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .for-card {
-            display: flex; gap: 12px; align-items: flex-start;
-            background: var(--s2); border: 1px solid var(--bd);
-            border-radius: var(--r); padding: 14px;
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           PLIC APP
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .plic-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
         }
-        .for-ico {
-            width: 36px; height: 36px; background: var(--s3);
-            border-radius: 8px; flex-shrink: 0;
+        .plic-card {
+            background: var(--s2);
+            border: 1px solid var(--bd);
+            border-radius: var(--r);
+            padding: 24px 20px;
+            transition: border-color .3s;
+        }
+        .plic-card:hover { border-color: rgba(46,204,154,.3); }
+        .plic-card-icon {
+            width: 44px; height: 44px;
+            background: var(--p); color: #000;
+            border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 17px;
+            font-size: 20px;
+            margin-bottom: 16px;
         }
-        .for-card h3 { font-size: 12px; font-weight: 700; margin-bottom: 4px; color: var(--g1); }
-        .for-card p  { font-size: 11px; color: var(--g2); line-height: 1.6; }
+        .plic-card h3 {
+            font-size: 16px; font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .plic-card p {
+            font-size: 13px; color: var(--g2);
+            line-height: 1.7;
+        }
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           7. DIFFERENCE (비교)
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .diff-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 12px; }
-        .diff-table th, .diff-table td { padding: 11px 14px; text-align: center; border-bottom: 1px solid var(--bd); }
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           PROCESS TIMELINE
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .timeline {
+            position: relative;
+            padding-left: 36px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px; top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--p) 0%, var(--bd) 60%, var(--bd) 100%);
+        }
+        .tl-item {
+            position: relative;
+            padding: 0 0 36px;
+        }
+        .tl-item:last-child { padding-bottom: 0; }
+        .tl-dot {
+            position: absolute;
+            left: -30px; top: 4px;
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            border: 2px solid var(--p);
+            background: var(--bg);
+        }
+        .tl-item.done .tl-dot { background: var(--p); }
+        .tl-item h3 {
+            font-size: 17px; font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .tl-item p {
+            font-size: 14px; color: var(--g2);
+            line-height: 1.7;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           FOR YOU
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .for-list {
+            display: flex; flex-direction: column;
+            gap: 12px;
+        }
+        .for-item {
+            display: flex; align-items: center; gap: 16px;
+            background: var(--s2);
+            border: 1px solid var(--bd);
+            border-radius: var(--r);
+            padding: 20px 24px;
+            transition: border-color .3s;
+        }
+        .for-item:hover { border-color: rgba(46,204,154,.3); }
+        .for-icon {
+            font-size: 28px; flex-shrink: 0;
+        }
+        .for-item .for-text h3 {
+            font-size: 15px; font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .for-item .for-text p {
+            font-size: 13px; color: var(--g2);
+            line-height: 1.6;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           DIFFERENCE TABLE
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .diff-wrap {
+            overflow-x: auto; -webkit-overflow-scrolling: touch;
+        }
+        .diff-table {
+            width: 100%; border-collapse: collapse;
+            font-size: 14px; min-width: 400px;
+        }
+        .diff-table th, .diff-table td {
+            padding: 14px 16px;
+            text-align: center;
+            border-bottom: 1px solid var(--bd);
+        }
         .diff-table thead tr { background: var(--s1); }
-        .diff-table thead th { font-size: 11px; font-weight: 700; color: var(--g2); }
-        .diff-table thead th.col-unlimited { color: var(--y); }
-        .diff-table thead th.col-premium   { color: var(--p); }
-        .diff-table tbody tr:hover { background: rgba(255,255,255,.02); }
-        .diff-table td.row-label { text-align: left; color: var(--g2); font-size: 11px; padding-left: 16px; }
-        .diff-table td.unlimited { color: var(--y); font-weight: 700; }
-        .diff-table td.premium   { color: var(--p); font-weight: 700; }
-        .diff-table td.neutral   { color: var(--g1); }
-        .diff-summary {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px;
+        .diff-table thead th {
+            font-size: 12px; font-weight: 700; color: var(--g2);
+            letter-spacing: 1px;
         }
-        .diff-summary-card {
-            border-radius: var(--r); padding: 14px 16px;
-        }
-        .diff-summary-card.unlimited { background: rgba(245,191,35,.06); border: 1px solid rgba(245,191,35,.25); }
-        .diff-summary-card.premium   { background: rgba(46,204,154,.06); border: 1px solid rgba(46,204,154,.25); }
-        .diff-sum-tag { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 6px; }
-        .diff-sum-tag.unlimited { color: var(--y); }
-        .diff-sum-tag.premium   { color: var(--p); }
-        .diff-sum-title { font-size: 15px; font-weight: 900; margin-bottom: 4px; }
-        .diff-sum-desc  { font-size: 11px; color: var(--g2); line-height: 1.6; }
+        .diff-table thead th.col-u { color: var(--y); }
+        .diff-table thead th.col-p { color: var(--p); }
+        .diff-table td.label { text-align: left; color: var(--g2); font-size: 13px; }
+        .diff-table td.u { color: var(--y); font-weight: 600; }
+        .diff-table td.p { color: var(--p); font-weight: 700; }
+        .diff-table td.dim { color: var(--g3); }
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           8. PRICING
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .price-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 8px; margin-top: 24px; }
-        .price-card {
-            background: var(--s2); border: 1px solid var(--bd);
-            border-radius: var(--r); padding: 16px 12px;
-            text-align: center; position: relative;
+        .diff-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px; margin-top: 24px;
         }
-        .price-card.best { border-color: var(--p); }
-        .price-badge {
-            position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+        .diff-card {
+            border-radius: var(--r); padding: 24px;
+        }
+        .diff-card.unlimited-card {
+            background: rgba(245,191,35,.05);
+            border: 1px solid rgba(245,191,35,.2);
+        }
+        .diff-card.premium-card {
+            background: rgba(46,204,154,.05);
+            border: 1px solid rgba(46,204,154,.2);
+        }
+        .diff-card-tag {
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 2px; margin-bottom: 10px;
+        }
+        .diff-card.unlimited-card .diff-card-tag { color: var(--y); }
+        .diff-card.premium-card .diff-card-tag { color: var(--p); }
+        .diff-card h3 {
+            font-size: 20px; font-weight: 900;
+            margin-bottom: 8px;
+        }
+        .diff-card.unlimited-card h3 { color: var(--y); }
+        .diff-card.premium-card h3 { color: var(--p); }
+        .diff-card p {
+            font-size: 13px; color: var(--g2);
+            line-height: 1.7;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           PRICING
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .price-scroll {
+            display: flex; gap: 12px;
+            overflow-x: auto; -webkit-overflow-scrolling: touch;
+            padding-bottom: 12px;
+            scroll-snap-type: x mandatory;
+        }
+        .price-scroll::-webkit-scrollbar { height: 4px; }
+        .price-scroll::-webkit-scrollbar-track { background: var(--s1); border-radius: 2px; }
+        .price-scroll::-webkit-scrollbar-thumb { background: var(--g3); border-radius: 2px; }
+
+        .pr-card {
+            flex: 0 0 200px;
+            scroll-snap-align: start;
+            background: var(--s2);
+            border: 1px solid var(--bd);
+            border-radius: var(--r);
+            padding: 28px 20px;
+            text-align: center;
+            position: relative;
+        }
+        .pr-card.best {
+            border-color: var(--p);
+            background: linear-gradient(180deg, rgba(46,204,154,.06) 0%, var(--s2) 100%);
+        }
+        .pr-badge {
+            position: absolute; top: -12px; left: 50%;
+            transform: translateX(-50%);
             background: var(--p); color: #000;
-            font-size: 9px; font-weight: 900; padding: 3px 11px;
-            border-radius: 20px; white-space: nowrap; letter-spacing: .8px;
+            font-size: 10px; font-weight: 900;
+            padding: 4px 14px; border-radius: 20px;
+            letter-spacing: 1px; white-space: nowrap;
         }
-        .price-sessions { font-size: 20px; font-weight: 900; margin-bottom: 2px; }
-        .price-card.best .price-sessions { color: var(--p); }
-        .price-session-lbl { font-size: 10px; color: var(--g2); margin-bottom: 10px; }
-        .price-original {
-            font-size: 10px; color: var(--g3);
-            text-decoration: line-through; margin-bottom: 2px;
+        .pr-sessions {
+            font-size: 36px; font-weight: 900;
+            margin-bottom: 2px;
         }
-        .price-amt { font-size: clamp(14px,2vw,18px); font-weight: 900; margin-bottom: 2px; }
-        .price-card.best .price-amt { color: var(--p); }
-        .price-per { font-size: 10px; color: var(--g2); margin-bottom: 10px; }
-        .price-feats {
-            list-style: none; font-size: 10px; line-height: 1.9; text-align: left;
-            border-top: 1px solid var(--bd); padding-top: 10px; color: var(--g1);
+        .pr-card.best .pr-sessions { color: var(--p); }
+        .pr-sessions span { font-size: 16px; font-weight: 500; }
+        .pr-label {
+            font-size: 12px; color: var(--g2);
+            margin-bottom: 16px;
         }
-        .price-feats li::before { content: '✓ '; color: var(--p); }
-        .price-feats li.na { color: var(--g3); }
-        .price-feats li.na::before { content: '✗ '; color: var(--g3); }
+        .pr-original {
+            font-size: 12px; color: var(--g3);
+            text-decoration: line-through;
+            margin-bottom: 4px;
+        }
+        .pr-price {
+            font-size: 22px; font-weight: 900;
+            margin-bottom: 4px;
+        }
+        .pr-card.best .pr-price { color: var(--p); }
+        .pr-price span { font-size: 13px; font-weight: 400; }
+        .pr-per {
+            font-size: 12px; color: var(--g2);
+            margin-bottom: 20px;
+        }
+        .pr-card.best .pr-per { color: var(--p); }
+        .pr-feats {
+            list-style: none;
+            font-size: 12px; color: var(--g1);
+            line-height: 2; text-align: left;
+            border-top: 1px solid var(--bd);
+            padding-top: 16px;
+        }
+        .pr-feats li::before { content: '✓  '; color: var(--p); }
+        .pr-feats li.na { color: var(--g3); }
+        .pr-feats li.na::before { content: '—  '; color: var(--g3); }
 
         .price-extras {
-            display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
-            background: var(--s1); border-radius: 6px; padding: 10px 14px; margin-top: 12px;
+            display: flex; justify-content: center;
+            gap: 24px; flex-wrap: wrap;
+            background: var(--s1);
+            border-radius: var(--r);
+            padding: 16px 20px;
+            margin-top: 20px;
+            font-size: 13px; color: var(--g2);
         }
-        .price-extras span { font-size: 11px; color: var(--g2); }
         .price-extras strong { color: var(--w); }
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           9. BIG QUOTE
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .big-quote-sec {
-            min-height: 50vh;
+        .price-note {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px; color: var(--g2);
+            line-height: 1.7;
+        }
+        .price-note .hl { color: var(--p); font-weight: 700; }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           OUR STORY
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .story-flow {
+            display: flex; flex-direction: column;
+            align-items: center; gap: 0;
+        }
+        .story-arrow {
+            padding: 8px 0;
+            opacity: .6;
+        }
+        .story-block {
+            width: 100%;
+            background: var(--s2);
+            border: 1px solid var(--bd);
+            border-radius: var(--r);
+            padding: 32px 28px;
+            text-align: center;
+            position: relative;
+        }
+        .story-block.end {
+            border-color: rgba(46,204,154,.3);
+            background: linear-gradient(180deg, rgba(46,204,154,.05) 0%, var(--s2) 100%);
+        }
+        .story-year {
+            display: inline-block;
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 2px; color: var(--g3);
+            text-transform: uppercase;
+            background: var(--bg);
+            border: 1px solid var(--bd);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+        .story-block.end .story-year {
+            color: var(--p);
+            border-color: rgba(46,204,154,.3);
+        }
+        .story-size {
+            font-size: clamp(48px, 10vw, 72px);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 4px;
+            color: var(--g3);
+        }
+        .story-block.end .story-size { color: var(--p); }
+        .story-size span {
+            font-size: clamp(18px, 3vw, 24px);
+            font-weight: 500;
+        }
+        .story-label {
+            font-size: 14px; font-weight: 700;
+            color: var(--g2);
+            margin-bottom: 16px;
+        }
+        .story-block.end .story-label { color: var(--g1); }
+        .story-block p {
+            font-size: 14px;
+            color: var(--g2);
+            line-height: 1.8;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           BIG QUOTE
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .big-quote {
+            min-height: 60vh;
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             text-align: center;
-            padding: 56px 24px;
-            background: linear-gradient(135deg, #090909 0%, #121c18 100%);
+            padding: 80px 28px;
+            background: linear-gradient(180deg, var(--bg) 0%, #0d1510 50%, var(--bg) 100%);
         }
-        .big-quote-sec .open-q { font-size: 36px; color: var(--p); margin-bottom: 10px; }
-        .big-quote-sec h2 { font-size: clamp(20px,4.5vw,40px); font-weight: 900; line-height: 1.3; margin-bottom: 16px; }
-        .big-quote-bar { width: 36px; height: 2px; background: var(--g3); margin: 0 auto 16px; }
-        .big-quote-sec p { font-size: 13px; color: var(--g2); }
+        .big-quote .q-mark {
+            font-size: 64px; color: rgba(46,204,154,.25);
+            line-height: 1; margin-bottom: 20px;
+        }
+        .big-quote h2 {
+            font-size: clamp(22px, 5vw, 38px);
+            font-weight: 900; line-height: 1.4;
+            margin-bottom: 16px; max-width: 600px;
+        }
+        .big-quote h2 .hl { color: var(--p); }
+        .big-quote-bar {
+            width: 40px; height: 2px;
+            background: var(--g3);
+            margin: 0 auto 16px;
+        }
+        .big-quote p {
+            font-size: 15px; color: var(--g2);
+        }
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           10. CTA
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .cta-sec {
-            text-align: center; padding: 56px 24px 48px;
-            background: #080808; border-top: 1px solid var(--s2);
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           CTA
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .cta {
+            text-align: center;
+            padding: 80px 28px 60px;
+            background: #080808;
+            border-top: 1px solid var(--s2);
         }
-        .cta-brand { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--g3); margin-bottom: 14px; text-transform: uppercase; }
-        .cta-bar { width: 2px; height: 30px; background: var(--p); margin: 0 auto 16px; }
-        .cta-title { font-size: clamp(24px,4.5vw,40px); font-weight: 900; margin-bottom: 12px; }
-        .cta-desc { font-size: 13px; color: var(--g2); line-height: 1.8; margin-bottom: 28px; }
+        .cta-brand {
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 3px; color: var(--g3);
+            margin-bottom: 20px;
+        }
+        .cta-bar {
+            width: 2px; height: 36px;
+            background: var(--p);
+            margin: 0 auto 24px;
+        }
+        .cta h2 {
+            font-size: clamp(26px, 5vw, 42px);
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+        .cta h2 .hl { color: var(--p); }
+        .cta-desc {
+            font-size: 15px; color: var(--g2);
+            line-height: 1.8;
+            margin-bottom: 36px;
+        }
         .cta-btn {
-            display: inline-block; padding: 16px 44px;
+            display: inline-block;
+            padding: 18px 52px;
             background: var(--p); color: #000;
-            font-size: 15px; font-weight: 900; letter-spacing: .5px;
-            border-radius: 4px; cursor: pointer; border: none;
+            font-size: 16px; font-weight: 900;
+            border-radius: 50px;
+            cursor: pointer; border: none;
             transition: opacity .2s;
+            letter-spacing: .5px;
         }
         .cta-btn:hover { opacity: .85; }
-        .cta-feats {
-            display: flex; justify-content: center; gap: 28px; flex-wrap: wrap;
-            margin-top: 36px; padding-top: 36px; border-top: 1px solid var(--s2);
+        .cta-icons {
+            display: flex; justify-content: center;
+            gap: 32px; flex-wrap: wrap;
+            margin-top: 44px;
+            padding-top: 44px;
+            border-top: 1px solid var(--s2);
         }
-        .cta-feat { text-align: center; }
-        .cta-feat-ico {
-            width: 46px; height: 46px; background: var(--s2); border-radius: 50%;
+        .cta-icon-item { text-align: center; }
+        .cta-icon-circle {
+            width: 52px; height: 52px;
+            background: var(--s2);
+            border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 18px; margin: 0 auto 7px;
+            font-size: 22px;
+            margin: 0 auto 8px;
         }
-        .cta-feat p { font-size: 11px; color: var(--g2); }
+        .cta-icon-item p { font-size: 12px; color: var(--g2); }
 
         /* ─── FOOTER ─── */
         footer {
-            background: #080808; padding: 14px 24px;
-            display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px solid var(--s2); flex-wrap: wrap; gap: 6px;
+            background: #080808;
+            padding: 16px 28px;
+            display: flex; justify-content: space-between;
+            align-items: center; flex-wrap: wrap; gap: 8px;
+            border-top: 1px solid var(--s2);
         }
-        footer p { font-size: 10px; color: var(--g3); }
+        footer p { font-size: 11px; color: var(--g3); }
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           MODAL
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .modal-overlay {
-            position: fixed; inset: 0; z-index: 9999;
-            background: rgba(0,0,0,.75); backdrop-filter: blur(4px);
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none;
-            transition: opacity .25s;
-            padding: 20px;
-        }
-        .modal-overlay.active { opacity: 1; pointer-events: all; }
-        .modal-box {
-            background: #1a1a1a; border: 1px solid #333;
-            border-radius: 14px; padding: 28px 24px;
-            width: 100%; max-width: 400px;
-            transform: translateY(16px);
-            transition: transform .25s;
-        }
-        .modal-overlay.active .modal-box { transform: translateY(0); }
-        .modal-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 6px;
-        }
-        .modal-title { font-size: 17px; font-weight: 900; }
-        .modal-close {
-            width: 28px; height: 28px; border-radius: 50%; background: #2a2a2a;
-            border: none; color: #aaa; font-size: 16px; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .modal-subtitle { font-size: 12px; color: var(--g2); margin-bottom: 20px; }
-        .modal-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-        .modal-option {
-            display: flex; align-items: center; gap: 14px;
-            background: #242424; border: 1px solid #333; border-radius: 10px;
-            padding: 14px 16px; text-decoration: none; color: var(--w);
-            cursor: pointer; transition: border-color .2s, background .2s;
-        }
-        .modal-option:hover { border-color: var(--p); background: rgba(46,204,154,.05); }
-        .modal-opt-ico {
-            width: 40px; height: 40px; border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px; flex-shrink: 0;
-        }
-        .modal-opt-ico.kakao  { background: #FEE500; }
-        .modal-opt-ico.call   { background: #2ECC9A; }
-        .modal-opt-ico.visit  { background: #3D3D3D; }
-        .modal-opt-label { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
-        .modal-opt-desc  { font-size: 11px; color: var(--g2); }
-        .modal-notice {
-            font-size: 10px; color: var(--g3); text-align: center; line-height: 1.6;
-            padding-top: 14px; border-top: 1px solid #2a2a2a;
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           RESPONSIVE
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        @media (max-width: 600px) {
+            .sec { padding: 60px 22px; }
+            .steps-row { grid-template-columns: 1fr; gap: 12px; }
+            .plic-grid { grid-template-columns: 1fr; }
+            .diff-cards { grid-template-columns: 1fr; }
+            .why-item { flex-direction: column; gap: 12px; }
+            .why-num { font-size: 36px; min-width: auto; }
+            .pr-card { flex: 0 0 170px; }
         }
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           LANDSCAPE MOBILE
-        ━━━━━━━━━━━━━━━━━━━━ */
-        @media screen and (orientation: landscape) and (max-height: 480px) {
-            .sec { padding: 24px 18px; }
-            .hero { min-height: auto; padding: 32px 20px; }
-            .hero-title { font-size: 26px; }
-            .stitle { font-size: 18px; }
-            .tag { margin-bottom: 7px; }
-            .sdesc { margin-bottom: 12px; }
-            .card { padding: 11px 11px; }
-            .point-card { padding: 14px 12px; }
-            .big-quote-sec { min-height: 38vh; padding: 32px 20px; }
-            .cta-sec { padding: 32px 20px 28px; }
-            .step-circle { width: 30px; height: 30px; font-size: 10px; }
-        }
-
-        @media (max-width: 540px) {
-            .g3 { grid-template-columns: 1fr; }
-            .ai-steps { grid-template-columns: 1fr; }
-            .price-grid { grid-template-columns: repeat(2,1fr); }
-            .plic-wrap { grid-template-columns: 1fr; }
-            .diff-summary { grid-template-columns: 1fr; }
-            .step-wrap { grid-template-columns: repeat(3,1fr); }
-        }
-        @media (max-width: 700px) and (orientation: landscape) {
-            .price-grid { grid-template-columns: repeat(5,1fr); }
-            .ai-steps { grid-template-columns: repeat(3,1fr); }
+        @media (min-width: 601px) and (max-width: 900px) {
+            .steps-row { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
 <body>
 
-<!-- ━━━ 1. HERO ━━━ -->
+<!-- ━━━ HERO ━━━ -->
 <div class="hero">
     <div class="hero-inner">
-        <p class="hero-brand">NONAME FITNESS</p>
-        <div class="hero-tag-row">
-            <span class="hero-chip">PREMIUM PT</span>
-            <span style="font-size:10px;color:var(--g3);">1:1 퍼스널 트레이닝</span>
-        </div>
-        <h1 class="hero-title">결과를 책임지고<br><span class="hl">만들어내는</span> 상품</h1>
+        <span class="hero-chip">PREMIUM PT</span>
+        <h1>결과를 책임지고<br><span class="hl">만들어내는</span> 트레이닝</h1>
         <p class="hero-sub">
-            정확한 체형 분석 · 개인 맞춤 프로그램 · 데이터 기반 관리<br>
+            정확한 체형 분석 · 개인 맞춤 설계 · 데이터 기반 관리<br>
             노네임피트니스 프리미엄 PT 시스템
         </p>
         <button class="hero-btn" onclick="(function(){ var p=window.parent; var pt=p.document.getElementById('premiumPtModal'); var m=p.document.getElementById('consultModal'); if(pt) pt.classList.remove('active'); if(m){ m.classList.add('active'); p.document.body.style.overflow='hidden'; } })();">상담 예약하기</button>
     </div>
+    <div class="hero-scroll">scroll</div>
 </div>
 
+<!-- ━━━ WHY PREMIUM ━━━ -->
 <div class="divider"></div>
+<div class="sec reveal">
+    <p class="sec-tag">WHY PREMIUM</p>
+    <h2 class="sec-title">프리미엄 PT가<br><span class="hl">다른 이유</span></h2>
+    <p class="sec-desc">단순히 비싼 게 아닙니다.<br>관리의 깊이와 결과의 책임이 다릅니다.</p>
 
-<!-- ━━━ 2. WHY PREMIUM ━━━ -->
-<div class="sec">
-    <p class="tag">WHY PREMIUM</p>
-    <h2 class="stitle">프리미엄 PT가 <span class="hl">다른</span> 이유</h2>
-    <p class="sdesc">단순히 비싼 게 아닙니다. 관리의 깊이와 결과의 책임이 다릅니다.</p>
-
-    <div class="g4" style="margin-top:18px;">
-        <div class="point-card">
-            <div class="point-num">POINT 01</div>
-            <div class="point-title">목적</div>
-            <div class="point-val"><span class="hl">결과</span> 달성</div>
-            <div class="point-desc">운동이 습관이 되는 것을 넘어, 원하는 몸의 변화를 반드시 만들어내는 것이 목표입니다.</div>
+    <div class="why-list">
+        <div class="why-item">
+            <div class="why-num">01</div>
+            <div class="why-body">
+                <h3><span class="hl">결과</span> 달성이 목표</h3>
+                <p>습관을 넘어, 원하는 몸의 변화를 반드시 만들어냅니다.</p>
+            </div>
         </div>
-        <div class="point-card">
-            <div class="point-num">POINT 02</div>
-            <div class="point-title">핵심 가치</div>
-            <div class="point-val" style="font-size:15px;"><span class="hl">정확하게</span><br>계획대로, 변하게</div>
-            <div class="point-desc">임기응변이 아닌 처음부터 설계된 계획 안에서 정밀하게 목표를 향해 나아갑니다.</div>
+        <div class="why-item">
+            <div class="why-num">02</div>
+            <div class="why-body">
+                <h3><span class="hl">처음부터 설계</span>합니다</h3>
+                <p>임기응변이 아닌, 계획 안에서 정밀하게 목표를 향해 나아갑니다.</p>
+            </div>
         </div>
-        <div class="point-card">
-            <div class="point-num">POINT 03</div>
-            <div class="point-title">관리 방식</div>
-            <div class="point-val" style="font-size:13px;line-height:1.5;"><span class="hl">사전 설계</span> + 누적 관리</div>
-            <div class="point-desc">개인 맞춤 식단 설계 · 운동 분석 · 전략적 수정으로 체계적인 변화를 이끕니다.</div>
+        <div class="why-item">
+            <div class="why-num">03</div>
+            <div class="why-body">
+                <h3><span class="hl">데이터</span>로 관리합니다</h3>
+                <p>식단 설계 · 운동 분석 · 전략 수정까지. 감이 아닌 데이터로 변화를 이끕니다.</p>
+            </div>
         </div>
-        <div class="point-card" style="border-color:var(--p);background:var(--p3);">
-            <div class="point-num">초압축 정리</div>
-            <div class="point-title">이 상품은</div>
-            <div class="point-val"><span class="hl">결과</span> 관리 상품</div>
-            <div class="point-desc">의지를 다잡는 것이 아니라 원하는 몸을 반드시 만들어야 하는 분을 위한 시스템입니다.</div>
+        <div class="why-item">
+            <div class="why-num">04</div>
+            <div class="why-body">
+                <h3>이 상품은 <span class="hl">결과 관리</span> 상품입니다</h3>
+                <p>의지를 다잡는 것이 아니라, 원하는 몸을 반드시 만들어야 하는 분을 위한 시스템입니다.</p>
+            </div>
         </div>
     </div>
 
-    <p class="note" style="margin-top:12px;">가격이 다른 이유는 <strong>'횟수'</strong>가 아니라 <span class="hl">'관리의 깊이'</span>입니다.</p>
+    <div class="highlight-bar">
+        <p>가격이 다른 이유는 <span class="hl">'횟수'</span>가 아니라 <span class="hl">'관리의 깊이'</span>입니다.</p>
+    </div>
 </div>
 
+<!-- ━━━ FITRIX AI ━━━ -->
 <div class="divider"></div>
+<div class="sec reveal">
+    <p class="sec-tag">FITRIX AI</p>
+    <h2 class="sec-title">피트릭스 AI<br><span class="hl">체형분석기</span>로 시작합니다</h2>
+    <p class="sec-desc">감각이 아닌 데이터로.<br>내 몸의 문제를 정확히 파악해야 올바른 솔루션이 나옵니다.</p>
 
-<!-- ━━━ 3. FITRIX AI 체형분석기 ━━━ -->
-<div class="sec">
-    <p class="tag">FITRIX AI</p>
-    <h2 class="stitle">피트릭스 AI <span class="hl">체형분석기</span>로 시작합니다</h2>
-    <p class="sdesc">감각이 아닌 데이터로. 내 몸의 문제를 정확히 파악해야 올바른 솔루션이 나옵니다.</p>
-
-    <div class="ai-steps">
-        <div class="ai-step">
-            <div class="ai-step-num">01</div>
-            <div class="ai-step-ico">📷</div>
+    <div class="steps-row">
+        <div class="step-card">
+            <div class="step-icon">📷</div>
+            <div class="step-num">1</div>
             <h3>AI 체형 분석</h3>
-            <p>전신 사진 촬영 한 장으로 AI가 체형의 불균형·자세 문제를 자동으로 분석합니다.</p>
+            <p>전신 사진 한 장으로<br>체형 불균형을 자동 분석</p>
         </div>
-        <div class="ai-step" style="border-color:var(--p);">
-            <div class="ai-step-num">02</div>
-            <div class="ai-step-ico">🧠</div>
+        <div class="step-card" style="border-color: rgba(46,204,154,.3);">
+            <div class="step-icon">🧠</div>
+            <div class="step-num">2</div>
             <h3>개인 솔루션 도출</h3>
-            <p>체형 데이터를 기반으로 우선 교정이 필요한 부위와 운동 전략을 자동 설계합니다.</p>
+            <p>교정 부위와 운동 전략을<br>데이터 기반으로 자동 설계</p>
         </div>
-        <div class="ai-step">
-            <div class="ai-step-num">03</div>
-            <div class="ai-step-ico">📋</div>
-            <h3>맞춤 프로그램 제작</h3>
-            <p>분석 결과에 따라 트레이너가 개인화된 운동 루틴을 완성해 세션에 반영합니다.</p>
+        <div class="step-card">
+            <div class="step-icon">📋</div>
+            <div class="step-num">3</div>
+            <h3>맞춤 프로그램</h3>
+            <p>분석 결과를 바탕으로<br>개인화된 루틴 완성</p>
         </div>
     </div>
 
-    <div class="ai-highlight">
+    <div class="ai-stats">
         <div class="ai-stat">
-            <div class="ai-stat-num">AI</div>
-            <div class="ai-stat-lbl">체형 불균형<br>자동 감지</div>
-        </div>
-        <div class="ai-stat">
-            <div class="ai-stat-num">100%</div>
-            <div class="ai-stat-lbl">개인 맞춤<br>운동 솔루션</div>
+            <div class="ai-stat-val">AI</div>
+            <div class="ai-stat-lbl">체형 불균형 자동 감지</div>
         </div>
         <div class="ai-stat">
-            <div class="ai-stat-num">∞</div>
-            <div class="ai-stat-lbl">세션마다<br>업데이트</div>
+            <div class="ai-stat-val">100%</div>
+            <div class="ai-stat-lbl">개인 맞춤 솔루션</div>
+        </div>
+        <div class="ai-stat">
+            <div class="ai-stat-val">∞</div>
+            <div class="ai-stat-lbl">세션마다 업데이트</div>
         </div>
     </div>
 
-    <p class="note" style="margin-top:12px;">막연한 감각이 아닌 <span class="hl">데이터 기반의 정밀한 운동 계획</span>으로 결과를 만들어냅니다.</p>
+    <div class="highlight-bar" style="margin-top: 28px;">
+        <p>막연한 감각이 아닌 <span class="hl">데이터 기반의 정밀한 운동 계획</span>으로 결과를 만듭니다.</p>
+    </div>
 </div>
 
+<!-- ━━━ PLIC APP ━━━ -->
 <div class="divider"></div>
+<div class="sec reveal">
+    <p class="sec-tag">PLIC APP</p>
+    <h2 class="sec-title">트레이너와 했던 운동,<br><span class="hl">혼자서도 그대로</span></h2>
+    <p class="sec-desc">플릭(Plic) 앱으로 세션에서 배운 운동을<br>언제 어디서나 정확히 수행할 수 있습니다.</p>
 
-<!-- ━━━ 4. PLIC APP ━━━ -->
-<div class="sec">
-    <p class="tag">PLIC APP</p>
-    <h2 class="stitle">트레이너와 했던 운동,<br><span class="hl">혼자서도 그대로</span> 재현합니다</h2>
-    <p class="sdesc">플릭(Plic) 앱으로 세션 중 배운 운동을 언제 어디서나 스스로 수행할 수 있습니다.</p>
-
-    <div class="plic-wrap">
-        <!-- 폰 목업 -->
-        <div class="plic-phone-mock">
-            <div class="plic-mock-title">🏋️ 오늘의 루틴 — 하체 A</div>
-            <div class="plic-mock-row">
-                <span class="label">스쿼트</span>
-                <span class="value done">5×80kg ✓</span>
-            </div>
-            <div class="plic-mock-row">
-                <span class="label">레그 프레스</span>
-                <span class="value done">4×120kg ✓</span>
-            </div>
-            <div class="plic-mock-row">
-                <span class="label">루마니안 데드리프트</span>
-                <span class="value">3×60kg →</span>
-            </div>
-            <div style="margin:8px 0 4px;">
-                <div class="plic-mock-title" style="margin-bottom:6px;">⏱ 휴식 타이머</div>
-                <div style="background:var(--s3);border-radius:6px;padding:10px;text-align:center;">
-                    <div style="font-size:22px;font-weight:900;color:var(--p);">01:23</div>
-                    <div style="font-size:10px;color:var(--g2);">다음 세트까지</div>
-                </div>
-            </div>
-            <div class="plic-phone-bar"><div class="plic-phone-bar-fill" style="width:66%;"></div></div>
-            <div style="font-size:10px;color:var(--g2);text-align:center;">진행 66% · 남은 세트 4</div>
+    <div class="plic-grid">
+        <div class="plic-card">
+            <div class="plic-card-icon">⚖️</div>
+            <h3>중량 자동 기록</h3>
+            <p>세션마다 중량이 자동 저장. 지난 기록과 비교하며 점진적 과부하를 실현합니다.</p>
         </div>
-
-        <!-- 기능 설명 -->
-        <div class="plic-feats">
-            <div class="plic-feat">
-                <div class="plic-feat-ico">⚖️</div>
-                <div>
-                    <h3>중량 자동 기록</h3>
-                    <p>세션마다 사용한 중량이 자동 저장됩니다. 지난 기록과 비교하며 점진적 과부하를 실현할 수 있습니다.</p>
-                </div>
-            </div>
-            <div class="plic-feat">
-                <div class="plic-feat-ico">🔢</div>
-                <div>
-                    <h3>세트 단위 관리</h3>
-                    <p>각 운동의 세트 수·횟수·중량을 세분화하여 트레이너가 설계한 그대로 혼자서도 정확히 수행합니다.</p>
-                </div>
-            </div>
-            <div class="plic-feat">
-                <div class="plic-feat-ico">⏱️</div>
-                <div>
-                    <h3>휴식 타이머 & 알림</h3>
-                    <p>세트 간 최적 휴식 시간을 자동으로 알려줘 근육 회복과 운동 효율을 동시에 잡습니다.</p>
-                </div>
-            </div>
-            <div class="plic-feat">
-                <div class="plic-feat-ico">📈</div>
-                <div>
-                    <h3>누적 성장 트래킹</h3>
-                    <p>운동 히스토리가 쌓이며 트레이너와 함께 주간 분석 피드백에 활용됩니다.</p>
-                </div>
-            </div>
+        <div class="plic-card">
+            <div class="plic-card-icon">🔢</div>
+            <h3>세트 단위 관리</h3>
+            <p>세트 수 · 횟수 · 중량을 세분화하여 트레이너 설계 그대로 혼자 수행합니다.</p>
+        </div>
+        <div class="plic-card">
+            <div class="plic-card-icon">⏱️</div>
+            <h3>휴식 타이머</h3>
+            <p>세트 간 최적 휴식 시간 자동 알림으로 근육 회복과 효율을 동시에.</p>
+        </div>
+        <div class="plic-card">
+            <div class="plic-card-icon">📈</div>
+            <h3>성장 트래킹</h3>
+            <p>운동 히스토리가 쌓이며 트레이너와 주간 분석 피드백에 활용됩니다.</p>
         </div>
     </div>
 
-    <p class="note" style="margin-top:14px;">PT 세션이 없는 날도 <span class="hl">플릭 앱 하나로 트레이너 수준의 루틴을 혼자서 수행</span>할 수 있습니다.</p>
-</div>
-
-<div class="divider"></div>
-
-<!-- ━━━ 5. PROCESS ━━━ -->
-<div class="sec">
-    <p class="tag">PROCESS</p>
-    <h2 class="stitle">사전에 <span class="hl">설계</span>하고,<br>데이터로 <span class="hl">누적</span>합니다</h2>
-
-    <div class="step-wrap">
-        <div class="step">
-            <div class="step-circle on">01</div>
-            <div class="step-t">상담 &amp;<br>목표 설정</div>
-            <div class="step-d">구체적 결과 목표와 기간 협의</div>
-        </div>
-        <div class="step">
-            <div class="step-circle on">02</div>
-            <div class="step-t">AI 체형<br>분석</div>
-            <div class="step-d">피트릭스 AI 체형·불균형 진단</div>
-        </div>
-        <div class="step">
-            <div class="step-circle on">03</div>
-            <div class="step-t">맞춤<br>프로그램 설계</div>
-            <div class="step-d">식단+운동 개인화 전략 수립</div>
-        </div>
-        <div class="step">
-            <div class="step-circle on">04</div>
-            <div class="step-t">1:1 세션<br>+ 플릭 기록</div>
-            <div class="step-d">정밀 코칭·중량·세트 전체 기록</div>
-        </div>
-        <div class="step">
-            <div class="step-circle off">05</div>
-            <div class="step-t">주간<br>데이터 분석</div>
-            <div class="step-d">누적 기록 기반 전략적 수정</div>
-        </div>
-        <div class="step">
-            <div class="step-circle off">06</div>
-            <div class="step-t">목표<br>달성·유지</div>
-            <div class="step-d">원하는 몸 완성 &amp; 라이프스타일화</div>
-        </div>
+    <div class="highlight-bar" style="margin-top: 28px;">
+        <p>PT가 없는 날도 <span class="hl">플릭 앱 하나로 트레이너 수준의 루틴</span>을 수행합니다.</p>
     </div>
-
-    <p class="note">감으로 하는 PT가 아니라 <strong>처음부터 끝까지 설계된 결과 중심 시스템</strong>입니다.</p>
 </div>
 
+<!-- ━━━ PROCESS ━━━ -->
 <div class="divider"></div>
+<div class="sec reveal">
+    <p class="sec-tag">PROCESS</p>
+    <h2 class="sec-title">사전에 <span class="hl">설계</span>하고<br>데이터로 <span class="hl">누적</span>합니다</h2>
+    <p class="sec-desc">감으로 하는 PT가 아닙니다.<br>처음부터 끝까지 설계된 결과 중심 시스템.</p>
 
-<!-- ━━━ 6. FOR YOU ━━━ -->
-<div class="sec">
-    <p class="tag">FOR YOU</p>
-    <h2 class="stitle">이런 분께 <span class="hl">프리미엄 PT</span>가 맞습니다</h2>
-
-    <div class="g2" style="margin-top:18px;">
-        <div class="for-card">
-            <div class="for-ico">🏆</div>
-            <div>
-                <h3>✓ 확실한 결과가 필요한 분</h3>
-                <p>"꾸준히 하는 것도 좋지만, 나는 반드시 바뀌어야 해요." 기한 안에 원하는 몸을 만들어야 하는 분</p>
-            </div>
+    <div class="timeline">
+        <div class="tl-item done">
+            <div class="tl-dot"></div>
+            <h3>상담 & 목표 설정</h3>
+            <p>구체적 결과 목표와 기간을 협의합니다</p>
         </div>
-        <div class="for-card">
-            <div class="for-ico">📊</div>
-            <div>
-                <h3>✓ 데이터·분석 기반을 원하는 분</h3>
-                <p>"왜 이 운동을 하는지, 얼마나 효과가 있는지 알고 싶어요." 체계적·과학적 관리를 원하는 분</p>
-            </div>
+        <div class="tl-item done">
+            <div class="tl-dot"></div>
+            <h3>AI 체형 분석</h3>
+            <p>피트릭스 AI로 체형 · 불균형을 정밀 진단합니다</p>
         </div>
-        <div class="for-card">
-            <div class="for-ico">🍽️</div>
-            <div>
-                <h3>✓ 식단까지 함께 관리받고 싶은 분</h3>
-                <p>"운동만으론 한계가 느껴져요. 먹는 것도 체계적으로 잡고 싶어요." 식단 개인 맞춤 설계가 필요한 분</p>
-            </div>
+        <div class="tl-item done">
+            <div class="tl-dot"></div>
+            <h3>맞춤 프로그램 설계</h3>
+            <p>식단 + 운동 개인화 전략을 수립합니다</p>
         </div>
-        <div class="for-card">
-            <div class="for-ico">📱</div>
-            <div>
-                <h3>✓ 세션 외 시간도 관리되길 원하는 분</h3>
-                <p>"PT 끝나고 나서도 혼자 정확하게 운동하고 싶어요." 플릭 앱으로 24시간 루틴 관리를 원하는 분</p>
-            </div>
+        <div class="tl-item done">
+            <div class="tl-dot"></div>
+            <h3>1:1 세션 + 플릭 기록</h3>
+            <p>정밀 코칭과 중량 · 세트 전체를 기록합니다</p>
         </div>
-    </div>
-
-    <p class="note" style="margin-top:10px;">목표가 <span class="hl">명확하고 결과를 반드시 원하는 분</span>을 위한 시스템입니다.</p>
-</div>
-
-<div class="divider"></div>
-
-<!-- ━━━ 7. DIFFERENCE (무제한 vs 프리미엄) ━━━ -->
-<div class="sec">
-    <p class="tag">DIFFERENCE</p>
-    <h2 class="stitle">무제한 PT vs <span class="hl">프리미엄 PT</span></h2>
-    <p class="sdesc">두 상품은 다른 목적을 위해 설계되었습니다. 나에게 맞는 선택을 해보세요.</p>
-
-    <table class="diff-table">
-        <thead>
-            <tr>
-                <th style="text-align:left;padding-left:16px;">항목</th>
-                <th class="col-unlimited">무제한 PT</th>
-                <th class="col-premium">프리미엄 PT</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="row-label">목적</td>
-                <td class="unlimited">운동 습관화</td>
-                <td class="premium">결과 달성</td>
-            </tr>
-            <tr>
-                <td class="row-label">핵심 가치</td>
-                <td class="unlimited">꾸준하게, 자주</td>
-                <td class="premium">정확하게, 계획대로</td>
-            </tr>
-            <tr>
-                <td class="row-label">관리 방식</td>
-                <td class="neutral">당일 컨디션 중심</td>
-                <td class="premium">사전 설계 + 누적 관리</td>
-            </tr>
-            <tr>
-                <td class="row-label">식단 관리</td>
-                <td class="neutral">가이드 제공</td>
-                <td class="premium">개인 맞춤 설계</td>
-            </tr>
-            <tr>
-                <td class="row-label">피드백 방식</td>
-                <td class="neutral">즉각적 교정</td>
-                <td class="premium">분석 + 전략적 수정</td>
-            </tr>
-            <tr>
-                <td class="row-label">체형 분석</td>
-                <td class="neutral" style="color:var(--g3);">—</td>
-                <td class="premium">피트릭스 AI 분석</td>
-            </tr>
-            <tr>
-                <td class="row-label">운동 기록 앱</td>
-                <td class="neutral" style="color:var(--g3);">—</td>
-                <td class="premium">플릭 앱 연동</td>
-            </tr>
-            <tr>
-                <td class="row-label">비용 구조</td>
-                <td class="unlimited">월정액 (무제한)</td>
-                <td class="premium">세션 단위 패키지</td>
-            </tr>
-            <tr>
-                <td class="row-label">초압축 한 줄</td>
-                <td class="unlimited">의지 관리 상품</td>
-                <td class="premium">결과 관리 상품</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div class="diff-summary">
-        <div class="diff-summary-card unlimited">
-            <div class="diff-sum-tag unlimited">무제한 PT</div>
-            <div class="diff-sum-title" style="color:var(--y);">운동을 빠지지 않게</div>
-            <div class="diff-sum-desc">작심삼일을 극복하고 운동이 일상이 되도록 이끄는 습관 형성 시스템. 부담 없는 월정액으로 언제든 관리받습니다.</div>
+        <div class="tl-item">
+            <div class="tl-dot"></div>
+            <h3>주간 데이터 분석</h3>
+            <p>누적 기록을 기반으로 전략을 수정합니다</p>
         </div>
-        <div class="diff-summary-card premium">
-            <div class="diff-sum-tag premium">프리미엄 PT</div>
-            <div class="diff-sum-title" style="color:var(--p);">원하는 몸을 반드시</div>
-            <div class="diff-sum-desc">AI 분석과 데이터 기반으로 처음부터 끝까지 설계되어 결과를 책임지는 변화 완성 시스템.</div>
+        <div class="tl-item">
+            <div class="tl-dot"></div>
+            <h3>목표 달성 · 유지</h3>
+            <p>원하는 몸을 완성하고 라이프스타일로 만듭니다</p>
         </div>
     </div>
 </div>
 
+<!-- ━━━ FOR YOU ━━━ -->
 <div class="divider"></div>
+<div class="sec reveal">
+    <p class="sec-tag">FOR YOU</p>
+    <h2 class="sec-title">이런 분께<br><span class="hl">프리미엄 PT</span>가 맞습니다</h2>
 
-<!-- ━━━ 8. PRICING ━━━ -->
-<div class="sec">
-    <p class="tag">PRICING</p>
-    <h2 class="stitle">결과에 투자하는<br><span class="hl">합리적인</span> 가격 구조</h2>
-    <p class="sdesc">세션이 쌓일수록 회당 비용은 낮아지고, 받는 관리의 깊이는 깊어집니다.</p>
+    <div class="for-list">
+        <div class="for-item">
+            <div class="for-icon">🏆</div>
+            <div class="for-text">
+                <h3>확실한 결과가 필요한 분</h3>
+                <p>기한 안에 원하는 몸을 반드시 만들어야 하는 분</p>
+            </div>
+        </div>
+        <div class="for-item">
+            <div class="for-icon">📊</div>
+            <div class="for-text">
+                <h3>데이터 기반 관리를 원하는 분</h3>
+                <p>왜 이 운동을 하는지, 얼마나 효과가 있는지 알고 싶은 분</p>
+            </div>
+        </div>
+        <div class="for-item">
+            <div class="for-icon">🍽️</div>
+            <div class="for-text">
+                <h3>식단까지 함께 관리받고 싶은 분</h3>
+                <p>운동만으론 한계. 먹는 것도 체계적으로 잡고 싶은 분</p>
+            </div>
+        </div>
+        <div class="for-item">
+            <div class="for-icon">📱</div>
+            <div class="for-text">
+                <h3>세션 외 시간도 관리되길 원하는 분</h3>
+                <p>PT 끝나고도 혼자 정확하게 운동하고 싶은 분</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <div class="price-grid">
+<!-- ━━━ DIFFERENCE ━━━ -->
+<div class="divider"></div>
+<div class="sec reveal">
+    <p class="sec-tag">DIFFERENCE</p>
+    <h2 class="sec-title">무제한 PT vs <span class="hl">프리미엄 PT</span></h2>
+    <p class="sec-desc">두 상품은 다른 목적을 위해 설계되었습니다.</p>
+
+    <div class="diff-wrap">
+        <table class="diff-table">
+            <thead>
+                <tr>
+                    <th style="text-align:left;">항목</th>
+                    <th class="col-u">무제한 PT</th>
+                    <th class="col-p">프리미엄 PT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="label">목적</td><td class="u">운동 습관화</td><td class="p">결과 달성</td></tr>
+                <tr><td class="label">핵심</td><td class="u">꾸준하게, 자주</td><td class="p">정확하게, 계획대로</td></tr>
+                <tr><td class="label">관리</td><td class="dim">당일 컨디션 중심</td><td class="p">사전 설계 + 누적</td></tr>
+                <tr><td class="label">식단</td><td class="dim">가이드 제공</td><td class="p">개인 맞춤 설계</td></tr>
+                <tr><td class="label">피드백</td><td class="dim">즉각적 교정</td><td class="p">분석 + 전략 수정</td></tr>
+                <tr><td class="label">체형 분석</td><td class="dim">—</td><td class="p">피트릭스 AI</td></tr>
+                <tr><td class="label">운동 기록</td><td class="dim">—</td><td class="p">플릭 앱 연동</td></tr>
+                <tr><td class="label">비용</td><td class="u">월정액</td><td class="p">세션 단위 패키지</td></tr>
+                <tr><td class="label">한 줄 요약</td><td class="u">의지 관리</td><td class="p">결과 관리</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="diff-cards">
+        <div class="diff-card unlimited-card">
+            <div class="diff-card-tag">UNLIMITED PT</div>
+            <h3>운동을 빠지지 않게</h3>
+            <p>작심삼일을 극복하고 운동이 일상이 되도록. 부담 없는 월정액.</p>
+        </div>
+        <div class="diff-card premium-card">
+            <div class="diff-card-tag">PREMIUM PT</div>
+            <h3>원하는 몸을 반드시</h3>
+            <p>AI + 데이터 기반으로 설계하여 결과를 책임지는 시스템.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ━━━ PRICING ━━━ -->
+<div class="divider"></div>
+<div class="sec reveal" style="max-width: 900px;">
+    <p class="sec-tag">PRICING</p>
+    <h2 class="sec-title">결과에 투자하는<br><span class="hl">합리적인</span> 가격</h2>
+    <p class="sec-desc">세션이 쌓일수록 회당 비용은 낮아지고,<br>관리의 깊이는 깊어집니다.</p>
+
+    <div class="price-scroll">
         <!-- 1회 -->
-        <div class="price-card">
-            <div class="price-sessions">1<span style="font-size:13px;">회</span></div>
-            <div class="price-session-lbl">체험 시작</div>
-            <div class="price-amt">66,000<span style="font-size:11px;">원</span></div>
-            <div class="price-per">회당 66,000원</div>
-            <ul class="price-feats">
+        <div class="pr-card">
+            <div class="pr-sessions">1<span>회</span></div>
+            <div class="pr-label">체험</div>
+            <div class="pr-price">66,000<span>원</span></div>
+            <div class="pr-per">회당 66,000원</div>
+            <ul class="pr-feats">
                 <li>1:1 PT 1세션</li>
                 <li>헬스권 2일</li>
                 <li class="na">홀딩 불가</li>
             </ul>
         </div>
         <!-- 8회 -->
-        <div class="price-card">
-            <div class="price-sessions">8<span style="font-size:13px;">회</span></div>
-            <div class="price-session-lbl">입문 패키지</div>
-            <div class="price-amt">528,000<span style="font-size:11px;">원</span></div>
-            <div class="price-per">회당 66,000원</div>
-            <ul class="price-feats">
+        <div class="pr-card">
+            <div class="pr-sessions">8<span>회</span></div>
+            <div class="pr-label">입문 패키지</div>
+            <div class="pr-price">528,000<span>원</span></div>
+            <div class="pr-per">회당 66,000원</div>
+            <ul class="pr-feats">
                 <li>1:1 PT 8세션</li>
                 <li>헬스권 40일</li>
                 <li>홀딩 10일</li>
             </ul>
         </div>
         <!-- 20회 BEST -->
-        <div class="price-card best">
-            <div class="price-badge">BEST CHOICE</div>
-            <div class="price-sessions">20<span style="font-size:13px;">회</span></div>
-            <div class="price-session-lbl">변화 패키지</div>
-            <div class="price-original">정상가 1,320,000원</div>
-            <div class="price-amt">999,000<span style="font-size:11px;">원</span></div>
-            <div class="price-per" style="color:var(--p);">회당 49,950원 · 24% 할인</div>
-            <ul class="price-feats">
+        <div class="pr-card best">
+            <div class="pr-badge">BEST</div>
+            <div class="pr-sessions">20<span>회</span></div>
+            <div class="pr-label">변화 패키지</div>
+            <div class="pr-original">1,320,000원</div>
+            <div class="pr-price">999,000<span>원</span></div>
+            <div class="pr-per">회당 49,950원 · 24%↓</div>
+            <ul class="pr-feats">
                 <li>1:1 PT 20세션</li>
                 <li>헬스권 90일</li>
                 <li>홀딩 20일</li>
-                <li>AI 체형 분석 포함</li>
+                <li>AI 체형분석 포함</li>
             </ul>
         </div>
         <!-- 30회 -->
-        <div class="price-card">
-            <div class="price-sessions">30<span style="font-size:13px;">회</span></div>
-            <div class="price-session-lbl">완성 패키지</div>
-            <div class="price-original">정상가 1,980,000원+</div>
-            <div class="price-amt">1,399,000<span style="font-size:11px;">원</span></div>
-            <div class="price-per">회당 46,630원 · 29% 할인</div>
-            <ul class="price-feats">
+        <div class="pr-card">
+            <div class="pr-sessions">30<span>회</span></div>
+            <div class="pr-label">완성 패키지</div>
+            <div class="pr-original">1,980,000원+</div>
+            <div class="pr-price">1,399,000<span>원</span></div>
+            <div class="pr-per">회당 46,630원 · 29%↓</div>
+            <ul class="pr-feats">
                 <li>1:1 PT 30세션</li>
                 <li>헬스권 120일</li>
                 <li>홀딩 25일</li>
             </ul>
         </div>
         <!-- 50회 -->
-        <div class="price-card">
-            <div class="price-sessions">50<span style="font-size:13px;">회</span></div>
-            <div class="price-session-lbl">프리미엄 풀케어</div>
-            <div class="price-original">정상가 3,300,000원</div>
-            <div class="price-amt">2,079,000<span style="font-size:11px;">원</span></div>
-            <div class="price-per">회당 41,580원 · 37% 할인</div>
-            <ul class="price-feats">
+        <div class="pr-card">
+            <div class="pr-sessions">50<span>회</span></div>
+            <div class="pr-label">풀케어</div>
+            <div class="pr-original">3,300,000원</div>
+            <div class="pr-price">2,079,000<span>원</span></div>
+            <div class="pr-per">회당 41,580원 · 37%↓</div>
+            <ul class="pr-feats">
                 <li>1:1 PT 50세션</li>
                 <li>헬스권 240일</li>
                 <li>홀딩 30일</li>
@@ -854,60 +1019,106 @@
 
     <div class="price-extras">
         <span>👕 운동복 <strong>월 10,000원</strong></span>
-        <span>🔒 개인 락커룸 <strong>월 5,000원</strong></span>
-        <span style="color:var(--g3);">* VAT 별도</span>
+        <span>🔒 락커룸 <strong>월 5,000원</strong></span>
+        <span style="color: var(--g3);">* VAT 별도</span>
+    </div>
+    <p class="price-note">20회 패키지부터 <span class="hl">AI 체형분석 + 플릭 앱</span>이 함께 제공됩니다.</p>
+</div>
+
+<!-- ━━━ OUR STORY ━━━ -->
+<div class="divider"></div>
+<div class="sec reveal">
+    <p class="sec-tag">OUR STORY</p>
+    <h2 class="sec-title"><span class="hl">50평</span> PT샵에서<br><span class="hl">200평</span> 헬스장까지</h2>
+    <p class="sec-desc">작은 공간에서 시작한 진심이<br>지금의 노네임피트니스를 만들었습니다.</p>
+
+    <div class="story-flow">
+        <div class="story-block start">
+            <div class="story-year">시작</div>
+            <div class="story-size">50<span>평</span></div>
+            <div class="story-label">PT 전문샵</div>
+            <p>큰 시설 없이 오직 트레이닝 하나로 승부했습니다.<br>결과로 증명하겠다는 마음 하나로 시작한 공간.</p>
+        </div>
+        <div class="story-arrow">
+            <svg width="24" height="48" viewBox="0 0 24 48" fill="none">
+                <path d="M12 0 L12 40 M4 32 L12 44 L20 32" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <div class="story-block end">
+            <div class="story-year">현재</div>
+            <div class="story-size">200<span>평</span></div>
+            <div class="story-label">종합 피트니스</div>
+            <p>회원분들의 신뢰가 쌓여 4배 더 넓어진 공간.<br>프리미엄 PT · 무제한 PT · 스피닝까지. 더 많은 변화를 만듭니다.</p>
+        </div>
     </div>
 
-    <p class="note" style="margin-top:10px;">💡 20회 패키지부터 <span class="hl">AI 체형분석 + 플릭 앱 연동</span>이 함께 제공됩니다.</p>
+    <div class="highlight-bar" style="margin-top: 28px;">
+        <p>시설이 커져도 변하지 않은 것 — <span class="hl">회원 한 명 한 명의 결과에 대한 책임</span>입니다.</p>
+    </div>
 </div>
 
-<div class="divider"></div>
-
-<!-- ━━━ 9. BIG QUOTE ━━━ -->
-<div class="big-quote-sec">
-    <div class="open-q">"</div>
+<!-- ━━━ BIG QUOTE ━━━ -->
+<div class="big-quote reveal">
+    <div class="q-mark">"</div>
     <h2>가격이 다른 이유는 <span class="hl">'횟수'</span>가 아니라<br><span class="hl">'관리의 깊이'</span>입니다</h2>
     <div class="big-quote-bar"></div>
-    <p>당신의 목표가 결과라면, 프리미엄 PT가 답입니다</p>
+    <p>목표가 결과라면, 프리미엄 PT가 답입니다</p>
 </div>
 
-<!-- ━━━ 10. CTA ━━━ -->
-<div class="cta-sec">
+<!-- ━━━ CTA ━━━ -->
+<div class="cta">
     <p class="cta-brand">NONAME FITNESS — PREMIUM PT</p>
     <div class="cta-bar"></div>
-    <h2 class="cta-title">오늘, <span class="hl">결과</span>를 시작하세요</h2>
+    <h2>오늘, <span class="hl">결과</span>를 시작하세요</h2>
     <p class="cta-desc">
         분석하고 설계하고 실행합니다.<br>
-        감이 아닌 데이터로, 의지가 아닌 시스템으로 만들어냅니다.
+        감이 아닌 데이터로, 의지가 아닌 시스템으로.
     </p>
     <button class="cta-btn" onclick="(function(){ var p=window.parent; var pt=p.document.getElementById('premiumPtModal'); var m=p.document.getElementById('consultModal'); if(pt) pt.classList.remove('active'); if(m){ m.classList.add('active'); p.document.body.style.overflow='hidden'; } })();">상담 예약하기</button>
 
-    <div class="cta-feats">
-        <div class="cta-feat">
-            <div class="cta-feat-ico">🤖</div>
+    <div class="cta-icons">
+        <div class="cta-icon-item">
+            <div class="cta-icon-circle">🤖</div>
             <p>AI 체형 분석</p>
         </div>
-        <div class="cta-feat">
-            <div class="cta-feat-ico">📱</div>
+        <div class="cta-icon-item">
+            <div class="cta-icon-circle">📱</div>
             <p>플릭 앱 연동</p>
         </div>
-        <div class="cta-feat">
-            <div class="cta-feat-ico">🍽️</div>
-            <p>맞춤 식단 설계</p>
+        <div class="cta-icon-item">
+            <div class="cta-icon-circle">🍽️</div>
+            <p>맞춤 식단</p>
         </div>
-        <div class="cta-feat">
-            <div class="cta-feat-ico">🏆</div>
+        <div class="cta-icon-item">
+            <div class="cta-icon-circle">🏆</div>
             <p>결과 책임 관리</p>
         </div>
     </div>
 </div>
 
-<!-- ─── FOOTER ─── -->
 <footer>
     <p>내일의 나를 바꾸는 공간, NONAME FITNESS</p>
     <p>천안 두정동 · 프리미엄 PT 시스템</p>
 </footer>
 
+<!-- ─── SCROLL REVEAL ─── -->
+<script>
+(function(){
+    var els = document.querySelectorAll('.reveal');
+    if (!els.length) return;
+
+    var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    els.forEach(function(el){ obs.observe(el); });
+})();
+</script>
 
 </body>
 </html>
