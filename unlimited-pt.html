@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        /* ─── RESET & BASE ─── */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
@@ -16,13 +15,11 @@
             --bg:  #0c0c0c;
             --s1:  #161616;
             --s2:  #1e1e1e;
-            --s3:  #262626;
-            --bd:  #2e2e2e;
+            --bd:  #2a2a2a;
             --w:   #ffffff;
             --g1:  #cccccc;
-            --g2:  #999999;
+            --g2:  #888888;
             --g3:  #555555;
-            --r: 8px;
         }
 
         html { scroll-behavior: smooth; }
@@ -31,714 +28,640 @@
             background: var(--bg);
             color: var(--w);
             font-family: 'Noto Sans KR', -apple-system, sans-serif;
-            font-size: 14px;
-            line-height: 1.5;
+            font-size: 16px;
+            line-height: 1.7;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ─── TYPOGRAPHY HELPERS ─── */
-        .tag {
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 2.5px;
-            color: var(--y);
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-        .stitle {
-            font-size: clamp(20px, 3.5vw, 30px);
-            font-weight: 900;
-            line-height: 1.25;
-            margin-bottom: 6px;
-        }
-        .sdesc {
-            font-size: 12px;
-            color: var(--g2);
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
         .hl { color: var(--y); }
 
-        /* ─── SECTION WRAPPER ─── */
-        .sec {
-            padding: 40px 20px;
-            max-width: 860px;
-            margin: 0 auto;
+        /* ━━━ SCROLL REVEAL ━━━ */
+        .rv {
+            opacity: 0; transform: translateY(40px);
+            transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
         }
+        .rv.on { opacity: 1; transform: translateY(0); }
 
-        .divider { width: 100%; height: 1px; background: var(--bd); }
-
-        /* ─── GRID HELPERS ─── */
-        .g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
-        .g2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
-        .g6 { display: grid; grid-template-columns: repeat(6,1fr); gap: 8px; }
-
-        /* ─── CARD BASE ─── */
-        .card {
-            background: var(--s2);
-            border: 1px solid var(--bd);
-            border-radius: var(--r);
-            padding: 16px 14px;
-        }
-        .card.gold { border-color: var(--y); }
-
-        /* ─── NOTICE BAR ─── */
-        .note {
-            background: var(--s1);
-            border-radius: 6px;
-            padding: 12px 16px;
-            font-size: 12px;
-            color: var(--g1);
-            line-height: 1.6;
-            text-align: center;
-        }
-        .note strong { color: var(--w); }
-        .note .hl { color: var(--y); }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           1. HERO
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           HERO
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
         .hero {
-            position: relative;
             min-height: 100svh;
-            display: flex;
-            flex-direction: column;
+            display: flex; flex-direction: column;
             justify-content: center;
-            padding: 48px 24px;
-            overflow: hidden;
-            background: var(--bg);
+            padding: 60px 28px;
+            position: relative; overflow: hidden;
         }
         .hero::before {
             content: '';
             position: absolute; inset: 0;
-            background:
-                radial-gradient(ellipse 60% 50% at 15% 60%, rgba(245,191,35,.08) 0%, transparent 60%),
-                radial-gradient(ellipse 40% 30% at 85% 20%, rgba(245,191,35,.04) 0%, transparent 50%);
+            background: radial-gradient(ellipse 60% 50% at 20% 60%, rgba(245,191,35,.07) 0%, transparent 60%);
             pointer-events: none;
         }
         .hero-inner {
             position: relative; z-index: 1;
-            max-width: 860px; margin: 0 auto; width: 100%;
+            max-width: 600px; margin: 0 auto; width: 100%;
         }
-        .hero-brand {
-            font-size: 10px; font-weight: 700; letter-spacing: 3px;
-            color: var(--g3); text-transform: uppercase; margin-bottom: 18px;
+        .hero-tag {
+            font-size: 11px; font-weight: 700; letter-spacing: 4px;
+            color: var(--g3); margin-bottom: 24px;
         }
-        .hero-title {
-            font-size: clamp(30px, 6vw, 56px);
-            font-weight: 900; line-height: 1.15; margin-bottom: 14px;
+        .hero h1 {
+            font-size: clamp(32px, 8vw, 52px);
+            font-weight: 900; line-height: 1.2; margin-bottom: 20px;
         }
         .hero-sub {
-            font-size: clamp(12px, 2vw, 16px);
-            color: var(--g1); line-height: 1.7; margin-bottom: 28px;
+            font-size: clamp(15px, 3vw, 18px);
+            color: var(--g1); line-height: 1.8; margin-bottom: 36px;
         }
         .hero-btn {
             display: inline-block;
-            padding: 12px 28px;
-            border: 2px solid var(--y);
-            color: var(--y);
-            font-size: 12px; font-weight: 700; letter-spacing: 1px;
-            background: transparent; cursor: pointer;
-            border-radius: 3px;
+            padding: 16px 36px;
+            border: 2px solid var(--y); color: var(--y);
+            font-size: 14px; font-weight: 700; letter-spacing: 1px;
+            background: transparent; cursor: pointer; border-radius: 4px;
             transition: background .2s, color .2s;
         }
         .hero-btn:hover { background: var(--y); color: #000; }
+        .hero-scroll {
+            position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+        }
+        .hero-scroll span { font-size: 10px; color: var(--g3); letter-spacing: 3px; }
+        .scroll-line {
+            width: 1px; height: 40px;
+            background: linear-gradient(180deg, var(--y) 0%, transparent 100%);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           2. INSIGHT — stat cards
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           SECTION
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .sec {
+            padding: 80px 28px;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        .sec-tag {
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 3px; color: var(--y);
+            text-transform: uppercase; margin-bottom: 16px;
+        }
+        .sec-title {
+            font-size: clamp(24px, 6vw, 38px);
+            font-weight: 900; line-height: 1.3;
+            margin-bottom: 20px;
+        }
+        .sec-desc {
+            font-size: clamp(15px, 2.5vw, 17px);
+            color: var(--g1); line-height: 1.9;
+        }
+        .divider {
+            max-width: 640px; margin: 0 auto;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--bd), transparent);
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           STAT ROW
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .stat-row {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 12px; margin-top: 40px;
+        }
+        .stat-box {
+            text-align: center;
+            padding: 24px 12px;
+            background: var(--s1);
+            border: 1px solid var(--bd);
+            border-radius: 12px;
+        }
         .stat-num {
-            font-size: clamp(28px, 5vw, 40px);
+            font-size: clamp(32px, 7vw, 44px);
             font-weight: 900; line-height: 1;
+            margin-bottom: 6px;
         }
-        .stat-unit { font-size: 16px; font-weight: 700; }
-        .stat-lbl {
-            font-size: 11px; font-weight: 700; color: var(--g1);
-            margin: 4px 0 6px;
+        .stat-label {
+            font-size: 12px; color: var(--g2);
+            line-height: 1.4;
         }
-        .stat-desc { font-size: 10px; color: var(--g2); line-height: 1.5; }
 
-        .insight-banner {
-            background: var(--s2);
-            border: 1px solid var(--bd); border-radius: var(--r);
-            padding: 14px 18px;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
-            align-items: center;
-            margin-top: 12px;
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           FULL-WIDTH QUOTE
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .quote-sec {
+            text-align: center;
+            padding: 80px 28px;
+            background: linear-gradient(180deg, var(--bg) 0%, #111 50%, var(--bg) 100%);
         }
-        .insight-banner p { font-size: 12px; line-height: 1.65; color: var(--g1); }
-        .insight-banner .q { color: var(--y); border-left: 2px solid var(--y); padding-left: 10px; }
+        .quote-mark {
+            font-size: 48px; color: rgba(245,191,35,.3);
+            line-height: 1; margin-bottom: 12px;
+        }
+        .quote-sec h2 {
+            font-size: clamp(22px, 5.5vw, 36px);
+            font-weight: 900; line-height: 1.4;
+            max-width: 500px; margin: 0 auto 16px;
+        }
+        .quote-bar {
+            width: 32px; height: 2px;
+            background: var(--g3); margin: 0 auto;
+        }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           3. COMPARISON
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .comp-card {
-            background: var(--s2); border: 1px solid var(--bd);
-            border-radius: var(--r); padding: 14px 12px;
-            position: relative;
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           COMPARE
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .compare {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 12px; margin-top: 36px;
         }
-        .comp-card.pick { border-color: var(--y); }
-        .badge {
-            position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
-            background: var(--y); color: #000;
-            font-size: 9px; font-weight: 900; padding: 3px 11px;
-            border-radius: 20px; letter-spacing: .8px; white-space: nowrap;
+        .compare-card {
+            background: var(--s1);
+            border: 1px solid var(--bd);
+            border-radius: 12px;
+            padding: 28px 20px;
         }
-        .comp-ico { font-size: 22px; text-align: center; margin-bottom: 6px; }
-        .comp-name {
-            font-size: 13px; font-weight: 700; text-align: center; margin-bottom: 2px;
+        .compare-card.pick {
+            border-color: var(--y);
+            background: rgba(245,191,35,.04);
         }
-        .comp-sub { font-size: 10px; color: var(--g2); text-align: center; margin-bottom: 10px; }
-        .comp-li {
-            list-style: none; font-size: 10px; line-height: 1.8; color: var(--g2);
+        .compare-card h3 {
+            font-size: 18px; font-weight: 900;
+            margin-bottom: 16px;
         }
-        .comp-li li { display: flex; gap: 5px; }
-        .comp-li li.ok { color: var(--g1); }
-        .comp-li li.ok::before { content: '✓'; color: var(--y); flex-shrink: 0; }
-        .comp-li li.no::before { content: '✗'; color: var(--g3); flex-shrink: 0; }
-        .comp-price {
-            border-top: 1px solid var(--bd); margin-top: 10px; padding-top: 8px;
+        .compare-card.pick h3 { color: var(--y); }
+        .compare-li {
+            list-style: none;
+            font-size: 14px; line-height: 2.2;
+            color: var(--g2);
+        }
+        .compare-li li { display: flex; gap: 8px; align-items: flex-start; }
+        .compare-li li::before { flex-shrink: 0; margin-top: 2px; }
+        .compare-card:not(.pick) .compare-li li::before { content: '✗'; color: var(--g3); }
+        .compare-card.pick .compare-li li { color: var(--g1); }
+        .compare-card.pick .compare-li li::before { content: '✓'; color: var(--y); }
+        .compare-price {
+            margin-top: 20px; padding-top: 16px;
+            border-top: 1px solid var(--bd);
             text-align: center;
         }
-        .comp-price-lbl { font-size: 9px; color: var(--g2); margin-bottom: 2px; }
-        .comp-price-val { font-size: 14px; font-weight: 900; }
-        .comp-card.pick .comp-price-val { color: var(--y); }
+        .compare-price small { font-size: 12px; color: var(--g3); display: block; margin-bottom: 4px; }
+        .compare-price strong {
+            font-size: 22px; font-weight: 900;
+        }
+        .compare-card.pick .compare-price strong { color: var(--y); }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           4. SOLUTION / SYSTEM — feature row
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .feat {
-            display: flex; gap: 12px; align-items: flex-start;
-            background: var(--s2); border: 1px solid var(--bd);
-            border-radius: var(--r); padding: 14px 14px;
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           FEATURE LIST
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .feat-list {
+            display: flex; flex-direction: column;
+            gap: 16px; margin-top: 36px;
+        }
+        .feat-item {
+            display: flex; gap: 16px; align-items: center;
+            background: var(--s1);
+            border: 1px solid var(--bd);
+            border-radius: 12px;
+            padding: 24px 20px;
         }
         .feat-ico {
-            width: 36px; height: 36px; border-radius: 7px;
+            width: 48px; height: 48px; border-radius: 12px;
             background: var(--y); color: #000;
             display: flex; align-items: center; justify-content: center;
-            font-size: 17px; flex-shrink: 0;
+            font-size: 22px; flex-shrink: 0;
         }
-        .feat-ico.dim { background: var(--s3); color: var(--y); }
-        .feat h3 { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
-        .feat p { font-size: 11px; color: var(--g2); line-height: 1.6; }
+        .feat-item h3 {
+            font-size: 16px; font-weight: 800;
+            margin-bottom: 4px;
+        }
+        .feat-item p {
+            font-size: 14px; color: var(--g2); line-height: 1.6;
+        }
 
-        /* SYSTEM 섹션 강조 카드 */
-        .system-cards { display: flex; flex-direction: column; gap: 12px; }
-        .sys-card {
-            display: flex; gap: 16px; align-items: center;
-            background: var(--s2); border: 1px solid var(--bd);
-            border-radius: var(--r); padding: 18px 20px;
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           FOR YOU
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .for-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 12px; margin-top: 36px;
         }
-        .sys-ico {
-            width: 44px; height: 44px; border-radius: 10px;
-            background: var(--y); color: #000;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px; flex-shrink: 0;
+        .for-card {
+            background: var(--s1);
+            border: 1px solid var(--bd);
+            border-radius: 12px;
+            padding: 24px 20px;
+            text-align: center;
         }
-        .sys-card h3 { font-size: 15px; font-weight: 800; margin-bottom: 4px; }
-        .sys-card p { font-size: 13px; color: var(--g2); line-height: 1.7; }
+        .for-card .ico {
+            font-size: 28px; margin-bottom: 12px;
+        }
+        .for-card p {
+            font-size: 15px; font-weight: 700;
+            line-height: 1.5;
+        }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           6. PROCESS
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .step-wrap {
-            display: grid; grid-template-columns: repeat(6,1fr); gap: 8px;
-            margin: 22px 0 16px;
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           PRICING
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .price-group-label {
+            font-size: 13px; font-weight: 700;
+            color: var(--y); letter-spacing: 1px;
+            margin-bottom: 12px; margin-top: 36px;
         }
-        .step { text-align: center; }
-        .step-circle {
-            width: 36px; height: 36px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 11px; font-weight: 900; margin: 0 auto 7px;
+        .price-group-label span {
+            font-size: 11px; color: var(--g3);
+            font-weight: 400; letter-spacing: 0;
         }
-        .step-circle.on  { background: var(--y); color: #000; }
-        .step-circle.off { background: var(--s3); color: var(--g3); }
-        .step-t { font-size: 10px; font-weight: 700; line-height: 1.4; margin-bottom: 3px; }
-        .step-d { font-size: 9px; color: var(--g2); line-height: 1.5; }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           7. FOR YOU
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .for-you-card {
-            display: flex; gap: 12px; align-items: flex-start;
-            background: var(--s2); border: 1px solid var(--bd);
-            border-radius: var(--r); padding: 14px;
+        .price-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
         }
-        .for-ico {
-            width: 36px; height: 36px; background: var(--s3);
-            border-radius: 8px; flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 17px;
-        }
-        .for-you-card h3 { font-size: 12px; font-weight: 700; margin-bottom: 4px; color: var(--g1); }
-        .for-you-card p { font-size: 11px; color: var(--g2); line-height: 1.6; }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           8. DIFFERENCE
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .diff-wrap {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
-            margin-top: 22px;
-        }
-        .diff-quote-box {
-            background: linear-gradient(160deg, var(--s3) 0%, #111 100%);
-            border: 1px solid var(--bd); border-radius: var(--r);
-            padding: 22px 18px;
-            display: flex; flex-direction: column; justify-content: flex-end;
-        }
-        .diff-q-mark { font-size: 32px; color: var(--y); margin-bottom: 8px; }
-        .diff-q-text { font-size: 20px; font-weight: 900; line-height: 1.25; margin-bottom: 10px; }
-        .diff-q-desc { font-size: 11px; color: var(--g2); line-height: 1.6; }
-        .diff-list { display: flex; flex-direction: column; gap: 8px; }
-        .diff-item {
-            display: flex; gap: 10px; align-items: flex-start;
-            background: var(--s2); border: 1px solid var(--bd);
-            border-radius: 6px; padding: 10px 12px;
-        }
-        .diff-item .chk { color: var(--y); font-size: 13px; flex-shrink: 0; margin-top: 1px; }
-        .diff-item h4 { font-size: 12px; font-weight: 700; margin-bottom: 2px; }
-        .diff-item p { font-size: 10px; color: var(--g2); line-height: 1.5; }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           9. PRICING
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .price-card {
-            background: var(--s2); border: 1px solid var(--bd);
-            border-radius: var(--r); padding: 18px 14px;
-            text-align: center; position: relative;
+            background: var(--s1);
+            border: 1px solid var(--bd);
+            border-radius: 12px;
+            padding: 24px 16px;
+            text-align: center;
+            position: relative;
         }
-        .price-card.best { border-color: var(--y); }
+        .price-card.best {
+            border-color: var(--y);
+            background: rgba(245,191,35,.04);
+        }
         .price-badge {
             position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
             background: var(--y); color: #000;
-            font-size: 9px; font-weight: 900; padding: 3px 12px;
-            border-radius: 20px; white-space: nowrap; letter-spacing: .8px;
+            font-size: 10px; font-weight: 900; padding: 4px 14px;
+            border-radius: 20px; letter-spacing: .8px;
         }
-        .price-period { font-size: 13px; font-weight: 700; color: var(--g1); margin-bottom: 6px; }
-        .price-best .price-period { color: var(--y); }
+        .price-period {
+            font-size: 14px; font-weight: 700;
+            color: var(--g2); margin-bottom: 8px;
+        }
+        .price-card.best .price-period { color: var(--y); }
         .price-amt {
-            font-size: clamp(22px, 3.5vw, 30px);
-            font-weight: 900; line-height: 1; margin-bottom: 4px;
+            font-size: clamp(20px, 4vw, 26px);
+            font-weight: 900; line-height: 1;
+            margin-bottom: 6px;
         }
-        .price-best .price-amt { color: var(--y); }
-        .price-note { font-size: 10px; color: var(--g2); margin-bottom: 12px; }
-        .price-feats {
-            list-style: none; text-align: left; font-size: 11px; line-height: 1.9;
-            border-top: 1px solid var(--bd); padding-top: 10px;
+        .price-card.best .price-amt { color: var(--y); }
+        .price-note {
+            font-size: 12px; color: var(--g3);
         }
-        .price-feats li::before { content: '✓ '; color: var(--y); }
 
-        .price-extras {
-            display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
-            background: var(--s1); border-radius: 6px; padding: 10px 14px;
-            margin-top: 10px;
-        }
-        .price-extras span { font-size: 11px; color: var(--g2); }
-        .price-extras strong { color: var(--w); }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           10. GUIDE
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .guide-card {
-            background: var(--s2); border: 1px solid var(--bd);
-            border-radius: var(--r); padding: 16px 14px;
-        }
-        .guide-card.best { border-color: var(--y); }
-        .guide-step { font-size: 9px; color: var(--g2); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px; }
-        .guide-num {
-            font-size: 36px; font-weight: 900; line-height: 1; margin-bottom: 2px; color: var(--g3);
-        }
-        .guide-card.best .guide-num { color: var(--y); }
-        .guide-mo { font-size: 11px; color: var(--g2); margin-bottom: 8px; }
-        .guide-title { font-size: 13px; font-weight: 700; border-top: 1px solid var(--bd); padding-top: 8px; margin-bottom: 8px; }
-        .guide-li {
-            list-style: none; font-size: 11px; line-height: 1.9; color: var(--g2); margin-bottom: 10px;
-        }
-        .guide-li li.on { color: var(--w); }
-        .guide-li li.on::before { content: '✓ '; color: var(--y); }
-        .guide-li li::before { content: '● '; color: var(--g3); font-size: 8px; }
-        .guide-rec {
-            background: var(--s3); border-radius: 5px; padding: 8px 10px;
-        }
-        .guide-card.best .guide-rec { background: rgba(245,191,35,.08); }
-        .guide-rec-lbl { font-size: 10px; font-weight: 700; color: var(--y); margin-bottom: 2px; }
-        .guide-rec-txt { font-size: 10px; color: var(--g2); line-height: 1.5; }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           11. BIG QUOTE
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .big-quote-sec {
-            min-height: 55vh;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
+        .price-bottom-note {
+            background: var(--s1);
+            border-radius: 8px;
+            padding: 14px 20px;
+            margin-top: 16px;
             text-align: center;
-            padding: 56px 24px;
-            background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%);
+            font-size: 14px; color: var(--g1);
         }
-        .big-quote-sec .open-q { font-size: 36px; color: var(--y); margin-bottom: 10px; }
-        .big-quote-sec h2 {
-            font-size: clamp(26px, 5.5vw, 48px); font-weight: 900; line-height: 1.2;
-            margin-bottom: 16px;
-        }
-        .big-quote-bar {
-            width: 36px; height: 2px; background: var(--g3); margin: 0 auto 16px;
-        }
-        .big-quote-sec p { font-size: 13px; color: var(--g2); }
+        .price-bottom-note strong { color: var(--w); }
 
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           12. CTA
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        .cta-sec {
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           CTA
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .cta {
             text-align: center;
-            padding: 56px 24px 48px;
-            background: #090909;
+            padding: 80px 28px 60px;
+            background: #080808;
             border-top: 1px solid var(--s2);
         }
-        .cta-brand { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--g3); margin-bottom: 14px; text-transform: uppercase; }
-        .cta-bar { width: 2px; height: 30px; background: var(--y); margin: 0 auto 16px; }
-        .cta-title { font-size: clamp(26px, 5vw, 42px); font-weight: 900; margin-bottom: 12px; }
-        .cta-desc { font-size: 13px; color: var(--g2); line-height: 1.8; margin-bottom: 28px; }
+        .cta-tag {
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 3px; color: var(--g3);
+            margin-bottom: 16px;
+        }
+        .cta-bar {
+            width: 2px; height: 32px;
+            background: var(--y); margin: 0 auto 20px;
+        }
+        .cta h2 {
+            font-size: clamp(26px, 6vw, 42px);
+            font-weight: 900; margin-bottom: 16px;
+        }
+        .cta-desc {
+            font-size: 15px; color: var(--g2);
+            line-height: 1.8; margin-bottom: 32px;
+        }
         .cta-btn {
             display: inline-block;
-            padding: 16px 44px;
+            padding: 18px 52px;
             background: var(--y); color: #000;
-            font-size: 15px; font-weight: 900; letter-spacing: .5px;
-            border-radius: 4px; cursor: pointer; border: none;
+            font-size: 16px; font-weight: 900;
+            border-radius: 50px; cursor: pointer; border: none;
             transition: opacity .2s;
         }
         .cta-btn:hover { opacity: .85; }
-        .cta-feats {
-            display: flex; justify-content: center; gap: 28px; flex-wrap: wrap;
-            margin-top: 36px; padding-top: 36px;
+
+        /* ━━━ FOOTER ━━━ */
+        footer {
+            background: #080808; padding: 16px 28px;
+            display: flex; justify-content: space-between;
+            align-items: center; flex-wrap: wrap; gap: 8px;
             border-top: 1px solid var(--s2);
         }
-        .cta-feat { text-align: center; }
-        .cta-feat-ico {
-            width: 46px; height: 46px; background: var(--s2); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 18px; margin: 0 auto 7px;
-        }
-        .cta-feat p { font-size: 11px; color: var(--g2); }
+        footer p { font-size: 11px; color: var(--g3); }
 
-        /* ─── FOOTER ─── */
-        footer {
-            background: #080808; padding: 14px 24px;
-            display: flex; justify-content: space-between; align-items: center;
-            border-top: 1px solid var(--s2); flex-wrap: wrap; gap: 6px;
-        }
-        footer p { font-size: 10px; color: var(--g3); }
-
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           LANDSCAPE MOBILE OPTIMIZATION
-           target: ~667–844px wide, ~375–414px tall
-        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-        @media screen and (orientation: landscape) and (max-height: 480px) {
-            .sec { padding: 26px 18px; }
-
-            .hero { min-height: auto; padding: 36px 20px; }
-            .hero-title { font-size: 28px; }
-            .hero-sub  { font-size: 12px; margin-bottom: 18px; }
-
-            .stitle { font-size: 18px; }
-            .tag    { margin-bottom: 7px; }
-            .sdesc  { margin-bottom: 14px; }
-
-            /* stat cards smaller */
-            .stat-num  { font-size: 26px; }
-            .card      { padding: 12px 11px; }
-            .feat      { padding: 11px 12px; }
-            .feat-ico  { width: 30px; height: 30px; font-size: 14px; }
-
-            /* process smaller */
-            .step-circle { width: 30px; height: 30px; font-size: 10px; }
-            .step-t { font-size: 9px; }
-
-            /* big quote compact */
-            .big-quote-sec { min-height: 40vh; padding: 36px 20px; }
-            .big-quote-sec h2 { font-size: 24px; }
-
-            /* cta */
-            .cta-sec { padding: 36px 20px 30px; }
-            .cta-title { font-size: 24px; }
-        }
-
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━
+           RESPONSIVE
+        ━━━━━━━━━━━━━━━━━━━━━━━━ */
         @media (max-width: 520px) {
-            /* portrait small phone fallback */
-            .g3 { grid-template-columns: 1fr; }
-            .step-wrap { grid-template-columns: repeat(3,1fr); }
-            .diff-wrap { grid-template-columns: 1fr; }
-            .insight-banner { grid-template-columns: 1fr; }
+            .sec { padding: 60px 22px; }
+            .stat-row { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+            .stat-box { padding: 18px 8px; }
+            .stat-num { font-size: 28px; }
+            .compare { grid-template-columns: 1fr; }
+            .for-grid { grid-template-columns: 1fr; }
+            .price-grid { grid-template-columns: 1fr; }
         }
 
-        @media (min-width: 521px) and (max-width: 700px) {
-            .g3 { grid-template-columns: repeat(3,1fr); }
+        /* ━━━ MODAL ━━━ */
+        .modal-overlay {
+            position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,.75); backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity .25s; padding: 20px;
         }
-
-        /* ━━━ SCROLL REVEAL ANIMATION ━━━ */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        .modal-box {
+            background: #1a1a1a; border: 1px solid #333; border-radius: 14px;
+            padding: 28px 24px; width: 100%; max-width: 400px;
+            transform: translateY(16px); transition: transform .25s;
         }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .modal-title { font-size: 17px; font-weight: 900; }
+        .modal-close {
+            width: 28px; height: 28px; border-radius: 50%; background: #2a2a2a;
+            border: none; color: #aaa; font-size: 16px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
         }
-        /* 카드 아이템 순차 등장 */
-        .reveal-item {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1);
+        .modal-subtitle { font-size: 12px; color: #999; margin-bottom: 20px; }
+        .modal-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        .modal-option {
+            display: flex; align-items: center; gap: 14px;
+            background: #242424; border: 1px solid #333; border-radius: 10px;
+            padding: 14px 16px; text-decoration: none; color: #fff;
+            cursor: pointer; transition: border-color .2s, background .2s;
         }
-        .reveal-item.active {
-            opacity: 1;
-            transform: translateY(0);
+        .modal-option:hover { border-color: var(--y); background: rgba(245,191,35,.05); }
+        .modal-opt-ico {
+            width: 40px; height: 40px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; flex-shrink: 0;
+        }
+        .modal-opt-ico.kakao { background: #FEE500; }
+        .modal-opt-ico.call  { background: #F5BF23; }
+        .modal-opt-ico.visit { background: #3D3D3D; }
+        .modal-opt-label { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+        .modal-opt-desc  { font-size: 11px; color: #999; }
+        .modal-notice {
+            font-size: 10px; color: #555; text-align: center; line-height: 1.6;
+            padding-top: 14px; border-top: 1px solid #2a2a2a;
         }
     </style>
 </head>
 <body>
 
-<!-- ━━━ 1. HERO ━━━ -->
+<!-- ━━━ HERO ━━━ -->
 <div class="hero">
     <div class="hero-inner">
-        <p class="hero-brand">NONAME FITNESS</p>
-        <h1 class="hero-title">운동은 의지가 아니라<br><span class="hl">구조</span>입니다</h1>
-        <p class="hero-sub">작심삼일을 끝내는 가장 현실적인 해답,<br>노네임피트니스 무제한 PT 시스템</p>
-        <button class="hero-btn">등록이 아니라 습관의 시작</button>
+        <p class="hero-tag">NONAME FITNESS</p>
+        <h1>운동은 의지가 아니라<br><span class="hl">구조</span>입니다</h1>
+        <p class="hero-sub">
+            작심삼일을 끝내는 가장 현실적인 해답,<br>
+            노네임피트니스 무제한 PT 시스템
+        </p>
+        <button class="hero-btn" onclick="openModal()">상담 받아보기</button>
+    </div>
+    <div class="hero-scroll">
+        <span>SCROLL</span>
+        <div class="scroll-line"></div>
     </div>
 </div>
 
-<!-- ━━━ 2. INSIGHT ━━━ -->
-<div class="sec">
-    <p class="tag reveal">INSIGHT</p>
-    <h2 class="stitle reveal">왜 결심은 3일을 넘기지 못할까요?<br>문제는 의지가 아니라 <span class="hl">'환경'</span>에 있습니다.</h2>
-
-    <div class="g3" style="margin-top:20px;">
-        <div class="card reveal-item">
-            <div style="font-size:18px;margin-bottom:8px;">🏢</div>
-            <div class="stat-num"><span>60</span><span class="stat-unit">%</span></div>
-            <div class="stat-lbl">헬스장 등록 후 포기율</div>
-            <div class="stat-desc">등록만 하고 3개월 내 이탈하는 회원 비율</div>
-        </div>
-        <div class="card reveal-item">
-            <div style="font-size:18px;margin-bottom:8px;">₩</div>
-            <div class="stat-num">80<span class="stat-unit" style="font-size:15px;">만원</span></div>
-            <div class="stat-lbl">평균 PT 10회 비용</div>
-            <div class="stat-desc">회당 5~8만원의 고비용 구조로 지속 부담</div>
-        </div>
-        <div class="card reveal-item">
-            <div style="font-size:18px;margin-bottom:8px;">👤</div>
-            <div class="stat-num"><span>10</span><span class="stat-unit">%</span></div>
-            <div class="stat-lbl">혼자 운동 지속 확률</div>
-            <div class="stat-desc">피드백과 강제성이 없을 때 지속 확률</div>
-        </div>
-    </div>
-
-    <p class="note reveal" style="margin-top:12px;">문제는 의지가 아닙니다. <strong>구조</strong>가 없었을 뿐입니다.</p>
-</div>
-
+<!-- ━━━ PROBLEM ━━━ -->
 <div class="divider"></div>
-
-<!-- ━━━ 3. PROBLEM & SOLUTION (COMPARISON) ━━━ -->
 <div class="sec">
-    <p class="tag reveal">PROBLEM &amp; SOLUTION</p>
-    <h2 class="stitle reveal">알고는 있지만,<br>못 하고 있는 이유</h2>
-    <p class="sdesc reveal">기존 운동 방식은 '가격'과 '지속성' 사이에서 항상 딜레마를 줍니다.</p>
+    <p class="sec-tag rv">PROBLEM</p>
+    <h2 class="sec-title rv">헬스장 등록하고<br><span class="hl">3개월 안에</span> 포기합니다</h2>
+    <p class="sec-desc rv">
+        의지가 약해서가 아닙니다.<br>
+        혼자 하면 방법을 모르고,<br>
+        PT를 받으면 비용이 부담됩니다.<br>
+        <strong>어떻게 해도 오래 못 가는 구조</strong>였습니다.
+    </p>
 
-    <div class="g3">
-        <div class="comp-card reveal-item">
-            <div class="comp-ico">🏋️</div>
-            <div class="comp-name">혼자 운동</div>
-            <div class="comp-sub">일반 헬스장 이용권</div>
-            <ul class="comp-li">
-                <li class="ok">비용 부담이 가장 적음</li>
-                <li class="no">운동 방법 몰라 러닝머신만</li>
-                <li class="no">잡아주는 사람 없어 작심삼일</li>
-                <li class="no">자세 교정·피드백 부재</li>
+    <div class="stat-row">
+        <div class="stat-box rv">
+            <div class="stat-num">60<span style="font-size:18px;">%</span></div>
+            <div class="stat-label">3개월 내<br>포기율</div>
+        </div>
+        <div class="stat-box rv">
+            <div class="stat-num">80<span style="font-size:14px;">만원</span></div>
+            <div class="stat-label">일반 PT<br>10회 비용</div>
+        </div>
+        <div class="stat-box rv">
+            <div class="stat-num" style="color:var(--y);">18<span style="font-size:14px;">만원</span></div>
+            <div class="stat-label">무제한PT<br>1개월</div>
+        </div>
+    </div>
+</div>
+
+<!-- ━━━ QUOTE ━━━ -->
+<div class="quote-sec">
+    <div class="quote-mark rv">"</div>
+    <h2 class="rv">비싸서 못 받거나,<br>혼자서 <span class="hl">포기</span>하거나</h2>
+    <div class="quote-bar rv"></div>
+</div>
+
+<!-- ━━━ COMPARE ━━━ -->
+<div class="divider"></div>
+<div class="sec">
+    <p class="sec-tag rv">COMPARE</p>
+    <h2 class="sec-title rv">같은 돈이면<br><span class="hl">어떤 구조</span>가 나을까요?</h2>
+
+    <div class="compare">
+        <div class="compare-card rv">
+            <h3>일반 PT</h3>
+            <ul class="compare-li">
+                <li>회당 5~8만원</li>
+                <li>10회 끝나면 다시 결제</li>
+                <li>부담되면 혼자 운동</li>
+                <li>결국 안 가게 됨</li>
             </ul>
-            <div class="comp-price">
-                <div class="comp-price-lbl">월 평균</div>
-                <div class="comp-price-val">3~5 만원</div>
+            <div class="compare-price">
+                <small>월 평균 (주2회)</small>
+                <strong>40~60만원</strong>
             </div>
         </div>
-        <div class="comp-card reveal-item">
-            <div class="comp-ico">👥</div>
-            <div class="comp-name">일반 1:1 PT</div>
-            <div class="comp-sub">퍼스널 트레이닝</div>
-            <ul class="comp-li">
-                <li class="ok">확실한 운동 효과와 밀착 관리</li>
-                <li class="ok">개인별 맞춤 루틴 제공</li>
-                <li class="no">회당 5~8만원 비용 부담</li>
-                <li class="no">세션 종료 시 습관 유지 어려움</li>
+        <div class="compare-card pick rv">
+            <h3>무제한 PT</h3>
+            <ul class="compare-li">
+                <li>매일 트레이너가 잡아줌</li>
+                <li>횟수 제한 없이 코칭</li>
+                <li>고정 시간 예약제</li>
+                <li>습관이 될 때까지</li>
             </ul>
-            <div class="comp-price">
-                <div class="comp-price-lbl">월 평균 (주2회)</div>
-                <div class="comp-price-val">40~60 만원</div>
-            </div>
-        </div>
-        <div class="comp-card pick reveal-item">
-            <div class="badge">RECOMMENDED</div>
-            <div class="comp-ico" style="color:var(--y);">∞</div>
-            <div class="comp-name" style="color:var(--y);">무제한 PT</div>
-            <div class="comp-sub">노네임피트니스 시스템</div>
-            <ul class="comp-li">
-                <li class="ok">일반 헬스장 가격에 PT 관리</li>
-                <li class="ok">횟수 제한 없이 매일 코칭 가능</li>
-                <li class="ok">혼자서도 운동할 수 있는 루틴</li>
-                <li class="ok">부담 없이 평생 지속 가능한 구조</li>
-            </ul>
-            <div class="comp-price">
-                <div class="comp-price-lbl">월 평균</div>
-                <div class="comp-price-val">18만원</div>
+            <div class="compare-price">
+                <small>월 평균</small>
+                <strong>18만원</strong>
             </div>
         </div>
     </div>
-
-    <p class="note reveal" style="margin-top:10px;">결국 중요한 것은 <strong>"비용 부담 없이 꾸준히 관리받을 수 있는가"</strong> 입니다.</p>
 </div>
 
+<!-- ━━━ QUOTE ━━━ -->
+<div class="quote-sec">
+    <div class="quote-mark rv">"</div>
+    <h2 class="rv">횟수가 아니라<br><span class="hl">습관</span>을 만드는 구조</h2>
+    <div class="quote-bar rv"></div>
+</div>
+
+<!-- ━━━ SYSTEM ━━━ -->
 <div class="divider"></div>
-
-<!-- ━━━ 4. SYSTEM ━━━ -->
 <div class="sec">
-    <p class="tag reveal">SYSTEM</p>
-    <h2 class="stitle reveal">횟수가 아니라<br><span class="hl">습관</span>을 만드는 구조</h2>
+    <p class="sec-tag rv">SYSTEM</p>
+    <h2 class="sec-title rv">이렇게<br><span class="hl">운영됩니다</span></h2>
+    <p class="sec-desc rv">
+        의지에 기대지 않습니다.<br>
+        시스템이 당신을 끌고 갑니다.
+    </p>
 
-    <div class="system-cards" style="margin-top:24px;">
-        <div class="sys-card reveal-item">
-            <div class="sys-ico">📅</div>
+    <div class="feat-list">
+        <div class="feat-item rv">
+            <div class="feat-ico">📅</div>
             <div>
                 <h3>고정 시간 예약제</h3>
-                <p>월~금, 같은 시간. 같은 장소.</p>
+                <p>월~금, 같은 시간에 출석. 출근하듯 운동합니다.</p>
             </div>
         </div>
-        <div class="sys-card reveal-item">
-            <div class="sys-ico">⏱️</div>
+        <div class="feat-item rv">
+            <div class="feat-ico">🏋️</div>
             <div>
                 <h3>트레이너 30분 독점</h3>
-                <p>1:1 집중 코칭, 온전히 나만의 시간.</p>
+                <p>1:1 집중 코칭. 온전히 나만의 시간입니다.</p>
             </div>
         </div>
-        <div class="sys-card reveal-item">
-            <div class="sys-ico">🚫</div>
+        <div class="feat-item rv">
+            <div class="feat-ico">🚫</div>
             <div>
                 <h3>당일 취소 = 7일 차감</h3>
-                <p>벌칙이 아닌 사전 약속.</p>
+                <p>벌칙이 아닌 약속. 나가야 할 이유를 만듭니다.</p>
             </div>
         </div>
-        <div class="sys-card reveal-item">
-            <div class="sys-ico">🔁</div>
+        <div class="feat-item rv">
+            <div class="feat-ico">🔁</div>
             <div>
-                <h3>의지 대신 구조</h3>
-                <p>반복이 쌓이면 습관이 됩니다.</p>
+                <h3>반복이 습관이 됩니다</h3>
+                <p>21일이면 몸이 기억합니다. 구조가 해냅니다.</p>
             </div>
         </div>
     </div>
 </div>
 
-
+<!-- ━━━ FOR YOU ━━━ -->
 <div class="divider"></div>
-
-<!-- ━━━ 5. FOR YOU ━━━ -->
 <div class="sec">
-    <p class="tag reveal">FOR YOU</p>
-    <h2 class="stitle reveal">이런 분이라면,<br><span class="hl">지금 시작</span>하세요</h2>
+    <p class="sec-tag rv">FOR YOU</p>
+    <h2 class="sec-title rv">이런 분이라면<br><span class="hl">지금 시작</span>하세요</h2>
 
-    <div class="system-cards" style="margin-top:20px;">
-        <div class="sys-card reveal-item"><div class="sys-ico">₩</div><div><h3>PT 비용이 부담스러운 분</h3></div></div>
-        <div class="sys-card reveal-item"><div class="sys-ico">👤</div><div><h3>혼자 하면 작심삼일인 분</h3></div></div>
-        <div class="sys-card reveal-item"><div class="sys-ico">🏢</div><div><h3>등록만 하고 안 가게 되는 분</h3></div></div>
-        <div class="sys-card reveal-item"><div class="sys-ico">🌱</div><div><h3>운동을 습관으로 만들고 싶은 분</h3></div></div>
+    <div class="for-grid">
+        <div class="for-card rv">
+            <div class="ico">💸</div>
+            <p>PT 비용이<br>부담스러운 분</p>
+        </div>
+        <div class="for-card rv">
+            <div class="ico">😩</div>
+            <p>혼자 하면<br>작심삼일인 분</p>
+        </div>
+        <div class="for-card rv">
+            <div class="ico">🏢</div>
+            <p>등록만 하고<br>안 가게 되는 분</p>
+        </div>
+        <div class="for-card rv">
+            <div class="ico">🌱</div>
+            <p>운동을 습관으로<br>만들고 싶은 분</p>
+        </div>
     </div>
 </div>
 
-
+<!-- ━━━ PRICING ━━━ -->
 <div class="divider"></div>
-
-<!-- ━━━ 9. PRICING ━━━ -->
 <div class="sec">
-    <p class="tag reveal">PRICING</p>
-    <h2 class="stitle reveal">시작 부담은 <span class="hl">낮추고,</span><br>지속성은 <span class="hl">높인</span> 가격 구조</h2>
+    <p class="sec-tag rv">PRICING</p>
+    <h2 class="sec-title rv">일반 PT 1회 비용으로<br><span class="hl">한 달</span>을 시작합니다</h2>
 
-    <p class="tag reveal" style="margin-top:28px;">무제한 PT <span style="font-size:9px;color:var(--g3);letter-spacing:0;">· VAT 별도</span></p>
-    <div class="g3" style="margin-top:12px;">
-        <div class="price-card reveal-item">
-            <div class="price-period">1 개월</div>
-            <div class="price-amt">180,000<span style="font-size:12px;">원</span></div>
+    <p class="price-group-label rv">무제한 PT <span>· VAT 별도</span></p>
+    <div class="price-grid">
+        <div class="price-card rv">
+            <div class="price-period">1개월</div>
+            <div class="price-amt">180,000<small>원</small></div>
         </div>
-        <div class="price-card best reveal-item">
+        <div class="price-card best rv">
             <div class="price-badge">BEST</div>
-            <div class="price-period" style="color:var(--y);">3 개월</div>
-            <div class="price-amt" style="color:var(--y);">513,000<span style="font-size:12px;">원</span></div>
+            <div class="price-period">3개월</div>
+            <div class="price-amt">513,000<small>원</small></div>
             <div class="price-note">월 171,000원</div>
         </div>
-        <div class="price-card reveal-item">
-            <div class="price-period">6 개월</div>
-            <div class="price-amt">972,000<span style="font-size:12px;">원</span></div>
+        <div class="price-card rv">
+            <div class="price-period">6개월</div>
+            <div class="price-amt">972,000<small>원</small></div>
             <div class="price-note">월 162,000원</div>
         </div>
     </div>
 
-    <p class="tag reveal" style="margin-top:32px;">헬스 회원권 <span style="font-size:9px;color:var(--g3);letter-spacing:0;">· VAT 포함 · 별도 등록</span></p>
-    <div class="g3" style="margin-top:12px;">
-        <div class="price-card reveal-item">
-            <div class="price-period">1 개월</div>
-            <div class="price-amt">50,000<span style="font-size:12px;">원</span></div>
+    <p class="price-group-label rv">헬스 회원권 <span>· VAT 포함 · 별도 등록</span></p>
+    <div class="price-grid">
+        <div class="price-card rv">
+            <div class="price-period">1개월</div>
+            <div class="price-amt">50,000<small>원</small></div>
         </div>
-        <div class="price-card reveal-item">
-            <div class="price-period">3 개월</div>
-            <div class="price-amt">120,000<span style="font-size:12px;">원</span></div>
+        <div class="price-card rv">
+            <div class="price-period">3개월</div>
+            <div class="price-amt">120,000<small>원</small></div>
             <div class="price-note">월 40,000원</div>
         </div>
-        <div class="price-card reveal-item">
-            <div class="price-period">6 개월</div>
-            <div class="price-amt">180,000<span style="font-size:12px;">원</span></div>
+        <div class="price-card rv">
+            <div class="price-period">6개월</div>
+            <div class="price-amt">180,000<small>원</small></div>
             <div class="price-note">월 30,000원</div>
         </div>
     </div>
 
-    <p class="note reveal" style="margin-top:14px;">💰 일반 PT 1회 비용으로 <strong>한 달을 시작</strong>할 수 있습니다</p>
-</div>
-
-
-<div class="divider"></div>
-
-<!-- ━━━ 11. BIG QUOTE ━━━ -->
-<div class="big-quote-sec">
-    <div class="open-q reveal">"</div>
-    <h2 class="reveal">운동은 의지가 아니라<br><span class="hl">구조</span>입니다</h2>
-    <div class="big-quote-bar reveal"></div>
-    <p class="reveal">결심은 가벼워도, 구조는 단단해야 합니다</p>
-</div>
-
-<!-- ━━━ 12. CTA ━━━ -->
-<div class="cta-sec">
-    <p class="cta-brand reveal">NONAME FITNESS</p>
-    <div class="cta-bar reveal"></div>
-    <h2 class="cta-title reveal">오늘, <span class="hl">구조</span>를 시작하세요</h2>
-    <p class="cta-desc reveal">고민하는 시간에도 몸은 변하지 않습니다.<br>의지에 기대지 말고, 검증된 시스템에 맡기세요.</p>
-    <button class="cta-btn reveal" onclick="openModal()">상담 및 방문 문의</button>
-
-    <div class="cta-feats">
-        <div class="cta-feat">
-            <div class="cta-feat-ico">🏢</div>
-            <p>방문 상담 환영</p>
-        </div>
-        <div class="cta-feat">
-            <div class="cta-feat-ico">💬</div>
-            <p>카카오톡 상담</p>
-        </div>
-        <div class="cta-feat">
-            <div class="cta-feat-ico">🎟️</div>
-            <p>첫 방문 무료 체험</p>
-        </div>
+    <div class="price-bottom-note rv">
+        💰 일반 PT 1회 비용 = 무제한 PT <strong>한 달</strong>
     </div>
 </div>
 
-<!-- ─── FOOTER ─── -->
+<!-- ━━━ BIG QUOTE ━━━ -->
+<div class="quote-sec" style="min-height:50vh; display:flex; flex-direction:column; justify-content:center;">
+    <div class="quote-mark rv">"</div>
+    <h2 class="rv" style="font-size:clamp(26px,6vw,44px);">운동은 의지가 아니라<br><span class="hl">구조</span>입니다</h2>
+    <div class="quote-bar rv"></div>
+    <p class="rv" style="font-size:14px;color:var(--g2);margin-top:16px;">결심은 가벼워도, 구조는 단단해야 합니다</p>
+</div>
+
+<!-- ━━━ CTA ━━━ -->
+<div class="cta">
+    <p class="cta-tag rv">NONAME FITNESS</p>
+    <div class="cta-bar rv"></div>
+    <h2 class="rv">오늘, <span class="hl">구조</span>를 시작하세요</h2>
+    <p class="cta-desc rv">
+        고민하는 시간에도 몸은 변하지 않습니다.<br>
+        의지에 기대지 말고, 검증된 시스템에 맡기세요.
+    </p>
+    <button class="cta-btn rv" onclick="openModal()">상담 및 방문 문의</button>
+</div>
+
 <footer>
     <p>내일의 나를 바꾸는 공간, NONAME FITNESS</p>
-    <p>천안 두정동 · 무제한 PT 시스템</p>
+    <p>천안 두정동 · 041-557-9291</p>
 </footer>
 
 <!-- ━━━ MODAL ━━━ -->
@@ -757,11 +680,11 @@
                     <div class="modal-opt-desc">채팅으로 편하게 문의하세요</div>
                 </div>
             </a>
-            <a class="modal-option" href="tel:041-000-0000">
+            <a class="modal-option" href="tel:041-557-9291">
                 <div class="modal-opt-ico call">📞</div>
                 <div>
                     <div class="modal-opt-label">전화 문의</div>
-                    <div class="modal-opt-desc">041-000-0000 · 운영시간 내 연결</div>
+                    <div class="modal-opt-desc">041-557-9291 · 운영시간 내 연결</div>
                 </div>
             </a>
             <div class="modal-option" onclick="closeModal()">
@@ -779,52 +702,6 @@
     </div>
 </div>
 
-<style>
-.modal-overlay {
-    position: fixed; inset: 0; z-index: 9999;
-    background: rgba(0,0,0,.75); backdrop-filter: blur(4px);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none; transition: opacity .25s; padding: 20px;
-}
-.modal-overlay.active { opacity: 1; pointer-events: all; }
-.modal-box {
-    background: #1a1a1a; border: 1px solid #333; border-radius: 14px;
-    padding: 28px 24px; width: 100%; max-width: 400px;
-    transform: translateY(16px); transition: transform .25s;
-}
-.modal-overlay.active .modal-box { transform: translateY(0); }
-.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-.modal-title { font-size: 17px; font-weight: 900; }
-.modal-close {
-    width: 28px; height: 28px; border-radius: 50%; background: #2a2a2a;
-    border: none; color: #aaa; font-size: 16px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-}
-.modal-subtitle { font-size: 12px; color: #999; margin-bottom: 20px; }
-.modal-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-.modal-option {
-    display: flex; align-items: center; gap: 14px;
-    background: #242424; border: 1px solid #333; border-radius: 10px;
-    padding: 14px 16px; text-decoration: none; color: #fff;
-    cursor: pointer; transition: border-color .2s, background .2s;
-}
-.modal-option:hover { border-color: var(--y); background: rgba(245,191,35,.05); }
-.modal-opt-ico {
-    width: 40px; height: 40px; border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px; flex-shrink: 0;
-}
-.modal-opt-ico.kakao { background: #FEE500; }
-.modal-opt-ico.call  { background: #F5BF23; }
-.modal-opt-ico.visit { background: #3D3D3D; }
-.modal-opt-label { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
-.modal-opt-desc  { font-size: 11px; color: #999; }
-.modal-notice {
-    font-size: 10px; color: #555; text-align: center; line-height: 1.6;
-    padding-top: 14px; border-top: 1px solid #2a2a2a;
-}
-</style>
-
 <script>
 function openModal() {
     document.getElementById('consultModal').classList.add('active');
@@ -841,33 +718,15 @@ document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close
 
 /* ━━━ SCROLL REVEAL ━━━ */
 (function(){
-    const io = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-            if(entry.isIntersecting){
-                entry.target.classList.add('active');
-                io.unobserve(entry.target);
+    var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+            if(e.isIntersecting){
+                e.target.classList.add('on');
+                io.unobserve(e.target);
             }
         });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
-
-    /* reveal-item: 순차 딜레이 */
-    const io2 = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-            if(entry.isIntersecting){
-                /* 같은 부모의 reveal-item 형제끼리 순서 계산 */
-                var parent = entry.target.parentElement;
-                var siblings = parent.querySelectorAll('.reveal-item');
-                var idx = Array.prototype.indexOf.call(siblings, entry.target);
-                entry.target.style.transitionDelay = (idx * 0.12) + 's';
-                entry.target.classList.add('active');
-                io2.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.reveal-item').forEach(function(el){ io2.observe(el); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
 })();
 </script>
 
