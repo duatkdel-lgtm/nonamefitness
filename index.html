@@ -1294,7 +1294,7 @@ function submitPartner(){
     if(!/^01[0-9]{8,9}$/.test(d)){alert('올바른 연락처를 입력해주세요. (예: 010-0000-0000)');return}
     var btn=document.getElementById('partnerSubmitBtn');
     btn.disabled=true;btn.textContent='전송 중...';
-    fetch('https://hook.eu2.make.com/mq170llq61dlq9jis99u269krcwp9f6d',{
+    fetch('https://hook.eu2.make.com/jo716cek16bqswwvten9482le5lfr4xq',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({name:name,phone:phone,bizName:biz,category:cat||'미입력',message:msg||'미입력',source:'제휴신청',timestamp:new Date().toLocaleString('ko-KR'),smsTo:'01053909291',smsFrom:'01057939291',smsBody:'[노네임 제휴신청]\n업체명: '+biz+'\n담당자: '+name+'\n연락처: '+phone+'\n업종: '+(cat||'미입력')+'\n내용: '+(msg||'미입력')+'\n시간: '+new Date().toLocaleString('ko-KR')})
