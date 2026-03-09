@@ -658,6 +658,40 @@
                 <p>운동은 노네임에서, 일상 혜택은 제휴처에서.</p>
                 <p class="notice-info">📌 이용 시 회원 인증 필수 &nbsp;|&nbsp; 📌 자세한 내용은 프론트 문의</p>
             </div>
+
+            <!-- 사업자 제휴 신청 -->
+            <div data-aos="fade-up" style="max-width:500px;margin:48px auto 0;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:36px 28px;">
+                <div id="partnerForm">
+                    <h3 style="font-size:20px;font-weight:900;text-align:center;margin-bottom:6px;">🤝 사업자 제휴 신청</h3>
+                    <p style="font-size:13px;color:#888;text-align:center;margin-bottom:28px;line-height:1.6;">노네임피트니스와 함께 할 제휴업체를 찾고 있습니다.<br>아래 정보를 남겨주시면 검토 후 연락드립니다.</p>
+                    <div style="margin-bottom:16px;">
+                        <label style="display:block;font-size:13px;font-weight:700;color:#ccc;margin-bottom:6px;">업체명<span style="color:#F5BF23;margin-left:2px;">*</span></label>
+                        <input type="text" id="pBizName" placeholder="예: 홍길동 식당" style="width:100%;padding:12px 14px;background:#111;border:1px solid #333;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;">
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <label style="display:block;font-size:13px;font-weight:700;color:#ccc;margin-bottom:6px;">담당자 성함<span style="color:#F5BF23;margin-left:2px;">*</span></label>
+                        <input type="text" id="pName" placeholder="홍길동" style="width:100%;padding:12px 14px;background:#111;border:1px solid #333;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;">
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <label style="display:block;font-size:13px;font-weight:700;color:#ccc;margin-bottom:6px;">연락처<span style="color:#F5BF23;margin-left:2px;">*</span></label>
+                        <input type="tel" id="pPhone" placeholder="010-0000-0000" maxlength="13" oninput="formatPartnerPhone(this)" style="width:100%;padding:12px 14px;background:#111;border:1px solid #333;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;">
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <label style="display:block;font-size:13px;font-weight:700;color:#ccc;margin-bottom:6px;">업종</label>
+                        <input type="text" id="pCategory" placeholder="예: 음식점, 미용실, 카페 등" style="width:100%;padding:12px 14px;background:#111;border:1px solid #333;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;">
+                    </div>
+                    <div style="margin-bottom:20px;">
+                        <label style="display:block;font-size:13px;font-weight:700;color:#ccc;margin-bottom:6px;">제휴 제안 내용</label>
+                        <textarea id="pMessage" placeholder="제휴 혜택이나 제안 내용을 자유롭게 작성해주세요." style="width:100%;padding:12px 14px;background:#111;border:1px solid #333;border-radius:8px;color:#fff;font-size:15px;font-family:inherit;outline:none;resize:vertical;min-height:80px;"></textarea>
+                    </div>
+                    <button id="partnerSubmitBtn" onclick="submitPartner()" style="width:100%;padding:14px;background:#F5BF23;color:#000;font-size:16px;font-weight:900;border:none;border-radius:8px;cursor:pointer;">제휴 신청하기</button>
+                </div>
+                <div id="partnerResult" style="display:none;text-align:center;padding:20px 0;">
+                    <div style="font-size:48px;margin-bottom:12px;">✅</div>
+                    <h3 style="font-size:20px;font-weight:900;margin-bottom:8px;">신청 완료!</h3>
+                    <p style="font-size:14px;color:#888;line-height:1.7;">제휴 검토 후 빠르게 연락드리겠습니다.<br>감사합니다.</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1232,5 +1266,32 @@
             <iframe class="slideshow-iframe" src="gym/" frameborder="0" title="노네임피트니스 헬스 소개"></iframe>
         </div>
     </div>
+
+<script>
+function formatPartnerPhone(el){var v=el.value.replace(/[^0-9]/g,'');if(v.length>3&&v.length<=7)v=v.slice(0,3)+'-'+v.slice(3);else if(v.length>7)v=v.slice(0,3)+'-'+v.slice(3,7)+'-'+v.slice(7,11);el.value=v}
+function submitPartner(){
+    var biz=document.getElementById('pBizName').value.trim();
+    var name=document.getElementById('pName').value.trim();
+    var phone=document.getElementById('pPhone').value.trim();
+    var cat=document.getElementById('pCategory').value.trim();
+    var msg=document.getElementById('pMessage').value.trim();
+    if(!biz||!name||!phone){alert('업체명, 담당자 성함, 연락처는 필수 항목입니다.');return}
+    var d=phone.replace(/[^0-9]/g,'');
+    if(!/^01[0-9]{8,9}$/.test(d)){alert('올바른 연락처를 입력해주세요. (예: 010-0000-0000)');return}
+    var btn=document.getElementById('partnerSubmitBtn');
+    btn.disabled=true;btn.textContent='전송 중...';
+    fetch('https://hook.eu2.make.com/mq170llq61dlq9jis99u269krcwp9f6d',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({name:name,phone:phone,bizName:biz,category:cat||'미입력',message:msg||'미입력',source:'제휴신청',timestamp:new Date().toLocaleString('ko-KR')})
+    }).then(function(r){
+        if(r.ok){document.getElementById('partnerForm').style.display='none';document.getElementById('partnerResult').style.display='block'}
+        else{throw new Error('fail')}
+    }).catch(function(){
+        alert('전송에 실패했습니다. 전화(041-557-9291)로 문의해주세요.');
+        btn.disabled=false;btn.textContent='제휴 신청하기';
+    });
+}
+</script>
 </body>
 </html>
