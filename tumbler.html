@@ -12,528 +12,833 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>노네임피트니스 오리지널 텀블러</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
         *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 
         :root{
-            --y:#F5BF23;--y2:#FFD556;--y3:rgba(245,191,35,.10);
-            --bg:#0c0c0c;--s1:#161616;--s2:#1e1e1e;--s3:#262626;
-            --bd:#2e2e2e;--w:#fff;--g1:#ccc;--g2:#999;--g3:#555;
-            --r:8px;
+            --y:#F5BF23;--y2:#FFD556;--y3:rgba(245,191,35,.08);
+            --bg:#0a0a0a;--s1:#111;--s2:#181818;--s3:#222;
+            --bd:#2a2a2a;--w:#fff;--g1:#ccc;--g2:#999;--g3:#555;
+            --r:12px;
         }
 
         html{scroll-behavior:smooth;}
-        body{background:var(--bg);color:var(--w);font-family:'Noto Sans KR',-apple-system,sans-serif;font-size:14px;line-height:1.5;overflow-x:hidden;}
+        body{background:var(--bg);color:var(--w);font-family:'Noto Sans KR',-apple-system,sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden;}
+
+        /* ── ANIMATION ── */
+        @keyframes fadeUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+        @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+        @keyframes pulse{0%,100%{opacity:.6;}50%{opacity:1;}}
+        @keyframes slideIn{from{opacity:0;transform:translateX(-30px);}to{opacity:1;transform:translateX(0);}}
+        @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+        @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(245,191,35,.1);}50%{box-shadow:0 0 40px rgba(245,191,35,.25);}}
+        @keyframes countUp{from{opacity:0;transform:scale(.8);}to{opacity:1;transform:scale(1);}}
+
+        .reveal{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.16,1,.3,1);}
+        .reveal.visible{opacity:1;transform:translateY(0);}
+        .reveal-delay-1{transition-delay:.15s;}
+        .reveal-delay-2{transition-delay:.3s;}
+        .reveal-delay-3{transition-delay:.45s;}
+        .reveal-delay-4{transition-delay:.6s;}
 
         /* ── TYPO ── */
-        .tag{font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--y);text-transform:uppercase;margin-bottom:10px;}
-        .stitle{font-size:clamp(20px,3.5vw,30px);font-weight:900;line-height:1.25;margin-bottom:6px;}
-        .sdesc{font-size:12px;color:var(--g2);margin-bottom:20px;line-height:1.6;}
+        .tag{font-size:11px;font-weight:700;letter-spacing:4px;color:var(--y);text-transform:uppercase;}
         .hl{color:var(--y);}
 
-        /* ── LAYOUT ── */
-        .sec{padding:40px 20px;max-width:860px;margin:0 auto;}
-        .divider{width:100%;height:1px;background:var(--bd);}
-        .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-        .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-        .note{background:var(--s1);border-radius:6px;padding:12px 16px;font-size:12px;color:var(--g1);line-height:1.6;text-align:center;}
-
-        /* ━━━━━━━━━━━━━━━━━━━━
-           1. HERO — 상품 메인
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .hero{
-            position:relative;padding:48px 24px;overflow:hidden;background:var(--bg);
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           0. OPENING — 시네마틱 인트로
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .opening{
+            min-height:100vh;display:flex;align-items:center;justify-content:center;
+            position:relative;overflow:hidden;
+            background:linear-gradient(180deg,#000 0%,var(--bg) 100%);
         }
-        .hero::before{
+        .opening::before{
             content:'';position:absolute;inset:0;
-            background:radial-gradient(ellipse 50% 40% at 50% 60%,rgba(245,191,35,.06) 0%,transparent 60%);
+            background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(245,191,35,.04) 0%,transparent 70%);
+        }
+        .opening-inner{
+            position:relative;z-index:1;text-align:center;padding:40px 24px;
+            max-width:680px;animation:fadeIn 1.5s ease;
+        }
+        .opening-quote{
+            font-size:clamp(13px,2.5vw,16px);color:var(--g2);letter-spacing:1px;
+            margin-bottom:20px;font-weight:300;
+        }
+        .opening-title{
+            font-size:clamp(28px,6vw,52px);font-weight:900;line-height:1.2;
+            margin-bottom:24px;
+        }
+        .opening-title .line{display:block;}
+        .opening-sub{
+            font-size:clamp(14px,2.5vw,17px);color:var(--g1);line-height:1.8;
+            font-weight:300;margin-bottom:40px;
+        }
+        .scroll-hint{
+            animation:pulse 2s infinite;font-size:12px;color:var(--g3);
+            letter-spacing:2px;
+        }
+        .scroll-hint span{display:block;margin-top:8px;font-size:18px;}
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           1. STORY — 왜 만들었는가
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .story-sec{
+            padding:80px 24px;max-width:720px;margin:0 auto;
+        }
+        .story-block{margin-bottom:60px;}
+        .story-num{
+            font-size:11px;font-weight:700;letter-spacing:3px;color:var(--y);
+            margin-bottom:16px;display:flex;align-items:center;gap:12px;
+        }
+        .story-num::after{content:'';flex:1;height:1px;background:var(--bd);}
+        .story-title{
+            font-size:clamp(22px,4vw,32px);font-weight:900;line-height:1.35;
+            margin-bottom:16px;
+        }
+        .story-text{
+            font-size:clamp(14px,2.2vw,16px);color:var(--g1);line-height:2;font-weight:300;
+        }
+        .story-text strong{color:var(--w);font-weight:700;}
+        .story-text em{color:var(--y);font-style:normal;font-weight:500;}
+
+        .story-highlight{
+            margin:40px 0;padding:28px 24px;
+            border-left:3px solid var(--y);
+            background:linear-gradient(90deg,rgba(245,191,35,.05) 0%,transparent 100%);
+            border-radius:0 var(--r) var(--r) 0;
+        }
+        .story-highlight p{
+            font-size:clamp(16px,3vw,20px);font-weight:700;line-height:1.7;
+            color:var(--w);
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           2. PRODUCT REVEAL — 제품 등장
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .product-reveal{
+            padding:80px 24px;text-align:center;
+            background:linear-gradient(180deg,var(--bg) 0%,#080808 50%,var(--bg) 100%);
+            position:relative;overflow:hidden;
+        }
+        .product-reveal::before{
+            content:'';position:absolute;top:50%;left:50%;
+            width:400px;height:400px;
+            transform:translate(-50%,-50%);
+            background:radial-gradient(circle,rgba(245,191,35,.06) 0%,transparent 70%);
             pointer-events:none;
         }
-        .hero-inner{
-            position:relative;z-index:1;max-width:860px;margin:0 auto;width:100%;
-            display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;
+        .product-img-wrap{
+            position:relative;z-index:1;
+            max-width:360px;margin:0 auto 40px;
+            animation:float 4s ease-in-out infinite;
         }
-        .hero-img-area{
-            display:flex;align-items:center;justify-content:center;
-            background:linear-gradient(145deg,#f5f5f5 0%,#e8e8e8 100%);
-            border-radius:16px;padding:32px 24px;min-height:320px;
-            position:relative;overflow:hidden;
+        .product-img-wrap img{
+            width:100%;max-height:420px;object-fit:contain;
+            filter:drop-shadow(0 20px 60px rgba(245,191,35,.15));
         }
-        .hero-img-area img{max-width:100%;max-height:320px;object-fit:contain;border-radius:8px;}
-        /* 이미지 없을 때 텍스트 목업 */
-        .tumbler-mock{
-            display:flex;gap:20px;align-items:center;justify-content:center;
+        /* 이미지 없을 때 목업 */
+        .product-mock-hero{
+            width:140px;height:320px;margin:0 auto;
+            background:linear-gradient(180deg,#2a2a2a 0%,#2a2a2a 7%,#fff 7%,#fff 88%,#c9a440 88%,#c9a440 100%);
+            border-radius:16px 16px 10px 10px;
+            box-shadow:0 20px 60px rgba(245,191,35,.15);
+            position:relative;
         }
-        .tumbler-col{
-            width:90px;height:200px;border-radius:12px 12px 8px 8px;
-            background:#fff;box-shadow:0 8px 30px rgba(0,0,0,.1);
-            position:relative;overflow:hidden;
-        }
-        .tumbler-col::before{
-            content:'';position:absolute;bottom:0;left:0;right:0;height:28px;
-            background:linear-gradient(to right,#c9a440,#e8c84a);border-radius:0 0 8px 8px;
-        }
-        .tumbler-col::after{
-            content:'';position:absolute;top:0;left:0;right:0;height:22px;
-            background:#2a2a2a;border-radius:12px 12px 0 0;
-        }
-        .tumbler-label{
-            position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-90deg);
-            font-size:16px;font-weight:900;letter-spacing:2px;color:#111;white-space:nowrap;
-        }
-        .tumbler-col.b .tumbler-label{
-            font-size:12px;background:var(--y);color:#000;padding:4px 10px;border-radius:20px;
+        .product-mock-hero::after{
+            content:'NONAME';position:absolute;top:50%;left:50%;
             transform:translate(-50%,-50%) rotate(-90deg);
+            font-size:22px;font-weight:900;letter-spacing:4px;color:#111;
+        }
+        .product-name-big{
+            font-size:clamp(20px,3.5vw,28px);font-weight:900;margin-bottom:8px;
+            position:relative;z-index:1;
+        }
+        .product-tagline{
+            font-size:clamp(13px,2vw,15px);color:var(--g2);margin-bottom:28px;
+            position:relative;z-index:1;
+        }
+        .product-price-area{
+            position:relative;z-index:1;
+            display:flex;align-items:baseline;justify-content:center;gap:10px;
+            margin-bottom:32px;
+        }
+        .product-price{font-size:clamp(36px,7vw,56px);font-weight:900;color:var(--y);}
+        .product-price-unit{font-size:18px;color:var(--y);font-weight:700;}
+        .product-price-note{font-size:12px;color:var(--g3);}
+        .product-badges{
+            position:relative;z-index:1;
+            display:flex;gap:8px;justify-content:center;flex-wrap:wrap;
+        }
+        .product-badge{
+            padding:8px 16px;border-radius:24px;font-size:12px;font-weight:600;
+            background:var(--s2);border:1px solid var(--bd);color:var(--g1);
         }
 
-        .hero-info{display:flex;flex-direction:column;gap:12px;}
-        .hero-brand{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--g3);text-transform:uppercase;}
-        .hero-badge{
-            display:inline-flex;align-items:center;gap:6px;
-            background:var(--y3);border:1px solid var(--y);
-            color:var(--y);font-size:10px;font-weight:700;
-            padding:4px 12px;border-radius:20px;width:fit-content;letter-spacing:.5px;
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           3. PHILOSOPHY — 철학
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .philosophy{
+            padding:80px 24px;text-align:center;
+            background:var(--s1);
         }
-        .hero-name{font-size:clamp(22px,4vw,34px);font-weight:900;line-height:1.2;}
-        .hero-desc-text{font-size:13px;color:var(--g1);line-height:1.7;}
-        .hero-price-row{display:flex;align-items:baseline;gap:10px;margin-top:4px;}
-        .hero-price{font-size:clamp(28px,5vw,40px);font-weight:900;color:var(--y);}
-        .hero-price-tax{font-size:11px;color:var(--g3);}
-        .hero-specs{
-            display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;
+        .philosophy-inner{max-width:640px;margin:0 auto;}
+        .philosophy-big{
+            font-size:clamp(24px,5vw,40px);font-weight:900;line-height:1.4;
+            margin:24px 0 20px;
         }
-        .hero-spec{
-            background:var(--s2);border:1px solid var(--bd);border-radius:6px;
-            padding:6px 12px;font-size:11px;color:var(--g1);
+        .philosophy-desc{
+            font-size:clamp(14px,2.2vw,16px);color:var(--g1);line-height:2;
+            font-weight:300;
         }
-        .hero-buy-btn{
-            display:inline-block;padding:14px 36px;
-            background:var(--y);color:#000;
-            font-size:14px;font-weight:900;letter-spacing:.5px;
-            border-radius:4px;cursor:pointer;border:none;
-            transition:opacity .2s;margin-top:8px;width:fit-content;
-        }
-        .hero-buy-btn:hover{opacity:.85;}
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           2. IDENTITY — 브랜드
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .id-wrap{
-            display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           4. IDENTITY — A면/B면
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .identity{padding:80px 24px;max-width:860px;margin:0 auto;}
+        .identity-header{text-align:center;margin-bottom:48px;}
+        .identity-title{
+            font-size:clamp(24px,4vw,36px);font-weight:900;margin:16px 0 12px;
         }
+        .identity-sub{font-size:14px;color:var(--g2);line-height:1.7;}
+
+        .id-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
         .id-card{
             background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);
-            padding:22px 18px;
+            padding:32px 24px;position:relative;overflow:hidden;
+            transition:border-color .3s;
         }
-        .id-card h3{font-size:14px;font-weight:700;margin-bottom:8px;}
-        .id-card p{font-size:12px;color:var(--g2);line-height:1.7;}
-        .id-logo-area{
-            display:flex;gap:16px;align-items:center;justify-content:center;
-            background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);
-            padding:20px;
+        .id-card:hover{border-color:var(--y);}
+        .id-card::before{
+            content:'';position:absolute;top:0;left:0;right:0;height:3px;
         }
-        .id-logo-mock{
-            width:64px;height:64px;border-radius:12px;
+        .id-card.side-a::before{background:var(--w);}
+        .id-card.side-b::before{background:var(--y);}
+        .id-side-label{
+            font-size:11px;font-weight:700;letter-spacing:3px;margin-bottom:16px;
+            display:flex;align-items:center;gap:8px;
+        }
+        .id-card.side-a .id-side-label{color:var(--g1);}
+        .id-card.side-b .id-side-label{color:var(--y);}
+        .id-card h3{font-size:18px;font-weight:900;margin-bottom:12px;}
+        .id-card p{font-size:13px;color:var(--g2);line-height:1.8;}
+        .id-mock{
+            width:60px;height:60px;border-radius:10px;
             display:flex;align-items:center;justify-content:center;
-            font-size:11px;font-weight:900;letter-spacing:1px;
+            font-size:10px;font-weight:900;letter-spacing:1px;line-height:1.2;
+            margin-bottom:16px;
         }
-        .id-logo-mock.a{background:#fff;color:#111;}
-        .id-logo-mock.b{background:var(--y);color:#111;}
+        .side-a .id-mock{background:#fff;color:#111;}
+        .side-b .id-mock{background:var(--y);color:#111;}
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           3. DETAILS — 상세 스펙
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .spec-grid{
-            display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px;
-        }
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           5. SPECS — 숫자로 말하기
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .specs{padding:80px 24px;background:var(--s1);}
+        .specs-inner{max-width:860px;margin:0 auto;}
+        .specs-header{text-align:center;margin-bottom:48px;}
+        .specs-title{font-size:clamp(24px,4vw,36px);font-weight:900;margin:16px 0;}
+        .specs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
         .spec-card{
             background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);
-            padding:16px 14px;text-align:center;
+            padding:28px 16px;text-align:center;
+            transition:all .3s;position:relative;overflow:hidden;
         }
-        .spec-ico{font-size:22px;margin-bottom:8px;}
-        .spec-val{font-size:18px;font-weight:900;margin-bottom:2px;}
-        .spec-lbl{font-size:10px;color:var(--g2);line-height:1.5;}
+        .spec-card:hover{border-color:var(--y);transform:translateY(-4px);}
+        .spec-card::after{
+            content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+            background:var(--y);transform:scaleX(0);transition:transform .3s;
+        }
+        .spec-card:hover::after{transform:scaleX(1);}
+        .spec-ico{font-size:28px;margin-bottom:14px;}
+        .spec-val{font-size:clamp(28px,5vw,36px);font-weight:900;color:var(--y);margin-bottom:4px;}
+        .spec-unit{font-size:12px;color:var(--g2);font-weight:500;}
+        .spec-lbl{font-size:11px;color:var(--g3);margin-top:8px;line-height:1.5;}
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           4. FEATURES
-        ━━━━━━━━━━━━━━━━━━━━ */
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           6. FEATURES — 기능
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .features{padding:80px 24px;max-width:860px;margin:0 auto;}
+        .features-header{text-align:center;margin-bottom:48px;}
+        .features-title{font-size:clamp(24px,4vw,36px);font-weight:900;margin:16px 0;}
+        .features-sub{font-size:14px;color:var(--g2);}
+        .feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
         .feat{
-            display:flex;gap:12px;align-items:flex-start;
-            background:var(--s2);border:1px solid var(--bd);
-            border-radius:var(--r);padding:14px 14px;
+            background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);
+            padding:28px 22px;transition:all .3s;
         }
-        .feat-ico{
-            width:36px;height:36px;border-radius:7px;
+        .feat:hover{border-color:var(--y);transform:translateY(-2px);}
+        .feat-ico-wrap{
+            width:48px;height:48px;border-radius:12px;
             background:var(--y);color:#000;
             display:flex;align-items:center;justify-content:center;
-            font-size:17px;flex-shrink:0;
+            font-size:22px;margin-bottom:16px;
         }
-        .feat h3{font-size:13px;font-weight:700;margin-bottom:5px;}
-        .feat p{font-size:11px;color:var(--g2);line-height:1.6;}
+        .feat h3{font-size:15px;font-weight:700;margin-bottom:8px;}
+        .feat p{font-size:13px;color:var(--g2);line-height:1.7;}
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           5. SCENE — 사용 장면
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .scene-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px;}
-        .scene-card{
-            background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);
-            padding:18px 14px;text-align:center;
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           7. DAILY SCENE — 일상 속 텀블러
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .daily{padding:80px 24px;background:var(--s1);}
+        .daily-inner{max-width:860px;margin:0 auto;}
+        .daily-header{text-align:center;margin-bottom:48px;}
+        .daily-title{font-size:clamp(24px,4vw,36px);font-weight:900;margin:16px 0;}
+        .daily-timeline{
+            display:grid;grid-template-columns:1fr;gap:0;
+            position:relative;
         }
-        .scene-ico{font-size:28px;margin-bottom:10px;}
-        .scene-card h3{font-size:12px;font-weight:700;margin-bottom:4px;}
-        .scene-card p{font-size:10px;color:var(--g2);line-height:1.5;}
+        .daily-timeline::before{
+            content:'';position:absolute;left:24px;top:0;bottom:0;
+            width:2px;background:var(--bd);
+        }
+        .daily-item{
+            display:flex;gap:24px;padding:28px 0;
+            position:relative;
+        }
+        .daily-item:not(:last-child){border-bottom:1px solid var(--bd);}
+        .daily-dot{
+            width:12px;height:12px;border-radius:50%;
+            background:var(--y);flex-shrink:0;
+            margin-top:6px;position:relative;z-index:1;
+            box-shadow:0 0 0 4px var(--s1);
+        }
+        .daily-time{
+            font-size:11px;font-weight:700;letter-spacing:2px;
+            color:var(--y);margin-bottom:6px;
+        }
+        .daily-item h3{font-size:16px;font-weight:700;margin-bottom:6px;}
+        .daily-item p{font-size:13px;color:var(--g2);line-height:1.7;}
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           6. DESIGN DETAIL
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .design-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px;}
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           8. DESIGN — 디자인 디테일
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .design{padding:80px 24px;max-width:860px;margin:0 auto;}
+        .design-header{text-align:center;margin-bottom:48px;}
+        .design-title{font-size:clamp(24px,4vw,36px);font-weight:900;margin:16px 0;}
+        .design-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
         .design-card{
             background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);
-            padding:20px 18px;position:relative;overflow:hidden;
+            padding:28px 22px;transition:border-color .3s;
         }
-        .design-card.full{grid-column:1/3;}
-        .design-card h3{font-size:14px;font-weight:700;margin-bottom:8px;}
-        .design-card p{font-size:12px;color:var(--g2);line-height:1.7;}
-        .design-color-row{
-            display:flex;gap:8px;margin-top:12px;
-        }
+        .design-card:hover{border-color:var(--y);}
+        .design-card.full{grid-column:1/-1;}
+        .design-card h3{font-size:16px;font-weight:700;margin-bottom:10px;}
+        .design-card p{font-size:13px;color:var(--g2);line-height:1.8;}
+        .color-row{display:flex;gap:10px;margin-top:16px;align-items:center;}
         .color-chip{
-            width:32px;height:32px;border-radius:50%;border:2px solid var(--bd);
+            width:36px;height:36px;border-radius:50%;border:2px solid var(--bd);
+            transition:transform .2s;
         }
+        .color-chip:hover{transform:scale(1.15);}
         .color-chip.white{background:#f5f5f5;}
         .color-chip.gold{background:#c9a440;}
         .color-chip.black{background:#2a2a2a;}
+        .color-name{font-size:11px;color:var(--g3);margin-left:4px;}
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           7. NOTICE
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .notice-list{
-            list-style:none;margin-top:16px;
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           9. PACKAGE — 구성품
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .package{
+            padding:60px 24px;
+            background:linear-gradient(135deg,rgba(245,191,35,.04) 0%,transparent 50%);
+            border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);
+        }
+        .package-inner{
+            max-width:640px;margin:0 auto;text-align:center;
+        }
+        .package-title{font-size:20px;font-weight:900;margin:16px 0 20px;}
+        .package-list{
+            display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
+        }
+        .package-item{
             background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);
-            padding:16px 18px;
+            padding:20px 24px;text-align:center;min-width:140px;
+        }
+        .package-item .p-ico{font-size:28px;margin-bottom:8px;}
+        .package-item h4{font-size:13px;font-weight:700;margin-bottom:4px;}
+        .package-item p{font-size:11px;color:var(--g3);}
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           10. NOTICE
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .notice{padding:60px 24px;max-width:720px;margin:0 auto;}
+        .notice-title{font-size:16px;font-weight:700;margin-bottom:16px;color:var(--g1);}
+        .notice-list{
+            list-style:none;background:var(--s2);border:1px solid var(--bd);
+            border-radius:var(--r);padding:20px 24px;
         }
         .notice-list li{
-            font-size:11px;color:var(--g2);line-height:2;
+            font-size:12px;color:var(--g2);line-height:2.2;
             padding-left:16px;position:relative;
         }
-        .notice-list li::before{
-            content:'•';position:absolute;left:0;color:var(--g3);
-        }
+        .notice-list li::before{content:'';position:absolute;left:0;top:12px;width:4px;height:4px;border-radius:50%;background:var(--g3);}
 
-        /* ━━━━━━━━━━━━━━━━━━━━
-           8. CTA
-        ━━━━━━━━━━━━━━━━━━━━ */
-        .cta-sec{
-            text-align:center;padding:56px 24px 48px;
-            background:#080808;border-top:1px solid var(--s2);
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           11. FINAL CTA
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .final-cta{
+            text-align:center;padding:100px 24px 80px;
+            background:linear-gradient(180deg,var(--bg) 0%,#050505 100%);
+            position:relative;overflow:hidden;
         }
-        .cta-bar{width:2px;height:30px;background:var(--y);margin:0 auto 16px;}
-        .cta-title{font-size:clamp(22px,4vw,36px);font-weight:900;margin-bottom:10px;}
-        .cta-price-big{font-size:clamp(36px,6vw,56px);font-weight:900;color:var(--y);margin-bottom:6px;}
-        .cta-tax{font-size:12px;color:var(--g3);margin-bottom:24px;}
-        .cta-btn{
-            display:inline-block;padding:16px 52px;
+        .final-cta::before{
+            content:'';position:absolute;top:0;left:50%;
+            width:1px;height:60px;background:var(--y);
+            transform:translateX(-50%);
+        }
+        .final-cta-tag{margin-top:20px;}
+        .final-cta-title{
+            font-size:clamp(24px,5vw,40px);font-weight:900;
+            margin:20px 0 12px;line-height:1.3;
+        }
+        .final-cta-sub{
+            font-size:clamp(14px,2vw,16px);color:var(--g2);
+            margin-bottom:32px;line-height:1.7;
+        }
+        .final-price{
+            font-size:clamp(44px,8vw,64px);font-weight:900;
+            color:var(--y);margin-bottom:4px;
+            animation:glow 3s ease-in-out infinite;
+            display:inline-block;
+        }
+        .final-price-note{font-size:13px;color:var(--g3);margin-bottom:36px;}
+        .final-btn{
+            display:inline-block;padding:18px 56px;
             background:var(--y);color:#000;
-            font-size:16px;font-weight:900;letter-spacing:.5px;
-            border-radius:4px;cursor:pointer;border:none;
-            transition:opacity .2s;
+            font-size:16px;font-weight:900;letter-spacing:1px;
+            border-radius:6px;cursor:pointer;border:none;
+            transition:all .3s;
+            box-shadow:0 4px 24px rgba(245,191,35,.25);
         }
-        .cta-btn:hover{opacity:.85;}
-        .cta-trust{
-            display:flex;justify-content:center;gap:24px;flex-wrap:wrap;
-            margin-top:32px;padding-top:28px;border-top:1px solid var(--s2);
+        .final-btn:hover{
+            transform:translateY(-2px);
+            box-shadow:0 8px 32px rgba(245,191,35,.35);
         }
-        .cta-trust-item{text-align:center;}
-        .cta-trust-ico{font-size:20px;margin-bottom:4px;}
-        .cta-trust-item p{font-size:11px;color:var(--g2);}
+        .trust-row{
+            display:flex;justify-content:center;gap:32px;flex-wrap:wrap;
+            margin-top:48px;padding-top:36px;border-top:1px solid var(--s3);
+        }
+        .trust-item{text-align:center;}
+        .trust-ico{font-size:22px;margin-bottom:6px;}
+        .trust-item p{font-size:12px;color:var(--g2);}
 
         /* ── FOOTER ── */
         footer{
-            background:#080808;padding:14px 24px;
+            background:#050505;padding:16px 24px;
             display:flex;justify-content:space-between;align-items:center;
-            border-top:1px solid var(--s2);flex-wrap:wrap;gap:6px;
+            border-top:1px solid var(--s2);flex-wrap:wrap;gap:8px;
         }
         footer p{font-size:10px;color:var(--g3);}
 
-        /* ━━━ LANDSCAPE ━━━ */
-        @media screen and (orientation:landscape) and (max-height:480px){
-            .sec{padding:24px 18px;}
-            .hero{padding:28px 20px;}
-            .hero-img-area{min-height:200px;padding:20px 16px;}
-            .stitle{font-size:18px;}
-            .spec-grid{gap:8px;}
-            .cta-sec{padding:32px 20px 28px;}
-        }
+        /* ━━━ RESPONSIVE ━━━ */
         @media (max-width:600px){
-            .hero-inner{grid-template-columns:1fr;}
-            .hero-img-area{min-height:240px;}
-            .spec-grid{grid-template-columns:repeat(2,1fr);}
-            .scene-grid{grid-template-columns:repeat(2,1fr);}
+            .id-cards{grid-template-columns:1fr;}
+            .specs-grid{grid-template-columns:repeat(2,1fr);}
+            .feat-grid{grid-template-columns:1fr;}
             .design-grid{grid-template-columns:1fr;}
             .design-card.full{grid-column:auto;}
-            .id-wrap{grid-template-columns:1fr;}
+            .daily-timeline::before{left:18px;}
+            .story-sec{padding:60px 20px;}
+            .opening{min-height:90vh;}
+            .package-list{flex-direction:column;align-items:center;}
+        }
+        @media screen and (orientation:landscape) and (max-height:480px){
+            .opening{min-height:auto;padding:40px 20px;}
+            .story-sec{padding:40px 20px;}
         }
     </style>
 </head>
 <body>
 
-<!-- ━━━ 1. HERO ━━━ -->
-<div class="hero">
-    <div class="hero-inner">
-        <!-- 왼쪽: 이미지 영역 -->
-        <div class="hero-img-area">
-            <div class="tumbler-mock">
-                <div class="tumbler-col">
-                    <span class="tumbler-label">NONAME</span>
-                </div>
-                <div class="tumbler-col b">
-                    <span class="tumbler-label">NONAME</span>
-                </div>
-            </div>
+<!-- ━━━ 0. CINEMATIC OPENING ━━━ -->
+<section class="opening">
+    <div class="opening-inner">
+        <p class="opening-quote">"Today's routine builds tomorrow's you"</p>
+        <h1 class="opening-title">
+            <span class="line">운동이 끝나도,</span>
+            <span class="line"><span class="hl">루틴</span>은 계속된다.</span>
+        </h1>
+        <p class="opening-sub">
+            매일 같은 시간, 같은 장소에서<br>
+            묵묵히 자신을 만들어가는 사람들이 있습니다.<br>
+            그 사람들의 손에 들려 있는 텀블러 하나,<br>
+            거기에도 <strong style="color:var(--w);">철학</strong>이 있어야 한다고 생각했습니다.
+        </p>
+        <div class="scroll-hint">
+            SCROLL DOWN
+            <span>↓</span>
         </div>
+    </div>
+</section>
 
-        <!-- 오른쪽: 정보 -->
-        <div class="hero-info">
-            <p class="hero-brand">NONAME FITNESS</p>
-            <div class="hero-badge">OFFICIAL GOODS</div>
-            <h1 class="hero-name">노네임피트니스<br>오리지널 텀블러</h1>
-            <p class="hero-desc-text">
-                운동하는 사람을 위한 텀블러.<br>
-                센터 브랜드가 담긴 프리미엄 스테인리스 텀블러.
+<!-- ━━━ 1. STORY — 왜 만들었는가 ━━━ -->
+<section class="story-sec">
+    <div class="story-block reveal">
+        <div class="story-num">01</div>
+        <h2 class="story-title">헬스장에서 쓰는 텀블러가<br>왜 다 <span class="hl">똑같을까?</span></h2>
+        <p class="story-text">
+            쉐이커, 대용량 물통, 편의점 페트병.<br>
+            센터에서 매일 보는 풍경이었습니다.<br><br>
+            운동복은 브랜드를 따지고, 신발도 골라 신으면서<br>
+            정작 매일 입에 대는 텀블러에는 아무런 기준이 없다는 게<br>
+            <strong>이상하지 않으셨나요?</strong><br><br>
+            우리는 거기서 시작했습니다.<br>
+            <em>운동하는 사람에게 어울리는 텀블러</em>가 필요했습니다.
+        </p>
+    </div>
+
+    <div class="story-block reveal">
+        <div class="story-num">02</div>
+        <h2 class="story-title">그냥 로고 박아서<br><span class="hl">파는 거 아닙니다</span></h2>
+        <p class="story-text">
+            솔직하게 말씀드리겠습니다.<br><br>
+            처음엔 그냥 로고 새기면 되는 줄 알았습니다.<br>
+            그런데 막상 시작하니 생각보다 <strong>까다로웠습니다.</strong><br><br>
+            운동 중에 한 손으로 열 수 있어야 하고,<br>
+            가방에 넣어도 새지 않아야 하고,<br>
+            단백질 쉐이크를 넣어도 냄새가 안 배야 하고,<br>
+            뜨거운 아아도, 차가운 물도 오래 유지되어야 하고.<br><br>
+            <em>결국 6개월 넘게 걸렸습니다.</em><br>
+            운동하는 사람이 진짜 원하는 걸 담기까지.
+        </p>
+    </div>
+
+    <div class="story-highlight reveal">
+        <p>
+            "우리 회원님이 매일 손에 들고 다니는 거니까,<br>
+            <span class="hl">대충 만들면 안 된다."</span><br>
+            <span style="font-size:14px;color:var(--g2);font-weight:400;">— 노네임피트니스 대표</span>
+        </p>
+    </div>
+
+    <div class="story-block reveal">
+        <div class="story-num">03</div>
+        <h2 class="story-title">결국, <span class="hl">이 텀블러</span>가<br>나왔습니다</h2>
+        <p class="story-text">
+            304 스테인리스 스틸. 이중 진공 단열.<br>
+            원터치 플립 캡. 미끄럼 방지 골드 바텀.<br>
+            그리고 노네임피트니스만의 <strong>시그니처 디자인.</strong><br><br>
+            센터에서 운동할 때도, 출퇴근 차 안에서도,<br>
+            사무실 책상 위에서도 — 어디서든 자연스러운 텀블러.<br><br>
+            <em>쓰는 사람이 운동하는 사람이라는 걸,<br>
+            말하지 않아도 알 수 있는 텀블러.</em>
+        </p>
+    </div>
+</section>
+
+<!-- ━━━ 2. PRODUCT REVEAL ━━━ -->
+<section class="product-reveal">
+    <div class="reveal">
+        <p class="tag">NONAME FITNESS ORIGINAL</p>
+        <div class="product-img-wrap" style="margin-top:32px;">
+            <!-- 실제 이미지가 있으면 img 태그 사용 -->
+            <div class="product-mock-hero"></div>
+        </div>
+        <h2 class="product-name-big">노네임피트니스 오리지널 텀블러</h2>
+        <p class="product-tagline">운동하는 사람을 위한 프리미엄 스테인리스 텀블러</p>
+        <div class="product-price-area">
+            <span class="product-price">29,000</span>
+            <span class="product-price-unit">원</span>
+        </div>
+        <p class="product-price-note">배송비 별도 · VAT 포함</p>
+        <div class="product-badges" style="margin-top:20px;">
+            <span class="product-badge">화이트 × 골드</span>
+            <span class="product-badge">보온 · 보냉 12h</span>
+            <span class="product-badge">450ml</span>
+            <span class="product-badge">304 스테인리스</span>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━ 3. PHILOSOPHY ━━━ -->
+<section class="philosophy">
+    <div class="philosophy-inner reveal">
+        <p class="tag">PHILOSOPHY</p>
+        <h2 class="philosophy-big">
+            텀블러 하나에도<br>
+            <span class="hl">센터의 철학</span>을 담았습니다
+        </h2>
+        <p class="philosophy-desc">
+            노네임피트니스는 "내일의 나를 바꾸는 공간"입니다.<br>
+            이 텀블러는 그 공간의 연장선입니다.<br><br>
+            센터 안에서만 운동이 끝나는 게 아니라,<br>
+            이 텀블러를 들고 물을 마시는 순간에도<br>
+            당신의 루틴은 이어지고 있다는 걸 기억하세요.
+        </p>
+    </div>
+</section>
+
+<!-- ━━━ 4. IDENTITY ━━━ -->
+<section class="identity">
+    <div class="identity-header reveal">
+        <p class="tag">IDENTITY</p>
+        <h2 class="identity-title">양면에 담긴 <span class="hl">두 가지 이야기</span></h2>
+        <p class="identity-sub">앞면과 뒷면, 각각 다른 감성으로 완성된 디자인</p>
+    </div>
+
+    <div class="id-cards">
+        <div class="id-card side-a reveal">
+            <div class="id-side-label">A-SIDE</div>
+            <div class="id-mock">NO<br>NA<br>ME</div>
+            <h3>시그니처 타이포그래피</h3>
+            <p>
+                노네임피트니스의 오리지널 로고를 세로로 배치했습니다.
+                세 개의 원은 FITNESS · POWER · HOUSE를 상징하며,
+                "Today's routine builds tomorrow's you" 슬로건이 함께 새겨져 있습니다.
             </p>
-            <div class="hero-price-row">
-                <div class="hero-price">29,000<span style="font-size:16px;">원</span></div>
-                <span class="hero-price-tax">배송비 별도</span>
-            </div>
-            <div class="hero-specs">
-                <span class="hero-spec">🎨 화이트 × 골드</span>
-                <span class="hero-spec">🧊 보온·보냉</span>
-                <span class="hero-spec">♻️ 스테인리스</span>
-            </div>
-            <button class="hero-buy-btn" onclick="(function(){ var p=window.parent; var tm=p.document.getElementById('tumblerModal'); var m=p.document.getElementById('consultModal'); if(tm) tm.classList.remove('active'); if(m){ m.classList.add('active'); p.document.body.style.overflow='hidden'; } })()">구매 문의하기</button>
+        </div>
+        <div class="id-card side-b reveal reveal-delay-1">
+            <div class="id-side-label">B-SIDE</div>
+            <div class="id-mock">NO<br>NA<br>ME</div>
+            <h3>브랜드 엠블럼</h3>
+            <p>
+                옐로 배경의 타원형 엠블럼 스티커 디자인.
+                "JOIN NONAME FITNESS · 내일의 나를 바꾸는 공간 · transform your potential"
+                메시지가 담긴 컬렉터블 감성입니다.
+            </p>
         </div>
     </div>
-</div>
+</section>
 
-<div class="divider"></div>
-
-<!-- ━━━ 2. IDENTITY ━━━ -->
-<div class="sec">
-    <p class="tag">IDENTITY</p>
-    <h2 class="stitle">우리 센터의 <span class="hl">정체성</span>을 담았습니다</h2>
-    <p class="sdesc">텀블러 하나에도 노네임피트니스의 철학과 감각을 담았습니다.</p>
-
-    <div class="id-wrap">
-        <div class="id-card">
-            <h3>🅰️ A면 — 시그니처 타이포</h3>
-            <p>노네임피트니스의 오리지널 로고 타이포그래피를 세로로 배치. 세 개의 원은 FITNESS · POWER · HOUSE를 상징하며, "Today's routine builds tomorrow's you"라는 슬로건이 함께 새겨져 있습니다.</p>
+<!-- ━━━ 5. SPECS ━━━ -->
+<section class="specs">
+    <div class="specs-inner">
+        <div class="specs-header reveal">
+            <p class="tag">SPECIFICATIONS</p>
+            <h2 class="specs-title">숫자가 <span class="hl">증명</span>합니다</h2>
         </div>
-        <div class="id-card">
-            <h3>🅱️ B면 — 브랜드 엠블럼</h3>
-            <p>옐로 배경의 타원형 엠블럼 스티커 디자인. "JOIN NONAME FITNESS · 내일의 나를 바꾸는 공간 · transform your potential" 메시지가 담긴 컬렉터블 감성입니다.</p>
-        </div>
-    </div>
 
-    <div class="id-logo-area" style="margin-top:10px;">
-        <div class="id-logo-mock a">NO<br>NA<br>ME</div>
-        <div style="font-size:11px;color:var(--g2);line-height:1.6;">
-            A면 — <strong style="color:var(--w);">블랙 타이포</strong><br>
-            미니멀 & 스트릿 감성
-        </div>
-        <div style="width:1px;height:40px;background:var(--bd);"></div>
-        <div class="id-logo-mock b">NO<br>NA<br>ME</div>
-        <div style="font-size:11px;color:var(--g2);line-height:1.6;">
-            B면 — <strong style="color:var(--y);">옐로 엠블럼</strong><br>
-            브랜드 아이덴티티
-        </div>
-    </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- ━━━ 3. DETAILS ━━━ -->
-<div class="sec">
-    <p class="tag">DETAILS</p>
-    <h2 class="stitle">꼼꼼하게 설계된 <span class="hl">디테일</span></h2>
-
-    <div class="spec-grid">
-        <div class="spec-card">
-            <div class="spec-ico">🧊</div>
-            <div class="spec-val">12h</div>
-            <div class="spec-lbl">보온·보냉<br>최대 12시간 유지</div>
-        </div>
-        <div class="spec-card">
-            <div class="spec-ico">📏</div>
-            <div class="spec-val">450ml</div>
-            <div class="spec-lbl">넉넉한 용량<br>운동 중 충분한 수분</div>
-        </div>
-        <div class="spec-card">
-            <div class="spec-ico">⚙️</div>
-            <div class="spec-val">304</div>
-            <div class="spec-lbl">스테인리스 스틸<br>식품 안전 등급</div>
-        </div>
-        <div class="spec-card">
-            <div class="spec-ico">🪶</div>
-            <div class="spec-val">280g</div>
-            <div class="spec-lbl">가벼운 무게<br>운동 가방에 쏙</div>
-        </div>
-    </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- ━━━ 4. FEATURES ━━━ -->
-<div class="sec">
-    <p class="tag">FEATURES</p>
-    <h2 class="stitle">운동하는 사람이 <span class="hl">원하는 것</span>만 담았습니다</h2>
-
-    <div class="g2" style="margin-top:18px;">
-        <div class="feat">
-            <div class="feat-ico">🔒</div>
-            <div>
-                <h3>원터치 잠금 뚜껑</h3>
-                <p>한 손으로 열고 닫는 플립 캡. 운동 중 쏟아질 걱정 없이 안전하게 사용할 수 있습니다.</p>
+        <div class="specs-grid">
+            <div class="spec-card reveal">
+                <div class="spec-ico">🧊</div>
+                <div class="spec-val">12<span style="font-size:16px;">h</span></div>
+                <div class="spec-unit">보온 · 보냉</div>
+                <div class="spec-lbl">새벽 운동부터 퇴근까지<br>온도를 유지합니다</div>
             </div>
-        </div>
-        <div class="feat">
-            <div class="feat-ico">🧹</div>
-            <div>
-                <h3>넓은 입구 세척 용이</h3>
-                <p>음료 얼룩·냄새 걱정 없이 분리 세척이 편리한 구조. 단백질 쉐이크도 OK.</p>
+            <div class="spec-card reveal reveal-delay-1">
+                <div class="spec-ico">📏</div>
+                <div class="spec-val">450<span style="font-size:16px;">ml</span></div>
+                <div class="spec-unit">넉넉한 용량</div>
+                <div class="spec-lbl">세트 사이사이<br>충분한 수분 보충</div>
             </div>
-        </div>
-        <div class="feat">
-            <div class="feat-ico">🏋️</div>
-            <div>
-                <h3>미끄럼 방지 바텀</h3>
-                <p>골드 컬러 실리콘 바텀이 바닥을 잡아줘 벤치·러닝머신 위에서도 안정적입니다.</p>
+            <div class="spec-card reveal reveal-delay-2">
+                <div class="spec-ico">⚙️</div>
+                <div class="spec-val">304</div>
+                <div class="spec-unit">스테인리스 스틸</div>
+                <div class="spec-lbl">식품 안전 등급<br>녹슬지 않는 소재</div>
             </div>
-        </div>
-        <div class="feat">
-            <div class="feat-ico">💧</div>
-            <div>
-                <h3>이중 진공 단열</h3>
-                <p>차가운 물은 차갑게, 따뜻한 물은 따뜻하게. 이중 진공 구조로 결로 현상까지 방지합니다.</p>
+            <div class="spec-card reveal reveal-delay-3">
+                <div class="spec-ico">🪶</div>
+                <div class="spec-val">280<span style="font-size:16px;">g</span></div>
+                <div class="spec-unit">가벼운 무게</div>
+                <div class="spec-lbl">운동 가방에 쏙<br>부담 없는 휴대</div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<div class="divider"></div>
+<!-- ━━━ 6. FEATURES ━━━ -->
+<section class="features">
+    <div class="features-header reveal">
+        <p class="tag">FEATURES</p>
+        <h2 class="features-title">운동하는 사람이<br><span class="hl">진짜 원하는 것</span>만</h2>
+        <p class="features-sub">화려한 기능이 아닌, 실전에서 필요한 것만 담았습니다</p>
+    </div>
 
-<!-- ━━━ 5. SCENE ━━━ -->
-<div class="sec">
-    <p class="tag">SCENE</p>
-    <h2 class="stitle">운동 전, 중, 후 — <span class="hl">어디서나</span></h2>
-
-    <div class="scene-grid">
-        <div class="scene-card">
-            <div class="scene-ico">🏋️‍♂️</div>
-            <h3>센터 운동 중</h3>
-            <p>세트 사이 시원한 물 한 모금으로 집중력 유지</p>
+    <div class="feat-grid">
+        <div class="feat reveal">
+            <div class="feat-ico-wrap">🔒</div>
+            <h3>원터치 잠금 뚜껑</h3>
+            <p>한 손으로 열고 닫는 플립 캡. 벤치프레스 세트 사이, 러닝머신 위에서도 쏟아질 걱정 없이 마실 수 있습니다.</p>
         </div>
-        <div class="scene-card">
-            <div class="scene-ico">🚗</div>
-            <h3>출퇴근 차량</h3>
-            <p>차량 컵홀더에 딱 맞는 사이즈로 이동 중에도 편리</p>
+        <div class="feat reveal reveal-delay-1">
+            <div class="feat-ico-wrap">🧹</div>
+            <h3>넓은 입구 세척 용이</h3>
+            <p>단백질 쉐이크, BCAA, 뭘 넣어도 깔끔하게 세척 가능. 냄새가 배지 않는 분리 세척 구조입니다.</p>
         </div>
-        <div class="scene-card">
-            <div class="scene-ico">💼</div>
-            <h3>사무실 데스크</h3>
-            <p>깔끔한 디자인으로 책상 위에서도 자연스럽게</p>
+        <div class="feat reveal reveal-delay-2">
+            <div class="feat-ico-wrap">🏋️</div>
+            <h3>미끄럼 방지 바텀</h3>
+            <p>골드 컬러 실리콘 바텀이 바닥을 잡아줍니다. 벤치 위, 러닝머신 거치대, 어디서든 안정적입니다.</p>
         </div>
-        <div class="scene-card">
-            <div class="scene-ico">🏃</div>
-            <h3>야외 활동</h3>
-            <p>러닝·등산·캠핑 등 야외에서도 보온 보냉 유지</p>
+        <div class="feat reveal reveal-delay-3">
+            <div class="feat-ico-wrap">💧</div>
+            <h3>이중 진공 단열</h3>
+            <p>차가운 물은 차갑게, 따뜻한 물은 따뜻하게. 이중 진공 구조로 결로 현상까지 완벽 차단합니다.</p>
         </div>
     </div>
-</div>
+</section>
 
-<div class="divider"></div>
+<!-- ━━━ 7. DAILY SCENE ━━━ -->
+<section class="daily">
+    <div class="daily-inner">
+        <div class="daily-header reveal">
+            <p class="tag">DAILY ROUTINE</p>
+            <h2 class="daily-title">하루 종일, <span class="hl">어디서나</span></h2>
+        </div>
 
-<!-- ━━━ 6. DESIGN DETAIL ━━━ -->
-<div class="sec">
-    <p class="tag">DESIGN</p>
-    <h2 class="stitle">화이트 × 골드, <span class="hl">프리미엄 컬러웨이</span></h2>
+        <div class="daily-timeline">
+            <div class="daily-item reveal">
+                <div class="daily-dot"></div>
+                <div>
+                    <div class="daily-time">AM 06:00</div>
+                    <h3>새벽 운동</h3>
+                    <p>아직 어두운 새벽, 센터로 향하는 차 안에서 따뜻한 물 한 모금. 오늘의 루틴이 시작됩니다.</p>
+                </div>
+            </div>
+            <div class="daily-item reveal reveal-delay-1">
+                <div class="daily-dot"></div>
+                <div>
+                    <div class="daily-time">AM 07:00</div>
+                    <h3>운동 중</h3>
+                    <p>세트 사이, 시원한 물 한 잔. 원터치 캡으로 장갑 낀 손으로도 바로 마실 수 있습니다.</p>
+                </div>
+            </div>
+            <div class="daily-item reveal reveal-delay-2">
+                <div class="daily-dot"></div>
+                <div>
+                    <div class="daily-time">AM 09:00</div>
+                    <h3>출근길</h3>
+                    <p>차량 컵홀더에 딱 맞는 사이즈. 운동 후 깔끔하게 출근하는 당신의 옆에 있습니다.</p>
+                </div>
+            </div>
+            <div class="daily-item reveal reveal-delay-3">
+                <div class="daily-dot"></div>
+                <div>
+                    <div class="daily-time">PM 02:00</div>
+                    <h3>사무실</h3>
+                    <p>책상 위에 올려둬도 자연스러운 디자인. 동료의 "그 텀블러 어디 거야?" 질문이 시작됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━ 8. DESIGN ━━━ -->
+<section class="design">
+    <div class="design-header reveal">
+        <p class="tag">DESIGN DETAIL</p>
+        <h2 class="design-title">화이트 × 골드<br><span class="hl">프리미엄 컬러웨이</span></h2>
+    </div>
 
     <div class="design-grid">
-        <div class="design-card">
-            <h3>🎨 컬러 구성</h3>
-            <p>매트 화이트 바디 + 골드 바텀 + 블랙 캡.<br>세련되면서도 운동하는 사람의 에너지가 느껴지는 배색입니다.</p>
-            <div class="design-color-row">
+        <div class="design-card reveal">
+            <h3>컬러 구성</h3>
+            <p>매트 화이트 바디에 골드 바텀, 블랙 캡. 세련되면서도 운동하는 사람의 에너지가 느껴지는 배색입니다.</p>
+            <div class="color-row">
                 <div class="color-chip white" title="매트 화이트"></div>
                 <div class="color-chip gold" title="골드"></div>
                 <div class="color-chip black" title="블랙"></div>
             </div>
         </div>
-        <div class="design-card">
-            <h3>✨ 마감 퀄리티</h3>
-            <p>매트 코팅으로 지문이 묻지 않고, 골드 바텀은 고급 메탈릭 도장으로 스크래치에 강합니다.</p>
-        </div>
-        <div class="design-card full" style="border-color:var(--y);background:var(--y3);">
-            <h3 style="color:var(--y);">📦 구성품 안내</h3>
-            <p style="color:var(--g1);">
-                텀블러 본체 1개 + 보호 캡 + 노네임피트니스 스티커 1장<br>
-                전용 패키지 박스에 담겨 선물용으로도 완벽합니다.
-            </p>
+        <div class="design-card reveal reveal-delay-1">
+            <h3>마감 퀄리티</h3>
+            <p>매트 코팅으로 지문이 묻지 않고, 골드 바텀은 고급 메탈릭 도장으로 스크래치에 강합니다. 매일 써도 처음 그대로.</p>
         </div>
     </div>
-</div>
+</section>
 
-<div class="divider"></div>
-
-<!-- ━━━ 7. NOTICE ━━━ -->
-<div class="sec">
-    <p class="tag">NOTICE</p>
-    <h2 class="stitle">구매 전 <span class="hl">확인</span>해주세요</h2>
-
-    <ul class="notice-list">
-        <li>본 제품은 노네임피트니스 공식 굿즈로, 센터 현장 또는 문의를 통해 구매 가능합니다.</li>
-        <li>모니터 환경에 따라 실제 색상과 다소 차이가 있을 수 있습니다.</li>
-        <li>식기세척기 사용은 권장하지 않으며, 부드러운 스펀지로 세척해주세요.</li>
-        <li>뚜껑을 완전히 닫지 않은 상태에서 기울이면 내용물이 새어나올 수 있습니다.</li>
-        <li>단순 변심에 의한 교환·환불은 미개봉 상태에서만 가능합니다.</li>
-        <li>탄산음료·유제품은 장시간 보관을 피해주세요.</li>
-    </ul>
-</div>
-
-<div class="divider"></div>
-
-<!-- ━━━ 8. CTA ━━━ -->
-<div class="cta-sec">
-    <div class="cta-bar"></div>
-    <h2 class="cta-title">운동하는 사람의 <span class="hl">텀블러</span></h2>
-    <div class="cta-price-big">29,000<span style="font-size:20px;">원</span></div>
-    <p class="cta-tax">배송비 별도 · VAT 포함</p>
-    <button class="cta-btn" onclick="(function(){ var p=window.parent; var tm=p.document.getElementById('tumblerModal'); var m=p.document.getElementById('consultModal'); if(tm) tm.classList.remove('active'); if(m){ m.classList.add('active'); p.document.body.style.overflow='hidden'; } })()">구매 문의하기</button>
-
-    <div class="cta-trust">
-        <div class="cta-trust-item">
-            <div class="cta-trust-ico">🏢</div>
-            <p>센터 현장 구매</p>
-        </div>
-        <div class="cta-trust-item">
-            <div class="cta-trust-ico">💬</div>
-            <p>카카오톡 주문</p>
-        </div>
-        <div class="cta-trust-item">
-            <div class="cta-trust-ico">📦</div>
-            <p>택배 배송 가능</p>
-        </div>
-        <div class="cta-trust-item">
-            <div class="cta-trust-ico">🎁</div>
-            <p>선물 포장 가능</p>
+<!-- ━━━ 9. PACKAGE ━━━ -->
+<section class="package">
+    <div class="package-inner reveal">
+        <p class="tag">PACKAGE</p>
+        <h2 class="package-title">선물하기 좋은 <span class="hl">구성</span></h2>
+        <div class="package-list">
+            <div class="package-item">
+                <div class="p-ico">🥤</div>
+                <h4>텀블러 본체</h4>
+                <p>450ml · 304 스테인리스</p>
+            </div>
+            <div class="package-item">
+                <div class="p-ico">🔖</div>
+                <h4>보호 캡</h4>
+                <p>위생적 보관</p>
+            </div>
+            <div class="package-item">
+                <div class="p-ico">🎨</div>
+                <h4>브랜드 스티커</h4>
+                <p>노네임 오리지널</p>
+            </div>
+            <div class="package-item">
+                <div class="p-ico">📦</div>
+                <h4>전용 박스</h4>
+                <p>선물 포장 가능</p>
+            </div>
         </div>
     </div>
-</div>
+</section>
+
+<!-- ━━━ 10. NOTICE ━━━ -->
+<section class="notice">
+    <div class="reveal">
+        <h3 class="notice-title">구매 전 확인해주세요</h3>
+        <ul class="notice-list">
+            <li>본 제품은 노네임피트니스 공식 굿즈로, 센터 현장 또는 문의를 통해 구매 가능합니다.</li>
+            <li>모니터 환경에 따라 실제 색상과 다소 차이가 있을 수 있습니다.</li>
+            <li>식기세척기 사용은 권장하지 않으며, 부드러운 스펀지로 세척해주세요.</li>
+            <li>뚜껑을 완전히 닫지 않은 상태에서 기울이면 내용물이 새어나올 수 있습니다.</li>
+            <li>단순 변심에 의한 교환·환불은 미개봉 상태에서만 가능합니다.</li>
+            <li>탄산음료·유제품은 장시간 보관을 피해주세요.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ━━━ 11. FINAL CTA ━━━ -->
+<section class="final-cta">
+    <div class="reveal">
+        <p class="tag final-cta-tag">NONAME FITNESS ORIGINAL TUMBLER</p>
+        <h2 class="final-cta-title">
+            당신의 루틴에<br>
+            <span class="hl">이 텀블러</span>를 더하세요
+        </h2>
+        <p class="final-cta-sub">
+            매일 손에 드는 것이니까, 좋은 걸 드세요.
+        </p>
+        <div class="final-price">29,000<span style="font-size:22px;">원</span></div>
+        <p class="final-price-note">배송비 별도 · VAT 포함</p>
+        <button class="final-btn" onclick="(function(){ var p=window.parent; var tm=p.document.getElementById('tumblerModal'); var m=p.document.getElementById('consultModal'); if(tm) tm.classList.remove('active'); if(m){ m.classList.add('active'); p.document.body.style.overflow='hidden'; } })()">구매 문의하기</button>
+
+        <div class="trust-row">
+            <div class="trust-item">
+                <div class="trust-ico">🏢</div>
+                <p>센터 현장 구매</p>
+            </div>
+            <div class="trust-item">
+                <div class="trust-ico">💬</div>
+                <p>카카오톡 주문</p>
+            </div>
+            <div class="trust-item">
+                <div class="trust-ico">📦</div>
+                <p>택배 배송 가능</p>
+            </div>
+            <div class="trust-item">
+                <div class="trust-ico">🎁</div>
+                <p>선물 포장 가능</p>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- ── FOOTER ── -->
 <footer>
     <p>내일의 나를 바꾸는 공간, NONAME FITNESS</p>
     <p>천안 두정동 · 공식 굿즈</p>
 </footer>
+
+<!-- ── SCROLL REVEAL SCRIPT ── -->
+<script>
+(function(){
+    var els=document.querySelectorAll('.reveal');
+    var observer=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+            if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}
+        });
+    },{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+    els.forEach(function(el){observer.observe(el);});
+})();
+</script>
 
 </body>
 </html>
