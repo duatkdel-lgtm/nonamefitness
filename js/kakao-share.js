@@ -131,4 +131,25 @@
 
   // SDK 미리 로드
   initKakao();
+
+  // ── 독립 페이지 접근 시 홈 버튼 자동 삽입 ──
+  var isIframe = (window !== window.parent);
+  var isHome = /index\.html$/.test(location.pathname) && !location.pathname.includes('gym');
+  var isMainPage = location.pathname === '/' || location.pathname === '' || isHome;
+
+  if (!isIframe && !isMainPage) {
+    var homeBtn = document.createElement('a');
+    homeBtn.href = 'https://nonamefitness.co.kr';
+    homeBtn.innerHTML = '← 홈으로';
+    homeBtn.style.cssText = 'position:fixed;top:16px;right:16px;z-index:99999;background:rgba(255,255,255,.95);color:#111;padding:10px 18px;border-radius:50px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 2px 12px rgba(0,0,0,.2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:all .3s ease;';
+    homeBtn.addEventListener('mouseenter', function () {
+      this.style.background = '#111';
+      this.style.color = '#fff';
+    });
+    homeBtn.addEventListener('mouseleave', function () {
+      this.style.background = 'rgba(255,255,255,.95)';
+      this.style.color = '#111';
+    });
+    document.body.appendChild(homeBtn);
+  }
 })();
