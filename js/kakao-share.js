@@ -8,7 +8,7 @@
   'use strict';
 
   // ── 카카오 앱 키 (발급 후 교체) ──
-  var KAKAO_APP_KEY = '';  // TODO: developers.kakao.com에서 JavaScript 앱 키 입력
+  var KAKAO_APP_KEY = '2cddec8893b9498426a35fd55935b6ea';
 
   // ── 공유 정보 수집 ──
   function getShareUrl() {
