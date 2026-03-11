@@ -32,6 +32,7 @@
     '.consult-btn', '.submit-btn', '.buy-btn',
     // 링크 타입
     'a[href^="tel:"]', 'a[href*="kakao"]', 'a[href*="pf.kakao"]',
+    'a[href*="naver.me"]', 'a[href*="map.naver"]',
     // 네비게이션
     '.nav a', '.nav-link', '.logo',
     // 카드/프로그램 클릭
@@ -78,6 +79,9 @@
     var category = 'button';
     if (href.startsWith('tel:')) category = 'phone_call';
     else if (href.includes('kakao')) category = 'kakao';
+    else if (href.includes('naver.me/xuMjKn40')) category = 'naver_booking';
+    else if (href.includes('naver.me')) category = 'naver_place';
+    else if (href.includes('map.naver')) category = 'naver_map';
     else if (matched.matches('a') && href) category = 'link';
     else if (cls.includes('card')) category = 'card';
     else if (cls.includes('checkbox') || tag === 'INPUT') category = 'form';

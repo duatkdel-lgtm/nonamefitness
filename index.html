@@ -808,7 +808,7 @@
         <i class="fas fa-chevron-up"></i>
     </button>
 
-    <!-- 네이버 예약 플로팅 버튼 -->
+    <!-- 플로팅 버튼 (카카오 공유 + 네이버 예약) -->
     <style>
       #naverBookingFloat {
         position: fixed;
@@ -830,7 +830,29 @@
         transform: translateY(-2px);
         transition: all 0.3s ease;
       }
+      #kakaoShareFloat {
+        position: fixed;
+        bottom: 80px;
+        left: 20px;
+        background: linear-gradient(135deg, #FEE500, #F5D900);
+        color: #3C1E1E;
+        border: none;
+        border-radius: 50px;
+        padding: 12px 20px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        z-index: 9999;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        font-family: inherit;
+      }
+      #kakaoShareFloat:hover {
+        box-shadow: 0 4px 15px rgba(254,229,0,0.5);
+        transform: translateY(-2px);
+        transition: all 0.3s ease;
+      }
     </style>
+    <button id="kakaoShareFloat" onclick="shareKakao()">💬 카카오톡 공유</button>
     <a id="naverBookingFloat" href="https://naver.me/xuMjKn40" target="_blank">📅 네이버 예약</a>
 
     <script src="js/main.js?v=20260308b"></script>
@@ -1045,6 +1067,7 @@ function submitPartner(){
 }
 document.getElementById('partnerModal').addEventListener('click',function(e){if(e.target===this){this.classList.remove('active');document.body.style.overflow=''}});
 </script>
+<script src="js/kakao-share.js"></script>
 <script src="js/ga-events.js"></script>
 </body>
 </html>
