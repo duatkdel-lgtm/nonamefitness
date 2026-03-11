@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S8M0M3Q0P3"></script>
+    <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-S8M0M3Q0P3');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>사업자 제휴 | 노네임피트니스</title>
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="사업자 제휴 | 노네임피트니스">
+    <meta property="og:description" content="천안 두정동 노네임피트니스와 함께 성장하는 상생 파트너십">
+    <meta property="og:image" content="https://nonamefitness.co.kr/images/facility-main.jpg">
+    <meta property="og:url" content="https://nonamefitness.co.kr/partnership.html">
+    <meta property="og:site_name" content="노네임피트니스">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+        :root{
+            --y:#F5BF23;--y2:#FFD556;--y3:rgba(245,191,35,.08);
+            --bg:#0a0a0a;--s1:#111;--s2:#181818;--s3:#222;
+            --bd:#2a2a2a;--w:#fff;--g1:#ccc;--g2:#999;--g3:#555;
+            --r:12px;
+        }
+
+        html{scroll-behavior:smooth;}
+        body{background:var(--bg);color:var(--w);font-family:'Noto Sans KR',-apple-system,sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden;}
+
+        /* ── ANIMATION ── */
+        @keyframes fadeUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+        @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+        @keyframes pulse{0%,100%{opacity:.6;}50%{opacity:1;}}
+        @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(245,191,35,.1);}50%{box-shadow:0 0 40px rgba(245,191,35,.25);}}
+        @keyframes countUp{from{opacity:0;transform:scale(.8);}to{opacity:1;transform:scale(1);}}
+        @keyframes barGrow{from{width:0;}to{width:var(--bar-w);}}
+        @keyframes circleGrow{from{stroke-dashoffset:var(--circle-len);}to{stroke-dashoffset:var(--circle-offset);}}
+        @keyframes slideRight{from{opacity:0;transform:translateX(-30px);}to{opacity:1;transform:translateX(0);}}
+        @keyframes pulseGlow{0%,100%{opacity:.4;transform:scale(1);}50%{opacity:1;transform:scale(1.05);}}
+
+        .reveal{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.16,1,.3,1);}
+        .reveal.visible{opacity:1;transform:translateY(0);}
+        .reveal-delay-1{transition-delay:.15s;}
+        .reveal-delay-2{transition-delay:.3s;}
+        .reveal-delay-3{transition-delay:.45s;}
+        .reveal-delay-4{transition-delay:.6s;}
+
+        /* ── TYPO ── */
+        .tag{font-size:11px;font-weight:700;letter-spacing:4px;color:var(--y);text-transform:uppercase;}
+        .hl{color:var(--y);}
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           0. OPENING
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .opening{
+            min-height:100vh;display:flex;align-items:center;justify-content:center;
+            position:relative;overflow:hidden;
+            background:linear-gradient(180deg,#000 0%,var(--bg) 100%);
+        }
+        .opening::before{
+            content:'';position:absolute;inset:0;
+            background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(245,191,35,.04) 0%,transparent 70%);
+        }
+        .opening-inner{
+            position:relative;z-index:1;text-align:center;padding:40px 24px;
+            max-width:680px;animation:fadeIn 1.5s ease;
+        }
+        .opening-quote{
+            font-size:clamp(13px,2.5vw,16px);color:var(--g2);letter-spacing:1px;
+            margin-bottom:20px;font-weight:300;
+        }
+        .opening-title{
+            font-size:clamp(28px,6vw,52px);font-weight:900;line-height:1.2;
+            margin-bottom:24px;
+        }
+        .opening-title .line{display:block;}
+        .opening-sub{
+            font-size:clamp(14px,2.5vw,17px);color:var(--g1);line-height:1.8;
+            font-weight:300;margin-bottom:40px;
+        }
+        .scroll-hint{
+            animation:pulse 2s infinite;font-size:12px;color:var(--g3);
+            letter-spacing:2px;
+        }
+        .scroll-hint span{display:block;margin-top:8px;font-size:18px;}
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           1. STORY SECTIONS
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .story-sec{
+            padding:80px 24px;max-width:720px;margin:0 auto;
+        }
+        .story-block{margin-bottom:60px;}
+        .story-num{
+            font-size:11px;font-weight:700;letter-spacing:3px;color:var(--y);
+            margin-bottom:16px;display:flex;align-items:center;gap:12px;
+        }
+        .story-num::after{content:'';flex:1;height:1px;background:var(--bd);}
+        .story-title{
+            font-size:clamp(22px,4vw,32px);font-weight:900;line-height:1.35;
+            margin-bottom:16px;
+        }
+        .story-text{
+            font-size:clamp(14px,2.2vw,16px);color:var(--g1);line-height:2;font-weight:300;
+        }
+        .story-text strong{color:var(--w);font-weight:700;}
+        .story-text em{color:var(--y);font-style:normal;font-weight:500;}
+
+        .story-highlight{
+            margin:40px 0;padding:28px 24px;
+            border-left:3px solid var(--y);
+            background:linear-gradient(90deg,rgba(245,191,35,.05) 0%,transparent 100%);
+            border-radius:0 var(--r) var(--r) 0;
+        }
+        .story-highlight p{
+            font-size:clamp(16px,3vw,20px);font-weight:700;line-height:1.7;
+            color:var(--w);
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           2. STATS — 숫자로 보는 노네임
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .stats-sec{
+            padding:80px 24px;background:var(--s1);
+        }
+        .stats-inner{max-width:860px;margin:0 auto;}
+        .stats-header{text-align:center;margin-bottom:48px;}
+        .stats-title{font-size:clamp(24px,4vw,36px);font-weight:900;margin:16px 0;}
+        .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+        .stat-card{
+            background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);
+            padding:32px 16px;text-align:center;
+            transition:all .3s;position:relative;overflow:hidden;
+        }
+        .stat-card:hover{border-color:var(--y);transform:translateY(-4px);}
+        .stat-card::after{
+            content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+            background:var(--y);transform:scaleX(0);transition:transform .3s;
+        }
+        .stat-card:hover::after{transform:scaleX(1);}
+        .stat-ico{font-size:32px;margin-bottom:14px;}
+        .stat-val{font-size:clamp(32px,6vw,44px);font-weight:900;color:var(--y);margin-bottom:4px;}
+        .stat-unit{font-size:14px;color:var(--g1);font-weight:600;}
+        .stat-lbl{font-size:12px;color:var(--g3);margin-top:8px;line-height:1.5;}
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           3. BENEFITS GRID
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .benefits{padding:80px 24px;max-width:860px;margin:0 auto;}
+        .benefits-header{text-align:center;margin-bottom:48px;}
+        .benefits-title{font-size:clamp(24px,4vw,36px);font-weight:900;margin:16px 0;}
+        .benefits-sub{font-size:14px;color:var(--g2);}
+        .benefit-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+        .benefit{
+            background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);
+            padding:28px 22px;transition:all .3s;
+        }
+        .benefit:hover{border-color:var(--y);transform:translateY(-2px);}
+        .benefit-ico{
+            width:48px;height:48px;border-radius:12px;
+            background:var(--y);color:#000;
+            display:flex;align-items:center;justify-content:center;
+            font-size:22px;margin-bottom:16px;
+        }
+        .benefit h3{font-size:15px;font-weight:700;margin-bottom:8px;}
+        .benefit p{font-size:13px;color:var(--g2);line-height:1.7;}
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           4. CURRENT PARTNERS SHOWCASE
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .partners-showcase{
+            padding:60px 24px;
+            background:linear-gradient(135deg,rgba(245,191,35,.04) 0%,transparent 50%);
+            border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);
+        }
+        .partners-showcase-inner{max-width:640px;margin:0 auto;text-align:center;}
+        .partners-showcase-title{font-size:20px;font-weight:900;margin:16px 0 20px;}
+        .partner-tags{
+            display:flex;gap:10px;justify-content:center;flex-wrap:wrap;
+        }
+        .partner-tag{
+            padding:10px 20px;border-radius:24px;font-size:13px;font-weight:600;
+            background:var(--s2);border:1px solid var(--bd);color:var(--g1);
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           5. FINAL CTA + FORM
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .final-cta{
+            text-align:center;padding:100px 24px 80px;
+            background:linear-gradient(180deg,var(--bg) 0%,#050505 100%);
+            position:relative;overflow:hidden;
+        }
+        .final-cta::before{
+            content:'';position:absolute;top:0;left:50%;
+            width:1px;height:60px;background:var(--y);
+            transform:translateX(-50%);
+        }
+        .final-cta-tag{margin-top:20px;}
+        .final-cta-title{
+            font-size:clamp(24px,5vw,40px);font-weight:900;
+            margin:20px 0 12px;line-height:1.3;
+        }
+        .final-cta-sub{
+            font-size:clamp(14px,2vw,16px);color:var(--g2);
+            margin-bottom:40px;line-height:1.7;
+        }
+
+        /* 인라인 폼 */
+        .partner-form{
+            max-width:480px;margin:0 auto;text-align:left;
+            background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);
+            padding:32px 28px;
+        }
+        .partner-form h3{
+            font-size:18px;font-weight:900;margin-bottom:24px;text-align:center;
+            color:var(--w);
+        }
+        .form-group{
+            display:flex;flex-direction:column;gap:6px;margin-bottom:16px;
+        }
+        .form-group label{
+            font-size:12px;font-weight:700;color:var(--g1);letter-spacing:1px;
+        }
+        .form-group label .req{color:var(--y);margin-left:2px;}
+        .form-input{
+            padding:12px 14px;border-radius:8px;border:1px solid var(--bd);
+            background:var(--s1);color:var(--w);font-size:14px;
+            font-family:inherit;transition:border-color .3s;
+            outline:none;
+        }
+        .form-input:focus{border-color:var(--y);}
+        .form-input::placeholder{color:var(--g3);}
+        textarea.form-input{min-height:80px;resize:vertical;}
+
+        .submit-btn{
+            width:100%;padding:16px;margin-top:8px;
+            background:var(--y);color:#000;
+            font-size:16px;font-weight:900;letter-spacing:1px;
+            border-radius:8px;cursor:pointer;border:none;
+            transition:all .3s;font-family:inherit;
+            box-shadow:0 4px 24px rgba(245,191,35,.25);
+        }
+        .submit-btn:hover{
+            transform:translateY(-2px);
+            box-shadow:0 8px 32px rgba(245,191,35,.35);
+        }
+        .submit-btn:disabled{
+            opacity:.5;cursor:not-allowed;transform:none;
+            box-shadow:none;
+        }
+
+        .form-result{
+            display:none;text-align:center;padding:40px 20px;
+        }
+        .form-result.show{display:block;}
+        .form-result .check{font-size:48px;margin-bottom:16px;}
+        .form-result h3{font-size:22px;font-weight:900;margin-bottom:12px;}
+        .form-result p{font-size:14px;color:var(--g2);line-height:1.8;}
+
+        .phone-cta{
+            margin-top:32px;padding-top:24px;border-top:1px solid var(--bd);
+            text-align:center;
+        }
+        .phone-cta p{font-size:13px;color:var(--g3);margin-bottom:8px;}
+        .phone-cta a{
+            display:inline-flex;align-items:center;gap:8px;
+            font-size:18px;font-weight:900;color:var(--y);text-decoration:none;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           GRAPH: 바 차트
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .bar-chart{
+            max-width:640px;margin:40px auto 0;padding:0 8px;
+        }
+        .bar-row{
+            display:flex;align-items:center;gap:12px;margin-bottom:20px;
+        }
+        .bar-label{
+            width:100px;flex-shrink:0;text-align:right;
+            font-size:13px;font-weight:600;color:var(--g1);
+        }
+        .bar-track{
+            flex:1;height:32px;background:var(--s2);border-radius:6px;
+            position:relative;overflow:hidden;border:1px solid var(--bd);
+        }
+        .bar-fill{
+            height:100%;border-radius:6px;position:relative;
+            width:0;transition:width 1.5s cubic-bezier(.16,1,.3,1);
+        }
+        .bar-fill.animated{width:var(--bar-w);}
+        .bar-fill.gold{background:linear-gradient(90deg,var(--y),var(--y2));}
+        .bar-fill.white{background:linear-gradient(90deg,#888,#ccc);}
+        .bar-val{
+            position:absolute;right:8px;top:50%;transform:translateY(-50%);
+            font-size:12px;font-weight:900;color:#000;
+        }
+        .bar-fill.white .bar-val{color:#000;}
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           GRAPH: 원형 차트
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .circle-charts{
+            display:flex;justify-content:center;gap:32px;flex-wrap:wrap;
+            margin:48px auto;max-width:640px;
+        }
+        .circle-chart{
+            text-align:center;position:relative;
+        }
+        .circle-chart svg{
+            width:120px;height:120px;transform:rotate(-90deg);
+        }
+        .circle-bg{fill:none;stroke:var(--s3);stroke-width:8;}
+        .circle-bar{
+            fill:none;stroke:var(--y);stroke-width:8;
+            stroke-linecap:round;
+            stroke-dasharray:var(--circle-len);
+            stroke-dashoffset:var(--circle-len);
+            transition:stroke-dashoffset 2s cubic-bezier(.16,1,.3,1);
+        }
+        .circle-bar.animated{stroke-dashoffset:var(--circle-offset);}
+        .circle-center{
+            position:absolute;top:50%;left:50%;
+            transform:translate(-50%,-50%);
+            margin-top:-12px;
+        }
+        .circle-pct{
+            font-size:28px;font-weight:900;color:var(--y);
+            display:block;
+        }
+        .circle-label{
+            font-size:12px;color:var(--g2);margin-top:12px;font-weight:600;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           GRAPH: 성장 타임라인
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .growth-sec{
+            padding:80px 24px;background:var(--s1);
+        }
+        .growth-inner{max-width:720px;margin:0 auto;}
+        .growth-header{text-align:center;margin-bottom:48px;}
+        .growth-title{font-size:clamp(24px,4vw,36px);font-weight:900;margin:16px 0;}
+        .growth-chart{
+            position:relative;padding-left:48px;
+        }
+        .growth-chart::before{
+            content:'';position:absolute;left:22px;top:0;bottom:0;
+            width:2px;background:linear-gradient(180deg,var(--bd),var(--y),var(--bd));
+        }
+        .growth-item{
+            position:relative;padding:20px 0 32px 24px;
+        }
+        .growth-dot{
+            position:absolute;left:-34px;top:24px;
+            width:16px;height:16px;border-radius:50%;
+            background:var(--y);
+            box-shadow:0 0 0 4px var(--s1),0 0 16px rgba(245,191,35,.3);
+        }
+        .growth-dot.pulse{animation:pulseGlow 2s infinite;}
+        .growth-year{
+            font-size:12px;font-weight:700;color:var(--y);letter-spacing:2px;
+            margin-bottom:6px;
+        }
+        .growth-item h3{font-size:18px;font-weight:900;margin-bottom:6px;}
+        .growth-item p{font-size:13px;color:var(--g2);line-height:1.7;}
+        .growth-bar-mini{
+            margin-top:10px;height:6px;background:var(--s2);border-radius:3px;
+            overflow:hidden;max-width:280px;
+        }
+        .growth-bar-fill{
+            height:100%;border-radius:3px;
+            background:linear-gradient(90deg,var(--y),var(--y2));
+            width:0;transition:width 1.8s cubic-bezier(.16,1,.3,1);
+        }
+        .growth-bar-fill.animated{width:var(--bar-w);}
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           GRAPH: 비교 인포그래픽
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .compare-sec{
+            padding:80px 24px;max-width:720px;margin:0 auto;
+        }
+        .compare-header{text-align:center;margin-bottom:48px;}
+        .compare-title{font-size:clamp(24px,4vw,36px);font-weight:900;margin:16px 0;}
+        .compare-grid{display:grid;grid-template-columns:1fr 60px 1fr;gap:0;align-items:stretch;}
+        .compare-col{
+            background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);
+            padding:28px 20px;
+        }
+        .compare-col.highlight{border-color:var(--y);position:relative;}
+        .compare-col.highlight::before{
+            content:'추천';position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+            background:var(--y);color:#000;font-size:11px;font-weight:900;
+            padding:2px 12px;border-radius:10px;letter-spacing:1px;
+        }
+        .compare-vs{
+            display:flex;align-items:center;justify-content:center;
+            font-size:14px;font-weight:900;color:var(--g3);
+        }
+        .compare-col h3{
+            font-size:16px;font-weight:900;margin-bottom:16px;text-align:center;
+        }
+        .compare-col.highlight h3{color:var(--y);}
+        .compare-item{
+            display:flex;align-items:center;gap:8px;
+            padding:8px 0;border-bottom:1px solid var(--bd);
+            font-size:13px;color:var(--g1);
+        }
+        .compare-item:last-child{border-bottom:none;}
+        .compare-item .ico{font-size:16px;flex-shrink:0;}
+        .compare-item.negative .ico{opacity:.4;}
+
+        /* ── FOOTER ── */
+        footer{
+            background:#050505;padding:16px 24px;
+            display:flex;justify-content:space-between;align-items:center;
+            border-top:1px solid var(--s2);flex-wrap:wrap;gap:8px;
+        }
+        footer p{font-size:10px;color:var(--g3);}
+
+        /* ━━━ RESPONSIVE ━━━ */
+        @media (max-width:600px){
+            .stats-grid{grid-template-columns:1fr;}
+            .benefit-grid{grid-template-columns:1fr;}
+            .story-sec{padding:60px 20px;}
+            .opening{min-height:90vh;}
+            .partner-form{padding:24px 20px;}
+            .compare-grid{grid-template-columns:1fr;gap:12px;}
+            .compare-vs{padding:8px 0;font-size:12px;}
+            .circle-charts{gap:20px;}
+            .circle-chart svg{width:100px;height:100px;}
+            .circle-pct{font-size:22px;}
+            .bar-label{width:70px;font-size:11px;}
+            .growth-chart{padding-left:40px;}
+            .growth-chart::before{left:18px;}
+            .growth-dot{left:-28px;}
+        }
+        @media screen and (orientation:landscape) and (max-height:480px){
+            .opening{min-height:auto;padding:40px 20px;}
+            .story-sec{padding:40px 20px;}
+        }
+    </style>
+</head>
+<body>
+
+<!-- ━━━ 0. OPENING ━━━ -->
+<section class="opening">
+    <div class="opening-inner">
+        <p class="opening-quote">"Together, we grow stronger"</p>
+        <h1 class="opening-title">
+            <span class="line">함께 성장하는</span>
+            <span class="line"><span class="hl">파트너</span>를 찾습니다</span>
+        </h1>
+        <p class="opening-sub">
+            노네임피트니스 × 지역 사업자<br>
+            서로의 고객이 서로의 성장이 되는<br>
+            <strong style="color:var(--w);">상생 파트너십 프로그램</strong>
+        </p>
+        <div class="scroll-hint">
+            SCROLL DOWN
+            <span>↓</span>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━ 1. STORY — 숫자로 보는 노네임 ━━━ -->
+<section class="story-sec">
+    <div class="story-block reveal">
+        <div class="story-num">01</div>
+        <h2 class="story-title">우리는 매일,<br><span class="hl">수백 명</span>의 회원을 만납니다</h2>
+        <p class="story-text">
+            천안 두정동, 노네임피트니스.<br><br>
+            매일 아침 6시부터 밤 11시까지<br>
+            이 공간을 찾는 사람들이 있습니다.<br><br>
+            PT 회원, 스피닝 회원, 자유 이용 회원 —<br>
+            <strong>하루 평균 수백 명</strong>이 이 문을 열고 들어옵니다.<br><br>
+            단순한 헬스장이 아닙니다.<br>
+            매일 수백 명이 드나드는 <em>지역 커뮤니티 허브</em>입니다.
+        </p>
+    </div>
+</section>
+
+<!-- ━━━ STATS ━━━ -->
+<section class="stats-sec">
+    <div class="stats-inner">
+        <div class="stats-header reveal">
+            <p class="tag">BY THE NUMBERS</p>
+            <h2 class="stats-title">숫자가 <span class="hl">증명</span>합니다</h2>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card reveal">
+                <div class="stat-ico">🏃</div>
+                <div class="stat-val"><span class="count-num" data-target="300">0</span><span style="font-size:16px;">+</span></div>
+                <div class="stat-unit">일 평균 이용자</div>
+                <div class="stat-lbl">매일 수백 명이<br>이 공간을 이용합니다</div>
+            </div>
+            <div class="stat-card reveal reveal-delay-1">
+                <div class="stat-ico">📊</div>
+                <div class="stat-val"><span class="count-num" data-target="3000" data-format="comma">0</span><span style="font-size:16px;">+</span></div>
+                <div class="stat-unit">월간 방문자</div>
+                <div class="stat-lbl">건강과 운동에 관심 있는<br>활동적인 고객층</div>
+            </div>
+            <div class="stat-card reveal reveal-delay-2">
+                <div class="stat-ico">🌐</div>
+                <div class="stat-val"><span class="count-num" data-target="3000" data-format="comma">0</span><span style="font-size:16px;">+</span></div>
+                <div class="stat-unit">홈페이지 8일 방문자</div>
+                <div class="stat-lbl">온라인에서도<br>높은 유입을 기록하고 있습니다</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━ 방문자 구성 바 차트 ━━━ -->
+<section class="story-sec" style="padding-bottom:20px;">
+    <div class="reveal">
+        <div class="story-num">DATA</div>
+        <h2 class="story-title">방문자 <span class="hl">연령대</span> 분포</h2>
+        <p class="story-text" style="margin-bottom:24px;">
+            건강과 자기 관리에 투자하는<br>
+            <strong>핵심 소비층</strong>이 매일 방문합니다.
+        </p>
+    </div>
+    <div class="bar-chart reveal">
+        <div class="bar-row">
+            <span class="bar-label">20대</span>
+            <div class="bar-track">
+                <div class="bar-fill gold" style="--bar-w:70%"><span class="bar-val">35%</span></div>
+            </div>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">30대</span>
+            <div class="bar-track">
+                <div class="bar-fill gold" style="--bar-w:56%"><span class="bar-val">28%</span></div>
+            </div>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">40대</span>
+            <div class="bar-track">
+                <div class="bar-fill gold" style="--bar-w:40%"><span class="bar-val">20%</span></div>
+            </div>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">50대 이상</span>
+            <div class="bar-track">
+                <div class="bar-fill white" style="--bar-w:22%"><span class="bar-val">11%</span></div>
+            </div>
+        </div>
+        <div class="bar-row">
+            <span class="bar-label">10대</span>
+            <div class="bar-track">
+                <div class="bar-fill white" style="--bar-w:12%"><span class="bar-val">6%</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 원형 차트 -->
+    <div class="circle-charts reveal">
+        <div class="circle-chart">
+            <svg viewBox="0 0 120 120">
+                <circle class="circle-bg" cx="60" cy="60" r="52"/>
+                <circle class="circle-bar" cx="60" cy="60" r="52" style="--circle-len:327;--circle-offset:65;"/>
+            </svg>
+            <div class="circle-center">
+                <span class="circle-pct" data-target="80">0%</span>
+            </div>
+            <div class="circle-label">20~40대 비율</div>
+        </div>
+        <div class="circle-chart">
+            <svg viewBox="0 0 120 120">
+                <circle class="circle-bg" cx="60" cy="60" r="52"/>
+                <circle class="circle-bar" cx="60" cy="60" r="52" style="--circle-len:327;--circle-offset:114;"/>
+            </svg>
+            <div class="circle-center">
+                <span class="circle-pct" data-target="65">0%</span>
+            </div>
+            <div class="circle-label">재방문율</div>
+        </div>
+        <div class="circle-chart">
+            <svg viewBox="0 0 120 120">
+                <circle class="circle-bg" cx="60" cy="60" r="52"/>
+                <circle class="circle-bar" cx="60" cy="60" r="52" style="--circle-len:327;--circle-offset:33;"/>
+            </svg>
+            <div class="circle-center">
+                <span class="circle-pct" data-target="90">0%</span>
+            </div>
+            <div class="circle-label">회원 만족도</div>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━ 2. STORY — 노출의 가치 ━━━ -->
+<section class="story-sec">
+    <div class="story-block reveal">
+        <div class="story-num">02</div>
+        <h2 class="story-title">이 곳에 <span class="hl">이름을 올리는 것</span>만으로도</h2>
+        <p class="story-text">
+            노네임피트니스 홈페이지에는<br>
+            매달 수천 명의 잠재 고객이 방문합니다.<br><br>
+            이들은 건강에 관심이 많고,<br>
+            자기 관리에 투자하는 <strong>20~40대 활동적인 소비자</strong>입니다.<br><br>
+            제휴업체로 등록되면<br>
+            별도의 광고비 없이, 이 고객들에게<br>
+            자연스럽게 노출됩니다.
+        </p>
+    </div>
+
+    <div class="story-highlight reveal">
+        <p>
+            "제휴업체로 등록되면,<br>
+            매달 수천 명의 잠재 고객에게<br>
+            <span class="hl">자연스럽게 노출</span>됩니다."
+        </p>
+    </div>
+
+    <div class="story-block reveal">
+        <p class="story-text">
+            현재 노네임피트니스와 함께하는 업종도 다양합니다.<br><br>
+            건강 식단, 음악학원, 바버샵, 프리미엄 세차 —<br>
+            <em>운동하는 사람의 일상과 연결되는 모든 업종</em>이<br>
+            제휴의 대상이 될 수 있습니다.
+        </p>
+    </div>
+</section>
+
+<!-- ━━━ CURRENT PARTNERS ━━━ -->
+<section class="partners-showcase">
+    <div class="partners-showcase-inner reveal">
+        <p class="tag">CURRENT PARTNERS</p>
+        <h2 class="partners-showcase-title">현재 <span class="hl">함께하는</span> 파트너들</h2>
+        <div class="partner-tags">
+            <span class="partner-tag">🥗 샐러드가든</span>
+            <span class="partner-tag">🥁 제이와이드럼</span>
+            <span class="partner-tag">✂️ 엠제이바버샾</span>
+            <span class="partner-tag">🚗 내차애 카워시</span>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━ 3. STORY — 상생의 철학 ━━━ -->
+<section class="story-sec">
+    <div class="story-block reveal">
+        <div class="story-num">03</div>
+        <h2 class="story-title">우리가 원하는 건<br><span class="hl">'상생'</span>입니다</h2>
+        <p class="story-text">
+            한쪽만 이득을 보는 제휴는<br>
+            오래가지 못합니다.<br><br>
+            노네임 회원에게는 <strong>일상의 혜택</strong>을,<br>
+            제휴 사업자에게는 <strong>안정적인 고객 유입</strong>을.<br><br>
+            서로의 고객이 서로에게 이어지는 구조,<br>
+            그것이 우리가 생각하는 <em>진짜 제휴</em>입니다.
+        </p>
+    </div>
+
+    <div class="story-highlight reveal">
+        <p>
+            "운동 후 식사, 운동 전 커피, 운동 중 관리 —<br>
+            회원의 일상이 곧<br>
+            <span class="hl">제휴 사업자의 기회</span>입니다."
+        </p>
+    </div>
+</section>
+
+<!-- ━━━ 4. BENEFITS ━━━ -->
+<section class="benefits">
+    <div class="benefits-header reveal">
+        <p class="tag">PARTNERSHIP BENEFITS</p>
+        <h2 class="benefits-title">제휴하면 <span class="hl">이런 점</span>이 좋습니다</h2>
+        <p class="benefits-sub">비용 부담 없이 사업에 도움이 되는 실질적 혜택</p>
+    </div>
+
+    <div class="benefit-grid">
+        <div class="benefit reveal">
+            <div class="benefit-ico">🏢</div>
+            <h3>홈페이지 상시 노출</h3>
+            <p>매달 수천 명이 방문하는 노네임피트니스 홈페이지에 업체 정보가 상시 노출됩니다. 별도 광고비 없이 지속적인 홍보 효과.</p>
+        </div>
+        <div class="benefit reveal reveal-delay-1">
+            <div class="benefit-ico">📱</div>
+            <h3>카카오톡 공유 가능</h3>
+            <p>회원들이 카카오톡으로 제휴업체 정보를 쉽게 공유할 수 있습니다. 입소문을 통한 자연스러운 확산 효과.</p>
+        </div>
+        <div class="benefit reveal reveal-delay-2">
+            <div class="benefit-ico">🎯</div>
+            <h3>타겟 고객 직접 연결</h3>
+            <p>건강과 자기 관리에 투자하는 20~40대 활동적인 소비자에게 직접 다가갈 수 있습니다. 정확한 타겟 마케팅.</p>
+        </div>
+        <div class="benefit reveal reveal-delay-3">
+            <div class="benefit-ico">🤝</div>
+            <h3>상생 프로그램</h3>
+            <p>회원 할인, 포인트 제휴, 이벤트 공동 진행 등 업종에 맞는 상생 방안을 함께 협의합니다.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━ 성장 타임라인 ━━━ -->
+<section class="growth-sec">
+    <div class="growth-inner">
+        <div class="growth-header reveal">
+            <p class="tag">GROWTH STORY</p>
+            <h2 class="growth-title">노네임피트니스의 <span class="hl">성장</span></h2>
+        </div>
+        <div class="growth-chart">
+            <div class="growth-item reveal">
+                <div class="growth-dot"></div>
+                <div class="growth-year">OPEN</div>
+                <h3>센터 오픈</h3>
+                <p>천안 두정동에 프리미엄 피트니스 센터를 열었습니다. 최신 장비와 전문 트레이너로 시작.</p>
+                <div class="growth-bar-mini"><div class="growth-bar-fill" style="--bar-w:20%"></div></div>
+            </div>
+            <div class="growth-item reveal reveal-delay-1">
+                <div class="growth-dot"></div>
+                <div class="growth-year">GROWTH</div>
+                <h3>회원 300명 돌파</h3>
+                <p>입소문과 체계적 관리로 빠르게 성장. 무제한 PT, 스피닝 등 프로그램 확대.</p>
+                <div class="growth-bar-mini"><div class="growth-bar-fill" style="--bar-w:55%"></div></div>
+            </div>
+            <div class="growth-item reveal reveal-delay-2">
+                <div class="growth-dot"></div>
+                <div class="growth-year">BRAND</div>
+                <h3>홈페이지 & 굿즈 런칭</h3>
+                <p>온라인 채널 구축, 오리지널 텀블러 런칭. 8일 만에 홈페이지 방문자 3,000명 돌파.</p>
+                <div class="growth-bar-mini"><div class="growth-bar-fill" style="--bar-w:80%"></div></div>
+            </div>
+            <div class="growth-item reveal reveal-delay-3">
+                <div class="growth-dot pulse"></div>
+                <div class="growth-year">NOW</div>
+                <h3>제휴 파트너십 확대</h3>
+                <p>지역 사업자와 상생하는 제휴 프로그램 시작. 4개 업체와 함께하고 있습니다.</p>
+                <div class="growth-bar-mini"><div class="growth-bar-fill" style="--bar-w:100%"></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━ 광고비 비교 인포그래픽 ━━━ -->
+<section class="compare-sec">
+    <div class="compare-header reveal">
+        <p class="tag">COMPARISON</p>
+        <h2 class="compare-title">광고비 <span class="hl">없이</span> 이 효과를</h2>
+    </div>
+    <div class="compare-grid reveal">
+        <div class="compare-col">
+            <h3>일반 온라인 광고</h3>
+            <div class="compare-item negative">
+                <span class="ico">💸</span> 월 30~100만원 광고비
+            </div>
+            <div class="compare-item negative">
+                <span class="ico">📉</span> 광고 종료 시 노출 0
+            </div>
+            <div class="compare-item negative">
+                <span class="ico">🎲</span> 불특정 다수 타겟
+            </div>
+            <div class="compare-item negative">
+                <span class="ico">⏱️</span> 클릭당 과금
+            </div>
+        </div>
+        <div class="compare-vs">VS</div>
+        <div class="compare-col highlight">
+            <h3>노네임 제휴</h3>
+            <div class="compare-item">
+                <span class="ico">✅</span> 광고비 0원
+            </div>
+            <div class="compare-item">
+                <span class="ico">✅</span> 365일 상시 노출
+            </div>
+            <div class="compare-item">
+                <span class="ico">✅</span> 건강·운동 관심 20~40대
+            </div>
+            <div class="compare-item">
+                <span class="ico">✅</span> 회원 직접 방문 유도
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━ 5. STORY — 사업자 전용 안내 ━━━ -->
+<section class="story-sec">
+    <div class="story-block reveal">
+        <div class="story-num">04</div>
+        <h2 class="story-title">사업자를 위한<br><span class="hl">특별 회원권</span>도 있습니다</h2>
+        <p class="story-text">
+            제휴 사업자 대표님과 직원분들을 위한<br>
+            <strong>사업자 전용 회원권</strong>을 별도로 운영하고 있습니다.<br><br>
+            업종, 규모, 협업 형태에 따라<br>
+            금액과 조건은 개별 협의로 진행됩니다.<br><br>
+            부담 없이 연락 주시면<br>
+            내부 확인 후 <em>빠르게 회신</em>드리겠습니다.
+        </p>
+    </div>
+
+    <div class="story-highlight reveal">
+        <p>
+            "먼저 연락 주세요.<br>
+            확인 후 <span class="hl">빠르게 회신</span>드리겠습니다."
+        </p>
+    </div>
+</section>
+
+<!-- ━━━ 6. FINAL CTA + FORM ━━━ -->
+<section class="final-cta" id="apply">
+    <div class="reveal">
+        <p class="tag final-cta-tag">PARTNERSHIP APPLICATION</p>
+        <h2 class="final-cta-title">
+            지금 바로<br>
+            <span class="hl">제휴를 시작</span>하세요
+        </h2>
+        <p class="final-cta-sub">
+            아래 양식을 작성해주시면 확인 후 연락드리겠습니다.
+        </p>
+
+        <div class="partner-form" id="partnerFormWrap">
+            <h3>🤝 사업자 제휴 신청</h3>
+            <div class="form-group">
+                <label>업체명 <span class="req">*</span></label>
+                <input type="text" class="form-input" id="pBizName" placeholder="업체명을 입력해주세요">
+            </div>
+            <div class="form-group">
+                <label>담당자명 <span class="req">*</span></label>
+                <input type="text" class="form-input" id="pName" placeholder="담당자 성함">
+            </div>
+            <div class="form-group">
+                <label>연락처 <span class="req">*</span></label>
+                <input type="tel" class="form-input" id="pPhone" placeholder="010-0000-0000" maxlength="13">
+            </div>
+            <div class="form-group">
+                <label>업종</label>
+                <input type="text" class="form-input" id="pCategory" placeholder="예: 카페, 식당, 뷰티 등">
+            </div>
+            <div class="form-group">
+                <label>제안 내용</label>
+                <textarea class="form-input" id="pMessage" placeholder="제휴 관련 문의사항이나 제안을 자유롭게 작성해주세요"></textarea>
+            </div>
+            <button class="submit-btn" id="pSubmitBtn" onclick="submitPartnerForm()">🤝 제휴 신청하기</button>
+        </div>
+
+        <div class="form-result" id="partnerResult">
+            <div class="check">✅</div>
+            <h3>신청이 완료되었습니다!</h3>
+            <p>빠른 시일 내 확인 후 연락드리겠습니다.<br>감사합니다.</p>
+        </div>
+
+        <div class="phone-cta">
+            <p>전화 상담도 가능합니다</p>
+            <a href="tel:041-557-9291">📞 041-557-9291</a>
+        </div>
+    </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <p>내일의 나를 바꾸는 공간, NONAME FITNESS</p>
+    <p>천안 두정동 · 사업자 제휴</p>
+    <button onclick="shareKakao()" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:10px 20px;background:#FEE500;color:#3C1E1E;border:none;border-radius:50px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">💬 카카오톡으로 공유하기</button>
+</footer>
+
+<!-- ── SCRIPTS ── -->
+<script>
+/* 전화번호 자동 포맷 */
+(function(){
+    var ph=document.getElementById('pPhone');
+    if(!ph) return;
+    ph.addEventListener('input',function(){
+        var v=this.value.replace(/[^0-9]/g,'');
+        if(v.length>3 && v.length<=7) v=v.slice(0,3)+'-'+v.slice(3);
+        else if(v.length>7) v=v.slice(0,3)+'-'+v.slice(3,7)+'-'+v.slice(7,11);
+        this.value=v;
+    });
+})();
+
+/* 제휴 신청 폼 제출 */
+function submitPartnerForm(){
+    var bizName=document.getElementById('pBizName').value.trim();
+    var name=document.getElementById('pName').value.trim();
+    var phone=document.getElementById('pPhone').value.replace(/[^0-9]/g,'');
+    var category=document.getElementById('pCategory').value.trim();
+    var message=document.getElementById('pMessage').value.trim();
+    var btn=document.getElementById('pSubmitBtn');
+
+    if(!bizName){alert('업체명을 입력해주세요.');return;}
+    if(!name){alert('담당자명을 입력해주세요.');return;}
+    if(!/^01[0-9]{8,9}$/.test(phone)){alert('올바른 연락처를 입력해주세요.');return;}
+
+    btn.disabled=true;
+    btn.textContent='전송 중...';
+
+    var data={
+        bizName:bizName,
+        name:name,
+        phone:phone,
+        category:category||'미입력',
+        message:message||'없음',
+        source:'partnership_page',
+        timestamp:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'}),
+        smsTo:'01053909291',
+        smsFrom:'01057939291',
+        smsBody:'[노네임피트니스] 사업자 제휴 신청\\n업체: '+bizName+'\\n담당자: '+name+'\\n연락처: '+phone+'\\n업종: '+(category||'미입력')
+    };
+
+    fetch('https://hook.eu2.make.com/jo716cek16bqswwvten9482le5lfr4xq',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(data)
+    }).then(function(){
+        document.getElementById('partnerFormWrap').style.display='none';
+        document.getElementById('partnerResult').classList.add('show');
+        if(typeof gtag==='function'){
+            gtag('event','partner_apply',{
+                event_category:'conversion',
+                event_label:bizName,
+                page_name:'partnership'
+            });
+        }
+    }).catch(function(){
+        alert('전송에 실패했습니다. 전화로 문의해주세요.');
+        btn.disabled=false;
+        btn.textContent='🤝 제휴 신청하기';
+    });
+}
+</script>
+
+<!-- 스크롤 애니메이션 + 그래프 엔진 -->
+<script>
+(function(){
+    /* 1. Reveal 애니메이션 */
+    var els=document.querySelectorAll('.reveal');
+    var revealObs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+            if(e.isIntersecting){e.target.classList.add('visible');revealObs.unobserve(e.target);}
+        });
+    },{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+    els.forEach(function(el){revealObs.observe(el);});
+
+    /* 2. 카운트업 애니메이션 */
+    var countEls=document.querySelectorAll('.count-num');
+    var countObs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+            if(!e.isIntersecting) return;
+            var el=e.target;
+            var target=parseInt(el.dataset.target)||0;
+            var fmt=el.dataset.format==='comma';
+            var duration=1800;
+            var start=performance.now();
+            function step(now){
+                var p=Math.min((now-start)/duration,1);
+                var ease=1-Math.pow(1-p,3); // easeOutCubic
+                var val=Math.round(ease*target);
+                el.textContent=fmt?val.toLocaleString():val;
+                if(p<1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+            countObs.unobserve(el);
+        });
+    },{threshold:0.5});
+    countEls.forEach(function(el){countObs.observe(el);});
+
+    /* 3. 바 차트 애니메이션 */
+    var bars=document.querySelectorAll('.bar-fill');
+    var barObs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+            if(e.isIntersecting){e.target.classList.add('animated');barObs.unobserve(e.target);}
+        });
+    },{threshold:0.3});
+    bars.forEach(function(el){barObs.observe(el);});
+
+    /* 4. 성장 타임라인 바 애니메이션 */
+    var gBars=document.querySelectorAll('.growth-bar-fill');
+    var gBarObs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+            if(e.isIntersecting){e.target.classList.add('animated');gBarObs.unobserve(e.target);}
+        });
+    },{threshold:0.3});
+    gBars.forEach(function(el){gBarObs.observe(el);});
+
+    /* 5. 원형 차트 애니메이션 */
+    var circles=document.querySelectorAll('.circle-bar');
+    var circleObs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+            if(!e.isIntersecting) return;
+            e.target.classList.add('animated');
+            /* 퍼센트 카운트업 */
+            var chart=e.target.closest('.circle-chart');
+            if(chart){
+                var pctEl=chart.querySelector('.circle-pct');
+                if(pctEl){
+                    var target=parseInt(pctEl.dataset.target)||0;
+                    var duration=2000;
+                    var start=performance.now();
+                    function step(now){
+                        var p=Math.min((now-start)/duration,1);
+                        var ease=1-Math.pow(1-p,3);
+                        pctEl.textContent=Math.round(ease*target)+'%';
+                        if(p<1) requestAnimationFrame(step);
+                    }
+                    requestAnimationFrame(step);
+                }
+            }
+            circleObs.unobserve(e.target);
+        });
+    },{threshold:0.5});
+    circles.forEach(function(el){circleObs.observe(el);});
+})();
+</script>
+<script src="js/kakao-share.js"></script>
+<script src="js/ga-events.js"></script>
+
+</body>
+</html>

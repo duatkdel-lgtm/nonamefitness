@@ -13,7 +13,8 @@
   // 현재 페이지 식별
   var path = location.pathname;
   var pageName = 'unknown';
-  if (path.includes('unlimited-pt')) pageName = 'unlimited-pt';
+  if (path.includes('partnership')) pageName = 'partnership';
+  else if (path.includes('unlimited-pt')) pageName = 'unlimited-pt';
   else if (path.includes('premium-pt')) pageName = 'premium-pt';
   else if (path.includes('spinning')) pageName = 'spinning';
   else if (path.includes('tumbler')) pageName = 'tumbler';
