@@ -31,6 +31,13 @@
     // 공통 버튼 클래스
     '.hero-btn', '.cta-btn', '.hero-buy-btn', '.final-btn',
     '.consult-btn', '.submit-btn', '.buy-btn',
+    // 폼 제출
+    '.form-submit',
+    // 메인 페이지 버튼
+    '.btn', '.quick-consult-btn', '.slideshow-open-btn',
+    '.btn-naver-review',
+    // 서브페이지 CTA
+    '.cta-opt',
     // 링크 타입
     'a[href^="tel:"]', 'a[href*="kakao"]', 'a[href*="pf.kakao"]',
     'a[href*="naver.me"]', 'a[href*="map.naver"]',
@@ -44,7 +51,9 @@
     // 기타 인터랙티브 요소
     'button', '[onclick]',
     // 굿즈 관련
-    '.goods-detail-btn', '.goods-info a'
+    '.goods-detail-btn', '.goods-info a',
+    // 공유 버튼
+    '.kakao-share-btn', '[onclick*="shareKakao"]'
   ];
 
   document.addEventListener('click', function (e) {
@@ -89,8 +98,11 @@
     else if (cls.includes('nav') || cls.includes('logo')) category = 'navigation';
     else if (cls.includes('modal') || cls.includes('close')) category = 'modal';
     else if (onclick.includes('consult') || onclick.includes('Consult')) category = 'consult';
-    else if (cls.includes('submit') || cls.includes('consult')) category = 'consult';
+    else if (cls.includes('submit') || cls.includes('consult') || cls.includes('form-submit')) category = 'consult';
     else if (cls.includes('buy') || cls.includes('goods')) category = 'purchase';
+    else if (cls.includes('share') || onclick.includes('shareKakao')) category = 'share';
+    else if (cls.includes('slideshow')) category = 'slideshow';
+    else if (cls.includes('naver-review')) category = 'naver_review';
 
     gtag('event', 'click', {
       event_category: category,
