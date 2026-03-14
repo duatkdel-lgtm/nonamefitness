@@ -638,50 +638,100 @@ ul {
 
 .hero-stats {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
-    gap: 40px;
-    animation: fadeInUp 0.8s ease 0.8s both;
+    gap: 20px;
+    position: relative;
+    z-index: 3;
 }
 
-.stat-item {
+.stat-card {
     text-align: center;
+    padding: 24px 28px 20px;
+    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(245,191,35,0.25);
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    min-width: 150px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: statReveal .7s ease forwards;
+    transition: all .35s ease;
+}
+.stat-card:nth-child(1) { animation-delay: .6s; }
+.stat-card:nth-child(2) { animation-delay: .8s; }
+.stat-card:nth-child(3) { animation-delay: 1s; }
+
+.stat-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    border-color: rgba(245,191,35,0.5);
+    box-shadow: 0 0 30px rgba(245,191,35,0.15), 0 8px 32px rgba(0,0,0,0.3);
+    background: rgba(245,191,35,0.06);
+}
+
+@keyframes statReveal {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.stat-ico {
+    font-size: 28px;
+    margin-bottom: 10px;
+    display: inline-block;
+    animation: statIconPulse 2.5s ease-in-out infinite;
+}
+@keyframes statIconPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+.stat-num-wrap {
+    margin-bottom: 6px;
 }
 
 .stat-number {
-    font-size: 36px;
+    font-size: 44px;
     font-weight: 900;
-    color: var(--gold);
+    background: linear-gradient(135deg, #F5BF23, #FFD86F, #F5BF23);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     display: inline;
+    animation: statShimmer 3s ease-in-out infinite;
+}
+@keyframes statShimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .stat-suffix {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--gold);
+    font-size: 20px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #F5BF23, #FFD86F);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .stat-label {
     display: block;
-    font-size: 13px;
-    color: rgba(255,255,255,0.5);
-    margin-top: 4px;
-    font-weight: 400;
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 700;
+    margin-bottom: 4px;
 }
 
-.stat-divider {
-    width: 1px;
-    height: 40px;
-    background: rgba(255,255,255,0.15);
+.stat-sub {
+    display: block;
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    font-weight: 400;
 }
 
 .hero-scroll {
     display: none;
-}
-
-.hero-stats {
-    position: relative;
-    z-index: 3;
 }
 
 .hero-scroll a {
@@ -1663,7 +1713,27 @@ ul {
 
 @media (max-width: 600px) {
     .partners-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    .partner-card {
+        padding: 20px 14px;
+    }
+    .partner-icon {
+        font-size: 32px;
+        margin-bottom: 12px;
+    }
+    .partner-name {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    .partner-benefits li {
+        font-size: 11px;
+        line-height: 1.6;
+    }
+    .partner-card a[href*="naver.me"] {
+        padding: 6px 10px;
+        font-size: 11px;
     }
 }
 
@@ -2111,11 +2181,23 @@ ul {
     }
     
     .hero-stats {
-        gap: 20px;
+        gap: 10px;
+        flex-wrap: nowrap !important;
     }
-    
+
+    .stat-card {
+        padding: 16px 10px 12px;
+        min-width: 0;
+        flex: 1;
+    }
+
     .stat-number {
-        font-size: 28px;
+        font-size: 30px;
+    }
+
+    .stat-ico {
+        font-size: 20px;
+        margin-bottom: 6px;
     }
     
     .about-features {
@@ -2185,16 +2267,36 @@ ul {
     }
     
     .hero-stats {
-        flex-wrap: wrap;
-        gap: 16px;
+        gap: 8px;
+        flex-wrap: nowrap;
     }
-    
-    .stat-divider {
-        display: none;
+
+    .stat-card {
+        padding: 14px 8px 10px;
+        min-width: 0;
+        flex: 1;
+        border-radius: 12px;
     }
-    
-    .stat-item {
-        min-width: 80px;
+
+    .stat-number {
+        font-size: 26px;
+    }
+
+    .stat-suffix {
+        font-size: 14px;
+    }
+
+    .stat-ico {
+        font-size: 18px;
+        margin-bottom: 4px;
+    }
+
+    .stat-label {
+        font-size: 11px;
+    }
+
+    .stat-sub {
+        font-size: 9px;
     }
     
     .facility-grid {
