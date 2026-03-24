@@ -1,0 +1,2644 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>마이트레이너 — 노네임피트니스 회원 전용 트레이닝 파트너</title>
+<meta name="description" content="운동처방사 출신 트레이너가 직접 만든 피트니스 앱. 378개 운동 GIF, AI 유튜브 분석, 운동 기록, 스트릭 시스템까지.">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #0a0a0a;
+  color: #e0e0e0;
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ===== LAYOUT ===== */
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section {
+  padding: 80px 0;
+  position: relative;
+}
+
+/* ===== ANIMATION ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-in-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+
+/* ===== TYPOGRAPHY ===== */
+.section-label {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #FF6B35;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.section-title {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1.3;
+  margin-bottom: 20px;
+  color: #ffffff;
+  word-break: keep-all;
+}
+
+.section-subtitle {
+  font-size: 18px;
+  color: #999;
+  line-height: 1.8;
+  margin-bottom: 40px;
+  word-break: keep-all;
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 40px;
+  background: linear-gradient(135deg, #FF6B35 0%, #FF8F35 100%);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.35);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(255, 107, 53, 0.5);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: rgba(255, 107, 53, 0.1);
+  color: #FF6B35;
+  font-size: 16px;
+  font-weight: 600;
+  border: 2px solid rgba(255, 107, 53, 0.3);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 107, 53, 0.2);
+  border-color: rgba(255, 107, 53, 0.5);
+}
+
+/* ===== DIVIDER ===== */
+.section-divider {
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #FF6B35, #FF8F35);
+  border-radius: 2px;
+  margin: 0 auto 60px;
+}
+
+.divider-left {
+  margin: 0 0 40px 0;
+}
+
+/* ========================================
+   SECTION 1: HERO
+   ======================================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 107, 53, 0.08) 0%, transparent 50%);
+  animation: heroGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes heroGlow {
+  0% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.1) rotate(5deg); }
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(255, 107, 53, 0.12);
+  border: 1px solid rgba(255, 107, 53, 0.25);
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #FF6B35;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge .pulse {
+  width: 8px;
+  height: 8px;
+  background: #FF6B35;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.5); }
+}
+
+.hero-title {
+  font-size: 44px;
+  font-weight: 900;
+  line-height: 1.25;
+  color: #ffffff;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+  word-break: keep-all;
+}
+
+.hero-title .highlight {
+  background: linear-gradient(135deg, #FF6B35, #FFB347);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-title .fire-text {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-subtitle-top {
+  font-size: 20px;
+  font-weight: 600;
+  color: #bbb;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+  word-break: keep-all;
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: #888;
+  line-height: 1.8;
+  margin-bottom: 48px;
+  max-width: 520px;
+  position: relative;
+  z-index: 1;
+  word-break: keep-all;
+}
+
+.hero-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 64px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 480px;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat-number {
+  font-size: 36px;
+  font-weight: 900;
+  color: #FF6B35;
+  line-height: 1.2;
+}
+
+.hero-stat-label {
+  font-size: 14px;
+  color: #777;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #555;
+  font-size: 12px;
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+.hero-scroll-indicator .arrow {
+  width: 24px;
+  height: 24px;
+  border-right: 2px solid #555;
+  border-bottom: 2px solid #555;
+  transform: rotate(45deg);
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* ========================================
+   SECTION 2: STORY
+   ======================================== */
+.story {
+  background: linear-gradient(180deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%);
+}
+
+.story-block {
+  margin-bottom: 48px;
+}
+
+.story-quote {
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.5;
+  margin-bottom: 24px;
+  position: relative;
+  padding-left: 24px;
+  border-left: 4px solid #FF6B35;
+  word-break: keep-all;
+}
+
+.story-text {
+  font-size: 17px;
+  color: #aaa;
+  line-height: 2;
+  margin-bottom: 24px;
+  word-break: keep-all;
+}
+
+.story-text strong {
+  color: #ddd;
+  font-weight: 600;
+}
+
+/* ===== PHONE MOCKUP ===== */
+.phone-showcase {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin: 48px auto;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.phone-mockup {
+  width: 220px;
+  flex-shrink: 0;
+  background: #1a1a1a;
+  border-radius: 32px;
+  padding: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.phone-mockup::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 24px;
+  background: #0a0a0a;
+  border-radius: 0 0 16px 16px;
+  z-index: 2;
+}
+
+.phone-mockup img {
+  width: 100%;
+  border-radius: 20px;
+  display: block;
+}
+
+.phone-mockup-label {
+  text-align: center;
+  font-size: 13px;
+  color: #888;
+  margin-top: 12px;
+  font-weight: 500;
+}
+
+.phone-showcase-single {
+  display: flex;
+  justify-content: center;
+  margin: 48px auto;
+}
+
+.phone-showcase-single .phone-mockup {
+  width: 260px;
+}
+
+.phone-showcase-hero {
+  margin: 40px auto 0;
+  position: relative;
+  z-index: 1;
+}
+
+.phone-showcase-hero .phone-mockup {
+  width: 280px;
+  box-shadow: 0 30px 80px rgba(255, 107, 53, 0.15), 0 0 0 1px rgba(255, 107, 53, 0.1);
+}
+
+@media (max-width: 560px) {
+  .phone-mockup {
+    width: 180px;
+    border-radius: 24px;
+    padding: 8px;
+  }
+  .phone-mockup::before {
+    width: 60px;
+    height: 18px;
+    top: 8px;
+  }
+  .phone-mockup img {
+    border-radius: 16px;
+  }
+  .phone-showcase-hero .phone-mockup {
+    width: 240px;
+  }
+  .phone-showcase-single .phone-mockup {
+    width: 220px;
+  }
+  .phone-showcase {
+    gap: 16px;
+  }
+}
+
+.story-emphasis {
+  font-size: 22px;
+  font-weight: 700;
+  color: #FF6B35;
+  text-align: center;
+  padding: 40px 0;
+  border-top: 1px solid rgba(255, 107, 53, 0.15);
+  border-bottom: 1px solid rgba(255, 107, 53, 0.15);
+  margin: 48px 0;
+  word-break: keep-all;
+}
+
+/* ========================================
+   SECTION 3: FEATURES
+   ======================================== */
+.features {
+  padding: 0;
+}
+
+.feature-section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.feature-section:nth-child(even) {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.feature-header {
+  margin-bottom: 40px;
+}
+
+.feature-emoji {
+  font-size: 56px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.feature-title {
+  font-size: 32px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 16px;
+  word-break: keep-all;
+}
+
+.feature-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: rgba(255, 107, 53, 0.12);
+  border: 1px solid rgba(255, 107, 53, 0.25);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #FF6B35;
+  margin-bottom: 20px;
+}
+
+.feature-desc {
+  font-size: 17px;
+  color: #aaa;
+  line-height: 2;
+  margin-bottom: 20px;
+  word-break: keep-all;
+}
+
+.feature-desc strong {
+  color: #ddd;
+  font-weight: 600;
+}
+
+.feature-list {
+  list-style: none;
+  margin: 32px 0;
+}
+
+.feature-list li {
+  padding: 14px 0;
+  padding-left: 36px;
+  position: relative;
+  font-size: 16px;
+  color: #bbb;
+  line-height: 1.7;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  word-break: keep-all;
+}
+
+.feature-list li:last-child {
+  border-bottom: none;
+}
+
+.feature-list li::before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0;
+  top: 14px;
+  font-size: 18px;
+}
+
+.feature-highlight-box {
+  background: rgba(255, 107, 53, 0.06);
+  border: 1px solid rgba(255, 107, 53, 0.15);
+  border-radius: 16px;
+  padding: 28px;
+  margin: 32px 0;
+}
+
+.feature-highlight-box h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #FF6B35;
+  margin-bottom: 12px;
+}
+
+.feature-highlight-box p {
+  font-size: 15px;
+  color: #999;
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+.feature-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 32px 0;
+}
+
+.feature-grid-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+}
+
+.feature-grid-item .icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.feature-grid-item .label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ccc;
+  margin-bottom: 6px;
+}
+
+.feature-grid-item .sublabel {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.5;
+}
+
+.feature-category-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 24px 0;
+}
+
+.feature-category-tags .tag {
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  font-size: 14px;
+  color: #bbb;
+  font-weight: 500;
+}
+
+.feature-category-tags .tag.active {
+  background: rgba(255, 107, 53, 0.15);
+  border-color: rgba(255, 107, 53, 0.3);
+  color: #FF6B35;
+}
+
+.feature-steps {
+  margin: 32px 0;
+  counter-reset: step-counter;
+}
+
+.feature-step {
+  display: flex;
+  gap: 20px;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  counter-increment: step-counter;
+}
+
+.feature-step:last-child {
+  border-bottom: none;
+}
+
+.feature-step-number {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #FF6B35, #FF8F35);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.feature-step-content h4 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ddd;
+  margin-bottom: 6px;
+}
+
+.feature-step-content p {
+  font-size: 15px;
+  color: #888;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+/* ========================================
+   SECTION 4: TARGET AUDIENCE
+   ======================================== */
+.target {
+  background: linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 50%, #0a0a0a 100%);
+}
+
+.target-list {
+  list-style: none;
+}
+
+.target-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.target-item:last-child {
+  border-bottom: none;
+}
+
+.target-check {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 107, 53, 0.12);
+  border: 2px solid rgba(255, 107, 53, 0.3);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin-top: 2px;
+}
+
+.target-text {
+  font-size: 18px;
+  color: #ccc;
+  line-height: 1.6;
+  font-weight: 500;
+  word-break: keep-all;
+}
+
+.target-text .sub {
+  display: block;
+  font-size: 14px;
+  color: #777;
+  font-weight: 400;
+  margin-top: 4px;
+}
+
+/* ========================================
+   SECTION 5: REVIEWS
+   ======================================== */
+.reviews {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.review-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.review-card::before {
+  content: '\201C';
+  position: absolute;
+  top: 16px;
+  right: 28px;
+  font-size: 64px;
+  font-weight: 900;
+  color: rgba(255, 107, 53, 0.1);
+  line-height: 1;
+}
+
+.review-stars {
+  color: #FFB347;
+  font-size: 16px;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+.review-text {
+  font-size: 17px;
+  color: #ccc;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  word-break: keep-all;
+  position: relative;
+  z-index: 1;
+}
+
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.review-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #FF6B35, #FFB347);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.review-author-info .name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ddd;
+}
+
+.review-author-info .meta {
+  font-size: 13px;
+  color: #666;
+}
+
+/* ========================================
+   SECTION 6: CTA
+   ======================================== */
+.cta-section {
+  text-align: center;
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(255, 107, 53, 0.08) 0%, transparent 60%);
+}
+
+.cta-qr-area {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 32px;
+  background: #fff;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+
+.cta-qr-area img {
+  width: 180px;
+  height: 180px;
+  border-radius: 12px;
+}
+
+.cta-qr-placeholder {
+  text-align: center;
+  padding: 20px;
+}
+
+.cta-qr-placeholder .qr-icon {
+  font-size: 64px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.cta-qr-placeholder .qr-text {
+  font-size: 12px;
+  color: #999;
+  line-height: 1.4;
+}
+
+.cta-url {
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-url a {
+  color: #FF6B35;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ========================================
+   SECTION 7: INSTALL GUIDE
+   ======================================== */
+.install-guide {
+  background: linear-gradient(180deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%);
+}
+
+.install-platform {
+  margin-bottom: 60px;
+}
+
+.install-platform-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid rgba(255, 107, 53, 0.2);
+}
+
+.install-platform-icon {
+  font-size: 40px;
+}
+
+.install-platform-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.install-platform-subtitle {
+  font-size: 14px;
+  color: #777;
+}
+
+.install-step {
+  margin-bottom: 36px;
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  position: relative;
+}
+
+.install-step-number {
+  position: absolute;
+  top: -14px;
+  left: 24px;
+  background: linear-gradient(135deg, #FF6B35, #FF8F35);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 4px 16px;
+  border-radius: 100px;
+}
+
+.install-step h4 {
+  font-size: 19px;
+  font-weight: 700;
+  color: #eee;
+  margin-bottom: 12px;
+  margin-top: 8px;
+  word-break: keep-all;
+}
+
+.install-step p {
+  font-size: 15px;
+  color: #999;
+  line-height: 1.9;
+  word-break: keep-all;
+}
+
+.install-step .tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 14px;
+  background: rgba(255, 107, 53, 0.06);
+  border-radius: 10px;
+  font-size: 14px;
+  color: #bbb;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+.install-step .tip .tip-icon {
+  flex-shrink: 0;
+  font-size: 16px;
+  margin-top: 2px;
+}
+
+.install-warning {
+  padding: 24px;
+  background: rgba(255, 59, 48, 0.06);
+  border: 1px solid rgba(255, 59, 48, 0.15);
+  border-radius: 14px;
+  margin: 24px 0;
+}
+
+.install-warning h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #FF6B35;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.install-warning ul {
+  list-style: none;
+}
+
+.install-warning ul li {
+  font-size: 15px;
+  color: #aaa;
+  line-height: 1.8;
+  padding-left: 20px;
+  position: relative;
+  word-break: keep-all;
+}
+
+.install-warning ul li::before {
+  content: '\2022';
+  position: absolute;
+  left: 0;
+  color: #FF6B35;
+  font-weight: bold;
+}
+
+.install-kakao-tip {
+  padding: 28px;
+  background: linear-gradient(135deg, rgba(254, 229, 0, 0.06) 0%, rgba(255, 107, 53, 0.06) 100%);
+  border: 1px solid rgba(254, 229, 0, 0.15);
+  border-radius: 16px;
+  margin-top: 40px;
+}
+
+.install-kakao-tip h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #FEE500;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.install-kakao-tip p {
+  font-size: 15px;
+  color: #aaa;
+  line-height: 1.9;
+  word-break: keep-all;
+}
+
+.install-kakao-tip .steps {
+  margin-top: 16px;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: kakao-step;
+}
+
+.install-kakao-tip .steps li {
+  counter-increment: kakao-step;
+  padding: 10px 0;
+  padding-left: 36px;
+  position: relative;
+  font-size: 15px;
+  color: #bbb;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+.install-kakao-tip .steps li::before {
+  content: counter(kakao-step);
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 24px;
+  height: 24px;
+  background: rgba(254, 229, 0, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #FEE500;
+}
+
+/* ========================================
+   SECTION 8: FOOTER
+   ======================================== */
+.footer {
+  padding: 60px 0 40px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-logo {
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.footer-powered {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.footer-powered span {
+  color: #FF6B35;
+  font-weight: 600;
+}
+
+.footer-copyright {
+  font-size: 13px;
+  color: #444;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 680px) {
+  .hero-title {
+    font-size: 32px;
+  }
+
+  .hero-subtitle-top {
+    font-size: 17px;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+  }
+
+  .hero-stat-number {
+    font-size: 28px;
+  }
+
+  .hero-stats {
+    gap: 20px;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .section-subtitle {
+    font-size: 16px;
+  }
+
+  .story-quote {
+    font-size: 22px;
+  }
+
+  .feature-title {
+    font-size: 26px;
+  }
+
+  .feature-emoji {
+    font-size: 44px;
+  }
+
+  .feature-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 18px 24px;
+  }
+
+  .btn-secondary {
+    width: 100%;
+  }
+
+  section {
+    padding: 60px 0;
+  }
+
+  .feature-section {
+    padding: 70px 0;
+  }
+
+  .target-text {
+    font-size: 16px;
+  }
+
+  .install-step {
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero-title {
+    font-size: 28px;
+  }
+
+  .hero-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .hero-stat-number {
+    font-size: 24px;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ========================================
+     SECTION 1: HERO
+     ======================================== -->
+<section class="hero" id="hero">
+  <div class="hero-badge fade-in">
+    <span class="pulse"></span>
+    노네임피트니스 회원 전용
+  </div>
+
+  <h1 class="hero-title fade-in delay-1">
+    운동처방사 출신 트레이너가<br>
+    직접 만든<br>
+    <span class="highlight fire-text">트레이닝 파트너 🔥</span>
+  </h1>
+
+  <p class="hero-subtitle-top fade-in delay-2">
+    노네임피트니스 회원 전용 트레이닝 파트너
+  </p>
+
+  <p class="hero-subtitle fade-in delay-3">
+    378개 운동 GIF, AI 유튜브 분석, 운동 기록, 스트릭 시스템까지.<br>
+    트레이너가 옆에 없어도 전문가 수준의 운동이 가능합니다.
+  </p>
+
+  <div class="hero-cta fade-in delay-4">
+    <a href="https://mytrainer-mu.vercel.app" class="btn-primary" target="_blank">
+      🏋️ 지금 바로 시작하기
+    </a>
+    <a href="#install" class="btn-secondary">
+      📱 홈화면에 추가하는 방법
+    </a>
+  </div>
+
+  <div class="hero-stats fade-in delay-5">
+    <div class="hero-stat">
+      <div class="hero-stat-number">378</div>
+      <div class="hero-stat-label">운동 라이브러리</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-number">FREE</div>
+      <div class="hero-stat-label">완전 무료</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-number">AI</div>
+      <div class="hero-stat-label">유튜브 분석</div>
+    </div>
+  </div>
+
+  <div class="phone-showcase-hero phone-showcase-single fade-in delay-4">
+    <div class="phone-mockup">
+      <img src="public/promo/02_home.png" alt="마이트레이너 홈 화면" loading="lazy">
+    </div>
+  </div>
+
+  <div class="hero-scroll-indicator">
+    <span>아래로 스크롤</span>
+    <div class="arrow"></div>
+  </div>
+</section>
+
+
+<!-- ========================================
+     SECTION 2: STORY — 왜 만들었는가
+     ======================================== -->
+<section class="story" id="story">
+  <div class="container">
+    <span class="section-label fade-in">WHY WE BUILT THIS</span>
+    <h2 class="section-title fade-in">
+      왜 만들었을까요?
+    </h2>
+    <div class="section-divider divider-left fade-in"></div>
+
+    <div class="story-block fade-in">
+      <div class="story-quote">
+        "매일 같은 운동, 같은 루틴...<br>
+        지루하지 않으셨나요?"
+      </div>
+    </div>
+
+    <div class="story-block fade-in">
+      <p class="story-text">
+        저는 운동처방사 자격을 가진 트레이너입니다. 수년간 회원분들과 함께 운동하면서
+        항상 느끼는 안타까움이 있었습니다. <strong>PT 시간이 끝나면, 회원분들은 다시 혼자가 됩니다.</strong>
+        무슨 운동을 해야 할지 모르겠고, 어제 한 운동이 뭐였는지도 기억이 안 나고,
+        유튜브에서 본 운동을 따라하고 싶은데 세트 수도 무게도 감이 안 잡히죠.
+        그렇게 갈 때마다 러닝머신만 뛰다 오거나, 아예 헬스장을 안 가게 되는 분들을
+        너무 많이 봐왔습니다. 정말 안타까웠어요.
+      </p>
+    </div>
+
+    <div class="story-block fade-in">
+      <p class="story-text">
+        헬스장에서 매일 보이는 풍경이 있습니다. 러닝머신 위에서 핸드폰을 보며 30분을 걷다가
+        대충 머신 몇 개를 돌리고 집에 가는 회원분들. 그분들이 게으른 게 아닙니다.
+        <strong>뭘 해야 할지 모르는 겁니다.</strong> 운동 방법을 모르니 자신감이 없고,
+        기록을 안 하니 성장을 느끼지 못하고, 동기부여가 없으니 발걸음이 무거워지는 거죠.
+        한 달 결제하고 세 번 오는 분, 초반에 열심히 오다가 두 달째부터 안 보이는 분,
+        매번 같은 머신만 돌리는 분... 모두 방법만 알면 훨씬 잘할 수 있는 분들이었습니다.
+      </p>
+    </div>
+
+    <div class="story-block fade-in">
+      <p class="story-text">
+        그래서 생각했습니다. <strong>"트레이너가 옆에 없어도, 전문가의 프로그램으로
+        운동할 수 있다면 어떨까?"</strong> 제가 직접 선별한 378개의 운동을 움직이는 GIF로 보여주고,
+        세트마다 무게와 횟수를 기록하고, 매일 운동할 동기를 주는 시스템이 있다면.
+        회원분들이 PT 시간이 아닌 나머지 시간에도 제대로 된 운동을 할 수 있지 않을까?
+        무작정 유튜브를 따라하다가 자세가 틀려 다치는 일도 줄일 수 있지 않을까?
+        운동이 재미있어져서, 헬스장에 오는 것 자체가 즐거워지지 않을까?
+      </p>
+    </div>
+
+    <div class="story-block fade-in">
+      <p class="story-text">
+        그래서 직접 만들었습니다. 운동처방사로서 안전한 운동 순서를 고민하고,
+        트레이너로서 동기부여 요소를 설계하고, 회원분들의 피드백을 반영해 계속 개선해왔습니다.
+        <strong>이건 단순한 운동 앱이 아닙니다.</strong> 운동처방사로서 회원 한 분 한 분을
+        생각하며 만든, 노네임피트니스 회원만을 위한 트레이닝 파트너입니다.
+        제가 직접 옆에서 코칭하듯, 이 앱이 여러분의 운동을 도와드리겠습니다. 💪
+      </p>
+    </div>
+
+    <div class="story-emphasis fade-in">
+      "회원 한 분 한 분이 혼자서도<br>
+      자신 있게 운동할 수 있도록."<br>
+      <span style="font-size: 16px; color: #888; font-weight: 400; margin-top: 12px; display: block;">
+        — 이것이 마이트레이너를 만든 이유입니다.
+      </span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========================================
+     SECTION 3: FEATURES — 핵심 기능 상세 소개
+     ======================================== -->
+<div class="features" id="features">
+
+  <!-- ============================
+       Feature A: 378개 운동 GIF 라이브러리
+       ============================ -->
+  <section class="feature-section">
+    <div class="container">
+      <div class="feature-header fade-in">
+        <span class="feature-emoji">🎬</span>
+        <span class="feature-badge">CORE FEATURE</span>
+        <h2 class="feature-title">378개 운동 GIF 라이브러리</h2>
+      </div>
+
+      <p class="feature-desc fade-in">
+        가슴, 등, 하체, 어깨, 팔, 코어, 유산소까지 <strong>전 부위를 아우르는 378개의 운동</strong>이
+        라이브러리에 담겨 있습니다. 각 운동마다 움직이는 GIF가 포함되어 있어서, 트레이너 없이도
+        정확한 자세를 눈으로 확인하며 운동할 수 있습니다. 텍스트 설명만으로는 절대 이해할 수 없는
+        미묘한 동작의 차이를 시각적으로 보여드립니다. "바벨 로우를 할 때 팔꿈치를 어디에 두지?"
+        "스쿼트는 얼마나 깊이 앉아야 하지?" 같은 궁금증을 GIF 하나로 해결할 수 있습니다.
+      </p>
+
+      <p class="feature-desc fade-in">
+        운동처방사로서 직접 선별하고 분류한 운동들입니다. 초보자도 안전하게 할 수 있는 기본 운동부터,
+        고급자를 위한 고난도 운동까지 체계적으로 구성했습니다. <strong>바벨, 덤벨, 머신, 케이블,
+        맨몸 운동</strong> 등 장비별로도 분류되어 있어서, 오늘 사용 가능한 장비에 맞춰
+        운동을 바로 찾을 수 있습니다. 운동 이름이 기억 안 나도 걱정 없습니다 — 부위를 선택하면
+        해당 부위의 모든 운동이 GIF와 함께 나열됩니다.
+      </p>
+
+      <p class="feature-desc fade-in">
+        각 운동에는 운동처방사가 직접 작성한 <strong>상세 팁이 4~6개씩</strong> 포함되어 있습니다.
+        "등을 아치로 유지하세요", "내려갈 때 2초, 올라갈 때 1초", "호흡은 내릴 때 들이쉬고
+        올릴 때 내쉬세요" 같은 실전 코칭 포인트를 읽으면서 운동하면, 혼자 해도 PT 받는 것처럼
+        정확한 자세로 운동할 수 있습니다.
+      </p>
+
+      <div class="feature-category-tags fade-in">
+        <span class="tag active">💪 가슴</span>
+        <span class="tag">🔙 등</span>
+        <span class="tag">🦵 하체</span>
+        <span class="tag">🏔️ 어깨</span>
+        <span class="tag">💪 팔</span>
+        <span class="tag">🧘 코어</span>
+        <span class="tag">🏃 유산소</span>
+        <span class="tag">🏋️ 바벨</span>
+        <span class="tag">🔩 덤벨</span>
+        <span class="tag">⚙️ 머신</span>
+        <span class="tag">🔗 케이블</span>
+        <span class="tag">🤸 맨몸</span>
+      </div>
+
+      <ul class="feature-list fade-in">
+        <li data-icon="🔍">이름, 부위, 장비별 실시간 검색 — 원하는 운동을 3초 안에 찾기</li>
+        <li data-icon="🎯">카테고리 필터링으로 부위별 운동만 모아보기</li>
+        <li data-icon="📱">각 운동마다 고화질 움직이는 GIF — 정확한 동작 범위와 속도 확인</li>
+        <li data-icon="📝">운동별 상세 팁 4~6개 제공 — 초보자도 안전하게 수행 가능</li>
+        <li data-icon="🔄">대체 운동 추천 — 같은 근육을 사용하는 다른 운동 바로 확인</li>
+        <li data-icon="⭐">즐겨찾기 기능 — 자주 하는 운동을 빠르게 접근</li>
+      </ul>
+
+      <div class="phone-showcase-single fade-in">
+        <div class="phone-mockup">
+          <img src="public/promo/02_home.png" alt="운동 프로그램과 루틴이 표시된 홈 화면" loading="lazy">
+          <div class="phone-mockup-label">홈 — 오늘의 프로그램</div>
+        </div>
+      </div>
+
+      <div class="feature-highlight-box fade-in">
+        <h4>💡 왜 GIF인가요?</h4>
+        <p>
+          사진 한 장으로는 운동 동작의 시작과 끝만 보입니다. 하지만 GIF는 실제 동작의 흐름,
+          속도, 가동 범위를 모두 보여줍니다. 특히 스쿼트의 깊이, 데드리프트의 허리 각도,
+          벤치프레스의 팔꿈치 위치 같은 세밀한 부분을 직관적으로 이해할 수 있습니다.
+          영상을 보면서 바로 따라 할 수 있으니, 거울 앞에서 자세를 교정하기에도 완벽합니다.
+          유튜브 영상처럼 광고를 보거나 불필요한 설명을 들을 필요 없이, 핵심 동작만 반복 재생됩니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       Feature B: 개인 운동 기록 시스템
+       ============================ -->
+  <section class="feature-section">
+    <div class="container">
+      <div class="feature-header fade-in">
+        <span class="feature-emoji">📊</span>
+        <span class="feature-badge">TRACKING</span>
+        <h2 class="feature-title">개인 운동 기록 시스템</h2>
+      </div>
+
+      <p class="feature-desc fade-in">
+        운동에서 가장 중요한 것은 <strong>점진적 과부하</strong>입니다. 지난주에 벤치프레스를
+        몇 킬로로 몇 회 했는지 기억나시나요? 대부분 기억하지 못합니다. 마이트레이너는
+        모든 세트의 무게와 횟수를 기록하고, 이전 기록과 자동으로 비교해줍니다.
+        지난번보다 2.5kg 더 올렸다는 사실을 눈으로 확인하는 순간, 운동이 즐거워집니다.
+        숫자로 보이는 성장은 거울로 보이는 변화보다 빠르기 때문에,
+        운동 초반의 가장 강력한 동기부여가 됩니다.
+      </p>
+
+      <p class="feature-desc fade-in">
+        단순한 기록을 넘어, <strong>총 볼륨(무게 x 횟수 x 세트)을 자동 계산</strong>합니다.
+        오늘 가슴 운동에서 총 3,240kg의 볼륨을 들어올렸다는 데이터를 보면, 성취감이 배가 됩니다.
+        또한 운동별 <strong>1RM(1회 최대 무게)을 자동 추정</strong>하여, 내가 얼마나
+        강해졌는지를 객관적인 숫자로 보여드립니다. "내 벤치프레스 1RM이 80kg이었는데
+        이번 달에 85kg이 됐다!" 하는 성취감은 운동을 지속하게 만드는 최고의 연료입니다.
+      </p>
+
+      <p class="feature-desc fade-in">
+        운동 중에도 기록이 편리합니다. 세트를 완료할 때마다 무게와 횟수를 입력하면,
+        <strong>이전에 같은 운동을 했을 때의 기록이 자동으로 표시</strong>됩니다.
+        "지난번에 60kg으로 10회 했으니, 오늘은 62.5kg에 도전해볼까?"
+        이런 판단을 즉시 할 수 있어서, 매번 최적의 강도로 운동할 수 있습니다.
+      </p>
+
+      <div class="feature-grid-2 fade-in">
+        <div class="feature-grid-item">
+          <span class="icon">⚖️</span>
+          <span class="label">세트별 기록</span>
+          <span class="sublabel">무게 + 횟수를<br>세트마다 정확히 기록</span>
+        </div>
+        <div class="feature-grid-item">
+          <span class="icon">🏆</span>
+          <span class="label">1RM 자동 계산</span>
+          <span class="sublabel">내 최대 근력을<br>객관적 수치로 확인</span>
+        </div>
+        <div class="feature-grid-item">
+          <span class="icon">📈</span>
+          <span class="label">볼륨 추적</span>
+          <span class="sublabel">총 들어올린 무게를<br>자동 합산</span>
+        </div>
+        <div class="feature-grid-item">
+          <span class="icon">📅</span>
+          <span class="label">캘린더 히스토리</span>
+          <span class="sublabel">월별 운동 기록을<br>한눈에 확인</span>
+        </div>
+      </div>
+
+      <p class="feature-desc fade-in">
+        캘린더 기반 히스토리에서는 언제 운동했는지, 어떤 운동을 했는지를 한눈에 볼 수 있습니다.
+        운동한 날은 주황색으로, 스트릭 보호일은 파란색으로, 오늘은 초록색 테두리로 표시됩니다.
+        연속으로 운동한 날은 서로 연결 표시가 되어, 한 달 동안의 운동 패턴을 시각적으로
+        확인할 수 있습니다. 날짜를 탭하면 그날의 상세 기록을 바로 확인할 수 있어서,
+        <strong>나만의 운동 다이어리</strong>가 자연스럽게 만들어집니다.
+      </p>
+
+      <div class="phone-showcase fade-in">
+        <div class="phone-mockup">
+          <img src="public/promo/05_history.png" alt="캘린더 기반 히스토리 화면" loading="lazy">
+          <div class="phone-mockup-label">히스토리</div>
+        </div>
+        <div class="phone-mockup">
+          <img src="public/promo/06_stats.png" alt="성장 기록 차트 화면" loading="lazy">
+          <div class="phone-mockup-label">성장 기록</div>
+        </div>
+        <div class="phone-mockup">
+          <img src="public/promo/07_profile.png" alt="내 정보 프로필 화면" loading="lazy">
+          <div class="phone-mockup-label">내 정보</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       Feature C: 유산소 인터벌 모드
+       ============================ -->
+  <section class="feature-section">
+    <div class="container">
+      <div class="feature-header fade-in">
+        <span class="feature-emoji">⏱️</span>
+        <span class="feature-badge">CARDIO</span>
+        <h2 class="feature-title">유산소 인터벌 모드</h2>
+      </div>
+
+      <p class="feature-desc fade-in">
+        유산소 운동, 그냥 러닝머신 위에서 걷기만 하고 있진 않나요? 마이트레이너의 인터벌 모드는
+        <strong>과학적으로 설계된 유산소 프리셋</strong>을 제공합니다. 타바타, HIIT, 스프린트 인터벌 등
+        목적에 맞는 프로그램을 선택하면 타이머가 자동으로 작동하면서 운동/휴식 구간을 알려줍니다.
+        더 이상 시계를 보며 초를 세지 않아도 됩니다. 앱이 "지금 전력 질주!", "쉬세요!" 를
+        타이밍에 맞춰 알려주니까, 오직 운동에만 집중하면 됩니다.
+      </p>
+
+      <p class="feature-desc fade-in">
+        각 운동 기구별로 최적화된 프리셋이 준비되어 있습니다. <strong>트레드밀에서는 스프린트와
+        인클라인 워크 인터벌</strong>을, <strong>사이클에서는 타바타와 파워 인터벌</strong>을,
+        <strong>로잉머신에서는 지구력 프로그램</strong>을 선택할 수 있습니다. 초보자용 프리셋도
+        별도로 마련되어 있어서 유산소가 처음인 분들도 안심하고 따라할 수 있습니다.
+        각 프리셋은 운동 시간, 휴식 시간, 라운드 수가 미리 설정되어 있지만,
+        원하는 대로 자유롭게 조절할 수도 있습니다.
+      </p>
+
+      <p class="feature-desc fade-in">
+        라운드 수를 늘리거나 줄여서 본인의 체력에 맞게 커스터마이징하세요. 처음에는 4라운드로
+        시작해서, 체력이 올라가면 6라운드, 8라운드로 점차 늘려가는 것이 이상적입니다.
+        알람음 설정도 가능해서, 이어폰을 끼고 있어도 운동/휴식 전환 타이밍을 놓치지 않습니다.
+        <strong>자동 최소화 기능</strong>으로 화면을 잠가도 타이머가 계속 동작합니다.
+      </p>
+
+      <div class="feature-grid-2 fade-in">
+        <div class="feature-grid-item">
+          <span class="icon">🏃</span>
+          <span class="label">트레드밀</span>
+          <span class="sublabel">스프린트, HIIT,<br>인클라인 워크, 초보 HIIT</span>
+        </div>
+        <div class="feature-grid-item">
+          <span class="icon">🚴</span>
+          <span class="label">사이클</span>
+          <span class="sublabel">타바타, 파워 인터벌,<br>지구력, 초보 사이클</span>
+        </div>
+        <div class="feature-grid-item">
+          <span class="icon">🚣</span>
+          <span class="label">로잉머신</span>
+          <span class="sublabel">500m 스프린트,<br>지구력 로잉</span>
+        </div>
+        <div class="feature-grid-item">
+          <span class="icon">🪢</span>
+          <span class="label">줄넘기</span>
+          <span class="sublabel">더블 언더,<br>인터벌 점프</span>
+        </div>
+      </div>
+
+      <ul class="feature-list fade-in">
+        <li data-icon="🔊">라운드 시작/종료 시 알람음으로 타이밍 안내 — 이어폰 착용 시에도 명확</li>
+        <li data-icon="🎚️">라운드 수 자유롭게 조절 — 4, 6, 8, 10라운드 등 체력에 맞게 커스텀</li>
+        <li data-icon="🔄">운동/휴식 구간 자동 전환 — 타이머만 따라가면 OK, 머리 쓸 필요 없음</li>
+        <li data-icon="📊">완료 후 총 운동 시간과 라운드 수 요약</li>
+        <li data-icon="🌱">초보자 전용 프리셋 — 무리 없이 유산소의 세계에 입문</li>
+        <li data-icon="🔇">음량 조절 + 진동 모드 — 조용한 환경에서도 사용 가능</li>
+      </ul>
+
+      <div class="feature-highlight-box fade-in">
+        <h4>🔥 HIIT가 뭔가요?</h4>
+        <p>
+          HIIT(High-Intensity Interval Training)는 고강도 운동과 휴식을 반복하는 인터벌 트레이닝입니다.
+          짧은 시간에 높은 칼로리를 소모할 수 있어서, 바쁜 현대인에게 최적의 유산소 방법입니다.
+          예를 들어 20초 전력 달리기 → 10초 휴식을 8라운드 반복하면 단 4분 만에
+          일반 유산소 30분 이상의 효과를 볼 수 있습니다. 마이트레이너가 타이밍을 모두 잡아드리니,
+          여러분은 달리기에만 집중하세요. 초를 세거나 시계를 쳐다볼 필요가 없습니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       Feature D: 거인의운동법 (AI 유튜브 분석)
+       ============================ -->
+  <section class="feature-section">
+    <div class="container">
+      <div class="feature-header fade-in">
+        <span class="feature-emoji">🤖</span>
+        <span class="feature-badge">AI POWERED</span>
+        <h2 class="feature-title">거인의운동법<br>AI 유튜브 분석</h2>
+      </div>
+
+      <p class="feature-desc fade-in">
+        유튜브에서 "등 운동 루틴", "어깨 벌크업" 같은 영상을 보고 따라해보고 싶었던 적 있나요?
+        하지만 영상을 보면서 운동하기는 불편하고, 어떤 운동을 몇 세트 몇 회 해야 하는지 정리하기도
+        번거롭습니다. 노트에 적어놨다가 잃어버리고, 운동 이름도 잘 기억이 안 나고...
+        <strong>거인의운동법은 이 모든 과정을 AI가 자동으로 해결합니다.</strong>
+        유튜브 URL 하나만 입력하면, 나머지는 인공지능이 알아서 분석합니다.
+      </p>
+
+      <p class="feature-desc fade-in">
+        AI가 유튜브 영상을 분석하여 영상 속 모든 운동을 추출합니다.
+        단순한 운동 목록이 아닙니다. 유튜버가 언급한 <strong>코칭 포인트, 주의사항, 꿀팁까지
+        운동별로 정리</strong>해줍니다. "팔꿈치를 몸에 붙이세요", "내려갈 때 천천히",
+        "등 수축을 느끼면서 당기세요" 같은 세부 지시사항을 놓치지 않고 캡처합니다.
+        영상을 여러 번 돌려볼 필요 없이, 핵심 포인트만 깔끔하게 정리됩니다.
+      </p>
+
+      <p class="feature-desc fade-in">
+        특히 놀라운 점은 <strong>특수 트레이닝 기법의 자동 감지</strong>입니다. 유튜버가
+        "이 두 운동을 번갈아서 하세요"라고 말하면 슈퍼세트로 인식하고, "무게를 줄이면서
+        연속으로 수행하세요"라고 하면 드롭세트로 설정합니다. 자이언트세트, 트라이세트 등
+        고급 기법도 정확히 파악하여 루틴에 반영합니다. 유튜버의 의도를 100% 재현하는
+        루틴이 자동으로 완성됩니다.
+      </p>
+
+      <div class="feature-steps fade-in">
+        <div class="feature-step">
+          <div class="feature-step-number">1</div>
+          <div class="feature-step-content">
+            <h4>유튜브 URL 입력</h4>
+            <p>따라하고 싶은 운동 영상의 링크를 복사해서 붙여넣기만 하면 됩니다. 어떤 유튜브 운동 영상이든 가능합니다.</p>
+          </div>
+        </div>
+        <div class="feature-step">
+          <div class="feature-step-number">2</div>
+          <div class="feature-step-content">
+            <h4>AI 자동 분석</h4>
+            <p>AI가 영상의 내용을 분석하여 운동 목록, 세트/횟수, 코칭 포인트를 추출합니다. 슈퍼세트, 드롭세트 등 특수 기법도 자동으로 감지하여 루틴에 반영합니다.</p>
+          </div>
+        </div>
+        <div class="feature-step">
+          <div class="feature-step-number">3</div>
+          <div class="feature-step-content">
+            <h4>운동 DB 매칭 + GIF 표시</h4>
+            <p>분석된 운동을 마이트레이너의 378개 운동 데이터베이스와 매칭하여 해당하는 GIF를 자동으로 연결합니다. 처음 보는 운동이라도 GIF를 보며 정확한 자세를 확인할 수 있습니다.</p>
+          </div>
+        </div>
+        <div class="feature-step">
+          <div class="feature-step-number">4</div>
+          <div class="feature-step-content">
+            <h4>바로 운동 시작!</h4>
+            <p>분석이 완료되면 "루틴 저장" 또는 바로 "운동 시작"을 선택할 수 있습니다. 저장해두면 다음에도 같은 루틴으로 언제든 운동할 수 있습니다. 좋아하는 유튜버의 루틴을 나만의 컬렉션으로 모아보세요!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-highlight-box fade-in">
+        <h4>🏆 슈퍼세트, 드롭세트도 감지!</h4>
+        <p>
+          단순한 운동 목록 추출이 아닙니다. AI가 영상에서 언급하는 특수 트레이닝 기법을 자동으로 인식합니다.
+          "이 두 운동을 번갈아서 하세요"라고 하면 슈퍼세트로, "무게를 줄이면서 연속으로"라고 하면
+          드롭세트로 자동 설정합니다. 유튜버의 의도를 정확히 반영한 루틴이 완성됩니다.
+          초보자도 유튜버의 루틴을 100% 재현할 수 있으니, 좋아하는 유튜버의 영상 링크를
+          하나씩 넣어보세요. 새로운 루틴의 세계가 열립니다! 🚀
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       Feature E: 연속 운동 스트릭 & 프로틴 보상
+       ============================ -->
+  <section class="feature-section">
+    <div class="container">
+      <div class="feature-header fade-in">
+        <span class="feature-emoji">🔥</span>
+        <span class="feature-badge">MOTIVATION</span>
+        <h2 class="feature-title">연속 운동 스트릭 &<br>프로틴 보상 시스템</h2>
+      </div>
+
+      <p class="feature-desc fade-in">
+        운동에서 가장 어려운 것은 '시작'이 아니라 '<strong>지속</strong>'입니다. 마이트레이너의
+        스트릭 시스템은 매일 운동하는 습관을 만들어줍니다. 연속으로 운동한 날이 쌓일수록
+        🔥 스트릭 숫자가 올라가고, 이 불꽃을 꺼뜨리고 싶지 않은 마음이 자연스럽게
+        헬스장으로 향하는 발걸음을 만들어줍니다. 심리학에서 말하는 '손실 회피' 효과를
+        운동 동기부여에 적용한 것입니다. "30일 연속 스트릭을 하루 빠져서 날릴 수는 없지!"
+        하는 마음이 비 오는 날에도, 피곤한 날에도 헬스장으로 이끕니다.
+      </p>
+
+      <p class="feature-desc fade-in">
+        운동을 완료할 때마다 <strong>프로틴 🥤이 적립</strong>됩니다. 적립된 프로틴은
+        스트릭을 보호하는 쉴드로 사용할 수 있습니다. 컨디션이 안 좋거나 갑자기 약속이 생겨서
+        운동을 못 하는 날, 프로틴을 사용해서 쉴드를 발동하면 스트릭이 유지됩니다.
+        쉴드를 쓸지 아끼려고 헬스장에 갈지, 이 고민 자체가 운동 동기가 됩니다. 😄
+        프로틴을 모으는 재미, 전략적으로 쉴드를 사용하는 재미가 게임처럼 빠져들게 합니다.
+      </p>
+
+      <p class="feature-desc fade-in">
+        일일 퀘스트 시스템도 운영됩니다. "오늘 하체 운동 완료하기", "총 볼륨 2,000kg 달성하기"
+        같은 미션을 수행하면 추가 보상을 받을 수 있습니다. <strong>업적 시스템</strong>에서는
+        "첫 운동 완료", "7일 연속 스트릭", "30일 연속 스트릭", "100kg 벤치프레스" 등
+        다양한 업적을 달성하며 성장의 기록을 남길 수 있습니다. 운동이 단순한 노동이 아니라,
+        성장하는 과정 그 자체가 즐거움이 됩니다.
+      </p>
+
+      <ul class="feature-list fade-in">
+        <li data-icon="🔥">매일 운동 → 스트릭 +1 — 연속 기록이 쌓이는 쾌감, 한 번 시작하면 끊을 수 없다</li>
+        <li data-icon="🥤">운동 완료 시 프로틴 적립 — 가입 시 3개 기본 지급, 매 운동 +1개</li>
+        <li data-icon="🛡️">프로틴으로 쉴드 발동 — 하루 쉬어도 스트릭 보호, 전략적 활용 가능</li>
+        <li data-icon="📅">월간 캘린더에서 운동일(🟠), 보호일(🔵), 오늘(🟢) 한눈에 파악</li>
+        <li data-icon="🏅">일일 퀘스트와 업적 시스템으로 게임처럼 즐기는 운동 생활</li>
+        <li data-icon="🔗">연속 운동일 캘린더 연결 표시 — 내 꾸준함을 시각적으로 확인</li>
+      </ul>
+
+      <div class="feature-highlight-box fade-in">
+        <h4>🥤 프로틴 시스템이란?</h4>
+        <p>
+          운동을 완료하면 프로틴 1개가 적립됩니다. 신규 가입 시 3개의 프로틴이 지급되어
+          처음부터 여유 있게 시작할 수 있습니다. 적립된 프로틴은 쉴드 아이템에 사용할 수 있으며,
+          쉴드를 발동하면 전날 운동을 못 했더라도 스트릭이 끊기지 않습니다. 캘린더에서는
+          쉴드를 사용한 날이 파란색으로 표시되어, 운동일과 보호일을 한눈에 구분할 수 있습니다.
+          프로틴을 아끼느냐, 쉴드로 쓰느냐 — 이 전략적 선택이 운동 생활에 게임적 재미를 더합니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       Feature F: 트레이너 맞춤 프로그램
+       ============================ -->
+  <section class="feature-section">
+    <div class="container">
+      <div class="feature-header fade-in">
+        <span class="feature-emoji">👨‍🏫</span>
+        <span class="feature-badge">PT PROGRAM</span>
+        <h2 class="feature-title">트레이너 맞춤 프로그램</h2>
+      </div>
+
+      <p class="feature-desc fade-in">
+        PT를 받고 계신다면, 트레이너가 직접 여러분만을 위한 프로그램을 작성하여 앱으로 전송합니다.
+        <strong>어떤 운동을, 몇 세트, 몇 회, 몇 킬로그램으로 해야 하는지</strong>가 모두 세팅되어 있어서,
+        앱을 열고 "운동 시작" 버튼만 누르면 됩니다. 더 이상 카카오톡으로 받은 운동 목록을
+        스크롤하며 찾을 필요가 없습니다. 트레이너가 보낸 프로그램이 홈 화면에 깔끔하게 정리되어 있고,
+        터치 한 번으로 오늘의 운동을 시작할 수 있습니다.
+      </p>
+
+      <p class="feature-desc fade-in">
+        트레이너는 회원의 운동 기록, 진행 상황, 체력 수준을 보면서 프로그램을 수시로 업데이트합니다.
+        <strong>주차별 점진적 과부하</strong>가 자동으로 반영되어, 매주 조금씩 더 강한 자극으로
+        성장할 수 있도록 설계됩니다. 또한 <strong>레슨 모드</strong>를 활용하면 PT 수업 중
+        실시간으로 운동을 기록하고 관리할 수 있어서, 수업의 질이 한 단계 올라갑니다.
+        트레이너와 회원이 같은 데이터를 공유하니, 소통의 효율도 극대화됩니다.
+      </p>
+
+      <p class="feature-desc fade-in">
+        PT 수업이 끝난 후에도 트레이너가 남긴 <strong>피드백 메모</strong>를 확인할 수 있습니다.
+        "오늘 스쿼트 자세가 많이 좋아졌어요. 다음 주부터 무게를 올려봐요." 같은 코멘트를 보며
+        다음 운동에 반영할 수 있습니다. PT 횟수도 앱에서 실시간으로 확인 가능하여,
+        남은 횟수를 항상 알 수 있습니다.
+      </p>
+
+      <ul class="feature-list fade-in">
+        <li data-icon="📋">트레이너가 루틴 작성 → 회원 앱에 즉시 반영, 실시간 동기화</li>
+        <li data-icon="⚙️">세트/횟수/무게 맞춤 설정 — 개인화된 프로그램, 나만을 위한 루틴</li>
+        <li data-icon="🎓">레슨 모드 — PT 수업 중 실시간 기록, 태블릿 최적화 UI</li>
+        <li data-icon="📈">주차별 점진적 과부하 자동 반영 — 계획적인 성장</li>
+        <li data-icon="💬">트레이너 피드백 메모 — 수업 후 코멘트 확인 및 다음 운동 반영</li>
+        <li data-icon="🎫">PT 잔여 횟수 실시간 확인 — 남은 횟수 걱정 끝</li>
+      </ul>
+
+      <div class="feature-highlight-box fade-in">
+        <h4>💡 PT 없이도 괜찮아요!</h4>
+        <p>
+          PT를 받지 않는 분들도 걱정 없습니다. 마이트레이너에서는 자율 운동 모드로
+          직접 운동을 선택하고 루틴을 만들 수 있습니다. 378개 운동 라이브러리에서 원하는 운동을 골라
+          나만의 루틴을 구성하거나, 거인의운동법으로 유튜브 루틴을 가져올 수도 있습니다.
+          PT가 끝난 후에도 혼자서 체계적으로 운동을 이어갈 수 있도록 설계했습니다.
+          만들어둔 루틴은 "나만의 루틴" 섹션에 저장되어, 언제든 다시 사용할 수 있습니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       Feature G: 운동 완료 & 공유
+       ============================ -->
+  <section class="feature-section">
+    <div class="container">
+      <div class="feature-header fade-in">
+        <span class="feature-emoji">🎉</span>
+        <span class="feature-badge">COMPLETE & SHARE</span>
+        <h2 class="feature-title">운동 완료 & 공유</h2>
+      </div>
+
+      <p class="feature-desc fade-in">
+        운동이 끝나면 🎊 축하 화면과 함께 <strong>오늘의 운동 요약 카드가 자동 생성</strong>됩니다.
+        총 운동 시간, 수행한 운동 수, 총 볼륨, 완료한 세트 수가 한눈에 정리됩니다.
+        이 요약 카드를 보는 순간, 오늘도 열심히 운동한 자신에 대한 뿌듯함을 느낄 수 있습니다.
+        confetti 애니메이션이 화면을 가득 채우며 오늘의 성취를 축하합니다. 🎊
+        이 순간만큼은 헬스장에서 가장 행복한 사람이 될 겁니다.
+      </p>
+
+      <p class="feature-desc fade-in">
+        운동 요약 카드는 <strong>SNS에 공유</strong>할 수 있습니다. 인스타그램 스토리, 카카오톡,
+        트위터 등으로 오늘의 운동 결과를 자랑해보세요. 함께 운동하는 친구들과 기록을 공유하면
+        서로 동기부여가 됩니다. "오늘 가슴 운동 총 볼륨 4,500kg 달성!" 같은 기록을 공유하면,
+        친구들이 "나도 해야 되는데..." 하면서 자극받는 선순환이 일어납니다.
+      </p>
+
+      <p class="feature-desc fade-in">
+        또한 운동 기록은 언제든지 <strong>수정이 가능</strong>합니다. 운동 중에 급하게
+        잘못 입력한 무게나 횟수가 있다면, 나중에 히스토리에서 해당 기록을 찾아 바로잡을 수 있습니다.
+        운동 시작 전에 오늘의 <strong>컨디션</strong>을 선택할 수 있어서, 나중에 기록을 돌아볼 때
+        "이 날은 컨디션이 안 좋았구나, 그래서 무게가 좀 낮았던 거구나" 하고 패턴을 파악할 수 있습니다.
+      </p>
+
+      <ul class="feature-list fade-in">
+        <li data-icon="🎊">운동 완료 시 confetti 축하 애니메이션 — 매번 달성감 극대화</li>
+        <li data-icon="📋">운동 요약 카드 자동 생성 — 시간, 볼륨, 세트 수, 운동 수 정리</li>
+        <li data-icon="📱">SNS 공유 기능 — 인스타, 카카오톡 등으로 오늘의 성과 자랑하기</li>
+        <li data-icon="✏️">기록 수정 가능 — 잘못 입력한 데이터도 나중에 수정</li>
+        <li data-icon="🏆">컨디션 선택 — 오늘의 컨디션을 기록하여 장기적 패턴 분석</li>
+        <li data-icon="⏱️">세트 간 휴식 타이머 — 적정 휴식 시간 자동 관리</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================
+       Feature H: 대체 운동 추천
+       ============================ -->
+  <section class="feature-section">
+    <div class="container">
+      <div class="feature-header fade-in">
+        <span class="feature-emoji">🔄</span>
+        <span class="feature-badge">SMART SWAP</span>
+        <h2 class="feature-title">대체 운동 추천</h2>
+      </div>
+
+      <p class="feature-desc fade-in">
+        헬스장에서 운동하다 보면, 하고 싶은 머신이 사용 중이거나 특정 장비가 없는 경우가 있습니다.
+        피크 타임에는 벤치프레스 자리가 모두 차있을 수도 있고, 여행 중 호텔 헬스장에는 장비가
+        제한적일 수도 있습니다. 이럴 때 마이트레이너의 <strong>대체 운동 추천</strong> 기능이
+        빛을 발합니다. 같은 근육 부위를 자극하는 다른 운동을 즉시 추천해주어,
+        운동 흐름이 끊기지 않도록 합니다. 벤치프레스 자리가 없다면? 덤벨 벤치프레스,
+        인클라인 프레스, 체스트 프레스 머신, 딥스 등을 바로 확인할 수 있습니다.
+      </p>
+
+      <p class="feature-desc fade-in">
+        대체 운동은 단순히 같은 부위의 운동을 나열하는 것이 아닙니다.
+        <strong>주동근과 보조근이 유사한 운동</strong>을 우선적으로 추천하여,
+        원래 계획했던 운동의 효과를 최대한 유지할 수 있도록 합니다.
+        운동 루틴 중에 탭 한 번으로 대체 운동을 선택하고, GIF로 자세를 확인한 뒤 바로 시작하세요.
+        <strong>장비에 구애받지 않는 유연한 운동</strong>이 가능합니다.
+      </p>
+
+      <p class="feature-desc fade-in">
+        대체 운동 추천은 특히 초보자분들에게 유용합니다. 프리웨이트 구역이 부담스러운 분이라면,
+        같은 효과를 낼 수 있는 머신 운동으로 대체할 수 있습니다. 반대로 머신에 익숙해진 분이라면,
+        프리웨이트 대체 운동으로 자연스럽게 다음 단계로 넘어갈 수 있습니다.
+        바벨 → 덤벨 → 머신 → 케이블 → 맨몸 등 <strong>장비별 대안</strong>이 모두 준비되어 있어서,
+        어떤 상황에서든 운동을 계속할 수 있습니다.
+      </p>
+
+      <ul class="feature-list fade-in">
+        <li data-icon="🎯">같은 주동근을 사용하는 대체 운동 자동 추천 — 운동 효과 유지</li>
+        <li data-icon="⚡">루틴 중 원탭으로 운동 교체 — 흐름 끊기지 않게</li>
+        <li data-icon="🎬">대체 운동도 GIF 제공 — 처음 보는 운동도 즉시 자세 확인</li>
+        <li data-icon="🏋️">바벨 → 덤벨 → 머신 → 맨몸 등 장비별 대안 제공</li>
+        <li data-icon="📱">교체 기록도 자동 저장 — 어떤 운동으로 바꿨는지 추적 가능</li>
+        <li data-icon="🌱">초보자 친화적 — 부담스러운 운동을 쉬운 버전으로 교체</li>
+      </ul>
+
+      <div class="feature-highlight-box fade-in">
+        <h4>💪 이런 상황에서 활용하세요!</h4>
+        <p>
+          "벤치프레스 자리가 다 차있어요" → 덤벨 프레스, 체스트 프레스 머신으로 대체!<br>
+          "바벨이 무서워요" → 같은 효과의 머신 운동으로 시작!<br>
+          "호텔 헬스장에 덤벨밖에 없어요" → 덤벨만으로 할 수 있는 전신 대체 루틴!<br>
+          "팔꿈치가 아파서 바벨 컬을 못 해요" → 관절에 부담 적은 케이블 컬로 교체!<br>
+          어떤 상황이든 운동을 멈추지 않을 수 있습니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+
+<!-- ========================================
+     SECTION 4: 이런 분들에게 추천합니다
+     ======================================== -->
+<section class="target" id="target">
+  <div class="container">
+    <span class="section-label fade-in">FOR YOU</span>
+    <h2 class="section-title fade-in">
+      이런 분들에게<br>추천합니다
+    </h2>
+    <div class="section-divider divider-left fade-in"></div>
+
+    <ul class="target-list">
+      <li class="target-item fade-in">
+        <div class="target-check">✅</div>
+        <div class="target-text">
+          혼자 운동하는데 뭘 해야 할지 모르겠는 분
+          <span class="sub">378개 운동 라이브러리와 GIF로 누구나 쉽게 시작할 수 있습니다. 부위별로 운동을 골라 나만의 루틴을 만들어보세요.</span>
+        </div>
+      </li>
+      <li class="target-item fade-in delay-1">
+        <div class="target-check">✅</div>
+        <div class="target-text">
+          운동 기록을 체계적으로 관리하고 싶은 분
+          <span class="sub">세트별 무게/횟수 기록, 1RM 자동 계산, 볼륨 추적, 캘린더 히스토리까지 자동으로 관리됩니다.</span>
+        </div>
+      </li>
+      <li class="target-item fade-in delay-2">
+        <div class="target-check">✅</div>
+        <div class="target-text">
+          유튜브 운동 영상을 따라하고 싶은 분
+          <span class="sub">거인의운동법이 AI로 영상을 분석하여 루틴을 자동 생성! URL 하나로 유튜버 루틴 완벽 재현.</span>
+        </div>
+      </li>
+      <li class="target-item fade-in delay-3">
+        <div class="target-check">✅</div>
+        <div class="target-text">
+          매일 운동 동기부여가 필요한 분
+          <span class="sub">스트릭 시스템과 프로틴 보상으로 매일 헬스장에 가고 싶어집니다. 한 번 시작하면 끊을 수 없는 불꽃 🔥</span>
+        </div>
+      </li>
+      <li class="target-item fade-in delay-4">
+        <div class="target-check">✅</div>
+        <div class="target-text">
+          PT 끝나고 혼자 운동해야 하는 분
+          <span class="sub">트레이너의 프로그램, 378개 운동 GIF, 기록 시스템이 언제든 옆에 있습니다. 혼자여도 외롭지 않아요.</span>
+        </div>
+      </li>
+      <li class="target-item fade-in delay-5">
+        <div class="target-check">✅</div>
+        <div class="target-text">
+          트레이너의 프로그램을 받아서 운동하는 분
+          <span class="sub">트레이너가 작성한 맞춤 루틴이 앱에 바로 반영됩니다. 열고 시작 버튼만 누르면 끝!</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- ========================================
+     SECTION 5: 사용자 후기
+     ======================================== -->
+<section class="reviews" id="reviews">
+  <div class="container">
+    <span class="section-label fade-in">REVIEWS</span>
+    <h2 class="section-title fade-in">
+      회원분들의<br>생생한 후기
+    </h2>
+    <div class="section-divider divider-left fade-in"></div>
+
+    <div class="review-card fade-in">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        PT 10회 끝나고 진짜 막막했거든요. 뭘 해야 할지도 모르겠고, 그냥 러닝머신만 탈까 했는데...
+        이 앱 깔고 나서 혼자서도 분할 운동 잘 하고 있어요. GIF로 자세 보면서 하니까 자신감도 생기고,
+        기록이 쌓이니까 성장하는 게 눈에 보여서 뿌듯합니다. PT 끝나고 뭐하지 했는데
+        이제 오히려 혼자 운동하는 게 더 편하고 재밌어요. 진짜 없으면 안 되는 앱!
+      </p>
+      <div class="review-author">
+        <div class="review-avatar">J</div>
+        <div class="review-author-info">
+          <div class="name">지은 님</div>
+          <div class="meta">노네임피트니스 6개월 회원 · 운동 경력 8개월</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card fade-in">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        운동 GIF가 있어서 자세를 바로 확인할 수 있는 게 제일 좋아요. 예전에는 유튜브 검색해서
+        자세 영상 찾느라 시간 다 보냈는데, 이제는 앱에서 바로 GIF 보면서 운동합니다.
+        특히 처음 해보는 운동은 팁까지 친절하게 나와 있어서 초보인 저도 안심하고 할 수 있었어요.
+        세트 사이 쉬는 시간에 다음 운동 GIF 미리 확인하는 게 루틴이 됐어요 ㅎㅎ
+        진짜 초보자분들한테 강력 추천합니다.
+      </p>
+      <div class="review-author">
+        <div class="review-avatar">M</div>
+        <div class="review-author-info">
+          <div class="name">민수 님</div>
+          <div class="meta">노네임피트니스 3개월 회원 · 운동 초보</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card fade-in">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        스트릭이 끊기기 싫어서 매일 헬스장 오게 됩니다 ㅋㅋ 지금 42일째 연속인데, 이 불꽃 꺼지는 거
+        상상도 하기 싫어요. 술 약속 있는 날에도 일단 30분이라도 운동하고 가게 되더라고요.
+        프로틴 모으는 재미도 있고, 쉴드 기능이 있어서 진짜 컨디션 안 좋은 날은 쉴드 써서 보호하고.
+        운동이 습관이 된 건 확실히 이 앱 덕분이에요. 예전에는 한 달에 10번 오던 사람이
+        이제 거의 매일 와요 ㅋㅋㅋ 사장님이 좋아하시겠죠?
+      </p>
+      <div class="review-author">
+        <div class="review-avatar">S</div>
+        <div class="review-author-info">
+          <div class="name">성훈 님</div>
+          <div class="meta">노네임피트니스 4개월 회원 · 42일 연속 스트릭 🔥</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card fade-in">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">
+        유튜브 루틴을 AI가 분석해주는 건 진짜 신세계... 제가 좋아하는 운동 유튜버 영상 링크
+        넣었더니 운동 목록이 쫙 정리되고, GIF까지 나오는 거 보고 소름 돋았어요.
+        심지어 유튜버가 말한 "팔꿈치 각도 주의" 같은 팁도 다 잡아내더라고요.
+        이제 새로운 루틴 짜고 싶을 때마다 유튜브 링크 하나로 끝냅니다.
+        슈퍼세트까지 자동으로 잡아주는 건 진짜 미쳤어요. 이 기능 만든 분 천재...
+      </p>
+      <div class="review-author">
+        <div class="review-avatar">H</div>
+        <div class="review-author-info">
+          <div class="name">하영 님</div>
+          <div class="meta">노네임피트니스 2개월 회원 · 거인의운동법 애용자</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========================================
+     SECTION 6: 시작하기 (CTA)
+     ======================================== -->
+<section class="cta-section" id="start">
+  <div class="container">
+    <span class="section-label fade-in">GET STARTED</span>
+    <h2 class="section-title fade-in" style="text-align: center;">
+      지금 바로<br>시작하세요
+    </h2>
+
+    <p class="section-subtitle fade-in" style="text-align: center; margin-bottom: 40px;">
+      앱스토어 다운로드 필요 없이, 바로 접속해서 사용할 수 있습니다!<br>
+      아래 QR코드를 스캔하거나 링크를 터치하세요.
+    </p>
+
+    <div class="cta-qr-area fade-in delay-1">
+      <div class="cta-qr-placeholder">
+        <span class="qr-icon">📱</span>
+        <span class="qr-text" style="color: #333;">카메라로<br>QR 스캔</span>
+      </div>
+    </div>
+
+    <p class="cta-url fade-in delay-2" style="margin-bottom: 32px;">
+      직접 접속: <a href="https://mytrainer-mu.vercel.app" target="_blank">mytrainer-mu.vercel.app</a>
+    </p>
+
+    <div class="fade-in delay-3" style="text-align: center; margin-bottom: 16px;">
+      <a href="https://mytrainer-mu.vercel.app" class="btn-primary" target="_blank">
+        🏋️ 마이트레이너 시작하기
+      </a>
+    </div>
+
+    <div class="fade-in delay-4" style="text-align: center;">
+      <a href="#install" class="btn-secondary">
+        📲 홈화면 추가 방법 보기
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========================================
+     SECTION 7: 홈화면 추가 방법
+     ======================================== -->
+<section class="install-guide" id="install">
+  <div class="container">
+    <span class="section-label fade-in">INSTALL GUIDE</span>
+    <h2 class="section-title fade-in">
+      홈화면에 추가하는 방법
+    </h2>
+    <p class="section-subtitle fade-in">
+      마이트레이너는 웹앱(PWA)이라서 앱스토어에서 다운로드하는 방식이 아닙니다.<br>
+      아래 방법을 따라하면, <strong style="color: #ddd;">일반 앱처럼</strong> 홈화면에서 바로 실행할 수 있습니다!<br>
+      정말 쉬워요. 1분이면 됩니다. 😊
+    </p>
+    <div class="section-divider divider-left fade-in"></div>
+
+    <!-- ===== iPhone / iPad ===== -->
+    <div class="install-platform fade-in">
+      <div class="install-platform-header">
+        <span class="install-platform-icon">📱</span>
+        <div>
+          <div class="install-platform-title">아이폰 (iPhone / iPad)</div>
+          <div class="install-platform-subtitle">⚠️ 반드시 Safari 브라우저를 사용해야 합니다!</div>
+        </div>
+      </div>
+
+      <!-- iPhone Step 1 -->
+      <div class="install-step fade-in">
+        <span class="install-step-number">Step 1</span>
+        <h4>Safari 앱을 엽니다</h4>
+        <p>
+          아이폰 홈화면에서 <strong>Safari</strong> 앱을 찾아서 터치합니다.
+          Safari 아이콘은 <strong>파란색 나침반 모양</strong>입니다.
+          빨간색이나 초록색 아이콘은 Safari가 아닙니다!
+          Chrome(빨+노+초+파 동그란 아이콘)이나 네이버, 카카오톡이 아닌,
+          <strong>반드시 Safari</strong>에서 열어야 합니다.
+        </p>
+        <p style="margin-top: 12px;">
+          Safari가 열리면, 화면 <strong>상단(또는 하단)의 주소창</strong>을 터치합니다.
+          기존에 열려있던 사이트 주소가 지워지면, 아래 주소를 입력하고 엔터(이동)를 누릅니다:
+        </p>
+        <div style="margin-top: 16px; padding: 16px; background: rgba(255,255,255,0.05); border-radius: 12px; text-align: center;">
+          <code style="font-size: 16px; color: #FF6B35; font-weight: 600; letter-spacing: 0.5px;">https://mytrainer-mu.vercel.app</code>
+        </div>
+        <div class="tip">
+          <span class="tip-icon">💡</span>
+          <span>
+            주소를 직접 타이핑하기 어려우시면, 이 페이지 위쪽에 있는
+            <strong>"마이트레이너 시작하기"</strong> 버튼을 길게 눌러서
+            <strong>"Safari에서 열기"</strong>를 선택해도 됩니다.
+            중요한 것은 <strong>반드시 Safari에서 열어야 한다</strong>는 점입니다!
+          </span>
+        </div>
+      </div>
+
+      <!-- iPhone Step 2 -->
+      <div class="install-step fade-in">
+        <span class="install-step-number">Step 2</span>
+        <h4>하단의 공유 버튼(📤)을 터치합니다</h4>
+        <p>
+          마이트레이너 페이지가 열리면, 화면 <strong>맨 아래쪽</strong>을 보세요.
+          하단 툴바에 여러 아이콘이 있는데, 그 중에서 <strong>사각형 위에 화살표가 올라간
+          모양의 아이콘</strong>(📤)을 찾아서 터치합니다. 이 아이콘이 "공유" 버튼입니다.
+        </p>
+        <p style="margin-top: 12px;">
+          이 버튼의 위치는 아이폰 모델에 따라 조금 다릅니다:
+        </p>
+        <ul style="margin-top: 12px; padding-left: 20px; list-style: disc;">
+          <li style="color: #999; padding: 6px 0; word-break: keep-all;">
+            <strong style="color: #ccc;">iPhone X 이후 모델</strong> (홈버튼 없는 모델, 대부분의 최신 아이폰):
+            화면 맨 아래 가운데 쯤에 있습니다. 주소창 바로 아래에 아이콘들이 줄지어 있는데, 그 중 가운데 근처에 있어요.
+          </li>
+          <li style="color: #999; padding: 6px 0; word-break: keep-all;">
+            <strong style="color: #ccc;">iPhone 8 이전 모델</strong> (아래에 동그란 홈버튼이 있는 모델):
+            하단 툴바 가운데에 있습니다.
+          </li>
+          <li style="color: #999; padding: 6px 0; word-break: keep-all;">
+            <strong style="color: #ccc;">iPad</strong>:
+            화면 상단, 주소창 오른쪽에 있을 수 있습니다. 화면이 넓어서 위치가 다릅니다.
+          </li>
+        </ul>
+        <div class="tip">
+          <span class="tip-icon">💡</span>
+          <span>
+            하단 툴바가 안 보인다면, 페이지를 <strong>살짝 위로 스크롤</strong>해보세요.
+            Safari는 아래로 스크롤하면 하단 툴바가 자동으로 숨겨지는데,
+            살짝 위로 올리면 다시 나타납니다. 또는 화면 맨 아래 끝부분을 터치해도 나타납니다.
+          </span>
+        </div>
+      </div>
+
+      <!-- iPhone Step 3 -->
+      <div class="install-step fade-in">
+        <span class="install-step-number">Step 3</span>
+        <h4>스크롤하여 "홈 화면에 추가"를 터치합니다</h4>
+        <p>
+          공유 버튼을 누르면 <strong>아래에서 메뉴 시트가 올라옵니다.</strong>
+          여기에 여러 가지 옵션이 나열되어 있습니다. "메시지", "메일", "메모" 같은 아이콘들이
+          가로로 나열되어 있고, 그 아래에 텍스트 옵션들이 세로로 나열됩니다.
+        </p>
+        <p style="margin-top: 12px;">
+          이 메뉴를 <strong>아래로 스크롤</strong>하세요. 스크롤하다 보면
+          <strong>➕ 아이콘</strong>과 함께 <strong>"홈 화면에 추가"</strong>라는
+          텍스트가 보입니다. 이것을 터치합니다!
+        </p>
+        <div class="tip">
+          <span class="tip-icon">⚠️</span>
+          <span>
+            "홈 화면에 추가"가 바로 안 보여도 당황하지 마세요! <strong>더 아래로 스크롤</strong>하면 나옵니다.
+            공유 시트에는 많은 옵션이 있어서 목록의 아래쪽에 숨어있는 경우가 많습니다.
+            끝까지 스크롤해도 안 보인다면, Safari가 아닌 다른 브라우저를 사용하고 있는 건 아닌지 확인하세요.
+            <strong>Chrome, 네이버앱 등에서는 이 옵션이 나오지 않습니다!</strong>
+            반드시 Safari(파란 나침반)에서 해야 합니다.
+          </span>
+        </div>
+      </div>
+
+      <!-- iPhone Step 4 -->
+      <div class="install-step fade-in">
+        <span class="install-step-number">Step 4</span>
+        <h4>오른쪽 상단의 "추가" 버튼을 터치합니다</h4>
+        <p>
+          "홈 화면에 추가"를 누르면, 앱 이름을 설정하는 새 화면이 나타납니다.
+          여기서 앱 이름이 <strong>"마이트레이너"</strong>로 표시되어 있는 것을 확인합니다.
+          (이름을 변경하고 싶으면 수정할 수도 있지만, 그대로 두는 것을 추천합니다.)
+        </p>
+        <p style="margin-top: 12px;">
+          화면 오른쪽 상단에 파란색으로 <strong>"추가"</strong> 버튼이 있습니다. 이것을 터치하면 끝! 🎉
+        </p>
+        <p style="margin-top: 12px;">
+          홈 화면으로 돌아가보면, <strong>마이트레이너 앱 아이콘</strong>이 새로 생겨 있습니다!
+          이제부터 이 아이콘을 터치하면 일반 앱처럼 전체화면으로 마이트레이너를 사용할 수 있습니다.
+          Safari 주소창도 없고, 깔끔한 앱 화면이 나타납니다.
+        </p>
+        <div class="tip">
+          <span class="tip-icon">🎊</span>
+          <span>
+            축하합니다! 이제 마이트레이너가 홈화면에 설치되었습니다! 🥳
+            앱스토어에서 다운받은 앱처럼 아이콘을 터치하면 바로 실행됩니다.
+            상단에 Safari 주소창도 나오지 않아서 깔끔하게 사용할 수 있고,
+            앱이 업데이트되면 자동으로 반영되니 재설치할 필요도 없습니다.
+          </span>
+        </div>
+      </div>
+
+      <!-- iPhone 주의사항 -->
+      <div class="install-warning fade-in">
+        <h4>⚠️ 아이폰 주의사항</h4>
+        <ul>
+          <li>반드시 <strong>Safari</strong>(파란 나침반)에서 해야 합니다! Chrome, Firefox, Edge 등에서는 "홈 화면에 추가" 옵션이 나오지 않습니다.</li>
+          <li>네이버앱, 카카오톡, 인스타그램, 페이스북 등의 <strong>앱 내장 브라우저</strong>에서도 안 됩니다. 꼭 Safari를 직접 열어서 접속하세요.</li>
+          <li><strong>iOS 16.4 이상</strong>을 권장합니다. 버전 확인: 설정 → 일반 → 소프트웨어 업데이트</li>
+          <li>혹시 홈 화면에 추가 후 앱이 제대로 안 열리면, 아이콘을 길게 눌러 삭제한 뒤 다시 위의 과정을 진행해보세요.</li>
+          <li>Safari에서 "개인정보 보호 브라우징" 모드가 켜져 있으면, 먼저 꺼주세요.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== Android ===== -->
+    <div class="install-platform fade-in">
+      <div class="install-platform-header">
+        <span class="install-platform-icon">🤖</span>
+        <div>
+          <div class="install-platform-title">안드로이드 (Galaxy, LG 등)</div>
+          <div class="install-platform-subtitle">Chrome 또는 삼성 인터넷 브라우저를 사용하세요!</div>
+        </div>
+      </div>
+
+      <!-- Android Step 1 -->
+      <div class="install-step fade-in">
+        <span class="install-step-number">Step 1</span>
+        <h4>Chrome 앱을 엽니다</h4>
+        <p>
+          홈 화면이나 앱 서랍(앱 목록)에서 <strong>Chrome</strong> 앱을 찾아서 터치합니다.
+          Chrome 아이콘은 <strong>빨강, 노랑, 초록, 파랑</strong>으로 이루어진 동그란 모양입니다.
+          대부분의 안드로이드 폰에 기본으로 설치되어 있습니다.
+        </p>
+        <p style="margin-top: 12px;">
+          삼성 갤럭시를 사용하신다면 <strong>삼성 인터넷</strong> 브라우저(보라색 지구본 모양)를
+          사용해도 됩니다. 삼성 인터넷도 홈화면 추가를 지원합니다.
+        </p>
+        <p style="margin-top: 12px;">
+          브라우저가 열리면, 화면 <strong>상단의 주소창</strong>을 터치합니다.
+          기존 주소가 있으면 지우고, 아래 주소를 입력한 후 엔터(이동)를 누릅니다:
+        </p>
+        <div style="margin-top: 16px; padding: 16px; background: rgba(255,255,255,0.05); border-radius: 12px; text-align: center;">
+          <code style="font-size: 16px; color: #FF6B35; font-weight: 600; letter-spacing: 0.5px;">https://mytrainer-mu.vercel.app</code>
+        </div>
+        <div class="tip">
+          <span class="tip-icon">💡</span>
+          <span>
+            Chrome이 어디 있는지 모르겠다면, 홈화면에서 아래로 쓸어내려 검색창이 나오면
+            "Chrome"이라고 입력하세요. 또는 앱 서랍(홈화면 아래에서 위로 쓸어올리기)에서
+            찾을 수 있습니다. 정 못 찾으시면 Play 스토어에서 "Chrome"을 검색하여 설치하세요.
+          </span>
+        </div>
+      </div>
+
+      <!-- Android Step 2 -->
+      <div class="install-step fade-in">
+        <span class="install-step-number">Step 2</span>
+        <h4>오른쪽 상단의 메뉴(⋮)를 터치합니다</h4>
+        <p>
+          마이트레이너 페이지가 열리면, 화면 <strong>오른쪽 상단</strong>을 보세요.
+          <strong>점 3개가 세로로 된 아이콘(⋮)</strong>이 있습니다. 이것을 터치합니다.
+          이 버튼은 주소창 오른쪽 끝, 또는 오른쪽 상단 모서리 근처에 위치해 있습니다.
+        </p>
+        <p style="margin-top: 12px;">
+          <strong>삼성 인터넷 브라우저</strong>를 사용 중이라면, 하단에 <strong>≡ (가로줄 3개)</strong>
+          모양의 메뉴 아이콘이 있을 수 있습니다. 또는 하단 오른쪽에 <strong>⋮ (점 3개)</strong>가 있을 수 있습니다.
+        </p>
+        <div class="tip">
+          <span class="tip-icon">💡</span>
+          <span>
+            메뉴 아이콘(⋮)이 안 보인다면, 페이지를 <strong>살짝 아래로 스크롤</strong>한 뒤
+            다시 위로 올려보세요. Chrome은 스크롤 방향에 따라 상단 바를 숨기기도 하는데,
+            위로 살짝 스크롤하면 다시 나타납니다.
+          </span>
+        </div>
+      </div>
+
+      <!-- Android Step 3 -->
+      <div class="install-step fade-in">
+        <span class="install-step-number">Step 3</span>
+        <h4>"홈 화면에 추가" 또는 "앱 설치"를 터치합니다</h4>
+        <p>
+          메뉴(⋮)를 터치하면 드롭다운 메뉴가 열립니다. 여러 가지 옵션 중에서
+          <strong>"홈 화면에 추가"</strong> 또는 <strong>"앱 설치"</strong>라는 항목을 찾아서 터치합니다.
+        </p>
+        <p style="margin-top: 12px;">
+          Chrome 버전에 따라 표시되는 텍스트가 다를 수 있습니다:
+        </p>
+        <ul style="margin-top: 12px; padding-left: 20px; list-style: disc;">
+          <li style="color: #999; padding: 6px 0; word-break: keep-all;">
+            <strong style="color: #ccc;">최신 Chrome</strong>: "앱 설치" 또는 "Install app"으로 표시됩니다.
+            이 경우 다운로드 아이콘(⬇️)이 함께 표시될 수 있어요.
+          </li>
+          <li style="color: #999; padding: 6px 0; word-break: keep-all;">
+            <strong style="color: #ccc;">이전 Chrome 버전</strong>: "홈 화면에 추가" 또는 "Add to Home screen"으로 표시됩니다.
+          </li>
+          <li style="color: #999; padding: 6px 0; word-break: keep-all;">
+            <strong style="color: #ccc;">삼성 인터넷</strong>: "홈 화면에 추가" 또는 "이 페이지를 추가" 등으로 표시됩니다.
+            하단 메뉴에서 찾을 수 있어요.
+          </li>
+        </ul>
+        <div class="tip">
+          <span class="tip-icon">💡</span>
+          <span>
+            메뉴에서 해당 항목이 바로 안 보이면, 메뉴를 <strong>아래로 스크롤</strong>해보세요.
+            옵션이 많아서 화면 밖에 있을 수 있습니다. "공유", "번역" 등의 옵션 아래쪽에
+            있는 경우가 많습니다.
+          </span>
+        </div>
+      </div>
+
+      <!-- Android Step 4 -->
+      <div class="install-step fade-in">
+        <span class="install-step-number">Step 4</span>
+        <h4>"추가" 또는 "설치"를 터치합니다</h4>
+        <p>
+          확인 팝업이 나타납니다. 앱 이름이 "마이트레이너"로 표시되어 있는 것을 확인한 후,
+          <strong>"추가"</strong> 또는 <strong>"설치"</strong> 버튼을 터치합니다.
+        </p>
+        <p style="margin-top: 12px;">
+          잠시 후 자동으로 홈 화면에 <strong>마이트레이너 앱 아이콘</strong>이 생깁니다! 🎉
+          일부 안드로이드 폰에서는 "홈 화면에 자동으로 추가할까요?" 같은 추가 확인을 물어볼 수 있는데,
+          "확인" 또는 "추가"를 누르면 됩니다.
+        </p>
+        <p style="margin-top: 12px;">
+          이제 홈 화면에서 마이트레이너 아이콘을 터치하면, <strong>일반 앱처럼 전체화면</strong>으로
+          사용할 수 있습니다! 주소창도 없고, 뒤로가기 등도 앱 내에서 자연스럽게 동작합니다.
+        </p>
+        <div class="tip">
+          <span class="tip-icon">🎊</span>
+          <span>
+            축하합니다! 설치가 완료되었습니다! 🥳
+            안드로이드에서는 앱 서랍(앱 목록)에도 자동으로 등록되어,
+            다른 앱들과 함께 관리할 수 있습니다.
+            삭제하고 싶을 때는 아이콘을 길게 눌러서 "삭제" 또는 "제거"를 선택하면 됩니다.
+            앱이 업데이트되면 자동으로 반영되니, 재설치할 필요 없습니다!
+          </span>
+        </div>
+      </div>
+
+      <!-- Android 주의사항 -->
+      <div class="install-warning fade-in">
+        <h4>⚠️ 안드로이드 주의사항</h4>
+        <ul>
+          <li><strong>Chrome</strong> 또는 <strong>삼성 인터넷</strong> 브라우저 사용을 권장합니다. 이 두 브라우저에서 가장 안정적으로 동작합니다.</li>
+          <li>네이버앱, 카카오톡, 인스타그램, 페이스북 등의 <strong>앱 내장 브라우저</strong>에서는 홈화면 추가가 되지 않습니다.</li>
+          <li>혹시 "앱 설치" 대신 "홈 화면에 추가"만 나오더라도 <strong>동일한 결과</strong>입니다. 걱정 마세요!</li>
+          <li>설치 후 앱이 업데이트되면 자동으로 반영됩니다. 재설치할 필요 없습니다.</li>
+          <li>간혹 설치 후 첫 실행이 느릴 수 있는데, 두 번째 실행부터는 빠릅니다.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== 카카오톡/네이버 팁 ===== -->
+    <div class="install-kakao-tip fade-in">
+      <h4>💬 카카오톡이나 네이버에서 링크를 받았을 때</h4>
+      <p>
+        카카오톡 채팅이나 네이버 앱에서 마이트레이너 링크를 터치하면,
+        앱 내장 브라우저(인앱 브라우저)에서 열립니다.
+        이 상태에서는 홈화면에 추가할 수 없습니다!
+        아래 방법으로 <strong>외부 브라우저</strong>로 열어주세요:
+      </p>
+      <ol class="steps">
+        <li>
+          <strong>카카오톡</strong>에서 링크를 열었다면:
+          화면 오른쪽 하단에 있는 <strong>⋮</strong> (점 3개) 또는
+          <strong>...</strong> (말줄임표) 버튼을 터치하세요.
+          그러면 메뉴가 나오는데, <strong>"다른 브라우저로 열기"</strong> 또는
+          <strong>"기본 브라우저로 열기"</strong>를 선택하세요.
+          아이폰이면 Safari로, 안드로이드면 Chrome으로 열립니다.
+        </li>
+        <li>
+          <strong>네이버 앱</strong>에서 링크를 열었다면:
+          오른쪽 하단의 <strong>⋮</strong> 버튼을 터치 →
+          <strong>"외부 브라우저로 열기"</strong>, <strong>"Chrome으로 열기"</strong>,
+          또는 <strong>"Safari에서 열기"</strong>를 선택하세요.
+        </li>
+        <li>
+          <strong>인스타그램이나 페이스북</strong>에서 링크를 열었다면:
+          오른쪽 상단의 <strong>⋮</strong> 또는 <strong>...</strong> →
+          <strong>"Safari에서 열기"</strong> 또는 <strong>"Chrome에서 열기"</strong>를 선택하세요.
+        </li>
+        <li>
+          외부 브라우저로 열린 후, 위에서 설명한 <strong>Step 1~4</strong>를 따라
+          <strong>홈화면에 추가</strong>하시면 됩니다! 한 번만 추가하면 다음부터는 앱 아이콘으로 바로 접속!
+        </li>
+      </ol>
+      <p style="margin-top: 20px; padding: 16px; background: rgba(255,107,53,0.08); border-radius: 10px; word-break: keep-all;">
+        <strong style="color: #FF6B35;">핵심 정리 🎯</strong><br><br>
+        <strong style="color: #ddd;">아이폰</strong> = Safari (파란 나침반) 에서 열기<br>
+        <strong style="color: #ddd;">안드로이드</strong> = Chrome (빨노초파 동그라미) 에서 열기<br><br>
+        다른 앱(카카오톡, 네이버, 인스타 등)에서 링크를 열었다면,<br>
+        <strong>⋮ 버튼 → "외부 브라우저로 열기"</strong>를 선택한 후 홈화면에 추가하세요!
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ========================================
+     SECTION 8: FOOTER
+     ======================================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo fade-in">🏋️ 노네임피트니스</div>
+    <div class="footer-powered fade-in">
+      Powered by <span>마이트레이너</span>
+    </div>
+    <div style="margin: 24px 0;" class="fade-in">
+      <a href="https://mytrainer-mu.vercel.app" class="btn-primary" target="_blank" style="font-size: 15px; padding: 14px 28px;">
+        🏋️ 마이트레이너 시작하기
+      </a>
+    </div>
+    <div class="footer-copyright fade-in">
+      &copy; 2026 노네임피트니스. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+
+<!-- ========================================
+     JAVASCRIPT
+     ======================================== -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  // ===== Intersection Observer: fade-in animations =====
+  var observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -60px 0px',
+    threshold: 0.1
+  };
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  var fadeElements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
+  fadeElements.forEach(function(el) {
+    observer.observe(el);
+  });
+
+  // ===== Smooth scroll for anchor links =====
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      var targetId = this.getAttribute('href');
+      var target = document.querySelector(targetId);
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // ===== Counter animation for hero stats =====
+  function animateCounter(element, target, duration) {
+    var start = 0;
+    var startTime = null;
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      var progress = Math.min((timestamp - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      var current = Math.floor(eased * target);
+      element.textContent = current;
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        element.textContent = target;
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  var statsObserved = false;
+  var statsObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !statsObserved) {
+        statsObserved = true;
+        var statNumbers = document.querySelectorAll('.hero-stat-number');
+        statNumbers.forEach(function(el) {
+          var text = el.textContent.trim();
+          if (!isNaN(parseInt(text))) {
+            var target = parseInt(text);
+            animateCounter(el, target, 1500);
+          }
+        });
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  var heroStats = document.querySelector('.hero-stats');
+  if (heroStats) {
+    statsObserver.observe(heroStats);
+  }
+
+  // ===== Generate QR Code pattern =====
+  var qrArea = document.querySelector('.cta-qr-area');
+  if (qrArea) {
+    var canvas = document.createElement('canvas');
+    canvas.width = 180;
+    canvas.height = 180;
+    var ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, 180, 180);
+
+    var cellSize = 6;
+    var margin = 12;
+    var gridSize = Math.floor((180 - margin * 2) / cellSize);
+
+    var seed = 42;
+    function seededRandom() {
+      seed = (seed * 16807) % 2147483647;
+      return (seed - 1) / 2147483646;
+    }
+
+    ctx.fillStyle = '#0a0a0a';
+
+    function drawFinder(x, y) {
+      ctx.fillStyle = '#0a0a0a';
+      ctx.fillRect(x, y, cellSize * 7, cellSize * 7);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(x + cellSize, y + cellSize, cellSize * 5, cellSize * 5);
+      ctx.fillStyle = '#0a0a0a';
+      ctx.fillRect(x + cellSize * 2, y + cellSize * 2, cellSize * 3, cellSize * 3);
+    }
+
+    drawFinder(margin, margin);
+    drawFinder(180 - margin - cellSize * 7, margin);
+    drawFinder(margin, 180 - margin - cellSize * 7);
+
+    for (var r = 0; r < gridSize; r++) {
+      for (var c = 0; c < gridSize; c++) {
+        var px = margin + c * cellSize;
+        var py = margin + r * cellSize;
+
+        if ((c < 8 && r < 8) || (c >= gridSize - 8 && r < 8) || (c < 8 && r >= gridSize - 8)) {
+          continue;
+        }
+
+        if (seededRandom() > 0.55) {
+          ctx.fillStyle = '#0a0a0a';
+          ctx.fillRect(px, py, cellSize - 1, cellSize - 1);
+        }
+      }
+    }
+
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(65, 65, 50, 50);
+    ctx.fillStyle = '#FF6B35';
+    ctx.font = 'bold 24px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('MT', 90, 90);
+
+    qrArea.innerHTML = '';
+    var img = document.createElement('img');
+    img.src = canvas.toDataURL();
+    img.alt = '마이트레이너 QR코드 - mytrainer-mu.vercel.app';
+    img.style.width = '180px';
+    img.style.height = '180px';
+    img.style.borderRadius = '12px';
+    qrArea.appendChild(img);
+  }
+
+  // ===== Hero parallax fade =====
+  var heroSection = document.querySelector('.hero');
+  if (heroSection) {
+    var ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          var scrolled = window.pageYOffset;
+          if (scrolled < window.innerHeight) {
+            var opacity = 1 - (scrolled / window.innerHeight) * 0.5;
+            heroSection.style.opacity = Math.max(opacity, 0.3);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  // ===== Category tags interactive =====
+  var tags = document.querySelectorAll('.feature-category-tags .tag');
+  tags.forEach(function(tag) {
+    tag.addEventListener('click', function() {
+      tags.forEach(function(t) { t.classList.remove('active'); });
+      this.classList.add('active');
+    });
+  });
+
+});
+</script>
+
+</body>
+</html>
