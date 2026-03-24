@@ -2450,3 +2450,142 @@ ul {
 .slideshow-open-btn i {
     font-size: 15px;
 }
+
+/* ===================================
+   MY TRAINER APP BANNER
+   =================================== */
+.mytrainer-banner {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    padding: 20px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.mytrainer-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(212,168,67,0.08) 0%, transparent 60%);
+    animation: shimmer 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { transform: translateX(-20%); }
+    50% { transform: translateX(20%); }
+}
+
+.mytrainer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+}
+
+.mytrainer-badge {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--dark);
+    padding: 4px 14px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+    animation: pulse-badge 2s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(212,168,67,0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(212,168,67,0); }
+}
+
+.mytrainer-text {
+    text-align: center;
+}
+
+.mytrainer-text h3 {
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.mytrainer-text h3 i {
+    color: var(--gold);
+    margin-right: 6px;
+}
+
+.mytrainer-text p {
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+}
+
+.mytrainer-btn {
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--dark);
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.mytrainer-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(212,168,67,0.4);
+}
+
+.mytrainer-btn i {
+    margin-right: 6px;
+}
+
+/* CTA App Button */
+.btn-app {
+    background: linear-gradient(135deg, #1a1a2e, #0f3460) !important;
+    color: var(--gold) !important;
+    border: 1px solid var(--gold) !important;
+}
+
+.btn-app:hover {
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark)) !important;
+    color: var(--dark) !important;
+}
+
+/* Footer App Link */
+.footer-app-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding: 8px 18px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--dark);
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-app-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212,168,67,0.3);
+}
+
+@media (max-width: 768px) {
+    .mytrainer-inner {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+    .mytrainer-text p {
+        font-size: 12px;
+    }
+}
