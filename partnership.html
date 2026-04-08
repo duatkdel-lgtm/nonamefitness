@@ -23,9 +23,9 @@
         *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 
         :root{
-            --y:#F5BF23;--y2:#FFD556;--y3:rgba(245,191,35,.08);
-            --bg:#0a0a0a;--s1:#111;--s2:#181818;--s3:#222;
-            --bd:#2a2a2a;--w:#fff;--g1:#ccc;--g2:#999;--g3:#555;
+            --y:#16A34A;--y2:#86EFAC;--y3:rgba(22,163,74,.08);
+            --bg:#FFFFFF;--s1:#F7F7F7;--s2:#F0F0F0;--s3:#E8E8E8;
+            --bd:#E0E0E0;--w:#1A1A1A;--g1:#444;--g2:#777;--g3:#BBB;
             --r:12px;
         }
 
@@ -36,7 +36,7 @@
         @keyframes fadeUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
         @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
         @keyframes pulse{0%,100%{opacity:.6;}50%{opacity:1;}}
-        @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(245,191,35,.1);}50%{box-shadow:0 0 40px rgba(245,191,35,.25);}}
+        @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(22,163,74,.1);}50%{box-shadow:0 0 40px rgba(22,163,74,.25);}}
         @keyframes countUp{from{opacity:0;transform:scale(.8);}to{opacity:1;transform:scale(1);}}
         @keyframes barGrow{from{width:0;}to{width:var(--bar-w);}}
         @keyframes circleGrow{from{stroke-dashoffset:var(--circle-len);}to{stroke-dashoffset:var(--circle-offset);}}
@@ -60,11 +60,11 @@
         .opening{
             min-height:100vh;display:flex;align-items:center;justify-content:center;
             position:relative;overflow:hidden;
-            background:linear-gradient(180deg,#000 0%,var(--bg) 100%);
+            background:linear-gradient(180deg,#F0F0F0 0%,var(--bg) 100%);
         }
         .opening::before{
             content:'';position:absolute;inset:0;
-            background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(245,191,35,.04) 0%,transparent 70%);
+            background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(22,163,74,.04) 0%,transparent 70%);
         }
         .opening-inner{
             position:relative;z-index:1;text-align:center;padding:40px 24px;
@@ -114,7 +114,7 @@
         .story-highlight{
             margin:40px 0;padding:28px 24px;
             border-left:3px solid var(--y);
-            background:linear-gradient(90deg,rgba(245,191,35,.05) 0%,transparent 100%);
+            background:linear-gradient(90deg,rgba(22,163,74,.05) 0%,transparent 100%);
             border-radius:0 var(--r) var(--r) 0;
         }
         .story-highlight p{
@@ -163,7 +163,7 @@
         .benefit:hover{border-color:var(--y);transform:translateY(-2px);}
         .benefit-ico{
             width:48px;height:48px;border-radius:12px;
-            background:var(--y);color:#000;
+            background:var(--y);color:#fff;
             display:flex;align-items:center;justify-content:center;
             font-size:22px;margin-bottom:16px;
         }
@@ -175,7 +175,7 @@
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .partners-showcase{
             padding:60px 24px;
-            background:linear-gradient(135deg,rgba(245,191,35,.04) 0%,transparent 50%);
+            background:linear-gradient(135deg,rgba(22,163,74,.04) 0%,transparent 50%);
             border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);
         }
         .partners-showcase-inner{max-width:640px;margin:0 auto;text-align:center;}
@@ -193,7 +193,7 @@
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .final-cta{
             text-align:center;padding:100px 24px 80px;
-            background:linear-gradient(180deg,var(--bg) 0%,#050505 100%);
+            background:linear-gradient(180deg,var(--bg) 0%,#F7F7F7 100%);
             position:relative;overflow:hidden;
         }
         .final-cta::before{
@@ -240,15 +240,15 @@
 
         .submit-btn{
             width:100%;padding:16px;margin-top:8px;
-            background:var(--y);color:#000;
+            background:var(--y);color:#fff;
             font-size:16px;font-weight:900;letter-spacing:1px;
             border-radius:8px;cursor:pointer;border:none;
             transition:all .3s;font-family:inherit;
-            box-shadow:0 4px 24px rgba(245,191,35,.25);
+            box-shadow:0 4px 24px rgba(22,163,74,.25);
         }
         .submit-btn:hover{
             transform:translateY(-2px);
-            box-shadow:0 8px 32px rgba(245,191,35,.35);
+            box-shadow:0 8px 32px rgba(22,163,74,.35);
         }
         .submit-btn:disabled{
             opacity:.5;cursor:not-allowed;transform:none;
@@ -299,9 +299,9 @@
         .bar-fill.white{background:linear-gradient(90deg,#888,#ccc);}
         .bar-val{
             position:absolute;right:8px;top:50%;transform:translateY(-50%);
-            font-size:12px;font-weight:900;color:#000;
+            font-size:12px;font-weight:900;color:#fff;
         }
-        .bar-fill.white .bar-val{color:#000;}
+        .bar-fill.white .bar-val{color:#fff;}
 
         /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
            GRAPH: 원형 차트
@@ -361,7 +361,7 @@
             position:absolute;left:-34px;top:24px;
             width:16px;height:16px;border-radius:50%;
             background:var(--y);
-            box-shadow:0 0 0 4px var(--s1),0 0 16px rgba(245,191,35,.3);
+            box-shadow:0 0 0 4px var(--s1),0 0 16px rgba(22,163,74,.3);
         }
         .growth-dot.pulse{animation:pulseGlow 2s infinite;}
         .growth-year{
@@ -397,7 +397,7 @@
         .compare-col.highlight{border-color:var(--y);position:relative;}
         .compare-col.highlight::before{
             content:'추천';position:absolute;top:-12px;left:50%;transform:translateX(-50%);
-            background:var(--y);color:#000;font-size:11px;font-weight:900;
+            background:var(--y);color:#fff;font-size:11px;font-weight:900;
             padding:2px 12px;border-radius:10px;letter-spacing:1px;
         }
         .compare-vs{
@@ -419,7 +419,7 @@
 
         /* ── FOOTER ── */
         footer{
-            background:#050505;padding:16px 24px;
+            background:#F7F7F7;padding:16px 24px;
             display:flex;justify-content:space-between;align-items:center;
             border-top:1px solid var(--s2);flex-wrap:wrap;gap:8px;
         }

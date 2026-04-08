@@ -23,19 +23,19 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --p:  #2ECC9A;
-            --p2: #56DDB1;
-            --p3: rgba(46,204,154,.10);
-            --bg: #0a0a0a;
-            --s1: #131313;
-            --s2: #1a1a1a;
-            --s3: #222;
-            --bd: #2a2a2a;
-            --w:  #fff;
-            --g1: #ccc;
-            --g2: #888;
-            --g3: #555;
-            --y:  #F5BF23;
+            --p:  #16A34A;
+            --p2: #22C55E;
+            --p3: rgba(22,163,74,.08);
+            --bg: #FFFFFF;
+            --s1: #F7F7F7;
+            --s2: #F0F0F0;
+            --s3: #E8E8E8;
+            --bd: #E0E0E0;
+            --w:  #1A1A1A;
+            --g1: #444;
+            --g2: #777;
+            --g3: #BBB;
+            --y:  #16A34A;
             --r:  12px;
         }
 
@@ -76,14 +76,14 @@
             content: '';
             position: absolute; inset: 0;
             background:
-                radial-gradient(ellipse 60% 50% at 50% 80%, rgba(46,204,154,.08) 0%, transparent 60%),
-                radial-gradient(ellipse 30% 40% at 20% 30%, rgba(46,204,154,.04) 0%, transparent 50%);
+                radial-gradient(ellipse 60% 50% at 50% 80%, rgba(22,163,74,.08) 0%, transparent 60%),
+                radial-gradient(ellipse 30% 40% at 20% 30%, rgba(22,163,74,.04) 0%, transparent 50%);
             pointer-events: none;
         }
         .hero-inner { position: relative; z-index: 1; max-width: 600px; }
         .hero-chip {
             display: inline-block;
-            background: var(--p3); border: 1px solid rgba(46,204,154,.3);
+            background: var(--p3); border: 1px solid rgba(22,163,74,.3);
             color: var(--p); font-size: 11px; font-weight: 700;
             padding: 6px 18px; border-radius: 30px;
             letter-spacing: 2px; margin-bottom: 28px;
@@ -106,7 +106,7 @@
             background: transparent; cursor: pointer; border-radius: 50px;
             transition: all .3s;
         }
-        .hero-btn:hover { background: var(--p); color: #000; }
+        .hero-btn:hover { background: var(--p); color: #fff; }
         .hero-scroll {
             position: absolute; bottom: 32px; left: 50%;
             transform: translateX(-50%);
@@ -168,7 +168,7 @@
         .why-item:last-child { border-bottom: none; }
         .why-num {
             font-size: 48px; font-weight: 900;
-            color: rgba(46,204,154,.15);
+            color: rgba(22,163,74,.15);
             line-height: 1; flex-shrink: 0;
             min-width: 56px;
         }
@@ -186,7 +186,7 @@
            HIGHLIGHT BAR
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .highlight-bar {
-            background: linear-gradient(135deg, rgba(46,204,154,.08) 0%, rgba(46,204,154,.02) 100%);
+            background: linear-gradient(135deg, rgba(22,163,74,.08) 0%, rgba(22,163,74,.02) 100%);
             border-left: 3px solid var(--p);
             border-radius: 0 var(--r) var(--r) 0;
             padding: 24px 28px;
@@ -215,7 +215,7 @@
             text-align: center;
             transition: border-color .3s;
         }
-        .step-card:hover { border-color: rgba(46,204,154,.3); }
+        .step-card:hover { border-color: rgba(22,163,74,.3); }
         .step-icon {
             font-size: 36px;
             margin-bottom: 16px;
@@ -223,7 +223,7 @@
         .step-num {
             display: inline-block;
             width: 28px; height: 28px;
-            background: var(--p); color: #000;
+            background: var(--p); color: #fff;
             border-radius: 50%;
             font-size: 12px; font-weight: 900;
             line-height: 28px;
@@ -243,7 +243,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 0;
             background: var(--p3);
-            border: 1px solid rgba(46,204,154,.2);
+            border: 1px solid rgba(22,163,74,.2);
             border-radius: var(--r);
             overflow: hidden;
         }
@@ -251,7 +251,7 @@
             text-align: center;
             padding: 24px 16px;
         }
-        .ai-stat + .ai-stat { border-left: 1px solid rgba(46,204,154,.15); }
+        .ai-stat + .ai-stat { border-left: 1px solid rgba(22,163,74,.15); }
         .ai-stat-val {
             font-size: clamp(28px, 4vw, 36px);
             font-weight: 900; color: var(--p);
@@ -262,7 +262,7 @@
         }
 
         /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           PLIC APP
+           MY TRAINER APP
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .plic-grid {
             display: grid;
@@ -276,10 +276,10 @@
             padding: 24px 20px;
             transition: border-color .3s;
         }
-        .plic-card:hover { border-color: rgba(46,204,154,.3); }
+        .plic-card:hover { border-color: rgba(22,163,74,.3); }
         .plic-card-icon {
             width: 44px; height: 44px;
-            background: var(--p); color: #000;
+            background: var(--p); color: #fff;
             border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
             font-size: 20px;
@@ -346,7 +346,7 @@
             padding: 20px 24px;
             transition: border-color .3s;
         }
-        .for-item:hover { border-color: rgba(46,204,154,.3); }
+        .for-item:hover { border-color: rgba(22,163,74,.3); }
         .for-icon {
             font-size: 28px; flex-shrink: 0;
         }
@@ -399,8 +399,8 @@
             border: 1px solid rgba(245,191,35,.2);
         }
         .diff-card.premium-card {
-            background: rgba(46,204,154,.05);
-            border: 1px solid rgba(46,204,154,.2);
+            background: rgba(22,163,74,.05);
+            border: 1px solid rgba(22,163,74,.2);
         }
         .diff-card-tag {
             font-size: 10px; font-weight: 700;
@@ -444,12 +444,12 @@
         }
         .pr-card.best {
             border-color: var(--p);
-            background: linear-gradient(180deg, rgba(46,204,154,.06) 0%, var(--s2) 100%);
+            background: linear-gradient(180deg, rgba(22,163,74,.06) 0%, var(--s2) 100%);
         }
         .pr-badge {
             position: absolute; top: -12px; left: 50%;
             transform: translateX(-50%);
-            background: var(--p); color: #000;
+            background: var(--p); color: #fff;
             font-size: 10px; font-weight: 900;
             padding: 4px 14px; border-radius: 20px;
             letter-spacing: 1px; white-space: nowrap;
@@ -531,8 +531,8 @@
             position: relative;
         }
         .story-block.end {
-            border-color: rgba(46,204,154,.3);
-            background: linear-gradient(180deg, rgba(46,204,154,.05) 0%, var(--s2) 100%);
+            border-color: rgba(22,163,74,.3);
+            background: linear-gradient(180deg, rgba(22,163,74,.05) 0%, var(--s2) 100%);
         }
         .story-year {
             display: inline-block;
@@ -547,7 +547,7 @@
         }
         .story-block.end .story-year {
             color: var(--p);
-            border-color: rgba(46,204,154,.3);
+            border-color: rgba(22,163,74,.3);
         }
         .story-size {
             font-size: clamp(48px, 10vw, 72px);
@@ -582,10 +582,10 @@
             align-items: center; justify-content: center;
             text-align: center;
             padding: 80px 28px;
-            background: linear-gradient(180deg, var(--bg) 0%, #0d1510 50%, var(--bg) 100%);
+            background: linear-gradient(180deg, var(--bg) 0%, #E8F5EE 50%, var(--bg) 100%);
         }
         .big-quote .q-mark {
-            font-size: 64px; color: rgba(46,204,154,.25);
+            font-size: 64px; color: rgba(22,163,74,.25);
             line-height: 1; margin-bottom: 20px;
         }
         .big-quote h2 {
@@ -609,7 +609,7 @@
         .cta {
             text-align: center;
             padding: 80px 28px 60px;
-            background: #080808;
+            background: #F7F7F7;
             border-top: 1px solid var(--s2);
         }
         .cta-brand {
@@ -636,7 +636,7 @@
         .cta-btn {
             display: inline-block;
             padding: 18px 52px;
-            background: var(--p); color: #000;
+            background: var(--p); color: #fff;
             font-size: 16px; font-weight: 900;
             border-radius: 50px;
             cursor: pointer; border: none;
@@ -664,7 +664,7 @@
 
         /* ─── FOOTER ─── */
         footer {
-            background: #080808;
+            background: #F7F7F7;
             padding: 16px 28px;
             display: flex; justify-content: space-between;
             align-items: center; flex-wrap: wrap; gap: 8px;
@@ -763,7 +763,7 @@
             <h3>AI 체형 분석</h3>
             <p>전신 사진 한 장으로<br>체형 불균형을 자동 분석</p>
         </div>
-        <div class="step-card" style="border-color: rgba(46,204,154,.3);">
+        <div class="step-card" style="border-color: rgba(22,163,74,.3);">
             <div class="step-icon">🧠</div>
             <div class="step-num">2</div>
             <h3>개인 솔루션 도출</h3>
@@ -797,39 +797,51 @@
     </div>
 </div>
 
-<!-- ━━━ PLIC APP ━━━ -->
+<!-- ━━━ MY TRAINER APP ━━━ -->
 <div class="divider"></div>
 <div class="sec reveal">
-    <p class="sec-tag">PLIC APP</p>
+    <p class="sec-tag">MY TRAINER</p>
     <h2 class="sec-title">트레이너와 했던 운동,<br><span class="hl">혼자서도 그대로</span></h2>
-    <p class="sec-desc">플릭(Plic) 앱으로 세션에서 배운 운동을<br>언제 어디서나 정확히 수행할 수 있습니다.</p>
+    <p class="sec-desc">마이트레이너 앱으로 세션에서 배운 운동을<br>언제 어디서나 정확히 수행할 수 있습니다.</p>
 
     <div class="plic-grid">
         <div class="plic-card">
-            <div class="plic-card-icon">⚖️</div>
-            <h3>중량 자동 기록</h3>
-            <p>세션마다 중량이 자동 저장. 지난 기록과 비교하며 점진적 과부하를 실현합니다.</p>
+            <div class="plic-card-icon">🏋️</div>
+            <h3>378개 운동 GIF</h3>
+            <p>세션에서 배운 동작을 앱에서 GIF로 다시 확인. 자세와 타겟 근육을 정확히 기억합니다.</p>
         </div>
         <div class="plic-card">
-            <div class="plic-card-icon">🔢</div>
-            <h3>세트 단위 관리</h3>
-            <p>세트 수 · 횟수 · 중량을 세분화하여 트레이너 설계 그대로 혼자 수행합니다.</p>
+            <div class="plic-card-icon">📊</div>
+            <h3>중량 · 세트 · 횟수 기록</h3>
+            <p>매 세션의 데이터가 자동으로 쌓입니다. 지난 기록과 비교하며 점진적 과부하를 실현합니다.</p>
         </div>
         <div class="plic-card">
-            <div class="plic-card-icon">⏱️</div>
-            <h3>휴식 타이머</h3>
-            <p>세트 간 최적 휴식 시간 자동 알림으로 근육 회복과 효율을 동시에.</p>
+            <div class="plic-card-icon">🔥</div>
+            <h3>연속 출석 스트릭</h3>
+            <p>매일 운동할수록 스트릭이 쌓입니다. 눈에 보이는 성취감이 습관을 만듭니다.</p>
         </div>
         <div class="plic-card">
-            <div class="plic-card-icon">📈</div>
-            <h3>성장 트래킹</h3>
-            <p>운동 히스토리가 쌓이며 트레이너와 주간 분석 피드백에 활용됩니다.</p>
+            <div class="plic-card-icon">🤖</div>
+            <h3>AI 루틴 생성</h3>
+            <p>목표 · 경험 · 부위를 입력하면 AI가 맞춤 루틴을 자동 설계. PT가 없는 날도 체계적으로.</p>
         </div>
     </div>
 
-    <div class="highlight-bar" style="margin-top: 28px;">
-        <p>PT가 없는 날도 <span class="hl">플릭 앱 하나로 트레이너 수준의 루틴</span>을 수행합니다.</p>
+    <div style="text-align:center;margin-top:24px;">
+        <a href="promo.html" style="display:inline-block;padding:12px 32px;background:var(--p);color:#fff;font-size:13px;font-weight:700;border-radius:50px;text-decoration:none;transition:opacity .2s;">마이트레이너 앱 자세히 보기 →</a>
     </div>
+
+    <div class="highlight-bar" style="margin-top: 28px;">
+        <p>PT가 없는 날도 <span class="hl">마이트레이너 앱 하나로 트레이너 수준의 루틴</span>을 수행합니다.</p>
+    </div>
+</div>
+
+<!-- ━━━ OUR PRIDE ━━━ -->
+<div class="divider"></div>
+<div class="sec reveal" style="text-align:center;">
+    <p class="sec-tag">OUR PRIDE</p>
+    <h2 class="sec-title">등록만 하고 안 오는 사람이<br><span class="hl">적습니다</span></h2>
+    <p class="sec-desc">사전 설계된 프로그램, 누적되는 데이터, 매 세션 트레이너 코칭.<br>PT를 빠질 이유가 없는 구조이기 때문입니다.<br><strong style="color:var(--w);">이게 우리의 자랑입니다.</strong></p>
 </div>
 
 <!-- ━━━ PROCESS ━━━ -->
@@ -857,7 +869,7 @@
         </div>
         <div class="tl-item done">
             <div class="tl-dot"></div>
-            <h3>1:1 세션 + 플릭 기록</h3>
+            <h3>1:1 세션 + 마이트레이너 기록</h3>
             <p>정밀 코칭과 중량 · 세트 전체를 기록합니다</p>
         </div>
         <div class="tl-item">
@@ -934,7 +946,7 @@
                 <tr><td class="label">식단</td><td class="dim">가이드 제공</td><td class="p">개인 맞춤 설계</td></tr>
                 <tr><td class="label">피드백</td><td class="dim">즉각적 교정</td><td class="p">분석 + 전략 수정</td></tr>
                 <tr><td class="label">체형 분석</td><td class="dim">—</td><td class="p">피트릭스 AI</td></tr>
-                <tr><td class="label">운동 기록</td><td class="dim">—</td><td class="p">플릭 앱 연동</td></tr>
+                <tr><td class="label">운동 기록</td><td class="dim">—</td><td class="p">마이트레이너 앱 연동</td></tr>
                 <tr><td class="label">비용</td><td class="u">월정액</td><td class="p">세션 단위 패키지</td></tr>
                 <tr><td class="label">한 줄 요약</td><td class="u">의지 관리</td><td class="p">결과 관리</td></tr>
             </tbody>
@@ -1035,7 +1047,45 @@
         <span>🔒 락커룸 <strong>월 5,000원</strong></span>
         <span style="color: var(--g3);">* VAT 별도</span>
     </div>
-    <p class="price-note">20회 패키지부터 <span class="hl">AI 체형분석 + 플릭 앱</span>이 함께 제공됩니다.</p>
+    <p class="price-note">20회 패키지부터 <span class="hl">AI 체형분석 + 마이트레이너 앱</span>이 함께 제공됩니다.</p>
+</div>
+
+<!-- ━━━ SALAD GARDEN ━━━ -->
+<div class="divider"></div>
+<div class="sec reveal" style="text-align:center;">
+    <p class="sec-tag">NUTRITION</p>
+    <h2 class="sec-title">운동만으로는<br><span class="hl">부족합니다</span></h2>
+    <p class="sec-desc">PT가 끝나면 영양 보충이 필요합니다.<br>마이트레이너 앱에서 샐러드가든 메뉴를 바로 주문하세요.</p>
+
+    <div style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1px solid #BBF7D0;border-radius:var(--r);padding:28px 24px;margin-top:24px;text-align:left;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+            <span style="font-size:24px;">🥗</span>
+            <strong style="font-size:17px;color:#1A1A1A;">샐러드가든</strong>
+            <span style="font-size:10px;font-weight:900;padding:3px 10px;border-radius:20px;background:#16A34A;color:#fff;">앱 주문</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+            <div style="background:#fff;border:1px solid #E0E0E0;border-radius:8px;padding:14px 12px;text-align:center;">
+                <p style="font-size:20px;margin-bottom:4px;">🏷️</p>
+                <p style="font-size:12px;font-weight:700;color:#16A34A;">전 메뉴 10% 할인</p>
+            </div>
+            <div style="background:#fff;border:1px solid #E0E0E0;border-radius:8px;padding:14px 12px;text-align:center;">
+                <p style="font-size:20px;margin-bottom:4px;">🚚</p>
+                <p style="font-size:12px;font-weight:700;color:#16A34A;">헬스장 배달 무료</p>
+            </div>
+            <div style="background:#fff;border:1px solid #E0E0E0;border-radius:8px;padding:14px 12px;text-align:center;">
+                <p style="font-size:20px;margin-bottom:4px;">⏰</p>
+                <p style="font-size:12px;font-weight:700;color:#16A34A;">픽업 시간 선택</p>
+            </div>
+            <div style="background:#fff;border:1px solid #E0E0E0;border-radius:8px;padding:14px 12px;text-align:center;">
+                <p style="font-size:20px;margin-bottom:4px;">🫙</p>
+                <p style="font-size:12px;font-weight:700;color:#16A34A;">소스 직접 선택</p>
+            </div>
+        </div>
+        <p style="font-size:13px;color:#555;line-height:1.7;margin-bottom:16px;">닭가슴살 샐러드 · 연어포케 · 프로틴 라떼 · 샌드위치<br>PT 끝나고 픽업 시간에 맞춰 수령하세요.</p>
+        <div style="text-align:center;">
+            <a href="promo.html" style="display:inline-block;padding:12px 32px;background:#16A34A;color:#fff;font-size:13px;font-weight:700;border-radius:50px;text-decoration:none;">📱 마이트레이너 앱에서 주문</a>
+        </div>
+    </div>
 </div>
 
 <!-- ━━━ OUR STORY ━━━ -->
@@ -1054,7 +1104,7 @@
         </div>
         <div class="story-arrow">
             <svg width="24" height="48" viewBox="0 0 24 48" fill="none">
-                <path d="M12 0 L12 40 M4 32 L12 44 L20 32" stroke="#2ECC9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 0 L12 40 M4 32 L12 44 L20 32" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </div>
         <div class="story-block end">
@@ -1096,7 +1146,7 @@
         </div>
         <div class="cta-icon-item">
             <div class="cta-icon-circle">📱</div>
-            <p>플릭 앱 연동</p>
+            <p>마이트레이너 앱 연동</p>
         </div>
         <div class="cta-icon-item">
             <div class="cta-icon-circle">🍽️</div>

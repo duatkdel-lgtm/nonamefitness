@@ -24,20 +24,20 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --y:   #F5BF23;
-            --y2:  #FFD556;
-            --bg:  #0c0c0c;
-            --s1:  #161616;
-            --s2:  #1e1e1e;
-            --s3:  #262626;
-            --bd:  #2e2e2e;
-            --w:   #ffffff;
-            --g1:  #cccccc;
-            --g2:  #999999;
-            --g3:  #555555;
+            --y:   #16A34A;
+            --y2:  #22C55E;
+            --bg:  #FFFFFF;
+            --s1:  #F7F7F7;
+            --s2:  #F0F0F0;
+            --s3:  #E8E8E8;
+            --bd:  #E0E0E0;
+            --w:   #1A1A1A;
+            --g1:  #444444;
+            --g2:  #777777;
+            --g3:  #BBBBBB;
             --r: 8px;
-            --spin: #E040FB;
-            --spin2: #CE93D8;
+            --spin: #C026D3;
+            --spin2: #A855F7;
         }
 
         html { scroll-behavior: smooth; }
@@ -96,8 +96,8 @@
         .hero::before {
             content: ''; position: absolute; inset: 0;
             background:
-                radial-gradient(ellipse 60% 50% at 15% 60%, rgba(224,64,251,.08) 0%, transparent 60%),
-                radial-gradient(ellipse 40% 30% at 85% 20%, rgba(224,64,251,.04) 0%, transparent 50%);
+                radial-gradient(ellipse 60% 50% at 15% 60%, rgba(192,38,211,.10) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 30% at 85% 20%, rgba(192,38,211,.06) 0%, transparent 50%);
             pointer-events: none;
         }
         .hero-inner {
@@ -123,7 +123,7 @@
             background: transparent; cursor: pointer; border-radius: 3px;
             transition: background .2s, color .2s;
         }
-        .hero-btn:hover { background: var(--spin); color: #000; }
+        .hero-btn:hover { background: var(--spin); color: #fff; }
 
         /* ━━━ INSTRUCTOR CARDS ━━━ */
         .instructor-card {
@@ -142,7 +142,7 @@
             letter-spacing: .5px;
         }
         .morning .instructor-time { background: rgba(255,152,0,.15); color: #FFB74D; }
-        .evening .instructor-time { background: rgba(224,64,251,.15); color: var(--spin2); }
+        .evening .instructor-time { background: rgba(192,38,211,.12); color: var(--spin2); }
         .instructor-name { font-size: 22px; font-weight: 900; margin-bottom: 4px; }
         .instructor-sub { font-size: 11px; color: var(--g2); margin-bottom: 14px; }
         .instructor-desc { font-size: 12px; color: var(--g1); line-height: 1.7; margin-bottom: 14px; }
@@ -167,7 +167,7 @@
         }
         .schedule-table td.active {
             color: var(--w); font-weight: 700;
-            background: rgba(224,64,251,.08);
+            background: rgba(192,38,211,.10);
         }
         .schedule-table td.morning-active {
             color: var(--w); font-weight: 700;
@@ -182,7 +182,7 @@
         }
         .feat-ico {
             width: 36px; height: 36px; border-radius: 7px;
-            background: var(--spin); color: #000;
+            background: var(--spin); color: #fff;
             display: flex; align-items: center; justify-content: center;
             font-size: 17px; flex-shrink: 0;
         }
@@ -227,7 +227,7 @@
         .price-card:hover { transform: translateY(-3px); }
         .price-card.best {
             border-color: var(--spin);
-            background: linear-gradient(165deg, var(--s2) 0%, rgba(224,64,251,.06) 100%);
+            background: linear-gradient(165deg, var(--s2) 0%, rgba(192,38,211,.08) 100%);
         }
         .price-badge {
             position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
@@ -242,7 +242,7 @@
         }
         .price-discount {
             display: inline-block; font-size: 10px; font-weight: 900;
-            background: rgba(224,64,251,.15); color: var(--spin2);
+            background: rgba(192,38,211,.12); color: var(--spin2);
             padding: 2px 8px; border-radius: 10px; margin-bottom: 6px;
         }
         .price-amt {
@@ -271,7 +271,7 @@
             min-height: 55vh; display: flex; flex-direction: column;
             align-items: center; justify-content: center; text-align: center;
             padding: 56px 24px;
-            background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%);
+            background: linear-gradient(135deg, #FFFFFF 0%, #F7F7F7 100%);
         }
         .big-quote-sec .open-q { font-size: 36px; color: var(--spin); margin-bottom: 10px; }
         .big-quote-sec h2 {
@@ -284,7 +284,7 @@
         /* ━━━ CTA ━━━ */
         .cta-sec {
             text-align: center; padding: 56px 24px 48px;
-            background: #090909; border-top: 1px solid var(--s2);
+            background: #F7F7F7; border-top: 1px solid var(--s2);
         }
         .cta-bar { width: 2px; height: 30px; background: var(--spin); margin: 0 auto 16px; }
         .cta-title { font-size: clamp(26px, 5vw, 42px); font-weight: 900; margin-bottom: 12px; }
@@ -311,7 +311,7 @@
 
         /* ─── FOOTER ─── */
         footer {
-            background: #080808; padding: 14px 24px;
+            background: #F7F7F7; padding: 14px 24px;
             display: flex; justify-content: space-between; align-items: center;
             border-top: 1px solid var(--s2); flex-wrap: wrap; gap: 6px;
         }
@@ -615,6 +615,18 @@
     <div class="big-quote-bar"></div>
     <p>땀 흘리는 50분이 기다려지는 경험</p>
 </div>
+
+<!-- ━━━ MY TRAINER APP ━━━ -->
+<div class="sec" style="text-align:center;">
+    <div style="display:inline-block;background:linear-gradient(135deg,rgba(192,38,211,.08),rgba(245,191,35,.08));border:1px solid rgba(192,38,211,.30);border-radius:16px;padding:36px 28px;max-width:480px;width:100%;">
+        <div style="display:inline-block;font-size:10px;font-weight:900;letter-spacing:2px;padding:4px 14px;border-radius:20px;background:var(--spin);color:#fff;margin-bottom:16px;">NEW APP</div>
+        <h3 style="font-size:clamp(20px,4vw,26px);font-weight:900;line-height:1.3;margin-bottom:10px;">스피닝도 기록하면<br><span class="hl">다릅니다</span></h3>
+        <p style="font-size:13px;color:var(--g1);line-height:1.8;margin-bottom:24px;">마이트레이너 앱으로 스피닝 출석 스트릭을 쌓고,<br>운동 기록을 한눈에 관리하세요.<br><strong style="color:var(--w);">378개 운동 GIF · AI 루틴 생성 · 완전 무료</strong></p>
+        <a href="promo.html" style="display:inline-block;padding:12px 32px;background:var(--spin);color:#fff;font-size:13px;font-weight:700;border-radius:50px;text-decoration:none;transition:opacity .2s;">📱 앱 다운로드</a>
+    </div>
+</div>
+
+<div class="divider"></div>
 
 <!-- ━━━ 8. CTA ━━━ -->
 <div class="cta-sec">

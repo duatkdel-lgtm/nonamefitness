@@ -23,9 +23,9 @@
         *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 
         :root{
-            --y:#F5BF23;--y2:#FFD556;--y3:rgba(245,191,35,.08);
-            --bg:#0a0a0a;--s1:#111;--s2:#181818;--s3:#222;
-            --bd:#2a2a2a;--w:#fff;--g1:#ccc;--g2:#999;--g3:#555;
+            --y:#16A34A;--y2:#86EFAC;--y3:rgba(22,163,74,.08);
+            --bg:#FFFFFF;--s1:#F7F7F7;--s2:#F0F0F0;--s3:#E8E8E8;
+            --bd:#E0E0E0;--w:#1A1A1A;--g1:#444;--g2:#777;--g3:#BBB;
             --r:12px;
         }
 
@@ -38,7 +38,7 @@
         @keyframes pulse{0%,100%{opacity:.6;}50%{opacity:1;}}
         @keyframes slideIn{from{opacity:0;transform:translateX(-30px);}to{opacity:1;transform:translateX(0);}}
         @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-        @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(245,191,35,.1);}50%{box-shadow:0 0 40px rgba(245,191,35,.25);}}
+        @keyframes glow{0%,100%{box-shadow:0 0 20px rgba(22,163,74,.1);}50%{box-shadow:0 0 40px rgba(22,163,74,.25);}}
         @keyframes countUp{from{opacity:0;transform:scale(.8);}to{opacity:1;transform:scale(1);}}
 
         .reveal{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.16,1,.3,1);}
@@ -58,11 +58,11 @@
         .opening{
             min-height:100vh;display:flex;align-items:center;justify-content:center;
             position:relative;overflow:hidden;
-            background:linear-gradient(180deg,#000 0%,var(--bg) 100%);
+            background:linear-gradient(180deg,#F0F0F0 0%,var(--bg) 100%);
         }
         .opening::before{
             content:'';position:absolute;inset:0;
-            background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(245,191,35,.04) 0%,transparent 70%);
+            background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(22,163,74,.04) 0%,transparent 70%);
         }
         .opening-inner{
             position:relative;z-index:1;text-align:center;padding:40px 24px;
@@ -112,7 +112,7 @@
         .story-highlight{
             margin:40px 0;padding:28px 24px;
             border-left:3px solid var(--y);
-            background:linear-gradient(90deg,rgba(245,191,35,.05) 0%,transparent 100%);
+            background:linear-gradient(90deg,rgba(22,163,74,.05) 0%,transparent 100%);
             border-radius:0 var(--r) var(--r) 0;
         }
         .story-highlight p{
@@ -125,14 +125,14 @@
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .product-reveal{
             padding:80px 24px;text-align:center;
-            background:linear-gradient(180deg,var(--bg) 0%,#080808 50%,var(--bg) 100%);
+            background:linear-gradient(180deg,var(--bg) 0%,#F7F7F7 50%,var(--bg) 100%);
             position:relative;overflow:hidden;
         }
         .product-reveal::before{
             content:'';position:absolute;top:50%;left:50%;
             width:400px;height:400px;
             transform:translate(-50%,-50%);
-            background:radial-gradient(circle,rgba(245,191,35,.06) 0%,transparent 70%);
+            background:radial-gradient(circle,rgba(22,163,74,.06) 0%,transparent 70%);
             pointer-events:none;
         }
         .product-img-wrap{
@@ -142,14 +142,14 @@
         }
         .product-img-wrap img{
             width:100%;max-height:420px;object-fit:contain;
-            filter:drop-shadow(0 20px 60px rgba(245,191,35,.15));
+            filter:drop-shadow(0 20px 60px rgba(22,163,74,.15));
         }
         /* 이미지 없을 때 목업 */
         .product-mock-hero{
             width:140px;height:320px;margin:0 auto;
             background:linear-gradient(180deg,#2a2a2a 0%,#2a2a2a 7%,#fff 7%,#fff 88%,#c9a440 88%,#c9a440 100%);
             border-radius:16px 16px 10px 10px;
-            box-shadow:0 20px 60px rgba(245,191,35,.15);
+            box-shadow:0 20px 60px rgba(22,163,74,.15);
             position:relative;
         }
         .product-mock-hero::after{
@@ -236,7 +236,7 @@
             margin-bottom:16px;
         }
         .side-a .id-mock{background:#fff;color:#111;}
-        .side-b .id-mock{background:var(--y);color:#111;}
+        .side-b .id-mock{background:var(--y);color:#fff;}
 
         /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
            5. SPECS — 숫자로 말하기
@@ -277,7 +277,7 @@
         .feat:hover{border-color:var(--y);transform:translateY(-2px);}
         .feat-ico-wrap{
             width:48px;height:48px;border-radius:12px;
-            background:var(--y);color:#000;
+            background:var(--y);color:#fff;
             display:flex;align-items:center;justify-content:center;
             font-size:22px;margin-bottom:16px;
         }
@@ -348,7 +348,7 @@
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .package{
             padding:60px 24px;
-            background:linear-gradient(135deg,rgba(245,191,35,.04) 0%,transparent 50%);
+            background:linear-gradient(135deg,rgba(22,163,74,.04) 0%,transparent 50%);
             border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);
         }
         .package-inner{
@@ -386,7 +386,7 @@
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .final-cta{
             text-align:center;padding:100px 24px 80px;
-            background:linear-gradient(180deg,var(--bg) 0%,#050505 100%);
+            background:linear-gradient(180deg,var(--bg) 0%,#F7F7F7 100%);
             position:relative;overflow:hidden;
         }
         .final-cta::before{
@@ -412,15 +412,15 @@
         .final-price-note{font-size:13px;color:var(--g3);margin-bottom:36px;}
         .final-btn{
             display:inline-block;padding:18px 56px;
-            background:var(--y);color:#000;
+            background:var(--y);color:#fff;
             font-size:16px;font-weight:900;letter-spacing:1px;
             border-radius:6px;cursor:pointer;border:none;
             transition:all .3s;
-            box-shadow:0 4px 24px rgba(245,191,35,.25);
+            box-shadow:0 4px 24px rgba(22,163,74,.25);
         }
         .final-btn:hover{
             transform:translateY(-2px);
-            box-shadow:0 8px 32px rgba(245,191,35,.35);
+            box-shadow:0 8px 32px rgba(22,163,74,.35);
         }
         .trust-row{
             display:flex;justify-content:center;gap:32px;flex-wrap:wrap;
@@ -432,7 +432,7 @@
 
         /* ── FOOTER ── */
         footer{
-            background:#050505;padding:16px 24px;
+            background:#F7F7F7;padding:16px 24px;
             display:flex;justify-content:space-between;align-items:center;
             border-top:1px solid var(--s2);flex-wrap:wrap;gap:8px;
         }
