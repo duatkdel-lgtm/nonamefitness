@@ -2134,9 +2134,45 @@ ul {
     }
     
     .programs-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
     }
-    
+    .programs-grid .program-content {
+        padding: 14px;
+    }
+    .programs-grid .program-content h3 {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+    .programs-grid .program-content h3 .text-gold {
+        font-size: 12px;
+    }
+    .programs-grid .program-content > p {
+        font-size: 11px;
+        line-height: 1.5;
+        margin-bottom: 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .programs-grid .program-features li {
+        font-size: 11px;
+        gap: 6px;
+    }
+    .programs-grid .program-features li i {
+        width: 14px;
+        height: 14px;
+        font-size: 8px;
+    }
+    .programs-grid .program-image {
+        height: 140px;
+    }
+    .programs-grid .btn {
+        font-size: 11px;
+        padding: 8px 12px;
+    }
+
     .facility-grid {
         grid-template-columns: repeat(2, 1fr);
     }
