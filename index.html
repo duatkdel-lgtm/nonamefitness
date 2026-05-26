@@ -1237,5 +1237,127 @@ document.getElementById('partnerModal').addEventListener('click',function(e){if(
 </script>
 <script src="js/kakao-share.js"></script>
 <script src="js/ga-events.js"></script>
+
+<!-- Event Popup: 500회 한정 오픈 -->
+<div class="event-popup-overlay" id="eventPopup" role="dialog" aria-modal="true" aria-label="500회 한정 오픈 이벤트">
+    <div class="event-popup">
+        <a href="https://naver.me/GjRIBgpf" target="_blank" rel="noopener noreferrer" class="event-popup-link" onclick="trackEventPopupClick()">
+            <img src="images/event-500.png" alt="500회 한정 오픈! 39,000원 이벤트 - 노네임피트니스 천안두정점">
+        </a>
+        <div class="event-popup-controls">
+            <button type="button" class="event-popup-dismiss" onclick="dismissEventPopupToday()">오늘 하루 보지 않기</button>
+            <button type="button" class="event-popup-close" onclick="closeEventPopup()" aria-label="팝업 닫기">닫기 ✕</button>
+        </div>
+    </div>
+</div>
+
+<style>
+.event-popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: eventPopupFadeIn 0.3s ease;
+}
+.event-popup-overlay.active { display: flex; }
+@keyframes eventPopupFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes eventPopupSlideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+.event-popup {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: eventPopupSlideUp 0.4s ease;
+}
+.event-popup-link {
+    display: block;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    line-height: 0;
+}
+.event-popup-link:hover { transform: scale(1.01); }
+.event-popup-link img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.event-popup-controls {
+    display: flex;
+    background: #1a1a1a;
+}
+.event-popup-controls button {
+    flex: 1;
+    background: transparent;
+    color: #fff;
+    border: none;
+    padding: 14px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s ease;
+}
+.event-popup-controls button:hover { background: rgba(255, 255, 255, 0.12); }
+.event-popup-dismiss { border-right: 1px solid rgba(255, 255, 255, 0.15); }
+@media (max-width: 480px) {
+    .event-popup-overlay { padding: 12px; }
+    .event-popup-controls button {
+        padding: 14px 10px;
+        font-size: 13px;
+    }
+}
+</style>
+
+<script>
+(function() {
+    var POPUP_KEY = 'eventPopup_500_dismissedUntil';
+    var popup = document.getElementById('eventPopup');
+    if (!popup) return;
+
+    var dismissedUntil = localStorage.getItem(POPUP_KEY);
+    var now = Date.now();
+    if (!dismissedUntil || now > parseInt(dismissedUntil, 10)) {
+        setTimeout(function() { popup.classList.add('active'); }, 600);
+    }
+
+    popup.addEventListener('click', function(e) {
+        if (e.target === popup) closeEventPopup();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && popup.classList.contains('active')) closeEventPopup();
+    });
+})();
+
+function closeEventPopup() {
+    document.getElementById('eventPopup').classList.remove('active');
+}
+
+function dismissEventPopupToday() {
+    var tomorrow = Date.now() + 24 * 60 * 60 * 1000;
+    localStorage.setItem('eventPopup_500_dismissedUntil', tomorrow.toString());
+    closeEventPopup();
+}
+
+function trackEventPopupClick() {
+    if (typeof gtag === 'function') {
+        gtag('event', 'event_popup_click', {
+            event_category: 'engagement',
+            event_label: '500_event_naver_place'
+        });
+    }
+}
+</script>
 </body>
 </html>
