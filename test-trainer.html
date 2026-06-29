@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>트레이너 궁합검사 | 노네임피트니스 천안두정점</title>
+<meta name="description" content="30초 만에 알아보는 나의 트레이너 궁합 유형! 자기결정성 이론 기반 8문항으로 나에게 잘 맞는 코칭 스타일을 찾아드려요. 노네임피트니스 천안두정점.">
+
+<!-- OG / Twitter -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="트레이너 궁합검사 | 노네임피트니스 천안두정점">
+<meta property="og:description" content="30초 만에 알아보는 나의 트레이너 궁합 유형! 나에게 잘 맞는 코칭 스타일을 찾아보세요.">
+<meta property="og:image" content="https://nonamefitness.co.kr/images/facility-main.jpg">
+<meta property="og:url" content="https://nonamefitness.co.kr/test-trainer.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="트레이너 궁합검사 | 노네임피트니스 천안두정점">
+<meta name="twitter:description" content="30초 만에 알아보는 나의 트레이너 궁합 유형!">
+<meta name="twitter:image" content="https://nonamefitness.co.kr/images/facility-main.jpg">
+
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
+<style>
+  :root{
+    --green:#16A34A;
+    --green2:#22C55E;
+    --ink:#0f1720;
+    --muted:#64748b;
+    --bg:#f6f8f7;
+    --card:#ffffff;
+    --line:#e6ebe8;
+    --shadow:0 10px 30px rgba(15,23,32,.08);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+    max-width:100%;
+    overflow-x:hidden;
+  }
+  .wrap{
+    max-width:480px;
+    margin:0 auto;
+    min-height:100vh;
+    min-height:100dvh;
+    padding:20px 18px 40px;
+    display:flex;
+    flex-direction:column;
+  }
+  .brand{
+    display:flex;align-items:center;gap:8px;
+    font-weight:800;font-size:15px;color:var(--green);
+    margin-bottom:14px;
+  }
+  .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--green2);}
+
+  /* ====== SCREENS ====== */
+  .screen{display:none;animation:fade .35s ease;}
+  .screen.active{display:flex;flex-direction:column;flex:1;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ====== INTRO ====== */
+  .intro{justify-content:center;text-align:center;gap:6px;}
+  .intro .emoji{font-size:64px;line-height:1;margin-bottom:6px;}
+  .intro h1{font-size:28px;font-weight:900;margin:6px 0;letter-spacing:-.5px;}
+  .intro h1 .hl{color:var(--green);}
+  .intro .hook{font-size:16px;color:var(--muted);margin:4px 0 2px;}
+  .badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:16px 0 4px;}
+  .badge{
+    background:#eafaf0;color:var(--green);border:1px solid #c9efd7;
+    font-size:13px;font-weight:700;padding:7px 12px;border-radius:999px;
+  }
+  .theory{font-size:12px;color:#94a3b8;margin-top:10px;}
+
+  /* ====== PROGRESS ====== */
+  .topbar{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+  .back-btn{
+    border:none;background:#eef2f0;color:#475569;font-weight:700;
+    width:38px;height:38px;min-height:38px;border-radius:10px;cursor:pointer;font-size:18px;
+    flex:0 0 auto;
+  }
+  .back-btn:disabled{opacity:.35;cursor:default;}
+  .progress{flex:1;}
+  .progress .meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:600;}
+  .bar{height:8px;background:#e6ebe8;border-radius:999px;overflow:hidden;}
+  .bar > span{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--green2));width:0;transition:width .35s ease;border-radius:999px;}
+
+  /* ====== QUESTION ====== */
+  .q-screen{flex:1;}
+  .q-num{font-size:13px;font-weight:800;color:var(--green);margin-bottom:6px;}
+  .q-title{font-size:22px;font-weight:900;letter-spacing:-.4px;margin:0 0 4px;}
+  .q-sub{font-size:13px;color:var(--muted);margin:0 0 18px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{
+    display:flex;align-items:center;gap:13px;width:100%;
+    min-height:60px;padding:14px 16px;
+    background:var(--card);border:2px solid var(--line);border-radius:14px;
+    font-size:16px;font-weight:600;color:var(--ink);text-align:left;cursor:pointer;
+    transition:.15s;
+  }
+  .opt:active{transform:scale(.98);}
+  .opt:hover{border-color:var(--green2);}
+  .opt .ic{font-size:24px;flex:0 0 auto;}
+  .opt .tx{flex:1;line-height:1.35;}
+  .opt.sel{border-color:var(--green);background:#eafaf0;}
+
+  textarea{
+    width:100%;max-width:100%;min-height:120px;resize:vertical;
+    border:2px solid var(--line);border-radius:14px;padding:14px;font-size:15px;
+    font-family:inherit;color:var(--ink);background:var(--card);
+  }
+  textarea:focus{outline:none;border-color:var(--green2);}
+  .charcount{text-align:right;font-size:12px;color:#94a3b8;margin-top:6px;}
+
+  /* ====== BUTTONS ====== */
+  .btn{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    width:100%;min-height:54px;border-radius:14px;border:none;cursor:pointer;
+    font-size:17px;font-weight:800;font-family:inherit;
+    transition:.15s;text-decoration:none;
+  }
+  .btn:active{transform:scale(.98);}
+  .btn-primary{background:var(--green);color:#fff;box-shadow:0 8px 20px rgba(22,163,74,.28);}
+  .btn-line{background:#fff;color:var(--ink);border:2px solid var(--line);}
+  .btn-ghost{background:#eef2f0;color:#475569;}
+  .btn-row{display:flex;gap:10px;}
+  .btn-row .btn{flex:1;}
+  .mt-auto{margin-top:auto;}
+  .next-wrap{margin-top:20px;}
+
+  /* ====== RESULT ====== */
+  .result-screen{flex:1;}
+  .result-card{
+    border-radius:20px;overflow:hidden;background:var(--card);
+    box-shadow:var(--shadow);border:1px solid var(--line);
+  }
+  .rc-top{
+    padding:30px 22px 24px;text-align:center;color:#fff;position:relative;
+  }
+  .rc-top .tag{font-size:13px;font-weight:800;opacity:.9;letter-spacing:.5px;}
+  .rc-top .emoji{font-size:74px;line-height:1;margin:8px 0 6px;display:block;}
+  .rc-top .pname{font-size:27px;font-weight:900;letter-spacing:-.5px;}
+  .rc-top .pmeta{font-size:13px;font-weight:700;opacity:.92;margin-top:2px;}
+  .rc-top .combo{font-size:12px;margin-top:8px;opacity:.95;background:rgba(255,255,255,.18);display:inline-block;padding:4px 11px;border-radius:999px;font-weight:700;}
+  .rc-body{padding:22px;}
+  .headline{font-size:18px;font-weight:900;text-align:center;margin:0 0 14px;letter-spacing:-.3px;}
+  .desc{font-size:15px;color:#334155;margin:0 0 18px;}
+  .metaphor{font-size:14px;color:var(--muted);text-align:center;font-style:italic;margin:-8px 0 18px;}
+  .tip{
+    background:#f4faf6;border:1px solid #d9efe2;border-radius:14px;padding:16px;
+  }
+  .tip h3{font-size:14px;font-weight:900;margin:0 0 7px;color:var(--green);display:flex;align-items:center;gap:6px;}
+  .tip p{font-size:14px;color:#334155;margin:0;line-height:1.55;}
+  .scores{margin-top:16px;}
+  .score-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+  .score-row .lab{flex:0 0 92px;font-size:12px;font-weight:700;color:#475569;display:flex;align-items:center;gap:4px;}
+  .score-row .track{flex:1;height:9px;background:#eef2f0;border-radius:999px;overflow:hidden;}
+  .score-row .track > span{display:block;height:100%;border-radius:999px;transition:width .8s ease;}
+  .score-row .pct{flex:0 0 34px;text-align:right;font-size:12px;font-weight:800;color:#475569;}
+
+  /* CTA */
+  .cta-title{font-size:16px;font-weight:900;text-align:center;margin:26px 0 4px;}
+  .cta-sub{font-size:13px;color:var(--muted);text-align:center;margin:0 0 14px;}
+  .cta-line{font-size:14px;font-weight:800;text-align:center;color:var(--green);background:#eafaf0;border:1px solid #c9efd7;border-radius:12px;padding:12px;margin-bottom:14px;}
+  .share-row{display:flex;gap:10px;margin-bottom:12px;}
+  .share-row .sbtn{
+    flex:1;min-height:54px;border-radius:14px;border:none;cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    font-size:12px;font-weight:800;font-family:inherit;transition:.15s;
+  }
+  .share-row .sbtn:active{transform:scale(.96);}
+  .sbtn .si{font-size:22px;}
+  .sbtn.kakao{background:#FEE500;color:#191600;}
+  .sbtn.share{background:#eef2f0;color:#334155;}
+  .sbtn.copy{background:#eef2f0;color:#334155;}
+  .stack{display:flex;flex-direction:column;gap:10px;}
+
+  .foot{text-align:center;font-size:12px;color:#94a3b8;margin-top:22px;line-height:1.6;}
+  .foot a{color:#94a3b8;}
+
+  /* TOAST */
+  .toast{
+    position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);
+    background:#0f1720;color:#fff;font-size:14px;font-weight:700;
+    padding:13px 20px;border-radius:999px;opacity:0;pointer-events:none;
+    transition:.3s;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.25);
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media (max-width:360px){
+    .intro h1{font-size:24px;}
+    .q-title{font-size:20px;}
+    .opt{font-size:15px;}
+  }
+</style>
+</head>
+<body>
+<a href="tests.html" class="quiz-exit" aria-label="테스트 나가기" title="나가기">✕</a>
+<style>
+.quiz-exit{position:fixed;top:14px;right:14px;z-index:99999;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.32);color:#fff;font-size:18px;line-height:1;text-decoration:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:transform .12s ease;}
+.quiz-exit:active{transform:scale(.92);}
+</style>
+<div class="wrap">
+  <div class="brand"><span class="dot"></span>노네임피트니스 천안두정점</div>
+
+  <!-- ===== INTRO ===== -->
+  <section class="screen intro active" id="screen-intro">
+    <div class="emoji">🏋️‍♂️</div>
+    <h1>트레이너 <span class="hl">궁합검사</span></h1>
+    <p class="hook">나랑 잘 맞는 코칭 스타일은 따로 있다!<br>8문항으로 찾는 나의 운동 케미 유형</p>
+    <div class="badges">
+      <span class="badge">⏱ 약 30초</span>
+      <span class="badge">📝 8문항</span>
+      <span class="badge">🧩 4가지 유형</span>
+    </div>
+    <div class="next-wrap">
+      <button class="btn btn-primary" onclick="start()">시작하기 →</button>
+    </div>
+    <p class="theory">자기결정성 이론(SDT) + Big5 성격 5요인 기반</p>
+  </section>
+
+  <!-- ===== QUIZ ===== -->
+  <section class="screen" id="screen-quiz">
+    <div class="topbar">
+      <button class="back-btn" id="backBtn" onclick="prev()">←</button>
+      <div class="progress">
+        <div class="meta"><span id="pgLabel">1 / 8</span><span id="pgPct">12%</span></div>
+        <div class="bar"><span id="pgBar"></span></div>
+      </div>
+    </div>
+    <div class="q-screen" id="qBody"><!-- injected --></div>
+    <div class="next-wrap" id="qFooter"><!-- injected for last text question --></div>
+  </section>
+
+  <!-- ===== RESULT ===== -->
+  <section class="screen result-screen" id="screen-result">
+    <div class="result-card" id="resultCard"><!-- injected --></div>
+
+    <p class="cta-title">당신에겐 이런 코칭이 잘 맞아요</p>
+    <p class="cta-sub">노네임피트니스에서 나에게 맞는 트레이너를 만나보세요</p>
+    <div class="cta-line" id="ctaLine"></div>
+
+    <div class="share-row">
+      <button class="sbtn kakao" onclick="shareKakao()"><span class="si">💬</span>카카오톡</button>
+      <button class="sbtn share" onclick="shareNative()"><span class="si">🔗</span>공유하기</button>
+      <button class="sbtn copy" onclick="copyLink()"><span class="si">📋</span>링크복사</button>
+    </div>
+
+    <div class="stack">
+      <button class="btn btn-primary" type="button" id="consultBtn" onclick="openConsult()">📞 이 유형 트레이너에게 상담받기</button>
+      <a class="btn btn-line" href="tel:041-557-9291">☎️ 전화 상담 041-557-9291</a>
+      <a class="btn btn-line" href="https://my-trainer-app.vercel.app" target="_blank" rel="noopener">📱 마이트레이너 앱 열기</a>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="restart()">🔄 다시 하기</button>
+        <a class="btn btn-ghost" href="tests.html">🧪 다른 테스트</a>
+      </div>
+    </div>
+
+    <p class="foot">
+      노네임피트니스 천안두정점<br>
+      <a href="https://naver.me/GjRIBgpf" target="_blank" rel="noopener">네이버 예약·오시는길</a> ·
+      <a href="https://nonamefitness.co.kr">nonamefitness.co.kr</a>
+    </p>
+  </section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ===== 트레이너 매칭 상담 신청 모달 ===== -->
+<div class="consult-ov" id="consultOv" onclick="if(event.target===this)closeConsult()">
+  <div class="consult-box" role="dialog" aria-modal="true" aria-label="트레이너 상담 신청">
+    <button class="consult-x" type="button" onclick="closeConsult()" aria-label="닫기">✕</button>
+    <div id="consultForm">
+      <h3 class="consult-h">트레이너 매칭 상담</h3>
+      <p class="consult-sub">이름과 연락처를 남겨주시면<br><b>내 유형에 맞는 트레이너가 직접 전화드려요</b> 📞</p>
+      <div class="consult-pick" id="consultPick"><!-- 결과 유형 표시 --></div>
+      <input class="consult-in" id="cName" type="text" placeholder="이름" autocomplete="name">
+      <input class="consult-in" id="cPhone" type="tel" placeholder="010-0000-0000" inputmode="numeric" autocomplete="tel">
+      <button class="btn btn-primary consult-submit" type="button" id="cSubmit" onclick="submitConsult()">신청하기</button>
+      <p class="consult-note">제출 시 상담을 위해 연락처가 노네임피트니스로 전송됩니다.</p>
+    </div>
+    <div id="consultDone" style="display:none;">
+      <div class="consult-done-ic">✅</div>
+      <h3 class="consult-h">신청 완료!</h3>
+      <p class="consult-sub">내 유형에 맞는 트레이너가 곧 전화드릴게요.<br>잠시만 기다려 주세요 🙌</p>
+      <button class="btn btn-primary" type="button" onclick="closeConsult()">확인</button>
+    </div>
+  </div>
+</div>
+<style>
+.consult-ov{position:fixed;inset:0;z-index:100000;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center;padding:0;}
+.consult-ov.on{display:flex;}
+.consult-box{position:relative;background:#fff;width:100%;max-width:480px;border-radius:22px 22px 0 0;padding:26px 22px calc(26px + env(safe-area-inset-bottom));box-shadow:0 -10px 40px rgba(0,0,0,.3);animation:cslide .28s ease;}
+@keyframes cslide{from{transform:translateY(40px);opacity:.4}to{transform:translateY(0);opacity:1}}
+.consult-x{position:absolute;top:14px;right:14px;width:36px;height:36px;border:none;background:#F1F3F2;border-radius:50%;font-size:15px;color:#666;cursor:pointer;}
+.consult-h{font-size:20px;font-weight:900;text-align:center;color:#111;}
+.consult-sub{font-size:14px;color:#6B7280;text-align:center;margin:8px 0 16px;line-height:1.5;}
+.consult-pick{background:#ECFDF3;color:#16A34A;font-weight:800;font-size:14px;text-align:center;padding:10px;border-radius:12px;margin-bottom:14px;}
+.consult-in{width:100%;height:52px;border:1.5px solid #E5E7EB;border-radius:12px;padding:0 14px;font-size:16px;margin-bottom:10px;font-family:inherit;}
+.consult-in:focus{outline:none;border-color:#22C55E;}
+.consult-submit{width:100%;margin-top:6px;}
+.consult-note{font-size:11px;color:#9CA3AF;text-align:center;margin-top:10px;}
+.consult-done-ic{font-size:48px;text-align:center;margin-bottom:6px;}
+</style>
+
+<script src="js/telegram.js?v=20260629"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js"></script>
+<script>
+/* =========================================================
+   트레이너 궁합검사 — 데이터 (trainerMatchAssessment.js 이식)
+   ========================================================= */
+var SHARE_URL = "https://nonamefitness.co.kr/test-trainer.html";
+var OG_IMAGE = "https://nonamefitness.co.kr/images/facility-main.jpg";
+
+var MATCH_PERSONAS = {
+  sparta: {
+    id:'sparta', name:'외적 통제 추구형', shortName:'스파르타형', icon:'🔥', color:'#EF4444',
+    headline:'외부 권위·마감이 있을 때 가장 잘 따라가는 타입',
+    description:'명확한 기준과 외부 압력이 있을 때 폭발해요. 자율보다는 통제된 환경에서 성실성(Big5)이 빛을 발하는 분이에요.',
+    metaphor:'체대 입시 강사가 어울리는 타입',
+    coachingTip:'직설적 피드백 + 데드라인 강조 + 명확한 기준(세트 수·무게)으로 채찍질. SDT상 외적 동기를 자율 동기로 전환할 수 있게 작은 선택권은 남겨주세요.',
+    theory:'SDT: 외적 동기 우세 · Big5: 성실성↑'
+  },
+  friend: {
+    id:'friend', name:'관계성 추구형', shortName:'친구형', icon:'🤝', color:'#22C55E',
+    headline:'따뜻한 관계가 가장 큰 동기인 타입',
+    description:'SDT의 관계성(Relatedness) 욕구가 가장 큰 분. 사회적 지지·친근감이 운동 지속의 핵심 보상이에요.',
+    metaphor:'카페 사장님과 단골 손님 같은 사이가 어울리는 타입',
+    coachingTip:'인사·잡담·칭찬을 자주. 운동 후 짧은 일상 대화. 엄격한 비교·랭킹은 부담스러워요.',
+    theory:'SDT: 관계성↑ · Big5: 외향성↑ · 우호성↑'
+  },
+  data: {
+    id:'data', name:'유능감 추구형', shortName:'데이터광', icon:'📊', color:'#3B82F6',
+    headline:'숫자·기록으로 자기효능감을 확인하는 타입',
+    description:'SDT의 유능감(Competence) 욕구가 강한 분. 1RM·볼륨·진척 그래프 같은 객관 지표가 동기로 직결돼요.',
+    metaphor:'엑셀 켜고 PT 가는 타입',
+    coachingTip:'주간 통계 공유 + 1RM 계산 + 인바디 변화 그래프. 정체기엔 미세 진척(폼·속도)도 숫자화해서 보여주세요.',
+    theory:'SDT: 유능감↑ · Big5: 성실성↑ · 개방성 중간'
+  },
+  silent: {
+    id:'silent', name:'자율성 추구형', shortName:'침묵형', icon:'🎧', color:'#A855F7',
+    headline:'스스로 페이스·선택권을 가질 때 잘 풀리는 타입',
+    description:'SDT의 자율성(Autonomy) 욕구가 가장 큰 분. 외부 간섭이 동기를 깎아내려요. 내향성(Big5)이 강한 경우가 많아요.',
+    metaphor:'도서관에서 운동하는 타입',
+    coachingTip:'필요할 때만 짧은 코멘트 + 선택지 두 개 주고 회원이 고르게. 음악·헤드폰 방해 X.',
+    theory:'SDT: 자율성↑ · Big5: 외향성↓ (내향)'
+  }
+};
+
+var BALANCED = {
+  id:'balanced', name:'균형 잡힌 올라운더', shortName:'올라운더형', icon:'⚖️', color:'#16A34A',
+  headline:'상황에 맞춰 유연하게 맞춰가는 타입',
+  description:'특정 한 가지 욕구에 치우치지 않고, 그날 컨디션과 상황에 따라 코칭 스타일을 유연하게 받아들이는 분이에요. 어떤 트레이너와도 잘 어울리는 적응형!',
+  metaphor:'무엇이든 무난하게 소화하는 멀티플레이어',
+  coachingTip:'초반엔 다양한 코칭 톤을 섞어 시도하며 선호를 함께 찾아가요. 그날그날 원하는 방식을 가볍게 물어봐 주세요.',
+  theory:'SDT: 세 가지 욕구가 고르게 분포'
+};
+
+var MATCH_PRIORITY = ['sparta','data','friend','silent'];
+
+var MATCH_QUESTIONS = [
+  { id:'m1_atmosphere', question:'운동할 때 분위기는 어떤 게 편해요?', subtitle:'솔직하게 가장 끌리는 쪽으로요.',
+    options:[
+      {value:'silent', label:'조용히 혼자 집중', icon:'🎧'},
+      {value:'chat', label:'트레이너와 대화하며', icon:'💬'},
+      {value:'pump', label:'음악 빵빵 펌핑', icon:'🔊'},
+      {value:'mixed', label:'그때그때', icon:'🔀'}
+    ],
+    weights:{ sparta:{silent:1,chat:0,pump:3,mixed:1}, friend:{silent:0,chat:4,pump:1,mixed:1}, data:{silent:2,chat:0,pump:0,mixed:1}, silent:{silent:4,chat:0,pump:0,mixed:0} } },
+  { id:'m2_feedback', question:'피드백은 어떤 톤이 와닿아요?', subtitle:'자율을 지지하는 톤인지, 통제하는 톤인지.',
+    options:[
+      {value:'direct', label:'직설적·강하게 ("더!")', icon:'⚡'},
+      {value:'gentle', label:'부드럽고 따뜻하게', icon:'🌸'},
+      {value:'number', label:'숫자로 객관 비교', icon:'📊'},
+      {value:'minimal', label:'꼭 필요할 때만', icon:'🤐'}
+    ],
+    weights:{ sparta:{direct:4,gentle:0,number:1,minimal:1}, friend:{direct:0,gentle:4,number:0,minimal:0}, data:{direct:1,gentle:0,number:4,minimal:1}, silent:{direct:0,gentle:1,number:1,minimal:4} } },
+  { id:'m3_motivation', question:'운동을 끌어 올리는 동기는 뭐예요?', subtitle:'외적 / 유능감 / 관계성 / 자율 동기',
+    options:[
+      {value:'deadline', label:'마감일·대회 (외부 압력)', icon:'📅'},
+      {value:'compete', label:'경쟁심·자존심', icon:'🥇'},
+      {value:'data', label:'기록 갱신·성장 실감', icon:'📈'},
+      {value:'praise', label:'주변의 응원·인정', icon:'👏'}
+    ],
+    weights:{ sparta:{deadline:4,compete:3,data:1,praise:0}, friend:{deadline:0,compete:0,data:0,praise:4}, data:{deadline:1,compete:1,data:4,praise:0}, silent:{deadline:1,compete:0,data:2,praise:0} } },
+  { id:'m4_autonomy', question:'운동 메뉴는 누가 정하면 좋겠어요?', subtitle:'SDT 자율성 욕구.',
+    options:[
+      {value:'trainer_all', label:'트레이너가 다 정해주세요', icon:'🎯'},
+      {value:'trainer_main', label:'큰 틀은 트레이너, 미세조정은 나', icon:'🤝'},
+      {value:'me_choose', label:'선택지 2~3개 받고 내가 고름', icon:'🗳'},
+      {value:'me_lead', label:'내가 짜고 트레이너는 검토만', icon:'✋'}
+    ],
+    weights:{ sparta:{trainer_all:4,trainer_main:2,me_choose:0,me_lead:0}, friend:{trainer_all:2,trainer_main:3,me_choose:1,me_lead:0}, data:{trainer_all:1,trainer_main:3,me_choose:2,me_lead:1}, silent:{trainer_all:0,trainer_main:1,me_choose:3,me_lead:4} } },
+  { id:'m5_competence', question:'운동이 잘 안 됐을 때 가장 힘이 되는 건?', subtitle:'SDT 유능감 욕구.',
+    options:[
+      {value:'small_win', label:'"지난주보다 1kg 늘었네!" 미세 진척', icon:'🌱'},
+      {value:'cheer', label:'"괜찮아요, 다음에 잘 해요" 위로', icon:'🫶'},
+      {value:'push', label:'"한 세트 더!" 채찍', icon:'🔥'},
+      {value:'analysis', label:'"이래서 안 됐어요" 데이터 분석', icon:'🔬'}
+    ],
+    weights:{ sparta:{small_win:0,cheer:0,push:4,analysis:1}, friend:{small_win:1,cheer:4,push:0,analysis:0}, data:{small_win:3,cheer:0,push:1,analysis:4}, silent:{small_win:2,cheer:1,push:0,analysis:2} } },
+  { id:'m6_after', question:'운동 끝나고 트레이너와 시간은?',
+    options:[
+      {value:'long', label:'길게 대화·잡담', icon:'☕'},
+      {value:'short', label:'짧게 정리만', icon:'⏱'},
+      {value:'report', label:'오늘 기록 리뷰', icon:'📋'},
+      {value:'none', label:'바로 가는 게 좋음', icon:'🚪'}
+    ],
+    weights:{ sparta:{long:0,short:2,report:2,none:1}, friend:{long:4,short:0,report:0,none:0}, data:{long:0,short:1,report:4,none:1}, silent:{long:0,short:2,report:0,none:4} } },
+  { id:'m7_strictness', question:'식단·생활 규칙은 어떻게?', subtitle:'외적 통제 vs 자율 동기 분기점.',
+    options:[
+      {value:'strict', label:'엄격하게 정해주세요', icon:'🪖'},
+      {value:'guide', label:'가이드만 받고 자율', icon:'🗺️'},
+      {value:'flex', label:'느슨하게 가요', icon:'🌊'}
+    ],
+    weights:{ sparta:{strict:4,guide:1,flex:0}, friend:{strict:0,guide:1,flex:3}, data:{strict:2,guide:2,flex:0}, silent:{strict:0,guide:3,flex:1} } }
+];
+
+/* ===== 채점·분류 (이식) ===== */
+function computeMatchScores(answers){
+  var raw={sparta:0,friend:0,data:0,silent:0};
+  var max={sparta:0,friend:0,data:0,silent:0};
+  for(var i=0;i<MATCH_QUESTIONS.length;i++){
+    var q=MATCH_QUESTIONS[i];
+    var a=answers[q.id];
+    if(!q.weights || a===undefined || a===null || a==='') continue;
+    for(var p in q.weights){
+      var w=q.weights[p];
+      if(a in w) raw[p]+=w[a];
+      var maxV=Math.max.apply(null,Object.keys(w).map(function(k){return w[k];}));
+      if(maxV>0) max[p]+=maxV;
+    }
+  }
+  var normalized={};
+  for(var p2 in raw){
+    normalized[p2]= max[p2]>0 ? Math.round(Math.max(0,Math.min(100,(raw[p2]/max[p2])*100))) : 0;
+  }
+  return {raw:raw, normalized:normalized};
+}
+
+function classifyMatch(scores){
+  var entries=Object.keys(scores.normalized).map(function(id){return {id:id,score:scores.normalized[id]};});
+  entries.sort(function(a,b){
+    if(b.score!==a.score) return b.score-a.score;
+    return MATCH_PRIORITY.indexOf(a.id)-MATCH_PRIORITY.indexOf(b.id);
+  });
+  var first=entries[0], second=entries[1];
+  if(first.score<30){
+    return {primary:'balanced', secondary:null, isCombo:false, isBalanced:true};
+  }
+  var isCombo = second && second.score>=first.score*0.7 && second.score>=30;
+  return {primary:first.id, secondary:isCombo?second.id:null, isCombo:isCombo, isBalanced:false};
+}
+
+/* =========================================================
+   상태 & 화면 제어
+   ========================================================= */
+var answers={};
+var idx=0;
+var TOTAL=MATCH_QUESTIONS.length;
+var lastResult=null;
+
+function show(id){
+  var s=document.querySelectorAll('.screen');
+  for(var i=0;i<s.length;i++) s[i].classList.remove('active');
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function start(){ idx=0; renderQ(); show('screen-quiz'); }
+
+function renderQ(){
+  var q=MATCH_QUESTIONS[idx];
+  // progress
+  var n=idx+1;
+  var pct=Math.round((n/TOTAL)*100);
+  document.getElementById('pgLabel').textContent=n+' / '+TOTAL;
+  document.getElementById('pgPct').textContent=pct+'%';
+  document.getElementById('pgBar').style.width=pct+'%';
+  document.getElementById('backBtn').disabled=(idx===0);
+
+  var body=document.getElementById('qBody');
+  var footer=document.getElementById('qFooter');
+  footer.innerHTML='';
+
+  var html='<div class="q-num">Q'+n+'</div>';
+  html+='<h2 class="q-title">'+q.question+'</h2>';
+  if(q.subtitle) html+='<p class="q-sub">'+q.subtitle+'</p>';
+
+  if(q.type==='free_text_optional'){
+    var prev=answers[q.id]||'';
+    html+='<textarea id="freeText" maxlength="'+(q.maxLength||200)+'" placeholder="'+q.placeholder+'">'+escapeHtml(prev)+'</textarea>';
+    html+='<div class="charcount"><span id="cc">'+prev.length+'</span> / '+(q.maxLength||200)+'</div>';
+    body.innerHTML=html;
+    document.getElementById('freeText').addEventListener('input',function(e){
+      document.getElementById('cc').textContent=e.target.value.length;
+    });
+    footer.innerHTML='<button class="btn btn-primary" onclick="finishText()">결과 보기 🎉</button>';
+  } else {
+    html+='<div class="options">';
+    for(var i=0;i<q.options.length;i++){
+      var o=q.options[i];
+      var sel=(answers[q.id]===o.value)?' sel':'';
+      html+='<button class="opt'+sel+'" onclick="choose(\''+o.value+'\')"><span class="ic">'+o.icon+'</span><span class="tx">'+o.label+'</span></button>';
+    }
+    html+='</div>';
+    body.innerHTML=html;
+  }
+}
+
+function choose(val){
+  var q=MATCH_QUESTIONS[idx];
+  answers[q.id]=val;
+  // visual feedback then advance
+  var opts=document.querySelectorAll('#qBody .opt');
+  for(var i=0;i<opts.length;i++) opts[i].classList.remove('sel');
+  setTimeout(next,150);
+}
+
+function finishText(){
+  var ta=document.getElementById('freeText');
+  if(ta) answers['m8_self_memo']=ta.value.trim();
+  computeAndShow();
+}
+
+function next(){
+  if(idx<TOTAL-1){ idx++; renderQ(); }
+  else { computeAndShow(); }
+}
+function prev(){ if(idx>0){ idx--; renderQ(); } }
+
+function computeAndShow(){
+  var scores=computeMatchScores(answers);
+  var result=classifyMatch(scores);
+  lastResult=result;
+  renderResult(result, scores);
+  show('screen-result');
+}
+
+/* =========================================================
+   결과 렌더
+   ========================================================= */
+function personaOf(id){ return id==='balanced'?BALANCED:MATCH_PERSONAS[id]; }
+
+function renderResult(result, scores){
+  var p=personaOf(result.primary);
+  var grad='linear-gradient(135deg,'+p.color+','+shade(p.color,-18)+')';
+
+  var comboHtml='';
+  var headline=p.headline;
+  if(result.isCombo){
+    var p2=personaOf(result.secondary);
+    comboHtml='<div class="combo">'+p2.icon+' '+p2.shortName+' 성향도 함께 가졌어요</div>';
+  }
+
+  var card=document.getElementById('resultCard');
+  var html='';
+  html+='<div class="rc-top" style="background:'+grad+'">';
+  html+='<div class="tag">나의 트레이너 궁합 유형</div>';
+  html+='<span class="emoji">'+p.icon+'</span>';
+  html+='<div class="pname">'+p.shortName+'</div>';
+  html+='<div class="pmeta">'+p.name+'</div>';
+  html+=comboHtml;
+  html+='</div>';
+  html+='<div class="rc-body">';
+  html+='<p class="headline">"'+headline+'"</p>';
+  html+='<p class="metaphor">🗣 '+p.metaphor+'</p>';
+  html+='<p class="desc">'+p.description+'</p>';
+  html+='<div class="tip"><h3>💡 나에게 맞는 코칭 팁</h3><p>'+p.coachingTip+'</p></div>';
+
+  // score bars
+  html+='<div class="scores">';
+  var order=['sparta','data','friend','silent'];
+  for(var i=0;i<order.length;i++){
+    var id=order[i]; var sp=MATCH_PERSONAS[id];
+    var v=scores.normalized[id]||0;
+    html+='<div class="score-row"><div class="lab">'+sp.icon+' '+sp.shortName+'</div>';
+    html+='<div class="track"><span style="width:'+v+'%;background:'+sp.color+'"></span></div>';
+    html+='<div class="pct">'+v+'</div></div>';
+  }
+  html+='</div>';
+  html+='<p style="font-size:11px;color:#94a3b8;text-align:center;margin-top:10px;">'+p.theory+'</p>';
+  html+='</div>';
+  card.innerHTML=html;
+
+  // CTA line
+  var ctaMap={
+    sparta:'채찍질·명확한 기준으로 끌어주는 트레이너가 딱! ',
+    friend:'따뜻하게 함께 가주는 트레이너가 딱! ',
+    data:'기록·숫자로 성장을 보여주는 트레이너가 딱! ',
+    silent:'내 페이스를 존중해주는 트레이너가 딱! ',
+    balanced:'어떤 스타일도 잘 맞춰주는 트레이너가 딱! '
+  };
+  document.getElementById('ctaLine').innerHTML=(ctaMap[result.primary]||'')+'→ 무료 상담으로 확인하세요';
+
+  // 결과 유형별 상담 버튼 문구
+  var ctaBtnMap={
+    sparta:'🔥 나를 채찍질해줄 트레이너에게 상담받기',
+    friend:'🤝 친구 같은 트레이너에게 상담받기',
+    data:'📊 데이터로 코칭하는 트레이너에게 상담받기',
+    silent:'🎧 내 페이스 존중하는 트레이너에게 상담받기',
+    balanced:'⚖️ 나에게 맞는 트레이너에게 상담받기'
+  };
+  document.getElementById('consultBtn').textContent=ctaBtnMap[result.primary]||'📞 이 유형 트레이너에게 상담받기';
+}
+
+/* =========================================================
+   공유
+   ========================================================= */
+function shareText(){
+  var p=lastResult?personaOf(lastResult.primary):null;
+  var name=p?p.shortName:'궁합 유형';
+  var icon=p?p.icon:'🏋️';
+  return "나의 트레이너 궁합 유형은 '"+name+"' "+icon+" 너는? 👉 "+SHARE_URL;
+}
+
+function shareKakao(){
+  var p=lastResult?personaOf(lastResult.primary):null;
+  try{
+    if(window.Kakao){
+      if(!Kakao.isInitialized()) Kakao.init('2cddec8893b9498426a35fd55935b6ea');
+      Kakao.Share.sendDefault({
+        objectType:'feed',
+        content:{
+          title:"트레이너 궁합검사 — 내 유형은 '"+(p?p.shortName:'?')+"' "+(p?p.icon:'🏋️'),
+          description:'30초 만에 알아보는 나의 운동 케미 유형! 너는 어떤 타입?',
+          imageUrl:OG_IMAGE,
+          link:{ mobileWebUrl:SHARE_URL, webUrl:SHARE_URL }
+        },
+        buttons:[
+          { title:'나도 테스트하기', link:{ mobileWebUrl:SHARE_URL, webUrl:SHARE_URL } },
+          { title:'무료 상담받기', link:{ mobileWebUrl:'https://naver.me/GjRIBgpf', webUrl:'https://naver.me/GjRIBgpf' } }
+        ]
+      });
+      return;
+    }
+  }catch(e){ /* fallthrough */ }
+  shareNative();
+}
+
+function shareNative(){
+  if(navigator.share){
+    navigator.share({ title:'트레이너 궁합검사', text:shareText(), url:SHARE_URL })
+      .catch(function(){});
+  } else {
+    copyLink();
+  }
+}
+
+function copyLink(){
+  var txt=shareText();
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){ toast('링크가 복사됐어요! 📋'); },
+      function(){ legacyCopy(txt); });
+  } else { legacyCopy(txt); }
+}
+function legacyCopy(txt){
+  var ta=document.createElement('textarea');
+  ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); toast('링크가 복사됐어요! 📋'); }
+  catch(e){ toast('복사에 실패했어요'); }
+  document.body.removeChild(ta);
+}
+
+/* =========================================================
+   유틸
+   ========================================================= */
+var toastTimer=null;
+function toast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){ t.classList.remove('show'); },2200);
+}
+function restart(){ answers={}; idx=0; show('screen-intro'); }
+function escapeHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function shade(hex,pct){
+  var n=parseInt(hex.slice(1),16);
+  var r=(n>>16)&255, g=(n>>8)&255, b=n&255;
+  r=Math.round(Math.min(255,Math.max(0,r+(r*pct/100))));
+  g=Math.round(Math.min(255,Math.max(0,g+(g*pct/100))));
+  b=Math.round(Math.min(255,Math.max(0,b+(b*pct/100))));
+  return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);
+}
+
+/* Kakao init on load */
+try{ if(window.Kakao && !Kakao.isInitialized()) Kakao.init('2cddec8893b9498426a35fd55935b6ea'); }catch(e){}
+
+/* =========================================================
+   트레이너 매칭 상담 (이름·연락처 → 텔레그램 영업알림)
+   ========================================================= */
+function openConsult(){
+  var p = lastResult ? personaOf(lastResult.primary) : null;
+  var pick = document.getElementById('consultPick');
+  if(p){ pick.style.display='block'; pick.innerHTML='내 유형: '+p.icon+' '+p.shortName; }
+  else { pick.style.display='none'; }
+  document.getElementById('consultForm').style.display='block';
+  document.getElementById('consultDone').style.display='none';
+  document.getElementById('consultOv').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeConsult(){
+  document.getElementById('consultOv').classList.remove('on');
+  document.body.style.overflow='';
+}
+document.getElementById('cPhone').addEventListener('input',function(e){
+  var v=e.target.value.replace(/\D/g,'').slice(0,11);
+  if(v.length>7) v=v.slice(0,3)+'-'+v.slice(3,7)+'-'+v.slice(7);
+  else if(v.length>3) v=v.slice(0,3)+'-'+v.slice(3);
+  e.target.value=v;
+});
+function submitConsult(){
+  var name=document.getElementById('cName').value.trim();
+  var phone=document.getElementById('cPhone').value.trim();
+  var digits=phone.replace(/\D/g,'');
+  if(!name){ alert('이름을 입력해주세요.'); return; }
+  if(digits.length<10){ alert('연락처를 정확히 입력해주세요.'); return; }
+
+  var btn=document.getElementById('cSubmit');
+  btn.disabled=true; btn.textContent='전송 중...';
+
+  var p = lastResult ? personaOf(lastResult.primary) : null;
+  var E = window.NONAME_TG.esc;
+
+  /* 문항별 선택 답변 */
+  var qa='';
+  for(var qi=0; qi<MATCH_QUESTIONS.length; qi++){
+    var q=MATCH_QUESTIONS[qi];
+    if(!q.options) continue;
+    var av=answers[q.id], opt=null;
+    for(var oi=0; oi<q.options.length; oi++){ if(q.options[oi].value===av){ opt=q.options[oi]; break; } }
+    var picked = opt ? ((opt.icon?opt.icon+' ':'')+opt.label) : '미응답';
+    qa += (qi+1)+'. '+E(q.question)+'\n   → '+E(picked)+'\n';
+  }
+
+  var msg = '🤝 <b>트레이너 궁합 상담신청</b>\n\n'
+    + '👤 <b>이름:</b> '+E(name)+'\n'
+    + '📞 <b>연락처:</b> '+E(phone)+'\n'
+    + '🧬 <b>궁합 유형:</b> '+(p ? p.icon+' '+E(p.shortName)+' ('+E(p.name)+')' : '미정')+'\n'
+    + '🎯 <b>맞는 코칭:</b> '+(p ? E(p.coachingTip) : '-')+'\n'
+    + '🕒 <b>신청 시각:</b> '+window.NONAME_TG.now()+'\n\n'
+    + '— <b>응답 내역</b> —\n'+qa;
+
+  window.NONAME_TG.send(msg).then(function(){
+    document.getElementById('consultForm').style.display='none';
+    document.getElementById('consultDone').style.display='block';
+    btn.disabled=false; btn.textContent='신청하기';
+    document.getElementById('cName').value=''; document.getElementById('cPhone').value='';
+  }).catch(function(){
+    alert('전송에 실패했어요. 전화(041-557-9291)로 문의해주세요.');
+    btn.disabled=false; btn.textContent='신청하기';
+  });
+}
+</script>
+</body>
+</html>
