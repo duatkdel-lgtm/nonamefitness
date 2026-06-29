@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===================================
     // Quick Consult Modal
     // ===================================
-    const WEBHOOK_URL = 'https://hook.eu2.make.com/lnb1y5o2v9a7pcd1uow4umptxax9jg70';
+    // 상담신청 → 텔레그램 전송은 js/telegram.js의 NONAME_TG 헬퍼 사용
 
     const consultBtn = document.getElementById('quickConsultBtn');
     const consultModal = document.getElementById('consultModal');
@@ -367,27 +367,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!phone || phone.replace(/\D/g, '').length < 10) { alert('연락처를 정확히 입력해주세요.'); return; }
         if (programs.length === 0) { alert('관심 프로그램을 선택해주세요.'); return; }
 
-        const data = {
-            name,
-            programs,
-            phone,
-            goal: goal.length > 0 ? goal : ['미선택'],
-            timestamp: new Date().toISOString()
-        };
+        const goalList = goal.length > 0 ? goal.join(', ') : '미선택';
+        const E = window.NONAME_TG.esc;
+
+        const message =
+            '🔔 <b>홈페이지 상담 신청</b>\n\n' +
+            '👤 <b>성함:</b> ' + E(name) + '\n' +
+            '📞 <b>연락처:</b> ' + E(phone) + '\n' +
+            '🏋️ <b>관심 프로그램:</b> ' + E(programs.join(', ')) + '\n' +
+            '🎯 <b>운동 목표:</b> ' + E(goalList) + '\n' +
+            '🕒 <b>신청 시각:</b> ' + window.NONAME_TG.now();
 
         consultSubmit.disabled = true;
         consultSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 전송 중...';
 
         try {
-            if (WEBHOOK_URL) {
-                await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-            } else {
-                console.log('상담 신청 데이터:', data);
-            }
+            await window.NONAME_TG.send(message);
 
             consultSubmit.innerHTML = '<i class="fas fa-check"></i> 신청 완료!';
             consultSubmit.classList.add('success');
@@ -401,7 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 2000);
 
         } catch (err) {
-            console.error('웹훅 전송 실패:', err);
+            console.error('텔레그램 전송 실패:', err);
             consultSubmit.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 전송 실패';
             setTimeout(() => {
                 consultSubmit.disabled = false;

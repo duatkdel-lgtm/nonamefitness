@@ -637,7 +637,6 @@
         <div class="partner-tags">
             <span class="partner-tag">🥗 샐러드가든</span>
             <span class="partner-tag">🥁 제이와이드럼</span>
-            <span class="partner-tag">✂️ 엠제이바버샾</span>
             <span class="partner-tag">🚗 내차애 카워시</span>
         </div>
     </div>
@@ -890,24 +889,16 @@ function submitPartnerForm(){
     btn.disabled=true;
     btn.textContent='전송 중...';
 
-    var data={
-        bizName:bizName,
-        name:name,
-        phone:phone,
-        category:category||'미입력',
-        message:message||'없음',
-        source:'partnership_page',
-        timestamp:new Date().toLocaleString('ko-KR',{timeZone:'Asia/Seoul'}),
-        smsTo:'01053909291',
-        smsFrom:'01057939291',
-        smsBody:'[노네임피트니스] 사업자 제휴 신청\\n업체: '+bizName+'\\n담당자: '+name+'\\n연락처: '+phone+'\\n업종: '+(category||'미입력')
-    };
+    var E=window.NONAME_TG.esc;
+    var tgMessage='🤝 <b>사업자 제휴 신청</b>\n\n'+
+        '🏢 <b>업체명:</b> '+E(bizName)+'\n'+
+        '👤 <b>담당자:</b> '+E(name)+'\n'+
+        '📞 <b>연락처:</b> '+E(phone)+'\n'+
+        '🏷️ <b>업종:</b> '+E(category||'미입력')+'\n'+
+        '📝 <b>내용:</b> '+E(message||'없음')+'\n'+
+        '🕒 <b>신청 시각:</b> '+window.NONAME_TG.now();
 
-    fetch('https://hook.eu2.make.com/jo716cek16bqswwvten9482le5lfr4xq',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(data)
-    }).then(function(){
+    window.NONAME_TG.send(tgMessage).then(function(){
         document.getElementById('partnerFormWrap').style.display='none';
         document.getElementById('partnerResult').classList.add('show');
         if(typeof gtag==='function'){
@@ -1007,6 +998,7 @@ function submitPartnerForm(){
     circles.forEach(function(el){circleObs.observe(el);});
 })();
 </script>
+<script src="js/telegram.js?v=20260629"></script>
 <script src="js/kakao-share.js"></script>
 <script src="js/ga-events.js"></script>
 
