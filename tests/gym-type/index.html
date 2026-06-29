@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>헬스인 유형 테스트 (헬스 MBTI) | 노네임피트니스</title>
+<meta name="description" content="30초면 끝! 8문항으로 알아보는 나의 헬스인 유형. 헬창? 헬린이? 인스타워리어? 천안 두정동 노네임피트니스가 만든 헬스 MBTI 테스트.">
+
+<!-- OG / SNS -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="헬스인 유형 테스트 (헬스 MBTI) | 노네임피트니스">
+<meta property="og:description" content="30초면 끝! 나는 어떤 헬스인 유형일까? 8문항으로 알아보는 헬스 MBTI. 친구랑 같이 해봐요 💪">
+<meta property="og:image" content="https://nonamefitness.co.kr/images/og-gymtype.jpeg">
+<meta property="og:url" content="https://nonamefitness.co.kr/tests/gym-type/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="헬스인 유형 테스트 (헬스 MBTI) | 노네임피트니스">
+<meta name="twitter:description" content="30초면 끝! 나는 어떤 헬스인 유형일까? 8문항 헬스 MBTI 테스트.">
+<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-gymtype.jpeg">
+
+<!-- Pretendard CDN -->
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
+<style>
+  :root{
+    --green:#16A34A;
+    --green2:#22C55E;
+    --ink:#0f172a;
+    --muted:#64748b;
+    --bg:#f1f5f9;
+    --card:#ffffff;
+    --line:#e2e8f0;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;}
+  .wrap{
+    max-width:520px;
+    margin:0 auto;
+    padding:18px 16px 48px;
+    min-height:100vh;
+  }
+
+  /* ===== 공통 ===== */
+  .badge{
+    display:inline-block;
+    background:rgba(22,163,74,.1);
+    color:var(--green);
+    font-weight:700;
+    font-size:13px;
+    padding:6px 12px;
+    border-radius:999px;
+  }
+  .btn{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    width:100%;
+    min-height:54px;
+    border:none;
+    border-radius:14px;
+    font-family:inherit;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform .08s ease, filter .15s ease;
+  }
+  .btn:active{transform:scale(.98);}
+  .btn-primary{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;box-shadow:0 8px 20px rgba(22,163,74,.28);}
+  .btn-line{background:#fff;color:var(--ink);border:1.5px solid var(--line);}
+  .btn-kakao{background:#FEE500;color:#191600;}
+  .btn-sub{background:#0f172a;color:#fff;}
+  .btn-naver{background:#03C75A;color:#fff;}
+
+  /* ===== 인트로 ===== */
+  .screen{display:none;}
+  .screen.active{display:block;animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+  .intro{
+    text-align:center;
+    background:var(--card);
+    border-radius:24px;
+    padding:40px 22px 34px;
+    margin-top:18px;
+    box-shadow:0 12px 30px rgba(15,23,42,.06);
+  }
+  .intro .emojis{font-size:46px;letter-spacing:2px;margin:10px 0 6px;}
+  .intro h1{font-size:27px;line-height:1.3;margin:14px 0 8px;font-weight:800;}
+  .intro h1 .hl{color:var(--green);}
+  .intro p.hook{color:var(--muted);font-size:15px;margin:0 0 4px;}
+  .intro .time{font-size:13px;color:var(--green);font-weight:700;margin:14px 0 22px;}
+  .brandline{margin-top:18px;font-size:12px;color:var(--muted);}
+
+  /* ===== 진행바 ===== */
+  .progress-head{display:flex;align-items:center;justify-content:space-between;margin:6px 2px 14px;}
+  .progress-head .q-count{font-size:13px;font-weight:700;color:var(--green);}
+  .progress-head .logo{font-size:13px;font-weight:800;color:var(--ink);opacity:.55;}
+  .bar{height:8px;background:#e2e8f0;border-radius:999px;overflow:hidden;}
+  .bar > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--green2));border-radius:999px;transition:width .35s ease;}
+
+  /* ===== 문항 ===== */
+  .q-card{background:var(--card);border-radius:22px;padding:26px 20px 22px;margin-top:16px;box-shadow:0 10px 26px rgba(15,23,42,.06);}
+  .q-card .q-num{font-size:14px;color:var(--green);font-weight:800;}
+  .q-card h2{font-size:21px;line-height:1.4;margin:6px 0 20px;font-weight:800;}
+  .options{display:flex;flex-direction:column;gap:11px;}
+  .opt{
+    display:flex;align-items:center;gap:12px;
+    width:100%;
+    min-height:60px;
+    text-align:left;
+    background:#fff;
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:12px 14px;
+    font-family:inherit;
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--ink);
+    cursor:pointer;
+    transition:border-color .12s ease, background .12s ease, transform .08s ease;
+  }
+  .opt:hover{border-color:var(--green2);}
+  .opt:active{transform:scale(.98);}
+  .opt .ic{font-size:24px;flex-shrink:0;width:30px;text-align:center;}
+  .nav-row{margin-top:18px;}
+  .btn-prev{background:transparent;color:var(--muted);min-height:44px;font-size:14px;}
+
+  /* ===== 결과 ===== */
+  .result-card{
+    border-radius:26px;
+    padding:34px 22px 30px;
+    color:#fff;
+    text-align:center;
+    margin-top:8px;
+    box-shadow:0 16px 40px rgba(15,23,42,.18);
+    position:relative;
+    overflow:hidden;
+  }
+  .result-card::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 80% -10%, rgba(255,255,255,.25), transparent 55%);
+    pointer-events:none;
+  }
+  .result-card .r-label{font-size:13px;font-weight:700;opacity:.9;letter-spacing:1px;}
+  .result-card .r-emoji{font-size:80px;line-height:1;margin:12px 0 6px;}
+  .result-card .r-name{font-size:30px;font-weight:800;margin:6px 0 2px;}
+  .result-card .r-tag{display:inline-block;font-size:13px;font-weight:700;background:rgba(255,255,255,.22);padding:5px 12px;border-radius:999px;margin-top:8px;}
+  .result-card .r-desc{font-size:15px;line-height:1.65;margin:18px auto 0;max-width:330px;opacity:.97;}
+  .r-box{background:rgba(255,255,255,.16);border-radius:14px;padding:13px 15px;margin:16px auto 0;text-align:left;max-width:340px;font-size:14px;}
+  .r-box b{display:block;font-size:12px;opacity:.85;margin-bottom:3px;font-weight:700;}
+  .r-box.reco b{color:#fff;}
+  .r-watermark{margin-top:18px;font-size:12px;opacity:.8;font-weight:700;}
+
+  .share-title{text-align:center;font-weight:800;font-size:16px;margin:26px 0 12px;}
+  .share-row{display:flex;gap:10px;}
+  .share-row .btn{font-size:14px;min-height:50px;}
+  .cta-stack{display:flex;flex-direction:column;gap:11px;margin-top:14px;}
+  .restart-row{display:flex;gap:10px;margin-top:14px;}
+  .restart-row .btn{font-size:14px;min-height:48px;}
+
+  /* 토스트 */
+  .toast{
+    position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);
+    background:#0f172a;color:#fff;padding:13px 22px;border-radius:999px;
+    font-size:14px;font-weight:700;opacity:0;pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease;z-index:99;
+    box-shadow:0 8px 24px rgba(0,0,0,.3);
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;line-height:1.7;}
+  .footer a{color:var(--green);text-decoration:none;font-weight:700;}
+</style>
+</head>
+<body>
+<a href="/tests/" class="quiz-exit" aria-label="테스트 나가기" title="나가기">✕</a>
+<style>
+.quiz-exit{position:fixed;top:14px;right:14px;z-index:99999;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.32);color:#fff;font-size:18px;line-height:1;text-decoration:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:transform .12s ease;}
+.quiz-exit:active{transform:scale(.92);}
+</style>
+<div class="wrap">
+
+  <!-- ===== 1. 인트로 ===== -->
+  <section class="screen active" id="intro">
+    <div class="intro">
+      <span class="badge">🏋️ 헬스 MBTI</span>
+      <div class="emojis">🦍🐣🤳🏠</div>
+      <h1>나는 어떤 <span class="hl">헬스인</span>일까?</h1>
+      <p class="hook">단백질부터 거울셀카까지, 8가지 질문으로 알아보는<br>나의 진짜 운동 성격 유형.</p>
+      <p class="time">⏱️ 딱 30초면 끝 · 결과 8종</p>
+      <button class="btn btn-primary" id="startBtn">시작하기 💪</button>
+      <p class="brandline">노네임피트니스 천안두정점이 만든 헬스인 유형 테스트</p>
+    </div>
+  </section>
+
+  <!-- ===== 2. 문항 ===== -->
+  <section class="screen" id="quiz">
+    <div class="progress-head">
+      <span class="q-count"><span id="curNum">1</span> / <span id="totNum">8</span></span>
+      <span class="logo">NONAME FITNESS</span>
+    </div>
+    <div class="bar"><i id="barFill"></i></div>
+
+    <div class="q-card">
+      <div class="q-num" id="qNum">Q1.</div>
+      <h2 id="qText">질문</h2>
+      <div class="options" id="options"></div>
+      <div class="nav-row">
+        <button class="btn btn-prev" id="prevBtn">← 이전 질문</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3. 결과 ===== -->
+  <section class="screen" id="result">
+    <div id="friendBox" style="display:none;text-align:center;margin:6px 0 14px;">
+      <span class="badge">👀 친구가 보낸 결과예요</span>
+      <button class="btn btn-primary" id="meTooBtn" style="margin-top:12px;">🙋 나도 테스트하기</button>
+    </div>
+    <div class="result-card" id="resultCard">
+      <div class="r-label">나의 헬스인 유형은</div>
+      <div class="r-emoji" id="rEmoji">🦍</div>
+      <div class="r-name" id="rName">유형명</div>
+      <div class="r-tag" id="rTag">#태그</div>
+      <p class="r-desc" id="rDesc">설명</p>
+      <div class="r-box"><b>⚠️ 이런 점 주의</b><span id="rWarn">주의</span></div>
+      <div class="r-box reco"><b>🎯 추천 프로그램</b><span id="rReco">추천</span></div>
+      <div class="r-watermark">nonamefitness.co.kr · 헬스 MBTI</div>
+    </div>
+
+    <div class="share-title">친구한테 자랑하기 🔗</div>
+    <div class="share-row">
+      <button class="btn btn-kakao" id="kakaoBtn">💬 카톡</button>
+      <button class="btn btn-sub" id="shareBtn">📤 공유</button>
+      <button class="btn btn-line" id="copyBtn">🔗 링크복사</button>
+    </div>
+
+    <div class="cta-stack">
+      <a class="btn btn-naver" href="https://naver.me/GjRIBgpf" target="_blank" rel="noopener">📞 무료 상담 받기 (네이버 예약)</a>
+      <a class="btn btn-primary" href="https://my-trainer-app.vercel.app" target="_blank" rel="noopener">📱 마이트레이너 앱 보기</a>
+    </div>
+
+    <div class="restart-row">
+      <button class="btn btn-line" id="restartBtn">🔄 다시 하기</button>
+      <a class="btn btn-line" href="/tests/">🧩 다른 테스트</a>
+    </div>
+
+    <div class="footer">
+      노네임피트니스 천안두정점 · <a href="tel:041-557-9291">041-557-9291</a><br>
+      <a href="https://nonamefitness.co.kr">nonamefitness.co.kr</a>
+    </div>
+  </section>
+
+</div>
+
+<div class="toast" id="toast">링크가 복사됐어요! 📋</div>
+
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  /* ===== 유형 정의 (동점 시 priority 낮은 번호 우선) ===== */
+  var TYPES = {
+    gymrat:   {key:"gymrat",   priority:1, emoji:"🦍", name:"헬창 고릴라", tag:"#운동이 인생 #쉬는날이 불안", color:"linear-gradient(135deg,#16A34A,#15803d)",
+      desc:"헬스장이 곧 집. 휴관일이 제일 무서운 진성 헬창. 무게는 곧 자존심, 펌핑은 곧 행복이죠.",
+      warn:"과훈련 주의! 회복도 운동의 일부예요. 가끔은 어깨도 좀 쉬게 해주세요.",
+      reco:"한계를 더 끌어올리고 싶다면 → 무제한 PT로 디테일 폼·고중량 안전하게 공략!"},
+    newbie:   {key:"newbie",   priority:2, emoji:"🐣", name:"갓 부화한 헬린이", tag:"#기구사용법 검색 #설렘 가득", color:"linear-gradient(135deg,#22C55E,#16A34A)",
+      desc:"이제 막 운동에 입문한 새내기. 기구 앞에서 잠깐 멈칫하지만 그 열정만큼은 누구보다 뜨거워요!",
+      warn:"혼자 유튜브만 보다 다치기 쉬워요. 처음 폼 잡을 때가 평생 갑니다.",
+      reco:"기초부터 제대로! → PT로 운동 자세 한 번에 잡고 빠르게 레벨업하세요."},
+    insta:    {key:"insta",    priority:3, emoji:"🤳", name:"인스타 워리어", tag:"#오운완 #거울셀카 장인", color:"linear-gradient(135deg,#10b981,#059669)",
+      desc:"운동 30%, 인증샷 70%? 오운완 스토리는 못 참지. 핏 좋은 운동복과 조명 맛집 거울이 무기예요.",
+      warn:"폰 들고 있는 시간 > 운동 시간이 되지 않게! 세트 사이 휴식은 핸드폰 금지 챌린지.",
+      reco:"비포애프터 제대로 남기고 싶다면 → 무제한 PT로 눈에 띄는 바디 체인지!"},
+    home:     {key:"home",     priority:4, emoji:"🏠", name:"홈트파 집사", tag:"#내 방이 헬스장 #요가매트 한 장", color:"linear-gradient(135deg,#0ea5e9,#0284c7)",
+      desc:"굳이 나가야 해? 매트 한 장이면 충분한 효율러. 하지만 가끔은 묵직한 쇠질이 그립기도 하죠.",
+      warn:"집은 유혹의 공간… 침대와 1m 거리에서 의지력 테스트 매번 통과하긴 힘들어요.",
+      reco:"환경을 바꾸면 의지가 생겨요 → 부담 없는 헬스 회원권으로 진짜 장비 경험!"},
+    quitter:  {key:"quitter",  priority:5, emoji:"🔥", name:"작심삼일 불꽃러", tag:"#이번엔 진짜 #등록만 N번째", color:"linear-gradient(135deg,#f97316,#ea580c)",
+      desc:"시작할 땐 누구보다 뜨겁다가 3일 뒤 스르륵. 결제할 때 의지력은 헬창급, 출석은 게스트급.",
+      warn:"동기부여만으론 못 버텨요. 빠질 수 없는 '강제 시스템'이 필요한 타입.",
+      reco:"의지가 약하면 약속을 만들어요 → PT 예약으로 '안 가면 손해' 시스템 장착!"},
+    spinner:  {key:"spinner",  priority:6, emoji:"🚴", name:"스피닝 킹/퀸", tag:"#땀이 곧 보람 #음악에 미쳐", color:"linear-gradient(135deg,#a855f7,#7c3aed)",
+      desc:"신나는 비트 위에서 땀으로 샤워하는 게 제맛! 혼자보다 다 같이 불태우는 그룹 에너지에 진심.",
+      warn:"유산소만 사랑하면 근육이 서운해해요. 가끔은 쇠질로 균형도 맞춰주세요.",
+      reco:"신나게 태우고 싶다면 → 스피닝 클래스로 칼로리 폭파 + 스트레스 해방!"},
+    data:     {key:"data",     priority:7, emoji:"📊", name:"데이터광 분석러", tag:"#1RM 엑셀 정리 #그램 단위 계량", color:"linear-gradient(135deg,#475569,#1e293b)",
+      desc:"운동도 숫자로 증명. 볼륨·세트·단백질 그램까지 기록하는 갓생 스프레드시트 마스터.",
+      warn:"숫자에 갇히면 재미를 놓쳐요. 데이터 말고 몸의 신호도 가끔 들어주세요.",
+      reco:"기록을 손쉽게! → 마이트레이너 앱으로 운동·식단 데이터 한 곳에서 관리."},
+    earlybird:{key:"earlybird",priority:8, emoji:"🌅", name:"갓생 새벽러", tag:"#오전 6시 출석 #미라클 모닝", color:"linear-gradient(135deg,#f59e0b,#d97706)",
+      desc:"남들 잘 때 이미 운동 끝. 새벽 공기 마시며 하루를 여는 자기관리 끝판왕이에요.",
+      warn:"수면 부족은 근손실의 지름길! 일찍 일어난 만큼 일찍 자야 갓생도 지속돼요.",
+      reco:"꾸준함엔 루틴이 답 → 무제한 PT로 새벽 루틴까지 완벽하게 설계하세요."}
+  };
+
+  /* ===== 8문항 (각 선택지 = 유형별 가중치) ===== */
+  var QUESTIONS = [
+    { q:"운동하러 갈 때 가장 먼저 챙기는 건?",
+      opts:[
+        {ic:"🎧", t:"고막 터지는 운동 플레이리스트", w:{spinner:3, gymrat:1}},
+        {ic:"🤳", t:"풀충전된 폰 (인증샷용)", w:{insta:3}},
+        {ic:"📱", t:"운동 기록 앱부터 체크", w:{data:3, earlybird:1}},
+        {ic:"😶", t:"오늘 갈지 말지 고민 중…", w:{quitter:3, home:1}}
+      ]},
+    { q:"헬스장 도착! 당신의 첫 동선은?",
+      opts:[
+        {ic:"🏋️", t:"바로 프리웨이트 존 직진", w:{gymrat:3}},
+        {ic:"🚴", t:"그룹 운동·유산소 룸으로", w:{spinner:3}},
+        {ic:"👀", t:"기구 사용법 검색하며 두리번", w:{newbie:3}},
+        {ic:"🪞", t:"거울 앞에서 컨디션 점검", w:{insta:2, data:1}}
+      ]},
+    { q:"오늘 운동 안 가고 싶은 날, 당신은?",
+      opts:[
+        {ic:"💢", t:"안 가면 죄책감에 잠 못 잠", w:{gymrat:3, earlybird:1}},
+        {ic:"🏠", t:"그냥 집에서 매트 깔고 홈트", w:{home:3}},
+        {ic:"🛏️", t:"\"내일부터 진짜…\" 하고 눕기", w:{quitter:3}},
+        {ic:"📅", t:"계획표에 있으면 무조건 간다", w:{data:2, earlybird:2}}
+      ]},
+    { q:"단백질, 당신에게 어떤 의미?",
+      opts:[
+        {ic:"🥩", t:"하루 단백질 g수는 외우고 있음", w:{data:3, gymrat:1}},
+        {ic:"🍗", t:"닭가슴살은 그냥 일상 식단", w:{gymrat:2, earlybird:1}},
+        {ic:"🥤", t:"보충제? 일단 사긴 샀는데…", w:{quitter:2, newbie:2}},
+        {ic:"🍕", t:"운동했으니 치팅데이 정당!", w:{insta:2, spinner:1}}
+      ]},
+    { q:"운동 끝! 마무리 루틴은?",
+      opts:[
+        {ic:"📸", t:"오운완 인증샷·스토리 업로드", w:{insta:3}},
+        {ic:"📝", t:"앱에 오늘 볼륨·기록 입력", w:{data:3}},
+        {ic:"🔥", t:"못 끝낸 부위 추가로 더!", w:{gymrat:3}},
+        {ic:"💦", t:"땀 쫙 뺐으니 개운하게 샤워", w:{spinner:2, earlybird:1}}
+      ]},
+    { q:"이상적인 운동 시간대는?",
+      opts:[
+        {ic:"🌅", t:"새벽 5~6시, 하루를 운동으로", w:{earlybird:3}},
+        {ic:"🌙", t:"퇴근 후 늦은 밤이 집중 잘 됨", w:{gymrat:1, data:1, home:1}},
+        {ic:"🎶", t:"클래스 시간표 맞춰서", w:{spinner:3}},
+        {ic:"🤔", t:"시간 정해두면 더 안 가게 됨", w:{quitter:3, home:1}}
+      ]},
+    { q:"새 운동복을 살 때 기준은?",
+      opts:[
+        {ic:"😎", t:"핏과 색감! 사진 잘 나와야지", w:{insta:3}},
+        {ic:"💪", t:"고중량에도 안 찢어지는 기능성", w:{gymrat:2, data:1}},
+        {ic:"🧘", t:"집에서도 편한 만능 한 벌", w:{home:3}},
+        {ic:"🆕", t:"\"새 옷 사면 동기부여 되겠지\"", w:{newbie:2, quitter:2}}
+      ]},
+    { q:"운동 목표를 한 마디로 표현하면?",
+      opts:[
+        {ic:"🦍", t:"더 무겁게, 더 크게, 한계 돌파", w:{gymrat:3}},
+        {ic:"✨", t:"눈에 띄는 바디 체인지", w:{insta:2, data:1}},
+        {ic:"🌱", t:"일단 운동이랑 친해지기", w:{newbie:3}},
+        {ic:"🧘‍♀️", t:"스트레스 풀고 건강하게", w:{spinner:2, home:1, earlybird:1}}
+      ]}
+  ];
+
+  /* ===== 상태 ===== */
+  var TOTAL = QUESTIONS.length;
+  var current = 0;
+  var answers = new Array(TOTAL).fill(null); // 선택한 opt index
+
+  var $ = function(id){ return document.getElementById(id); };
+  var screens = { intro:$("intro"), quiz:$("quiz"), result:$("result") };
+  function show(name){
+    Object.keys(screens).forEach(function(k){ screens[k].classList.toggle("active", k===name); });
+    window.scrollTo(0,0);
+  }
+
+  $("totNum").textContent = TOTAL;
+
+  /* ===== 렌더 문항 ===== */
+  function renderQuestion(){
+    var Q = QUESTIONS[current];
+    $("curNum").textContent = current+1;
+    $("qNum").textContent = "Q"+(current+1)+".";
+    $("qText").textContent = Q.q;
+    $("barFill").style.width = ((current)/TOTAL*100)+"%";
+    $("prevBtn").style.visibility = current===0 ? "hidden" : "visible";
+
+    var box = $("options");
+    box.innerHTML = "";
+    Q.opts.forEach(function(o, i){
+      var b = document.createElement("button");
+      b.className = "opt";
+      b.type = "button";
+      b.innerHTML = '<span class="ic">'+o.ic+'</span><span>'+o.t+'</span>';
+      if(answers[current]===i){ b.style.borderColor="var(--green)"; b.style.background="rgba(22,163,74,.06)"; }
+      b.addEventListener("click", function(){ choose(i); });
+      box.appendChild(b);
+    });
+  }
+
+  function choose(i){
+    answers[current] = i;
+    // 진행바 살짝 채워주기
+    $("barFill").style.width = ((current+1)/TOTAL*100)+"%";
+    setTimeout(function(){
+      if(current < TOTAL-1){ current++; renderQuestion(); }
+      else { computeResult(); }
+    }, 180);
+  }
+
+  $("prevBtn").addEventListener("click", function(){
+    if(current>0){ current--; renderQuestion(); }
+  });
+
+  /* ===== 결과 계산 ===== */
+  function computeResult(){
+    var score = {};
+    Object.keys(TYPES).forEach(function(k){ score[k]=0; });
+    answers.forEach(function(ai, qi){
+      if(ai===null) return;
+      var w = QUESTIONS[qi].opts[ai].w;
+      for(var k in w){ score[k] += w[k]; }
+    });
+    // 최고점, 동점 시 priority 낮은 값 우선
+    var best=null, bestScore=-1;
+    Object.keys(TYPES).forEach(function(k){
+      var s = score[k];
+      if(s>bestScore || (s===bestScore && best && TYPES[k].priority < TYPES[best].priority)){
+        bestScore=s; best=k;
+      }
+    });
+    renderResult(TYPES[best]);
+  }
+
+  var resultName = "";
+  var resultKey = "";
+  function renderResult(t){
+    resultName = t.name;
+    resultKey = t.key;
+    $("rEmoji").textContent = t.emoji;
+    $("rName").textContent = t.name;
+    $("rTag").textContent = t.tag;
+    $("rDesc").textContent = t.desc;
+    $("rWarn").textContent = t.warn;
+    $("rReco").textContent = t.reco;
+    $("resultCard").style.background = t.color;
+    show("result");
+  }
+
+  /* ===== 인트로/재시작 ===== */
+  function startFresh(){
+    $("friendBox").style.display = "none";
+    current=0; answers=new Array(TOTAL).fill(null);
+    renderQuestion(); show("quiz");
+  }
+  $("startBtn").addEventListener("click", startFresh);
+  $("restartBtn").addEventListener("click", startFresh);
+  $("meTooBtn").addEventListener("click", function(){
+    $("friendBox").style.display = "none";
+    show("intro");
+  });
+
+  /* ===== 공유 ===== */
+  var PAGE_URL = "https://nonamefitness.co.kr/tests/gym-type/";
+  var OG_IMG = "https://nonamefitness.co.kr/images/og-gymtype.jpeg";
+  function shareUrl(){
+    return resultKey ? PAGE_URL+"?r="+resultKey : PAGE_URL;
+  }
+  function shareImg(){
+    return resultKey ? "https://nonamefitness.co.kr/images/og-gymtype-"+resultKey+".jpeg" : OG_IMG;
+  }
+  function shareText(){
+    return "나의 헬스인 유형은 '"+resultName+"' 💪 너는 어떤 유형? 👉 "+shareUrl();
+  }
+
+  // 토스트
+  function toast(msg){
+    var el=$("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(el._t);
+    el._t = setTimeout(function(){ el.classList.remove("show"); }, 2000);
+  }
+
+  // 카카오 SDK
+  var kakaoReady=false;
+  try{
+    if(window.Kakao && !window.Kakao.isInitialized()){
+      window.Kakao.init('2cddec8893b9498426a35fd55935b6ea');
+    }
+    kakaoReady = !!(window.Kakao && window.Kakao.isInitialized());
+  }catch(e){ kakaoReady=false; }
+
+  function nativeShare(){
+    if(navigator.share){
+      navigator.share({ title:"헬스인 유형 테스트", text:shareText(), url:shareUrl() }).catch(function(){});
+    } else {
+      copyLink();
+    }
+  }
+
+  $("kakaoBtn").addEventListener("click", function(){
+    try{
+      if(kakaoReady && window.Kakao.Share){
+        window.Kakao.Share.sendDefault({
+          objectType:"feed",
+          content:{
+            title:"나의 헬스인 유형은 '"+resultName+"' 💪",
+            description:"30초 헬스 MBTI 테스트 — 너는 어떤 유형이야? 지금 바로 해보기!",
+            imageUrl:shareImg(),
+            link:{ mobileWebUrl:shareUrl(), webUrl:shareUrl() }
+          },
+          buttons:[{ title:"나도 테스트하기", link:{ mobileWebUrl:PAGE_URL, webUrl:PAGE_URL } }]
+        });
+      } else {
+        nativeShare();
+      }
+    }catch(e){ nativeShare(); }
+  });
+
+  $("shareBtn").addEventListener("click", nativeShare);
+
+  function copyLink(){
+    var text = shareText();
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ toast("링크가 복사됐어요! 📋"); })
+        .catch(function(){ legacyCopy(text); });
+    } else { legacyCopy(text); }
+  }
+  function legacyCopy(text){
+    try{
+      var ta=document.createElement("textarea");
+      ta.value=text; ta.style.position="fixed"; ta.style.opacity="0";
+      document.body.appendChild(ta); ta.select();
+      document.execCommand("copy"); document.body.removeChild(ta);
+      toast("링크가 복사됐어요! 📋");
+    }catch(e){ toast("복사에 실패했어요 😢"); }
+  }
+  $("copyBtn").addEventListener("click", copyLink);
+
+  /* ===== 딥링크: ?r=<key> 면 결과 바로 표시 ===== */
+  (function initDeepLink(){
+    var r;
+    try{ r = new URLSearchParams(window.location.search).get("r"); }catch(e){ r = null; }
+    if(r && TYPES[r]){
+      $("friendBox").style.display = "block";
+      renderResult(TYPES[r]);
+    }
+  })();
+
+})();
+</script>
+</body>
+</html>

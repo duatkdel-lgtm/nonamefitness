@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>결정사 — 나에게 맞는 운동 찾기 | 노네임피트니스</title>
+<meta name="description" content="뭘 할지 모르겠다면? 결정사가 정해드립니다. 7문항으로 무제한PT·프리미엄PT·스피닝·일반헬스 중 나에게 딱 맞는 프로그램을 추천해드려요. 노네임피트니스 천안두정점.">
+
+<!-- OG / Twitter -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="결정사 — 나에게 맞는 운동 찾기 | 노네임피트니스">
+<meta property="og:description" content="운동 시작하고 싶은데 뭘 할지 모르겠다면? 결정사가 7문항으로 딱 맞는 프로그램을 정해드립니다.">
+<meta property="og:image" content="https://nonamefitness.co.kr/images/og-decision.jpeg">
+<meta property="og:url" content="https://nonamefitness.co.kr/tests/decision/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="결정사 — 나에게 맞는 운동 찾기 | 노네임피트니스">
+<meta name="twitter:description" content="뭘 할지 모르겠다면? 결정사가 정해드립니다.">
+<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-decision.jpeg">
+
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
+<style>
+  :root{
+    --green:#16A34A;
+    --green2:#22C55E;
+    --ink:#0f1720;
+    --muted:#64748b;
+    --bg:#f6f8f7;
+    --card:#ffffff;
+    --line:#e6ebe8;
+    --shadow:0 10px 30px rgba(15,23,32,.08);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+    max-width:100%;
+    overflow-x:hidden;
+  }
+  .wrap{
+    max-width:480px;
+    margin:0 auto;
+    min-height:100vh;
+    min-height:100dvh;
+    padding:20px 18px 40px;
+    display:flex;
+    flex-direction:column;
+  }
+  .brand{
+    display:flex;align-items:center;gap:8px;
+    font-weight:800;font-size:15px;color:var(--green);
+    margin-bottom:14px;
+  }
+  .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--green2);}
+
+  /* ====== SCREENS ====== */
+  .screen{display:none;animation:fade .35s ease;}
+  .screen.active{display:flex;flex-direction:column;flex:1;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ====== INTRO ====== */
+  .intro{justify-content:center;text-align:center;gap:6px;}
+  .intro .emoji{font-size:64px;line-height:1;margin-bottom:6px;}
+  .intro h1{font-size:28px;font-weight:900;margin:6px 0;letter-spacing:-.5px;}
+  .intro h1 .hl{color:var(--green);}
+  .intro .hook{font-size:16px;color:var(--muted);margin:4px 0 2px;}
+  .badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:16px 0 4px;}
+  .badge{
+    background:#eafaf0;color:var(--green);border:1px solid #c9efd7;
+    font-size:13px;font-weight:700;padding:7px 12px;border-radius:999px;
+  }
+  .theory{font-size:12px;color:#94a3b8;margin-top:10px;}
+
+  /* ====== PROGRESS ====== */
+  .topbar{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+  .back-btn{
+    border:none;background:#eef2f0;color:#475569;font-weight:700;
+    width:38px;height:38px;min-height:38px;border-radius:10px;cursor:pointer;font-size:18px;
+    flex:0 0 auto;
+  }
+  .back-btn:disabled{opacity:.35;cursor:default;}
+  .progress{flex:1;}
+  .progress .meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:600;}
+  .bar{height:8px;background:#e6ebe8;border-radius:999px;overflow:hidden;}
+  .bar > span{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--green2));width:0;transition:width .35s ease;border-radius:999px;}
+
+  /* ====== QUESTION ====== */
+  .q-screen{flex:1;}
+  .q-num{font-size:13px;font-weight:800;color:var(--green);margin-bottom:6px;}
+  .q-title{font-size:22px;font-weight:900;letter-spacing:-.4px;margin:0 0 4px;}
+  .q-sub{font-size:13px;color:var(--muted);margin:0 0 18px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{
+    display:flex;align-items:center;gap:13px;width:100%;
+    min-height:60px;padding:14px 16px;
+    background:var(--card);border:2px solid var(--line);border-radius:14px;
+    font-size:16px;font-weight:600;color:var(--ink);text-align:left;cursor:pointer;
+    transition:.15s;
+  }
+  .opt:active{transform:scale(.98);}
+  .opt:hover{border-color:var(--green2);}
+  .opt .ic{font-size:24px;flex:0 0 auto;}
+  .opt .tx{flex:1;line-height:1.35;}
+  .opt.sel{border-color:var(--green);background:#eafaf0;}
+
+  /* ====== BUTTONS ====== */
+  .btn{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    width:100%;min-height:54px;border-radius:14px;border:none;cursor:pointer;
+    font-size:17px;font-weight:800;font-family:inherit;
+    transition:.15s;text-decoration:none;
+  }
+  .btn:active{transform:scale(.98);}
+  .btn-primary{background:var(--green);color:#fff;box-shadow:0 8px 20px rgba(22,163,74,.28);}
+  .btn-detail{color:#fff;box-shadow:0 8px 20px rgba(15,23,32,.18);}
+  .btn-line{background:#fff;color:var(--ink);border:2px solid var(--line);}
+  .btn-ghost{background:#eef2f0;color:#475569;}
+  .btn-row{display:flex;gap:10px;}
+  .btn-row .btn{flex:1;}
+  .next-wrap{margin-top:20px;}
+
+  /* ====== RESULT ====== */
+  .result-screen{flex:1;}
+  .result-card{
+    border-radius:20px;overflow:hidden;background:var(--card);
+    box-shadow:var(--shadow);border:1px solid var(--line);
+  }
+  .rc-top{
+    padding:30px 22px 24px;text-align:center;color:#fff;position:relative;
+  }
+  .rc-top .tag{font-size:13px;font-weight:800;opacity:.92;letter-spacing:.5px;}
+  .rc-top .emoji{font-size:74px;line-height:1;margin:8px 0 6px;display:block;}
+  .rc-top .pname{font-size:28px;font-weight:900;letter-spacing:-.5px;}
+  .rc-top .fit{font-size:12px;margin-top:10px;opacity:.97;background:rgba(255,255,255,.2);display:inline-block;padding:5px 13px;border-radius:999px;font-weight:800;}
+  .rc-body{padding:22px;}
+  .headline{font-size:18px;font-weight:900;text-align:center;margin:0 0 14px;letter-spacing:-.3px;line-height:1.4;}
+  .desc{font-size:15px;color:#334155;margin:0 0 18px;line-height:1.6;}
+  .benefits{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;}
+  .benefits li{
+    display:flex;align-items:flex-start;gap:10px;font-size:14.5px;color:#1f2937;font-weight:600;
+    background:#f4faf6;border:1px solid #d9efe2;border-radius:12px;padding:13px 14px;line-height:1.45;
+  }
+  .benefits li .chk{flex:0 0 auto;font-size:16px;}
+  .scores{margin-top:18px;}
+  .scores-title{font-size:12px;font-weight:800;color:#94a3b8;margin:0 0 10px;text-align:center;}
+  .score-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+  .score-row .lab{flex:0 0 96px;font-size:12px;font-weight:700;color:#475569;display:flex;align-items:center;gap:4px;}
+  .score-row .track{flex:1;height:9px;background:#eef2f0;border-radius:999px;overflow:hidden;}
+  .score-row .track > span{display:block;height:100%;border-radius:999px;transition:width .8s ease;}
+  .score-row .pct{flex:0 0 34px;text-align:right;font-size:12px;font-weight:800;color:#475569;}
+
+  /* CTA */
+  .cta-title{font-size:16px;font-weight:900;text-align:center;margin:26px 0 4px;}
+  .cta-sub{font-size:13px;color:var(--muted);text-align:center;margin:0 0 14px;}
+  .share-row{display:flex;gap:10px;margin-bottom:12px;}
+  .share-row .sbtn{
+    flex:1;min-height:54px;border-radius:14px;border:none;cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    font-size:12px;font-weight:800;font-family:inherit;transition:.15s;
+  }
+  .share-row .sbtn:active{transform:scale(.96);}
+  .sbtn .si{font-size:22px;}
+  .sbtn.kakao{background:#FEE500;color:#191600;}
+  .sbtn.share{background:#eef2f0;color:#334155;}
+  .sbtn.copy{background:#eef2f0;color:#334155;}
+  .stack{display:flex;flex-direction:column;gap:10px;}
+
+  .friend-badge{
+    background:#eafaf0;color:var(--green);border:1px solid #c9efd7;
+    font-size:13px;font-weight:800;padding:9px 14px;border-radius:999px;
+    text-align:center;margin-bottom:14px;
+  }
+
+  .foot{text-align:center;font-size:12px;color:#94a3b8;margin-top:22px;line-height:1.6;}
+  .foot a{color:#94a3b8;}
+
+  /* TOAST */
+  .toast{
+    position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);
+    background:#0f1720;color:#fff;font-size:14px;font-weight:700;
+    padding:13px 20px;border-radius:999px;opacity:0;pointer-events:none;
+    transition:.3s;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.25);
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media (max-width:360px){
+    .intro h1{font-size:24px;}
+    .q-title{font-size:20px;}
+    .opt{font-size:15px;}
+  }
+</style>
+</head>
+<body>
+<a href="/tests/" class="quiz-exit" aria-label="테스트 나가기" title="나가기">✕</a>
+<style>
+.quiz-exit{position:fixed;top:14px;right:14px;z-index:99999;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.32);color:#fff;font-size:18px;line-height:1;text-decoration:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:transform .12s ease;}
+.quiz-exit:active{transform:scale(.92);}
+</style>
+<div class="wrap">
+  <div class="brand"><span class="dot"></span>노네임피트니스 천안두정점</div>
+
+  <!-- ===== INTRO ===== -->
+  <section class="screen intro active" id="screen-intro">
+    <div class="emoji">🧐</div>
+    <h1><span class="hl">결정사</span></h1>
+    <h1 style="margin-top:-14px;font-size:20px;color:var(--muted);font-weight:800;">당신의 운동을 정해드립니다</h1>
+    <p class="hook">뭘 할지 모르겠다면? <b style="color:var(--green)">결정사</b>가 정해드립니다.<br>7문항이면 나에게 딱 맞는 프로그램 결정!</p>
+    <div class="badges">
+      <span class="badge">⏱ 약 40초</span>
+      <span class="badge">📝 7문항</span>
+      <span class="badge">🎯 프로그램 4종</span>
+    </div>
+    <div class="next-wrap">
+      <button class="btn btn-primary" onclick="start()">결정 시작하기 →</button>
+    </div>
+    <p class="theory">결정장애, 이제 그만. 점잖은 결정사가 책임지고 골라드립니다.</p>
+  </section>
+
+  <!-- ===== QUIZ ===== -->
+  <section class="screen" id="screen-quiz">
+    <div class="topbar">
+      <button class="back-btn" id="backBtn" onclick="prev()">←</button>
+      <div class="progress">
+        <div class="meta"><span id="pgLabel">1 / 7</span><span id="pgPct">14%</span></div>
+        <div class="bar"><span id="pgBar"></span></div>
+      </div>
+    </div>
+    <div class="q-screen" id="qBody"><!-- injected --></div>
+  </section>
+
+  <!-- ===== RESULT ===== -->
+  <section class="screen result-screen" id="screen-result">
+    <div class="friend-badge" id="friendBadge" style="display:none;">👀 친구가 보낸 결과예요</div>
+
+    <div class="result-card" id="resultCard"><!-- injected --></div>
+
+    <div class="stack" id="selfTestWrap" style="display:none;margin-top:14px;">
+      <button class="btn btn-primary" type="button" onclick="restart()">🙋 나도 테스트하기</button>
+    </div>
+
+    <p class="cta-title">결정사의 추천, 지금 시작해볼까요?</p>
+    <p class="cta-sub">노네임피트니스에서 무료 상담으로 더 자세히 확인하세요</p>
+
+    <div class="stack" style="margin-bottom:14px;">
+      <a class="btn btn-detail" id="detailBtn" href="#" target="_self">👉 이 프로그램 자세히 보기</a>
+    </div>
+
+    <div class="share-row">
+      <button class="sbtn kakao" onclick="shareKakao()"><span class="si">💬</span>카카오톡</button>
+      <button class="sbtn share" onclick="shareNative()"><span class="si">🔗</span>공유하기</button>
+      <button class="sbtn copy" onclick="copyLink()"><span class="si">📋</span>링크복사</button>
+    </div>
+
+    <div class="stack">
+      <button class="btn btn-primary" type="button" onclick="openConsult()">📞 무료 상담 받기 — 트레이너가 직접 전화드려요</button>
+      <a class="btn btn-line" href="tel:041-557-9291">☎️ 전화 상담 041-557-9291</a>
+      <a class="btn btn-line" href="https://my-trainer-app.vercel.app" target="_blank" rel="noopener">📱 마이트레이너 앱 열기</a>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="restart()">🔄 다시 하기</button>
+        <a class="btn btn-ghost" href="/tests/">🧪 다른 테스트</a>
+      </div>
+    </div>
+
+    <p class="foot">
+      노네임피트니스 천안두정점<br>
+      <a href="https://naver.me/GjRIBgpf" target="_blank" rel="noopener">네이버 예약·오시는길</a> ·
+      <a href="https://nonamefitness.co.kr">nonamefitness.co.kr</a>
+    </p>
+  </section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ===== 무료 상담 신청 모달 ===== -->
+<div class="consult-ov" id="consultOv" onclick="if(event.target===this)closeConsult()">
+  <div class="consult-box" role="dialog" aria-modal="true" aria-label="무료 상담 신청">
+    <button class="consult-x" type="button" onclick="closeConsult()" aria-label="닫기">✕</button>
+    <div id="consultForm">
+      <h3 class="consult-h">무료 상담 신청</h3>
+      <p class="consult-sub">이름과 연락처를 남겨주시면<br><b>담당 트레이너가 직접 전화드려요</b> 📞</p>
+      <div class="consult-pick" id="consultPick"><!-- 추천 프로그램 표시 --></div>
+      <input class="consult-in" id="cName" type="text" placeholder="이름" autocomplete="name">
+      <input class="consult-in" id="cPhone" type="tel" placeholder="010-0000-0000" inputmode="numeric" autocomplete="tel">
+      <button class="btn btn-primary consult-submit" type="button" id="cSubmit" onclick="submitConsult()">신청하기</button>
+      <p class="consult-note">제출 시 상담을 위해 연락처가 노네임피트니스로 전송됩니다.</p>
+    </div>
+    <div id="consultDone" style="display:none;">
+      <div class="consult-done-ic">✅</div>
+      <h3 class="consult-h">신청 완료!</h3>
+      <p class="consult-sub">담당 트레이너가 곧 전화드릴게요.<br>잠시만 기다려 주세요 🙌</p>
+      <button class="btn btn-primary" type="button" onclick="closeConsult()">확인</button>
+    </div>
+  </div>
+</div>
+<style>
+.consult-ov{position:fixed;inset:0;z-index:100000;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center;padding:0;}
+.consult-ov.on{display:flex;}
+.consult-box{position:relative;background:#fff;width:100%;max-width:480px;border-radius:22px 22px 0 0;padding:26px 22px calc(26px + env(safe-area-inset-bottom));box-shadow:0 -10px 40px rgba(0,0,0,.3);animation:cslide .28s ease;}
+@keyframes cslide{from{transform:translateY(40px);opacity:.4}to{transform:translateY(0);opacity:1}}
+.consult-x{position:absolute;top:14px;right:14px;width:36px;height:36px;border:none;background:#F1F3F2;border-radius:50%;font-size:15px;color:#666;cursor:pointer;}
+.consult-h{font-size:20px;font-weight:900;text-align:center;color:#111;}
+.consult-sub{font-size:14px;color:#6B7280;text-align:center;margin:8px 0 16px;line-height:1.5;}
+.consult-pick{background:#ECFDF3;color:#16A34A;font-weight:800;font-size:14px;text-align:center;padding:10px;border-radius:12px;margin-bottom:14px;}
+.consult-in{width:100%;height:52px;border:1.5px solid #E5E7EB;border-radius:12px;padding:0 14px;font-size:16px;margin-bottom:10px;font-family:inherit;}
+.consult-in:focus{outline:none;border-color:#22C55E;}
+.consult-submit{width:100%;margin-top:6px;}
+.consult-note{font-size:11px;color:#9CA3AF;text-align:center;margin-top:10px;}
+.consult-done-ic{font-size:48px;text-align:center;margin-bottom:6px;}
+</style>
+
+<script src="/js/telegram.js?v=20260629"></script>
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js"></script>
+<script>
+/* =========================================================
+   결정사 — 운동 프로그램 추천
+   ========================================================= */
+var SHARE_URL = "https://nonamefitness.co.kr/tests/decision/";
+var OG_IMAGE  = "https://nonamefitness.co.kr/images/og-decision.jpeg";
+var OG_IMAGE_BASE = "https://nonamefitness.co.kr/images/og-decision-";
+var PP_BOOST = 1.15; /* 프리미엄PT 가중치 보정 계수 */
+
+/* 결과별 공유 URL (?r=프로그램id) */
+function shareUrl(){
+  return lastProgram ? (SHARE_URL + "?r=" + lastProgram) : SHARE_URL;
+}
+/* 결과별 카카오 공유 이미지 */
+function shareImage(){
+  return lastProgram ? (OG_IMAGE_BASE + lastProgram + ".jpeg") : OG_IMAGE;
+}
+
+/* 추천 결과 = 노네임 실제 프로그램 4종 (up / pp / sp / gym) */
+var PROGRAMS = {
+  up: {
+    id:'up', name:'무제한 PT', icon:'💪', color:'#16A34A', link:'/unlimited-pt/',
+    headline:'"매일 코치와 함께, 가장 빠르게 변하고 싶은 당신"',
+    desc:'혼자선 작심삼일이지만 누가 끌어주면 끝까지 가는 타입이에요. 매일 1:1 코칭을 받을수록 이득인 구조라, 자주 운동할수록 가성비도 최고. 결정사가 자신 있게 추천합니다.',
+    benefits:[
+      '매일 1:1 트레이너 코칭으로 확실하게',
+      '고정 시간 예약제 → 운동 습관이 자동 형성',
+      '갈수록 이득인 무제한 구조, 빠른 변화'
+    ],
+    cta:'매일 끌어주는 코칭이 딱! '
+  },
+  pp: {
+    id:'pp', name:'프리미엄 PT', icon:'🏅', color:'#7C3AED', link:'/premium-pt/',
+    headline:'"제대로, 체계적으로 — 확실한 결과를 원하는 당신"',
+    desc:'자세부터 정확히 배우고 싶고, 투자를 아끼지 않으며 체계적인 1:1 관리를 선호하는 타입. 처음 시작이거나 정확한 자세 교정이 필요한 분께 결정사가 강력 추천합니다.',
+    benefits:[
+      '고급 1:1 퍼스널 트레이닝',
+      '체계적인 맞춤 프로그램 · 자세 교정',
+      '목표까지 집중 관리받는 확실함'
+    ],
+    cta:'체계적인 1:1 관리가 딱! '
+  },
+  sp: {
+    id:'sp', name:'스피닝', icon:'🚴', color:'#EC4899', link:'/spinning/',
+    headline:'"신나게 땀 쫙! 즐기면서 빠지고 싶은 당신"',
+    desc:'혼자보다 여럿이 함께, 음악에 맞춰 땀 흘리는 유산소를 좋아하는 타입이에요. 재미있어야 꾸준히 가는 당신께, 다이어트 효과까지 잡아주는 스피닝을 결정사가 골랐습니다.',
+    benefits:[
+      '음악에 맞춰 함께 타는 그룹 유산소',
+      '강력한 체지방 연소 · 다이어트 효과',
+      '지루할 틈 없는 재미로 꾸준함 UP'
+    ],
+    cta:'신나는 그룹 유산소가 딱! '
+  },
+  gym: {
+    id:'gym', name:'일반 헬스(GYM)', icon:'🏋️', color:'#2563EB', link:'/gym/',
+    headline:'"내 페이스로 자유롭게 — 마이웨이 운동러"',
+    desc:'혼자 내 리듬대로, 시간 날 때 자유롭게, 부담 없는 합리적 가격을 선호하는 타입. 넓고 쾌적한 시설에서 마음껏 운동하고 싶은 당신께 결정사가 추천합니다.',
+    benefits:[
+      '내 페이스대로 자유로운 운동',
+      '넓고 쾌적한 최신 시설',
+      '부담 없는 합리적인 가격'
+    ],
+    cta:'자유로운 내 페이스 운동이 딱! '
+  }
+};
+
+/* 동점 시 우선순위: 무제한PT > 프리미엄PT > 스피닝 > 일반헬스 */
+var PRIORITY = ['up','pp','sp','gym'];
+
+/* 7문항 — 각 선택지에 4개 프로그램 가중치 */
+var QUESTIONS = [
+  { id:'q1_goal', question:'운동, 가장 큰 목표가 뭐예요?', subtitle:'솔직하게 제일 끌리는 쪽으로요.',
+    options:[
+      {value:'diet',   label:'살 빼고 라인 만들기', icon:'🔥'},
+      {value:'muscle', label:'근육 키우고 벌크업', icon:'💪'},
+      {value:'fix',    label:'처음 시작·자세부터 제대로', icon:'🎯'},
+      {value:'health', label:'그냥 건강하게 꾸준히', icon:'🌿'}
+    ],
+    weights:{
+      up: {diet:2, muscle:3, fix:2, health:1},
+      pp: {diet:1, muscle:3, fix:4, health:1},
+      sp: {diet:4, muscle:0, fix:0, health:2},
+      gym:{diet:2, muscle:2, fix:0, health:3}
+    } },
+
+  { id:'q2_intensity', question:'운동 강도는 어느 정도가 좋아요?',
+    options:[
+      {value:'hard', label:'한계까지 빡세게', icon:'🥵'},
+      {value:'fun',  label:'즐기면서 신나게', icon:'🎶'},
+      {value:'mid',  label:'적당히 꾸준히', icon:'🙂'},
+      {value:'slow', label:'내 페이스로 천천히', icon:'🐢'}
+    ],
+    weights:{
+      up: {hard:4, fun:1, mid:2, slow:1},
+      pp: {hard:3, fun:0, mid:2, slow:2},
+      sp: {hard:2, fun:4, mid:1, slow:0},
+      gym:{hard:1, fun:1, mid:3, slow:4}
+    } },
+
+  { id:'q3_social', question:'혼자가 좋아요, 함께가 좋아요?',
+    options:[
+      {value:'solo',    label:'무조건 혼자 자유롭게', icon:'🧍'},
+      {value:'coach',   label:'1:1 코치와 집중해서', icon:'🤝'},
+      {value:'group',   label:'여럿이 함께 신나게', icon:'👥'},
+      {value:'relaxed', label:'코치 있으면 좋지만 부담은 X', icon:'😌'}
+    ],
+    weights:{
+      up: {solo:0, coach:4, group:1, relaxed:2},
+      pp: {solo:0, coach:4, group:0, relaxed:1},
+      sp: {solo:0, coach:1, group:4, relaxed:2},
+      gym:{solo:4, coach:0, group:1, relaxed:2}
+    } },
+
+  { id:'q4_time', question:'시간 여유는 어떤 편이에요?', subtitle:'예약·고정 시간을 지킬 수 있는지.',
+    options:[
+      {value:'daily',   label:'매일 시간 낼 수 있다', icon:'📆'},
+      {value:'fixed',   label:'정해진 시간 약속 잘 지킨다', icon:'⏰'},
+      {value:'class',   label:'정해진 클래스 시간 OK', icon:'🗓️'},
+      {value:'random',  label:'불규칙, 내킬 때 가고 싶다', icon:'🎲'}
+    ],
+    weights:{
+      up: {daily:4, fixed:3, class:1, random:0},
+      pp: {daily:2, fixed:4, class:1, random:0},
+      sp: {daily:1, fixed:2, class:4, random:0},
+      gym:{daily:1, fixed:0, class:0, random:4}
+    } },
+
+  { id:'q5_budget', question:'비용은 어떻게 생각해요?',
+    options:[
+      {value:'invest', label:'확실한 결과면 투자 OK', icon:'💎'},
+      {value:'value',  label:'자주 갈수록 이득인 가성비', icon:'⚖️'},
+      {value:'group',  label:'합리적인 그룹 가격', icon:'🎟️'},
+      {value:'cheap',  label:'최대한 저렴하게', icon:'💰'}
+    ],
+    weights:{
+      up: {invest:3, value:4, group:1, cheap:0},
+      pp: {invest:4, value:1, group:0, cheap:0},
+      sp: {invest:1, value:2, group:4, cheap:1},
+      gym:{invest:0, value:1, group:1, cheap:4}
+    } },
+
+  { id:'q6_grit', question:'혼자서 꾸준히 할 자신, 있어요?',
+    options:[
+      {value:'no',      label:'솔직히 혼자선 작심삼일', icon:'😅'},
+      {value:'push',    label:'누가 끌어주면 한다', icon:'🫵'},
+      {value:'funkeep', label:'재미있으면 계속 간다', icon:'🎉'},
+      {value:'yes',     label:'혼자서도 잘하는 편', icon:'🦾'}
+    ],
+    weights:{
+      up: {no:3, push:4, funkeep:1, yes:0},
+      pp: {no:4, push:3, funkeep:0, yes:0},
+      sp: {no:2, push:1, funkeep:4, yes:0},
+      gym:{no:0, push:0, funkeep:1, yes:4}
+    } },
+
+  { id:'q7_sweat', question:'땀 흘리는 운동, 좋아하세요?',
+    options:[
+      {value:'cardio', label:'땀 쫙! 유산소 좋아', icon:'💦'},
+      {value:'weight', label:'무게 드는 근력운동', icon:'🏋️'},
+      {value:'both',   label:'유산소·근력 섞어서', icon:'🔀'},
+      {value:'light',  label:'격한 건 별로, 가볍게', icon:'🍃'}
+    ],
+    weights:{
+      up: {cardio:1, weight:4, both:3, light:1},
+      pp: {cardio:0, weight:4, both:2, light:2},
+      sp: {cardio:4, weight:0, both:1, light:1},
+      gym:{cardio:2, weight:3, both:3, light:3}
+    } }
+];
+
+/* ===== 채점 ===== */
+function computeScores(answers){
+  var raw={up:0,pp:0,sp:0,gym:0};
+  var max={up:0,pp:0,sp:0,gym:0};
+  for(var i=0;i<QUESTIONS.length;i++){
+    var q=QUESTIONS[i];
+    var a=answers[q.id];
+    if(!q.weights || a===undefined || a===null || a==='') continue;
+    for(var p in q.weights){
+      var w=q.weights[p];
+      if(a in w) raw[p]+=w[a];
+      var maxV=Math.max.apply(null,Object.keys(w).map(function(k){return w[k];}));
+      if(maxV>0) max[p]+=maxV;
+    }
+  }
+  /* 프리미엄PT(pp) 가중치 소폭 보정 — 조금 더 자주/높게 추천되도록 (과하지 않게) */
+  raw.pp = raw.pp * PP_BOOST;
+
+  var normalized={};
+  for(var p2 in raw){
+    normalized[p2]= max[p2]>0 ? Math.round(Math.max(0,Math.min(100,(raw[p2]/max[p2])*100))) : 0;
+  }
+  return {raw:raw, normalized:normalized};
+}
+
+function classify(scores){
+  var entries=Object.keys(scores.normalized).map(function(id){return {id:id,score:scores.normalized[id]};});
+  entries.sort(function(a,b){
+    if(b.score!==a.score) return b.score-a.score;
+    return PRIORITY.indexOf(a.id)-PRIORITY.indexOf(b.id);
+  });
+  return entries[0].id;
+}
+
+/* =========================================================
+   상태 & 화면 제어
+   ========================================================= */
+var answers={};
+var idx=0;
+var TOTAL=QUESTIONS.length;
+var lastProgram=null;
+var lastScores=null;
+
+function show(id){
+  var s=document.querySelectorAll('.screen');
+  for(var i=0;i<s.length;i++) s[i].classList.remove('active');
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function start(){ idx=0; renderQ(); show('screen-quiz'); }
+
+function renderQ(){
+  var q=QUESTIONS[idx];
+  var n=idx+1;
+  var pct=Math.round((n/TOTAL)*100);
+  document.getElementById('pgLabel').textContent=n+' / '+TOTAL;
+  document.getElementById('pgPct').textContent=pct+'%';
+  document.getElementById('pgBar').style.width=pct+'%';
+  document.getElementById('backBtn').disabled=(idx===0);
+
+  var body=document.getElementById('qBody');
+  var html='<div class="q-num">Q'+n+'</div>';
+  html+='<h2 class="q-title">'+q.question+'</h2>';
+  if(q.subtitle) html+='<p class="q-sub">'+q.subtitle+'</p>';
+  html+='<div class="options">';
+  for(var i=0;i<q.options.length;i++){
+    var o=q.options[i];
+    var sel=(answers[q.id]===o.value)?' sel':'';
+    html+='<button class="opt'+sel+'" onclick="choose(\''+o.value+'\')"><span class="ic">'+o.icon+'</span><span class="tx">'+o.label+'</span></button>';
+  }
+  html+='</div>';
+  body.innerHTML=html;
+}
+
+function choose(val){
+  var q=QUESTIONS[idx];
+  answers[q.id]=val;
+  setTimeout(next,150);
+}
+
+function next(){
+  if(idx<TOTAL-1){ idx++; renderQ(); }
+  else { computeAndShow(); }
+}
+function prev(){ if(idx>0){ idx--; renderQ(); } }
+
+function computeAndShow(){
+  lastScores=computeScores(answers);
+  lastProgram=classify(lastScores);
+  document.getElementById('friendBadge').style.display='none';
+  document.getElementById('selfTestWrap').style.display='none';
+  renderResult(lastProgram, lastScores);
+  show('screen-result');
+}
+
+/* =========================================================
+   결과 렌더
+   ========================================================= */
+function renderResult(progId, scores){
+  var p=PROGRAMS[progId];
+  var grad='linear-gradient(135deg,'+p.color+','+shade(p.color,-20)+')';
+  var hasScores = !!(scores && scores.normalized);
+  var fit = hasScores ? (scores.normalized[progId]||0) : 0;
+
+  var card=document.getElementById('resultCard');
+  var html='';
+  html+='<div class="rc-top" style="background:'+grad+'">';
+  html+='<div class="tag">🧐 결정사가 정했습니다</div>';
+  html+='<span class="emoji">'+p.icon+'</span>';
+  html+='<div class="pname">'+p.name+'</div>';
+  if(hasScores) html+='<div class="fit">나와의 핏 '+fit+'%</div>';
+  html+='</div>';
+  html+='<div class="rc-body">';
+  html+='<p class="headline">'+p.headline+'</p>';
+  html+='<p class="desc">'+p.desc+'</p>';
+  html+='<ul class="benefits">';
+  for(var i=0;i<p.benefits.length;i++){
+    html+='<li><span class="chk">✅</span><span>'+p.benefits[i]+'</span></li>';
+  }
+  html+='</ul>';
+
+  /* 핏 점수 막대 (점수 있을 때만) */
+  if(hasScores){
+    html+='<div class="scores"><p class="scores-title">— 프로그램별 나와의 핏 —</p>';
+    var order=['up','pp','sp','gym'];
+    for(var j=0;j<order.length;j++){
+      var id=order[j]; var pr=PROGRAMS[id];
+      var v=scores.normalized[id]||0;
+      html+='<div class="score-row"><div class="lab">'+pr.icon+' '+pr.name.replace('(GYM)','')+'</div>';
+      html+='<div class="track"><span style="width:'+v+'%;background:'+pr.color+'"></span></div>';
+      html+='<div class="pct">'+v+'</div></div>';
+    }
+    html+='</div>';
+  }
+  html+='</div>';
+  card.innerHTML=html;
+
+  /* 자세히 보기 버튼 */
+  var detail=document.getElementById('detailBtn');
+  detail.href=p.link;
+  detail.style.background='linear-gradient(135deg,'+p.color+','+shade(p.color,-20)+')';
+  detail.innerHTML='👉 '+p.name+' 자세히 보기';
+
+  document.querySelector('.cta-title').innerHTML=p.cta+'바로 시작해볼까요?';
+}
+
+/* =========================================================
+   공유
+   ========================================================= */
+function shareText(){
+  var p=lastProgram?PROGRAMS[lastProgram]:null;
+  var name=p?p.name:'운동 프로그램';
+  return "결정사가 추천한 내 운동은 '"+name+"'! 너는? 👉 "+shareUrl();
+}
+
+function shareKakao(){
+  var p=lastProgram?PROGRAMS[lastProgram]:null;
+  try{
+    if(window.Kakao){
+      if(!Kakao.isInitialized()) Kakao.init('2cddec8893b9498426a35fd55935b6ea');
+      var url=shareUrl();
+      Kakao.Share.sendDefault({
+        objectType:'feed',
+        content:{
+          title:"결정사가 추천한 내 운동은 '"+(p?p.name:'?')+"' "+(p?p.icon:'🏋️'),
+          description:'뭘 할지 모르겠다면? 결정사가 정해드립니다. 너는 어떤 운동?',
+          imageUrl:shareImage(),
+          link:{ mobileWebUrl:url, webUrl:url }
+        },
+        buttons:[
+          { title:'나도 결정받기', link:{ mobileWebUrl:url, webUrl:url } },
+          { title:'무료 상담받기', link:{ mobileWebUrl:'https://naver.me/GjRIBgpf', webUrl:'https://naver.me/GjRIBgpf' } }
+        ]
+      });
+      return;
+    }
+  }catch(e){ /* fallthrough */ }
+  shareNative();
+}
+
+function shareNative(){
+  if(navigator.share){
+    navigator.share({ title:'결정사 — 나에게 맞는 운동 찾기', text:shareText(), url:shareUrl() })
+      .catch(function(){});
+  } else {
+    copyLink();
+  }
+}
+
+function copyLink(){
+  var txt=shareText();
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){ toast('링크가 복사됐어요! 📋'); },
+      function(){ legacyCopy(txt); });
+  } else { legacyCopy(txt); }
+}
+function legacyCopy(txt){
+  var ta=document.createElement('textarea');
+  ta.value=txt; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); toast('링크가 복사됐어요! 📋'); }
+  catch(e){ toast('복사에 실패했어요'); }
+  document.body.removeChild(ta);
+}
+
+/* =========================================================
+   유틸
+   ========================================================= */
+var toastTimer=null;
+function toast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){ t.classList.remove('show'); },2200);
+}
+function restart(){
+  answers={}; idx=0;
+  lastProgram=null; lastScores=null;
+  document.getElementById('friendBadge').style.display='none';
+  document.getElementById('selfTestWrap').style.display='none';
+  /* 딥링크(?r=) 흔적 제거 — 새로고침 시 다시 결과로 튀지 않도록 */
+  try{ history.replaceState(null,'',SHARE_URL); }catch(e){}
+  show('screen-intro');
+}
+
+/* 딥링크: ?r=up/pp/sp/gym 이면 퀴즈 건너뛰고 해당 결과 바로 표시 */
+function initDeepLink(){
+  var r=null;
+  try{
+    var m=location.search.match(/[?&]r=([^&]+)/);
+    if(m) r=decodeURIComponent(m[1]);
+  }catch(e){}
+  if(!r || !PROGRAMS[r]) return;
+  lastProgram=r;
+  lastScores=null;
+  document.getElementById('friendBadge').style.display='block';
+  document.getElementById('selfTestWrap').style.display='flex';
+  renderResult(lastProgram, null);
+  show('screen-result');
+}
+initDeepLink();
+function shade(hex,pct){
+  var n=parseInt(hex.slice(1),16);
+  var r=(n>>16)&255, g=(n>>8)&255, b=n&255;
+  r=Math.round(Math.min(255,Math.max(0,r+(r*pct/100))));
+  g=Math.round(Math.min(255,Math.max(0,g+(g*pct/100))));
+  b=Math.round(Math.min(255,Math.max(0,b+(b*pct/100))));
+  return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);
+}
+
+/* Kakao init on load */
+try{ if(window.Kakao && !Kakao.isInitialized()) Kakao.init('2cddec8893b9498426a35fd55935b6ea'); }catch(e){}
+
+/* =========================================================
+   무료 상담 신청 (이름·연락처 → 텔레그램 영업알림)
+   ========================================================= */
+function openConsult(){
+  var p = lastProgram ? PROGRAMS[lastProgram] : null;
+  var pick = document.getElementById('consultPick');
+  if(p){ pick.style.display='block'; pick.innerHTML='🎯 추천 프로그램: '+p.icon+' '+p.name; }
+  else { pick.style.display='none'; }
+  document.getElementById('consultForm').style.display='block';
+  document.getElementById('consultDone').style.display='none';
+  document.getElementById('consultOv').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeConsult(){
+  document.getElementById('consultOv').classList.remove('on');
+  document.body.style.overflow='';
+}
+/* 연락처 자동 하이픈 */
+document.getElementById('cPhone').addEventListener('input',function(e){
+  var v=e.target.value.replace(/\D/g,'').slice(0,11);
+  if(v.length>7) v=v.slice(0,3)+'-'+v.slice(3,7)+'-'+v.slice(7);
+  else if(v.length>3) v=v.slice(0,3)+'-'+v.slice(3);
+  e.target.value=v;
+});
+function submitConsult(){
+  var name=document.getElementById('cName').value.trim();
+  var phone=document.getElementById('cPhone').value.trim();
+  var digits=phone.replace(/\D/g,'');
+  if(!name){ alert('이름을 입력해주세요.'); return; }
+  if(digits.length<10){ alert('연락처를 정확히 입력해주세요.'); return; }
+
+  var btn=document.getElementById('cSubmit');
+  btn.disabled=true; btn.textContent='전송 중...';
+
+  var p = lastProgram ? PROGRAMS[lastProgram] : null;
+  var s = lastScores ? lastScores.normalized : {};
+  var fit = (s && lastProgram) ? (s[lastProgram]||0) : 0;
+  var E = window.NONAME_TG.esc;
+
+  /* 문항별 선택 답변 */
+  var qa = '';
+  for(var qi=0; qi<QUESTIONS.length; qi++){
+    var q=QUESTIONS[qi];
+    var av=answers[q.id];
+    var opt=null;
+    for(var oi=0; oi<q.options.length; oi++){ if(q.options[oi].value===av){ opt=q.options[oi]; break; } }
+    var picked = opt ? ((opt.icon?opt.icon+' ':'') + opt.label) : '미응답';
+    qa += (qi+1) + '. ' + E(q.question) + '\n   → ' + E(picked) + '\n';
+  }
+
+  var msg = '🔔 <b>결정사 상담신청</b>\n\n'
+    + '👤 <b>이름:</b> ' + E(name) + '\n'
+    + '📞 <b>연락처:</b> ' + E(phone) + '\n'
+    + '🎯 <b>추천 프로그램:</b> ' + (p ? E(p.name) + ' (핏 ' + fit + '%)' : '미정') + '\n'
+    + '🕒 <b>신청 시각:</b> ' + window.NONAME_TG.now() + '\n\n'
+    + '— <b>응답 내역</b> —\n' + qa + '\n'
+    + '— <b>프로그램별 핏</b> —\n'
+    + '💪 무제한PT ' + (s.up||0) + ' · 🏆 프리미엄PT ' + (s.pp||0) + ' · 🚴 스피닝 ' + (s.sp||0) + ' · 🏋️ 일반헬스 ' + (s.gym||0);
+
+  window.NONAME_TG.send(msg).then(function(){
+    document.getElementById('consultForm').style.display='none';
+    document.getElementById('consultDone').style.display='block';
+    btn.disabled=false; btn.textContent='신청하기';
+    document.getElementById('cName').value=''; document.getElementById('cPhone').value='';
+  }).catch(function(){
+    alert('전송에 실패했어요. 전화(041-557-9291)로 문의해주세요.');
+    btn.disabled=false; btn.textContent='신청하기';
+  });
+}
+</script>
+</body>
+</html>
