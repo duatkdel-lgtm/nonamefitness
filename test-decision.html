@@ -10,12 +10,12 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="결정사 — 나에게 맞는 운동 찾기 | 노네임피트니스">
 <meta property="og:description" content="운동 시작하고 싶은데 뭘 할지 모르겠다면? 결정사가 7문항으로 딱 맞는 프로그램을 정해드립니다.">
-<meta property="og:image" content="https://nonamefitness.co.kr/images/facility-main.jpg">
+<meta property="og:image" content="https://nonamefitness.co.kr/images/og-decision.jpeg">
 <meta property="og:url" content="https://nonamefitness.co.kr/test-decision.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="결정사 — 나에게 맞는 운동 찾기 | 노네임피트니스">
 <meta name="twitter:description" content="뭘 할지 모르겠다면? 결정사가 정해드립니다.">
-<meta name="twitter:image" content="https://nonamefitness.co.kr/images/facility-main.jpg">
+<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-decision.jpeg">
 
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 
@@ -169,6 +169,12 @@
   .sbtn.copy{background:#eef2f0;color:#334155;}
   .stack{display:flex;flex-direction:column;gap:10px;}
 
+  .friend-badge{
+    background:#eafaf0;color:var(--green);border:1px solid #c9efd7;
+    font-size:13px;font-weight:800;padding:9px 14px;border-radius:999px;
+    text-align:center;margin-bottom:14px;
+  }
+
   .foot{text-align:center;font-size:12px;color:#94a3b8;margin-top:22px;line-height:1.6;}
   .foot a{color:#94a3b8;}
 
@@ -228,7 +234,13 @@
 
   <!-- ===== RESULT ===== -->
   <section class="screen result-screen" id="screen-result">
+    <div class="friend-badge" id="friendBadge" style="display:none;">👀 친구가 보낸 결과예요</div>
+
     <div class="result-card" id="resultCard"><!-- injected --></div>
+
+    <div class="stack" id="selfTestWrap" style="display:none;margin-top:14px;">
+      <button class="btn btn-primary" type="button" onclick="restart()">🙋 나도 테스트하기</button>
+    </div>
 
     <p class="cta-title">결정사의 추천, 지금 시작해볼까요?</p>
     <p class="cta-sub">노네임피트니스에서 무료 상담으로 더 자세히 확인하세요</p>
@@ -307,7 +319,18 @@
    결정사 — 운동 프로그램 추천
    ========================================================= */
 var SHARE_URL = "https://nonamefitness.co.kr/test-decision.html";
-var OG_IMAGE  = "https://nonamefitness.co.kr/images/facility-main.jpg";
+var OG_IMAGE  = "https://nonamefitness.co.kr/images/og-decision.jpeg";
+var OG_IMAGE_BASE = "https://nonamefitness.co.kr/images/og-decision-";
+var PP_BOOST = 1.15; /* 프리미엄PT 가중치 보정 계수 */
+
+/* 결과별 공유 URL (?r=프로그램id) */
+function shareUrl(){
+  return lastProgram ? (SHARE_URL + "?r=" + lastProgram) : SHARE_URL;
+}
+/* 결과별 카카오 공유 이미지 */
+function shareImage(){
+  return lastProgram ? (OG_IMAGE_BASE + lastProgram + ".jpeg") : OG_IMAGE;
+}
 
 /* 추천 결과 = 노네임 실제 프로그램 4종 (up / pp / sp / gym) */
 var PROGRAMS = {
@@ -476,6 +499,9 @@ function computeScores(answers){
       if(maxV>0) max[p]+=maxV;
     }
   }
+  /* 프리미엄PT(pp) 가중치 소폭 보정 — 조금 더 자주/높게 추천되도록 (과하지 않게) */
+  raw.pp = raw.pp * PP_BOOST;
+
   var normalized={};
   for(var p2 in raw){
     normalized[p2]= max[p2]>0 ? Math.round(Math.max(0,Math.min(100,(raw[p2]/max[p2])*100))) : 0;
@@ -548,6 +574,8 @@ function prev(){ if(idx>0){ idx--; renderQ(); } }
 function computeAndShow(){
   lastScores=computeScores(answers);
   lastProgram=classify(lastScores);
+  document.getElementById('friendBadge').style.display='none';
+  document.getElementById('selfTestWrap').style.display='none';
   renderResult(lastProgram, lastScores);
   show('screen-result');
 }
@@ -558,7 +586,8 @@ function computeAndShow(){
 function renderResult(progId, scores){
   var p=PROGRAMS[progId];
   var grad='linear-gradient(135deg,'+p.color+','+shade(p.color,-20)+')';
-  var fit=scores.normalized[progId]||0;
+  var hasScores = !!(scores && scores.normalized);
+  var fit = hasScores ? (scores.normalized[progId]||0) : 0;
 
   var card=document.getElementById('resultCard');
   var html='';
@@ -566,7 +595,7 @@ function renderResult(progId, scores){
   html+='<div class="tag">🧐 결정사가 정했습니다</div>';
   html+='<span class="emoji">'+p.icon+'</span>';
   html+='<div class="pname">'+p.name+'</div>';
-  html+='<div class="fit">나와의 핏 '+fit+'%</div>';
+  if(hasScores) html+='<div class="fit">나와의 핏 '+fit+'%</div>';
   html+='</div>';
   html+='<div class="rc-body">';
   html+='<p class="headline">'+p.headline+'</p>';
@@ -577,17 +606,19 @@ function renderResult(progId, scores){
   }
   html+='</ul>';
 
-  /* 핏 점수 막대 */
-  html+='<div class="scores"><p class="scores-title">— 프로그램별 나와의 핏 —</p>';
-  var order=['up','pp','sp','gym'];
-  for(var j=0;j<order.length;j++){
-    var id=order[j]; var pr=PROGRAMS[id];
-    var v=scores.normalized[id]||0;
-    html+='<div class="score-row"><div class="lab">'+pr.icon+' '+pr.name.replace('(GYM)','')+'</div>';
-    html+='<div class="track"><span style="width:'+v+'%;background:'+pr.color+'"></span></div>';
-    html+='<div class="pct">'+v+'</div></div>';
+  /* 핏 점수 막대 (점수 있을 때만) */
+  if(hasScores){
+    html+='<div class="scores"><p class="scores-title">— 프로그램별 나와의 핏 —</p>';
+    var order=['up','pp','sp','gym'];
+    for(var j=0;j<order.length;j++){
+      var id=order[j]; var pr=PROGRAMS[id];
+      var v=scores.normalized[id]||0;
+      html+='<div class="score-row"><div class="lab">'+pr.icon+' '+pr.name.replace('(GYM)','')+'</div>';
+      html+='<div class="track"><span style="width:'+v+'%;background:'+pr.color+'"></span></div>';
+      html+='<div class="pct">'+v+'</div></div>';
+    }
+    html+='</div>';
   }
-  html+='</div>';
   html+='</div>';
   card.innerHTML=html;
 
@@ -606,7 +637,7 @@ function renderResult(progId, scores){
 function shareText(){
   var p=lastProgram?PROGRAMS[lastProgram]:null;
   var name=p?p.name:'운동 프로그램';
-  return "결정사가 추천한 내 운동은 '"+name+"'! 너는? 👉 "+SHARE_URL;
+  return "결정사가 추천한 내 운동은 '"+name+"'! 너는? 👉 "+shareUrl();
 }
 
 function shareKakao(){
@@ -614,16 +645,17 @@ function shareKakao(){
   try{
     if(window.Kakao){
       if(!Kakao.isInitialized()) Kakao.init('2cddec8893b9498426a35fd55935b6ea');
+      var url=shareUrl();
       Kakao.Share.sendDefault({
         objectType:'feed',
         content:{
           title:"결정사가 추천한 내 운동은 '"+(p?p.name:'?')+"' "+(p?p.icon:'🏋️'),
           description:'뭘 할지 모르겠다면? 결정사가 정해드립니다. 너는 어떤 운동?',
-          imageUrl:OG_IMAGE,
-          link:{ mobileWebUrl:SHARE_URL, webUrl:SHARE_URL }
+          imageUrl:shareImage(),
+          link:{ mobileWebUrl:url, webUrl:url }
         },
         buttons:[
-          { title:'나도 결정받기', link:{ mobileWebUrl:SHARE_URL, webUrl:SHARE_URL } },
+          { title:'나도 결정받기', link:{ mobileWebUrl:url, webUrl:url } },
           { title:'무료 상담받기', link:{ mobileWebUrl:'https://naver.me/GjRIBgpf', webUrl:'https://naver.me/GjRIBgpf' } }
         ]
       });
@@ -635,7 +667,7 @@ function shareKakao(){
 
 function shareNative(){
   if(navigator.share){
-    navigator.share({ title:'결정사 — 나에게 맞는 운동 찾기', text:shareText(), url:SHARE_URL })
+    navigator.share({ title:'결정사 — 나에게 맞는 운동 찾기', text:shareText(), url:shareUrl() })
       .catch(function(){});
   } else {
     copyLink();
@@ -668,7 +700,32 @@ function toast(msg){
   clearTimeout(toastTimer);
   toastTimer=setTimeout(function(){ t.classList.remove('show'); },2200);
 }
-function restart(){ answers={}; idx=0; show('screen-intro'); }
+function restart(){
+  answers={}; idx=0;
+  lastProgram=null; lastScores=null;
+  document.getElementById('friendBadge').style.display='none';
+  document.getElementById('selfTestWrap').style.display='none';
+  /* 딥링크(?r=) 흔적 제거 — 새로고침 시 다시 결과로 튀지 않도록 */
+  try{ history.replaceState(null,'',SHARE_URL); }catch(e){}
+  show('screen-intro');
+}
+
+/* 딥링크: ?r=up/pp/sp/gym 이면 퀴즈 건너뛰고 해당 결과 바로 표시 */
+function initDeepLink(){
+  var r=null;
+  try{
+    var m=location.search.match(/[?&]r=([^&]+)/);
+    if(m) r=decodeURIComponent(m[1]);
+  }catch(e){}
+  if(!r || !PROGRAMS[r]) return;
+  lastProgram=r;
+  lastScores=null;
+  document.getElementById('friendBadge').style.display='block';
+  document.getElementById('selfTestWrap').style.display='flex';
+  renderResult(lastProgram, null);
+  show('screen-result');
+}
+initDeepLink();
 function shade(hex,pct){
   var n=parseInt(hex.slice(1),16);
   var r=(n>>16)&255, g=(n>>8)&255, b=n&255;

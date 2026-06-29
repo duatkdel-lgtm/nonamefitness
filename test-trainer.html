@@ -10,12 +10,12 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="트레이너 궁합검사 | 노네임피트니스 천안두정점">
 <meta property="og:description" content="30초 만에 알아보는 나의 트레이너 궁합 유형! 나에게 잘 맞는 코칭 스타일을 찾아보세요.">
-<meta property="og:image" content="https://nonamefitness.co.kr/images/facility-main.jpg">
+<meta property="og:image" content="https://nonamefitness.co.kr/images/og-trainer.jpeg">
 <meta property="og:url" content="https://nonamefitness.co.kr/test-trainer.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="트레이너 궁합검사 | 노네임피트니스 천안두정점">
 <meta name="twitter:description" content="30초 만에 알아보는 나의 트레이너 궁합 유형!">
-<meta name="twitter:image" content="https://nonamefitness.co.kr/images/facility-main.jpg">
+<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-trainer.jpeg">
 
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 
@@ -178,6 +178,16 @@
   .sbtn.copy{background:#eef2f0;color:#334155;}
   .stack{display:flex;flex-direction:column;gap:10px;}
 
+  /* 딥링크(친구 공유) 진입 배지 & 나도 테스트하기 버튼 */
+  .friend-badge{
+    align-self:center;background:#eafaf0;color:var(--green);border:1px solid #c9efd7;
+    font-size:13px;font-weight:800;padding:7px 14px;border-radius:999px;margin-bottom:14px;
+  }
+  .mytest-btn{
+    margin-top:16px;min-height:58px;font-size:18px;
+    box-shadow:0 10px 26px rgba(22,163,74,.34);
+  }
+
   .foot{text-align:center;font-size:12px;color:#94a3b8;margin-top:22px;line-height:1.6;}
   .foot a{color:#94a3b8;}
 
@@ -237,7 +247,10 @@
 
   <!-- ===== RESULT ===== -->
   <section class="screen result-screen" id="screen-result">
+    <div class="friend-badge" id="friendBadge" style="display:none;">👀 친구가 보낸 결과예요</div>
     <div class="result-card" id="resultCard"><!-- injected --></div>
+
+    <button class="btn btn-primary mytest-btn" type="button" id="myTestBtn" style="display:none;" onclick="start()">🙋 나도 테스트하기</button>
 
     <p class="cta-title">당신에겐 이런 코칭이 잘 맞아요</p>
     <p class="cta-sub">노네임피트니스에서 나에게 맞는 트레이너를 만나보세요</p>
@@ -313,7 +326,19 @@
    트레이너 궁합검사 — 데이터 (trainerMatchAssessment.js 이식)
    ========================================================= */
 var SHARE_URL = "https://nonamefitness.co.kr/test-trainer.html";
-var OG_IMAGE = "https://nonamefitness.co.kr/images/facility-main.jpg";
+var OG_IMAGE = "https://nonamefitness.co.kr/images/og-trainer.jpeg";
+var VALID_RESULTS = ['sparta','friend','data','silent','balanced'];
+
+/* 현재 결과 기준 공유 링크 (?r=<id>) */
+function shareUrlFor(){
+  var id = lastResult && VALID_RESULTS.indexOf(lastResult.primary)>=0 ? lastResult.primary : null;
+  return id ? SHARE_URL+'?r='+id : SHARE_URL;
+}
+/* 현재 결과 기준 공유 카드 이미지 */
+function shareImageFor(){
+  var id = lastResult && VALID_RESULTS.indexOf(lastResult.primary)>=0 ? lastResult.primary : null;
+  return id ? 'https://nonamefitness.co.kr/images/og-trainer-'+id+'.jpeg' : OG_IMAGE;
+}
 
 var MATCH_PERSONAS = {
   sparta: {
@@ -537,6 +562,9 @@ function computeAndShow(){
   var result=classifyMatch(scores);
   lastResult=result;
   renderResult(result, scores);
+  // 직접 푼 결과 → 친구공유 배지/버튼 숨김
+  document.getElementById('friendBadge').style.display='none';
+  document.getElementById('myTestBtn').style.display='none';
   show('screen-result');
 }
 
@@ -571,17 +599,19 @@ function renderResult(result, scores){
   html+='<p class="desc">'+p.description+'</p>';
   html+='<div class="tip"><h3>💡 나에게 맞는 코칭 팁</h3><p>'+p.coachingTip+'</p></div>';
 
-  // score bars
-  html+='<div class="scores">';
-  var order=['sparta','data','friend','silent'];
-  for(var i=0;i<order.length;i++){
-    var id=order[i]; var sp=MATCH_PERSONAS[id];
-    var v=scores.normalized[id]||0;
-    html+='<div class="score-row"><div class="lab">'+sp.icon+' '+sp.shortName+'</div>';
-    html+='<div class="track"><span style="width:'+v+'%;background:'+sp.color+'"></span></div>';
-    html+='<div class="pct">'+v+'</div></div>';
+  // score bars (점수 정보가 있을 때만 표시 — 딥링크 진입 시엔 scores 없음)
+  if(scores && scores.normalized){
+    html+='<div class="scores">';
+    var order=['sparta','data','friend','silent'];
+    for(var i=0;i<order.length;i++){
+      var id=order[i]; var sp=MATCH_PERSONAS[id];
+      var v=scores.normalized[id]||0;
+      html+='<div class="score-row"><div class="lab">'+sp.icon+' '+sp.shortName+'</div>';
+      html+='<div class="track"><span style="width:'+v+'%;background:'+sp.color+'"></span></div>';
+      html+='<div class="pct">'+v+'</div></div>';
+    }
+    html+='</div>';
   }
-  html+='</div>';
   html+='<p style="font-size:11px;color:#94a3b8;text-align:center;margin-top:10px;">'+p.theory+'</p>';
   html+='</div>';
   card.innerHTML=html;
@@ -614,7 +644,7 @@ function shareText(){
   var p=lastResult?personaOf(lastResult.primary):null;
   var name=p?p.shortName:'궁합 유형';
   var icon=p?p.icon:'🏋️';
-  return "나의 트레이너 궁합 유형은 '"+name+"' "+icon+" 너는? 👉 "+SHARE_URL;
+  return "나의 트레이너 궁합 유형은 '"+name+"' "+icon+" 너는? 👉 "+shareUrlFor();
 }
 
 function shareKakao(){
@@ -622,16 +652,17 @@ function shareKakao(){
   try{
     if(window.Kakao){
       if(!Kakao.isInitialized()) Kakao.init('2cddec8893b9498426a35fd55935b6ea');
+      var su=shareUrlFor();
       Kakao.Share.sendDefault({
         objectType:'feed',
         content:{
           title:"트레이너 궁합검사 — 내 유형은 '"+(p?p.shortName:'?')+"' "+(p?p.icon:'🏋️'),
           description:'30초 만에 알아보는 나의 운동 케미 유형! 너는 어떤 타입?',
-          imageUrl:OG_IMAGE,
-          link:{ mobileWebUrl:SHARE_URL, webUrl:SHARE_URL }
+          imageUrl:shareImageFor(),
+          link:{ mobileWebUrl:su, webUrl:su }
         },
         buttons:[
-          { title:'나도 테스트하기', link:{ mobileWebUrl:SHARE_URL, webUrl:SHARE_URL } },
+          { title:'나도 테스트하기', link:{ mobileWebUrl:su, webUrl:su } },
           { title:'무료 상담받기', link:{ mobileWebUrl:'https://naver.me/GjRIBgpf', webUrl:'https://naver.me/GjRIBgpf' } }
         ]
       });
@@ -643,7 +674,7 @@ function shareKakao(){
 
 function shareNative(){
   if(navigator.share){
-    navigator.share({ title:'트레이너 궁합검사', text:shareText(), url:SHARE_URL })
+    navigator.share({ title:'트레이너 궁합검사', text:shareText(), url:shareUrlFor() })
       .catch(function(){});
   } else {
     copyLink();
@@ -689,6 +720,22 @@ function shade(hex,pct){
 
 /* Kakao init on load */
 try{ if(window.Kakao && !Kakao.isInitialized()) Kakao.init('2cddec8893b9498426a35fd55935b6ea'); }catch(e){}
+
+/* =========================================================
+   딥링크: ?r=<유형> 으로 들어오면 해당 결과 화면 바로 표시
+   ========================================================= */
+function initDeepLink(){
+  try{
+    var r=new URLSearchParams(window.location.search).get('r');
+    if(!r || VALID_RESULTS.indexOf(r)<0) return;
+    lastResult={ primary:r, isCombo:false, secondary:null };
+    renderResult(lastResult, null);      // scores 없이 안전 렌더
+    document.getElementById('friendBadge').style.display='';
+    document.getElementById('myTestBtn').style.display='';
+    show('screen-result');
+  }catch(e){ /* 무시: 원래 인트로 유지 */ }
+}
+initDeepLink();
 
 /* =========================================================
    트레이너 매칭 상담 (이름·연락처 → 텔레그램 영업알림)

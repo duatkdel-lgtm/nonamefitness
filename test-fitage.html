@@ -8,12 +8,12 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="운동 나이 자가진단 | 노네임피트니스">
 <meta property="og:description" content="내 운동 나이가 실제 나이보다 많다?! 😱 1분 자가진단으로 확인해보세요.">
-<meta property="og:image" content="https://nonamefitness.co.kr/images/facility-main.jpg">
+<meta property="og:image" content="https://nonamefitness.co.kr/images/og-fitage.jpeg">
 <meta property="og:url" content="https://nonamefitness.co.kr/test-fitage.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="운동 나이 자가진단 | 노네임피트니스">
 <meta name="twitter:description" content="내 운동 나이가 실제 나이보다 많다?! 😱 1분 자가진단으로 확인해보세요.">
-<meta name="twitter:image" content="https://nonamefitness.co.kr/images/facility-main.jpg">
+<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-fitage.jpeg">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
   :root{
@@ -195,6 +195,11 @@
 
   <!-- RESULT -->
   <section id="result" class="screen">
+    <div id="friendBadge" style="display:none;">
+      <div class="pill" style="margin-bottom:12px;background:rgba(34,197,94,.16);">👀 친구가 보낸 결과예요</div>
+      <button class="btn btn-primary" style="margin-bottom:16px;" onclick="restart()">🙋 나도 테스트하기</button>
+    </div>
+
     <div class="card" id="rcard" style="text-align:center;"></div>
 
     <div class="cta-block">
@@ -228,6 +233,29 @@
   try{ if(window.Kakao && !Kakao.isInitialized()) Kakao.init('2cddec8893b9498426a35fd55935b6ea'); }catch(e){}
 
   const SHARE_URL = 'https://nonamefitness.co.kr/test-fitage.html';
+  const OG_BASE = 'https://nonamefitness.co.kr/images/og-fitage';
+
+  // 등급 메타 (영문 키 기준) — 결과 렌더 + 공유 카드 공용
+  const GRADES = {
+    good: { label:'아주 좋음', color:'#16A34A', emoji:'🏆',
+      desc:'놀랍습니다! 운동 나이가 실제 나이보다 훨씬 젊습니다. 체력·유연성·회복력이 또래 상위권이에요.',
+      tip:'지금의 루틴을 유지하면서 근력 운동을 더해 <b>젊음을 오래 저축</b>하세요.' },
+    ok:   { label:'좋음', color:'#22C55E', emoji:'💪',
+      desc:'괜찮은 편이에요! 실제 나이와 비슷하거나 살짝 젊은 운동 나이입니다. 조금만 더 관리하면 상위권으로 갈 수 있어요.',
+      tip:'주 3회 규칙적인 운동과 스트레칭으로 <b>운동 나이를 더 낮춰</b>보세요.' },
+    warn: { label:'주의', color:'#F59E0B', emoji:'⚠️',
+      desc:'운동 나이가 실제 나이보다 많습니다. 앉아있는 시간이 길거나 운동량이 부족할 수 있어요. 지금이 관리 시작의 적기예요.',
+      tip:'가벼운 유산소 + 기초 근력부터 시작하면 <b>몇 주 만에 체감</b>이 달라집니다.' },
+    risk: { label:'위험', color:'#EF4444', emoji:'🚨',
+      desc:'운동 나이가 실제 나이보다 크게 많습니다. 체력·유연성·회복력 모두 신경 써야 할 신호예요. 미루지 말고 지금 시작하세요.',
+      tip:'전문가와 함께 <b>맞춤 운동 계획</b>을 세우면 안전하고 빠르게 되돌릴 수 있어요.' },
+  };
+  function gradeKeyFromDelta(delta){
+    if(delta <= -5) return 'good';
+    if(delta <= 1)  return 'ok';
+    if(delta <= 7)  return 'warn';
+    return 'risk';
+  }
 
   // ---- Questions (8문항). 점수가 높을수록 운동나이가 젊음(좋음) ----
   // delta 계산: 좋은 답 = -, 나쁜 답 = + 로 운동나이 가감
@@ -351,11 +379,48 @@
     step--; render();
   }
 
-  function restart(){ step=0; realAge=null; answers.fill(null); show('intro'); }
+  function restart(){ step=0; realAge=null; answers.fill(null); $('friendBadge').style.display='none'; show('intro'); }
 
   // ---- 결과 산출 ----
   let resultState = null;
+
+  // gradeKey + (옵션)fitAge + (옵션)delta 로 결과 카드 렌더. 공유 딥링크/직접 풀기 공용.
+  function renderResultCard(gradeKey, fitAge, delta, realAgeIn){
+    const g = GRADES[gradeKey] || GRADES.warn;
+    resultState = { fitAge: (fitAge!=null?fitAge:null), realAge: (realAgeIn!=null?realAgeIn:null), delta: (typeof delta==='number'?delta:null), grade: g.label, gradeKey };
+
+    let numHtml;
+    if(fitAge!=null){
+      numHtml = `<div class="res-line">당신의 운동 나이는</div>
+        <div class="bignum" style="color:${g.color}">${fitAge}<span class="unit">세</span></div>`;
+    } else {
+      numHtml = `<div class="res-line">운동 나이 등급</div>
+        <div class="bignum" style="color:${g.color};font-size:46px;">${g.label}</div>`;
+    }
+
+    let deltaHtml = '';
+    if(typeof delta==='number'){
+      const absd = Math.abs(delta);
+      const deltaBg = delta>1 ? 'rgba(239,68,68,.12)' : 'rgba(34,197,94,.14)';
+      const deltaColor = delta>1 ? '#DC2626' : '#16A34A';
+      const deltaText = delta>0 ? `실제 나이보다 ${absd}살 많아요 😱`
+                      : delta<0 ? `실제 나이보다 ${absd}살 젊어요! 🎉`
+                      : `실제 나이와 똑같아요`;
+      deltaHtml = `<div class="delta" style="background:${deltaBg};color:${deltaColor}">${deltaText}</div>`;
+    }
+
+    $('rcard').innerHTML = `
+      <div class="res-emoji">${g.emoji}</div>
+      <div class="grade-tag" style="background:${g.color}">${g.label}</div>
+      ${numHtml}
+      ${deltaHtml}
+      <div class="res-desc">${g.desc}</div>
+      <div class="res-tip">💡 한 줄 처방: ${g.tip}</div>
+    `;
+  }
+
   function finish(){
+    $('friendBadge').style.display='none';
     const sum = answers.reduce((a,b)=>a+(b||0),0); // 범위 대략 -25 ~ +30
     let delta = Math.round(sum * 0.45); // 운동나이 가감 (살)
     // 상한/하한 클램프
@@ -365,69 +430,47 @@
     if(fitAge < 12) fitAge = 12;
     if(fitAge > 99) fitAge = 99;
 
-    // 등급 (delta 기준)
-    let grade, color, gemoji, desc, tip;
-    if(delta <= -5){
-      grade='아주 좋음'; color='#16A34A'; gemoji='🏆';
-      desc='놀랍습니다! 운동 나이가 실제 나이보다 훨씬 젊습니다. 체력·유연성·회복력이 또래 상위권이에요.';
-      tip='지금의 루틴을 유지하면서 근력 운동을 더해 <b>젊음을 오래 저축</b>하세요.';
-    } else if(delta <= 1){
-      grade='좋음'; color='#22C55E'; gemoji='💪';
-      desc='괜찮은 편이에요! 실제 나이와 비슷하거나 살짝 젊은 운동 나이입니다. 조금만 더 관리하면 상위권으로 갈 수 있어요.';
-      tip='주 3회 규칙적인 운동과 스트레칭으로 <b>운동 나이를 더 낮춰</b>보세요.';
-    } else if(delta <= 7){
-      grade='주의'; color='#F59E0B'; gemoji='⚠️';
-      desc='운동 나이가 실제 나이보다 많습니다. 앉아있는 시간이 길거나 운동량이 부족할 수 있어요. 지금이 관리 시작의 적기예요.';
-      tip='가벼운 유산소 + 기초 근력부터 시작하면 <b>몇 주 만에 체감</b>이 달라집니다.';
-    } else {
-      grade='위험'; color='#EF4444'; gemoji='🚨';
-      desc='운동 나이가 실제 나이보다 크게 많습니다. 체력·유연성·회복력 모두 신경 써야 할 신호예요. 미루지 말고 지금 시작하세요.';
-      tip='전문가와 함께 <b>맞춤 운동 계획</b>을 세우면 안전하고 빠르게 되돌릴 수 있어요.';
-    }
-
-    resultState = { fitAge, realAge, delta, grade };
-
-    const sign = delta>0 ? '+' : (delta<0 ? '−' : '±');
-    const absd = Math.abs(delta);
-    const deltaBg = delta>1 ? 'rgba(239,68,68,.12)' : 'rgba(34,197,94,.14)';
-    const deltaColor = delta>1 ? '#DC2626' : '#16A34A';
-    const deltaText = delta>0 ? `실제 나이보다 ${absd}살 많아요 😱`
-                    : delta<0 ? `실제 나이보다 ${absd}살 젊어요! 🎉`
-                    : `실제 나이와 똑같아요`;
-
-    $('rcard').innerHTML = `
-      <div class="res-emoji">${gemoji}</div>
-      <div class="grade-tag" style="background:${color}">${grade}</div>
-      <div class="res-line">당신의 운동 나이는</div>
-      <div class="bignum" style="color:${color}">${fitAge}<span class="unit">세</span></div>
-      <div class="delta" style="background:${deltaBg};color:${deltaColor}">${deltaText}</div>
-      <div class="res-desc">${desc}</div>
-      <div class="res-tip">💡 한 줄 처방: ${tip}</div>
-    `;
+    renderResultCard(gradeKeyFromDelta(delta), fitAge, delta, realAge);
     show('result');
   }
 
   // ---- 공유 ----
+  // 현재 결과 기준 공유 URL (?r=등급키&a=운동나이)
+  function shareUrl(){
+    if(!resultState) return SHARE_URL;
+    const p = new URLSearchParams();
+    if(resultState.gradeKey) p.set('r', resultState.gradeKey);
+    if(resultState.fitAge!=null) p.set('a', resultState.fitAge);
+    const qs = p.toString();
+    return qs ? SHARE_URL + '?' + qs : SHARE_URL;
+  }
+  // 등급별 공유 카드 이미지
+  function shareImage(){
+    const k = resultState && resultState.gradeKey;
+    return k ? `${OG_BASE}-${k}.jpeg` : `${OG_BASE}.jpeg`;
+  }
   function shareText(){
     const fa = resultState ? resultState.fitAge : '';
-    return `내 운동 나이는 ${fa}세?! 😱 너는? 👉 ${SHARE_URL}`;
+    const num = (fa!=null && fa!=='') ? `${fa}세` : '몇 살';
+    return `내 운동 나이는 ${num}?! 😱 너는? 👉 ${shareUrl()}`;
   }
   function shareTitle(){
-    return resultState ? `내 운동 나이는 ${resultState.fitAge}세! (${resultState.grade})` : '운동 나이 자가진단';
+    return resultState ? `내 운동 나이는 ${resultState.fitAge!=null?resultState.fitAge+'세':''}! (${resultState.grade})` : '운동 나이 자가진단';
   }
 
   function shareKakao(){
     try{
       if(window.Kakao && Kakao.isInitialized() && Kakao.Share){
+        const url = shareUrl();
         Kakao.Share.sendDefault({
           objectType:'feed',
           content:{
-            title:`🏃 운동 나이 자가진단 결과: ${resultState?resultState.fitAge:''}세`,
+            title:`🏃 운동 나이 자가진단 결과: ${resultState&&resultState.fitAge!=null?resultState.fitAge+'세':(resultState?resultState.grade:'')}`,
             description:'내 운동 나이가 실제 나이보다 많다?! 1분 자가진단으로 확인해보세요.',
-            imageUrl:'https://nonamefitness.co.kr/images/facility-main.jpg',
-            link:{ mobileWebUrl:SHARE_URL, webUrl:SHARE_URL }
+            imageUrl:shareImage(),
+            link:{ mobileWebUrl:url, webUrl:url }
           },
-          buttons:[{ title:'나도 테스트하기', link:{ mobileWebUrl:SHARE_URL, webUrl:SHARE_URL } }]
+          buttons:[{ title:'나도 테스트하기', link:{ mobileWebUrl:url, webUrl:url } }]
         });
         return;
       }
@@ -437,7 +480,7 @@
 
   function shareNative(){
     if(navigator.share){
-      navigator.share({ title:shareTitle(), text:shareText(), url:SHARE_URL }).catch(()=>{});
+      navigator.share({ title:shareTitle(), text:shareText(), url:shareUrl() }).catch(()=>{});
     } else {
       copyLink();
     }
@@ -461,6 +504,20 @@
     const t=$('toast'); t.textContent=msg; t.classList.add('show');
     clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2200);
   }
+
+  // ---- 딥링크: ?r=등급키(&a=운동나이) 면 인트로/퀴즈 건너뛰고 결과 바로 표시 ----
+  (function deepLink(){
+    try{
+      const p = new URLSearchParams(location.search);
+      const r = (p.get('r')||'').toLowerCase();
+      if(!GRADES[r]) return;
+      const a = parseInt(p.get('a'),10);
+      const fitAge = (a>=12 && a<=99) ? a : null;
+      renderResultCard(r, fitAge, null, null);
+      $('friendBadge').style.display='block';
+      show('result');
+    }catch(e){}
+  })();
 </script>
 </body>
 </html>

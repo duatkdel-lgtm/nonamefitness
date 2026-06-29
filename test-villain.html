@@ -11,12 +11,12 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="헬스장 빌런 테스트 | 노네임피트니스">
 <meta property="og:description" content="당신은 어떤 헬스장 빌런? 기구 점유러? 셀카충? 아니면 숨은 매너왕? 30초 테스트로 확인!">
-<meta property="og:image" content="https://nonamefitness.co.kr/images/facility-main.jpg">
+<meta property="og:image" content="https://nonamefitness.co.kr/images/og-villain.jpeg">
 <meta property="og:url" content="https://nonamefitness.co.kr/test-villain.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="헬스장 빌런 테스트 | 노네임피트니스">
 <meta name="twitter:description" content="당신은 어떤 헬스장 빌런? 30초 테스트로 확인!">
-<meta name="twitter:image" content="https://nonamefitness.co.kr/images/facility-main.jpg">
+<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-villain.jpeg">
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
@@ -156,6 +156,8 @@ footer{text-align:center;padding:30px 0 26px;font-size:12px;color:var(--muted);l
 <style>
 .quiz-exit{position:fixed;top:14px;right:14px;z-index:99999;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.32);color:#fff;font-size:18px;line-height:1;text-decoration:none;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:transform .12s ease;}
 .quiz-exit:active{transform:scale(.92);}
+.friend-badge{display:none;margin:0 auto 14px;width:fit-content;padding:9px 18px;border-radius:999px;background:rgba(22,163,74,.12);color:#16A34A;font-weight:800;font-size:14px;border:1.5px solid rgba(22,163,74,.35);}
+.friend-cta{display:none;width:100%;margin:18px 0 6px;}
 </style>
 
 <!-- ===== INTRO ===== -->
@@ -188,6 +190,8 @@ footer{text-align:center;padding:30px 0 26px;font-size:12px;color:var(--muted);l
 <!-- ===== RESULT ===== -->
 <section id="screen-result" class="screen">
   <div class="wrap">
+    <div class="friend-badge" id="friend-badge">👀 친구가 보낸 결과예요</div>
+    <button class="btn btn-primary friend-cta" id="friend-cta" onclick="restart()">🙋 나도 테스트하기</button>
     <div class="result-card">
       <div class="rc-head" id="rc-head">
         <span class="label">당신의 헬스장 빌런은…</span>
@@ -323,7 +327,9 @@ var QUESTIONS = [
 ];
 
 /* ===== STATE ===== */
-var cur=0, answers=[], result=null;
+var cur=0, answers=[], result=null, resultKey=null;
+function shareUrl(){ return resultKey ? SHARE_URL+"?r="+resultKey : SHARE_URL; }
+function resultImageUrl(){ return resultKey ? "https://nonamefitness.co.kr/images/og-villain-"+resultKey+".jpeg" : "https://nonamefitness.co.kr/images/og-villain.jpeg"; }
 
 function $(id){return document.getElementById(id)}
 function show(id){
@@ -372,8 +378,16 @@ function finish(){
   // priority order so ties resolve deterministically
   var order=['weight','selfie','chair','mirror','perfume','caller','manner'];
   order.forEach(function(k){ if(score[k]>bestVal){ bestVal=score[k]; best=k; } });
-  result=TYPES[best];
+  result=TYPES[best]; resultKey=best;
   paintResult();
+  show('screen-result');
+}
+
+function showResultByKey(key){
+  result=TYPES[key]; resultKey=key;
+  paintResult();
+  $('friend-badge').style.display='block';
+  $('friend-cta').style.display='block';
   show('screen-result');
 }
 
@@ -387,11 +401,15 @@ function paintResult(){
   document.title=result.name+" | 헬스장 빌런 테스트";
 }
 
-function restart(){ start(); }
+function restart(){
+  $('friend-badge').style.display='none';
+  $('friend-cta').style.display='none';
+  start();
+}
 
 /* ===== SHARE ===== */
 function shareText(){
-  return "나는 헬스장 빌런 중 '"+result.name+"' "+result.emoji+" 너는? 👉 "+SHARE_URL;
+  return "나는 헬스장 빌런 중 '"+result.name+"' "+result.emoji+" 너는? 👉 "+shareUrl();
 }
 
 try{
@@ -406,10 +424,10 @@ function shareKakao(){
         content:{
           title:"나는 헬스장 빌런 중 '"+result.name+"' "+result.emoji,
           description:"너는 무슨 빌런? 30초 헬스장 빌런 테스트로 확인해봐!",
-          imageUrl:"https://nonamefitness.co.kr/images/facility-main.jpg",
-          link:{ mobileWebUrl:SHARE_URL, webUrl:SHARE_URL }
+          imageUrl:resultImageUrl(),
+          link:{ mobileWebUrl:shareUrl(), webUrl:shareUrl() }
         },
-        buttons:[{ title:"나도 테스트하기", link:{ mobileWebUrl:SHARE_URL, webUrl:SHARE_URL } }]
+        buttons:[{ title:"나도 테스트하기", link:{ mobileWebUrl:shareUrl(), webUrl:shareUrl() } }]
       });
       return;
     }
@@ -419,7 +437,7 @@ function shareKakao(){
 
 function shareNative(){
   if(navigator.share){
-    navigator.share({ title:"헬스장 빌런 테스트", text:shareText(), url:SHARE_URL }).catch(function(){});
+    navigator.share({ title:"헬스장 빌런 테스트", text:shareText(), url:shareUrl() }).catch(function(){});
   }else{
     copyLink();
   }
@@ -447,6 +465,14 @@ function toast(msg){
   clearTimeout(toastTimer);
   toastTimer=setTimeout(function(){ t.classList.remove('show'); },2200);
 }
+
+/* ===== DEEP LINK (?r=<key>) ===== */
+(function(){
+  try{
+    var r=new URLSearchParams(location.search).get('r');
+    if(r && TYPES[r]) showResultByKey(r);
+  }catch(e){}
+})();
 </script>
 </body>
 </html>

@@ -10,12 +10,12 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="헬스인 유형 테스트 (헬스 MBTI) | 노네임피트니스">
 <meta property="og:description" content="30초면 끝! 나는 어떤 헬스인 유형일까? 8문항으로 알아보는 헬스 MBTI. 친구랑 같이 해봐요 💪">
-<meta property="og:image" content="https://nonamefitness.co.kr/images/facility-main.jpg">
+<meta property="og:image" content="https://nonamefitness.co.kr/images/og-gymtype.jpeg">
 <meta property="og:url" content="https://nonamefitness.co.kr/test-gymtype.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="헬스인 유형 테스트 (헬스 MBTI) | 노네임피트니스">
 <meta name="twitter:description" content="30초면 끝! 나는 어떤 헬스인 유형일까? 8문항 헬스 MBTI 테스트.">
-<meta name="twitter:image" content="https://nonamefitness.co.kr/images/facility-main.jpg">
+<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-gymtype.jpeg">
 
 <!-- Pretendard CDN -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
@@ -220,6 +220,10 @@
 
   <!-- ===== 3. 결과 ===== -->
   <section class="screen" id="result">
+    <div id="friendBox" style="display:none;text-align:center;margin:6px 0 14px;">
+      <span class="badge">👀 친구가 보낸 결과예요</span>
+      <button class="btn btn-primary" id="meTooBtn" style="margin-top:12px;">🙋 나도 테스트하기</button>
+    </div>
     <div class="result-card" id="resultCard">
       <div class="r-label">나의 헬스인 유형은</div>
       <div class="r-emoji" id="rEmoji">🦍</div>
@@ -430,8 +434,10 @@
   }
 
   var resultName = "";
+  var resultKey = "";
   function renderResult(t){
     resultName = t.name;
+    resultKey = t.key;
     $("rEmoji").textContent = t.emoji;
     $("rName").textContent = t.name;
     $("rTag").textContent = t.tag;
@@ -443,20 +449,29 @@
   }
 
   /* ===== 인트로/재시작 ===== */
-  $("startBtn").addEventListener("click", function(){
+  function startFresh(){
+    $("friendBox").style.display = "none";
     current=0; answers=new Array(TOTAL).fill(null);
     renderQuestion(); show("quiz");
-  });
-  $("restartBtn").addEventListener("click", function(){
-    current=0; answers=new Array(TOTAL).fill(null);
-    renderQuestion(); show("quiz");
+  }
+  $("startBtn").addEventListener("click", startFresh);
+  $("restartBtn").addEventListener("click", startFresh);
+  $("meTooBtn").addEventListener("click", function(){
+    $("friendBox").style.display = "none";
+    show("intro");
   });
 
   /* ===== 공유 ===== */
   var PAGE_URL = "https://nonamefitness.co.kr/test-gymtype.html";
-  var OG_IMG = "https://nonamefitness.co.kr/images/facility-main.jpg";
+  var OG_IMG = "https://nonamefitness.co.kr/images/og-gymtype.jpeg";
+  function shareUrl(){
+    return resultKey ? PAGE_URL+"?r="+resultKey : PAGE_URL;
+  }
+  function shareImg(){
+    return resultKey ? "https://nonamefitness.co.kr/images/og-gymtype-"+resultKey+".jpeg" : OG_IMG;
+  }
   function shareText(){
-    return "나의 헬스인 유형은 '"+resultName+"' 💪 너는 어떤 유형? 👉 "+PAGE_URL;
+    return "나의 헬스인 유형은 '"+resultName+"' 💪 너는 어떤 유형? 👉 "+shareUrl();
   }
 
   // 토스트
@@ -479,7 +494,7 @@
 
   function nativeShare(){
     if(navigator.share){
-      navigator.share({ title:"헬스인 유형 테스트", text:shareText(), url:PAGE_URL }).catch(function(){});
+      navigator.share({ title:"헬스인 유형 테스트", text:shareText(), url:shareUrl() }).catch(function(){});
     } else {
       copyLink();
     }
@@ -493,8 +508,8 @@
           content:{
             title:"나의 헬스인 유형은 '"+resultName+"' 💪",
             description:"30초 헬스 MBTI 테스트 — 너는 어떤 유형이야? 지금 바로 해보기!",
-            imageUrl:OG_IMG,
-            link:{ mobileWebUrl:PAGE_URL, webUrl:PAGE_URL }
+            imageUrl:shareImg(),
+            link:{ mobileWebUrl:shareUrl(), webUrl:shareUrl() }
           },
           buttons:[{ title:"나도 테스트하기", link:{ mobileWebUrl:PAGE_URL, webUrl:PAGE_URL } }]
         });
@@ -523,6 +538,16 @@
     }catch(e){ toast("복사에 실패했어요 😢"); }
   }
   $("copyBtn").addEventListener("click", copyLink);
+
+  /* ===== 딥링크: ?r=<key> 면 결과 바로 표시 ===== */
+  (function initDeepLink(){
+    var r;
+    try{ r = new URLSearchParams(window.location.search).get("r"); }catch(e){ r = null; }
+    if(r && TYPES[r]){
+      $("friendBox").style.display = "block";
+      renderResult(TYPES[r]);
+    }
+  })();
 
 })();
 </script>
