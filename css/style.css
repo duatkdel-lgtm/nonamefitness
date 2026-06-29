@@ -37,6 +37,9 @@ html {
     scroll-padding-top: 80px;
 }
 
+html {
+    overflow-x: hidden;
+}
 body {
     font-family: var(--font-main);
     background: var(--dark);
