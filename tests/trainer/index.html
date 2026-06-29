@@ -6,16 +6,20 @@
 <title>트레이너 궁합검사 | 노네임피트니스 천안두정점</title>
 <meta name="description" content="30초 만에 알아보는 나의 트레이너 궁합 유형! 자기결정성 이론 기반 8문항으로 나에게 잘 맞는 코칭 스타일을 찾아드려요. 노네임피트니스 천안두정점.">
 
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S8M0M3Q0P3"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-S8M0M3Q0P3');</script>
+
 <!-- OG / Twitter -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="트레이너 궁합검사 | 노네임피트니스 천안두정점">
 <meta property="og:description" content="30초 만에 알아보는 나의 트레이너 궁합 유형! 나에게 잘 맞는 코칭 스타일을 찾아보세요.">
-<meta property="og:image" content="https://nonamefitness.co.kr/images/og-trainer.jpeg">
+<meta property="og:image" content="https://nonamefitness.co.kr/images/og-trainer.jpeg?v=2">
 <meta property="og:url" content="https://nonamefitness.co.kr/tests/trainer/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="트레이너 궁합검사 | 노네임피트니스 천안두정점">
 <meta name="twitter:description" content="30초 만에 알아보는 나의 트레이너 궁합 유형!">
-<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-trainer.jpeg">
+<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-trainer.jpeg?v=2">
 
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 
@@ -250,7 +254,7 @@
     <div class="friend-badge" id="friendBadge" style="display:none;">👀 친구가 보낸 결과예요</div>
     <div class="result-card" id="resultCard"><!-- injected --></div>
 
-    <button class="btn btn-primary mytest-btn" type="button" id="myTestBtn" style="display:none;" onclick="start()">🙋 나도 테스트하기</button>
+    <button class="btn btn-primary mytest-btn" type="button" id="myTestBtn" style="display:none;" onclick="nadoTest()">🙋 나도 테스트하기</button>
 
     <p class="cta-title">당신에겐 이런 코칭이 잘 맞아요</p>
     <p class="cta-sub">노네임피트니스에서 나에게 맞는 트레이너를 만나보세요</p>
@@ -329,6 +333,10 @@ var SHARE_URL = "https://nonamefitness.co.kr/tests/trainer/";
 var OG_IMAGE = "https://nonamefitness.co.kr/images/og-trainer.jpeg";
 var VALID_RESULTS = ['sparta','friend','data','silent','balanced'];
 
+/* GA4 이벤트 헬퍼 (gtag 미정의 대비 가드) */
+function ga(name, params){ if(typeof gtag==='function') gtag('event', name, params||{}); }
+function currentResultId(){ return lastResult && lastResult.primary ? lastResult.primary : null; }
+
 /* 현재 결과 기준 공유 링크 (?r=<id>) */
 function shareUrlFor(){
   var id = lastResult && VALID_RESULTS.indexOf(lastResult.primary)>=0 ? lastResult.primary : null;
@@ -337,7 +345,7 @@ function shareUrlFor(){
 /* 현재 결과 기준 공유 카드 이미지 */
 function shareImageFor(){
   var id = lastResult && VALID_RESULTS.indexOf(lastResult.primary)>=0 ? lastResult.primary : null;
-  return id ? 'https://nonamefitness.co.kr/images/og-trainer-'+id+'.jpeg' : OG_IMAGE;
+  return id ? 'https://nonamefitness.co.kr/images/og-trainer-'+id+'.jpeg?v=2' : (OG_IMAGE+'?v=2');
 }
 
 var MATCH_PERSONAS = {
@@ -495,7 +503,8 @@ function show(id){
   window.scrollTo(0,0);
 }
 
-function start(){ idx=0; renderQ(); show('screen-quiz'); }
+function start(){ ga('test_start',{test_name:'trainer'}); idx=0; renderQ(); show('screen-quiz'); }
+function nadoTest(){ ga('nado_test',{test_name:'trainer'}); start(); }
 
 function renderQ(){
   var q=MATCH_QUESTIONS[idx];
@@ -561,6 +570,7 @@ function computeAndShow(){
   var scores=computeMatchScores(answers);
   var result=classifyMatch(scores);
   lastResult=result;
+  ga('test_complete',{test_name:'trainer', result: lastResult.primary});
   renderResult(result, scores);
   // 직접 푼 결과 → 친구공유 배지/버튼 숨김
   document.getElementById('friendBadge').style.display='none';
@@ -649,6 +659,7 @@ function shareText(){
 
 function shareKakao(){
   var p=lastResult?personaOf(lastResult.primary):null;
+  ga('share',{method:'kakao', test_name:'trainer', result: currentResultId()});
   try{
     if(window.Kakao){
       if(!Kakao.isInitialized()) Kakao.init('2cddec8893b9498426a35fd55935b6ea');
@@ -673,6 +684,7 @@ function shareKakao(){
 }
 
 function shareNative(){
+  ga('share',{method:'web', test_name:'trainer', result: currentResultId()});
   if(navigator.share){
     navigator.share({ title:'트레이너 궁합검사', text:shareText(), url:shareUrlFor() })
       .catch(function(){});
@@ -682,6 +694,7 @@ function shareNative(){
 }
 
 function copyLink(){
+  ga('share',{method:'copy', test_name:'trainer', result: currentResultId()});
   var txt=shareText();
   if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(txt).then(function(){ toast('링크가 복사됐어요! 📋'); },
@@ -729,6 +742,7 @@ function initDeepLink(){
     var r=new URLSearchParams(window.location.search).get('r');
     if(!r || VALID_RESULTS.indexOf(r)<0) return;
     lastResult={ primary:r, isCombo:false, secondary:null };
+    ga('shared_result_open',{test_name:'trainer', result:r});
     renderResult(lastResult, null);      // scores 없이 안전 렌더
     document.getElementById('friendBadge').style.display='';
     document.getElementById('myTestBtn').style.display='';
@@ -741,6 +755,7 @@ initDeepLink();
    트레이너 매칭 상담 (이름·연락처 → 텔레그램 영업알림)
    ========================================================= */
 function openConsult(){
+  ga('consult_open',{test_name:'trainer', result: currentResultId()});
   var p = lastResult ? personaOf(lastResult.primary) : null;
   var pick = document.getElementById('consultPick');
   if(p){ pick.style.display='block'; pick.innerHTML='내 유형: '+p.icon+' '+p.shortName; }
@@ -793,6 +808,7 @@ function submitConsult(){
     + '— <b>응답 내역</b> —\n'+qa;
 
   window.NONAME_TG.send(msg).then(function(){
+    ga('consult_submit',{test_name:'trainer', result: currentResultId()});
     document.getElementById('consultForm').style.display='none';
     document.getElementById('consultDone').style.display='block';
     btn.disabled=false; btn.textContent='신청하기';

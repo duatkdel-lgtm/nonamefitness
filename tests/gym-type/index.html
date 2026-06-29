@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S8M0M3Q0P3"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-S8M0M3Q0P3');</script>
+
 <title>헬스인 유형 테스트 (헬스 MBTI) | 노네임피트니스</title>
 <meta name="description" content="30초면 끝! 8문항으로 알아보는 나의 헬스인 유형. 헬창? 헬린이? 인스타워리어? 천안 두정동 노네임피트니스가 만든 헬스 MBTI 테스트.">
 
@@ -10,12 +15,12 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="헬스인 유형 테스트 (헬스 MBTI) | 노네임피트니스">
 <meta property="og:description" content="30초면 끝! 나는 어떤 헬스인 유형일까? 8문항으로 알아보는 헬스 MBTI. 친구랑 같이 해봐요 💪">
-<meta property="og:image" content="https://nonamefitness.co.kr/images/og-gymtype.jpeg">
+<meta property="og:image" content="https://nonamefitness.co.kr/images/og-gymtype.jpeg?v=2">
 <meta property="og:url" content="https://nonamefitness.co.kr/tests/gym-type/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="헬스인 유형 테스트 (헬스 MBTI) | 노네임피트니스">
 <meta name="twitter:description" content="30초면 끝! 나는 어떤 헬스인 유형일까? 8문항 헬스 MBTI 테스트.">
-<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-gymtype.jpeg">
+<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-gymtype.jpeg?v=2">
 
 <!-- Pretendard CDN -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
@@ -368,6 +373,10 @@
   var current = 0;
   var answers = new Array(TOTAL).fill(null); // 선택한 opt index
 
+  function track(name, params){
+    if(typeof gtag==='function'){ gtag('event', name, params||{}); }
+  }
+
   var $ = function(id){ return document.getElementById(id); };
   var screens = { intro:$("intro"), quiz:$("quiz"), result:$("result") };
   function show(name){
@@ -431,6 +440,7 @@
       }
     });
     renderResult(TYPES[best]);
+    track('test_complete', {test_name:'gymtype', result:best});
   }
 
   var resultName = "";
@@ -453,22 +463,24 @@
     $("friendBox").style.display = "none";
     current=0; answers=new Array(TOTAL).fill(null);
     renderQuestion(); show("quiz");
+    track('test_start', {test_name:'gymtype'});
   }
   $("startBtn").addEventListener("click", startFresh);
   $("restartBtn").addEventListener("click", startFresh);
   $("meTooBtn").addEventListener("click", function(){
     $("friendBox").style.display = "none";
     show("intro");
+    track('nado_test', {test_name:'gymtype'});
   });
 
   /* ===== 공유 ===== */
   var PAGE_URL = "https://nonamefitness.co.kr/tests/gym-type/";
-  var OG_IMG = "https://nonamefitness.co.kr/images/og-gymtype.jpeg";
+  var OG_IMG = "https://nonamefitness.co.kr/images/og-gymtype.jpeg?v=2";
   function shareUrl(){
     return resultKey ? PAGE_URL+"?r="+resultKey : PAGE_URL;
   }
   function shareImg(){
-    return resultKey ? "https://nonamefitness.co.kr/images/og-gymtype-"+resultKey+".jpeg" : OG_IMG;
+    return resultKey ? "https://nonamefitness.co.kr/images/og-gymtype-"+resultKey+".jpeg?v=2" : OG_IMG;
   }
   function shareText(){
     return "나의 헬스인 유형은 '"+resultName+"' 💪 너는 어떤 유형? 👉 "+shareUrl();
@@ -501,6 +513,7 @@
   }
 
   $("kakaoBtn").addEventListener("click", function(){
+    track('share', {method:'kakao', test_name:'gymtype', result:resultKey});
     try{
       if(kakaoReady && window.Kakao.Share){
         window.Kakao.Share.sendDefault({
@@ -519,7 +532,10 @@
     }catch(e){ nativeShare(); }
   });
 
-  $("shareBtn").addEventListener("click", nativeShare);
+  $("shareBtn").addEventListener("click", function(){
+    track('share', {method:'web', test_name:'gymtype', result:resultKey});
+    nativeShare();
+  });
 
   function copyLink(){
     var text = shareText();
@@ -537,7 +553,10 @@
       toast("링크가 복사됐어요! 📋");
     }catch(e){ toast("복사에 실패했어요 😢"); }
   }
-  $("copyBtn").addEventListener("click", copyLink);
+  $("copyBtn").addEventListener("click", function(){
+    track('share', {method:'copy', test_name:'gymtype', result:resultKey});
+    copyLink();
+  });
 
   /* ===== 딥링크: ?r=<key> 면 결과 바로 표시 ===== */
   (function initDeepLink(){
@@ -546,6 +565,7 @@
     if(r && TYPES[r]){
       $("friendBox").style.display = "block";
       renderResult(TYPES[r]);
+      track('shared_result_open', {test_name:'gymtype', result:r});
     }
   })();
 

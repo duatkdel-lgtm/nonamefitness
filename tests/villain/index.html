@@ -7,16 +7,20 @@
 <meta name="description" content="당신은 어떤 헬스장 빌런? 30초 만에 알아보는 헬스장 매너 빌런 테스트. 친구에게 공유하고 결과를 비교해보세요!">
 <meta name="theme-color" content="#16A34A">
 
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S8M0M3Q0P3"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-S8M0M3Q0P3');</script>
+
 <!-- OG / Twitter -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="헬스장 빌런 테스트 | 노네임피트니스">
 <meta property="og:description" content="당신은 어떤 헬스장 빌런? 기구 점유러? 셀카충? 아니면 숨은 매너왕? 30초 테스트로 확인!">
-<meta property="og:image" content="https://nonamefitness.co.kr/images/og-villain.jpeg">
+<meta property="og:image" content="https://nonamefitness.co.kr/images/og-villain.jpeg?v=2">
 <meta property="og:url" content="https://nonamefitness.co.kr/tests/villain/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="헬스장 빌런 테스트 | 노네임피트니스">
 <meta name="twitter:description" content="당신은 어떤 헬스장 빌런? 30초 테스트로 확인!">
-<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-villain.jpeg">
+<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-villain.jpeg?v=2">
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
@@ -191,7 +195,7 @@ footer{text-align:center;padding:30px 0 26px;font-size:12px;color:var(--muted);l
 <section id="screen-result" class="screen">
   <div class="wrap">
     <div class="friend-badge" id="friend-badge">👀 친구가 보낸 결과예요</div>
-    <button class="btn btn-primary friend-cta" id="friend-cta" onclick="restart()">🙋 나도 테스트하기</button>
+    <button class="btn btn-primary friend-cta" id="friend-cta" onclick="nadoTest()">🙋 나도 테스트하기</button>
     <div class="result-card">
       <div class="rc-head" id="rc-head">
         <span class="label">당신의 헬스장 빌런은…</span>
@@ -329,7 +333,7 @@ var QUESTIONS = [
 /* ===== STATE ===== */
 var cur=0, answers=[], result=null, resultKey=null;
 function shareUrl(){ return resultKey ? SHARE_URL+"?r="+resultKey : SHARE_URL; }
-function resultImageUrl(){ return resultKey ? "https://nonamefitness.co.kr/images/og-villain-"+resultKey+".jpeg" : "https://nonamefitness.co.kr/images/og-villain.jpeg"; }
+function resultImageUrl(){ return resultKey ? "https://nonamefitness.co.kr/images/og-villain-"+resultKey+".jpeg?v=2" : "https://nonamefitness.co.kr/images/og-villain.jpeg?v=2"; }
 
 function $(id){return document.getElementById(id)}
 function show(id){
@@ -339,7 +343,8 @@ function show(id){
   window.scrollTo(0,0);
 }
 
-function start(){ cur=0; answers=[]; render(); show('screen-quiz'); }
+function start(){ cur=0; answers=[]; render(); show('screen-quiz');
+  if(typeof gtag==='function') gtag('event','test_start',{test_name:'villain'}); }
 
 function render(){
   var total=QUESTIONS.length;
@@ -381,6 +386,7 @@ function finish(){
   result=TYPES[best]; resultKey=best;
   paintResult();
   show('screen-result');
+  if(typeof gtag==='function') gtag('event','test_complete',{test_name:'villain', result:resultKey});
 }
 
 function showResultByKey(key){
@@ -389,6 +395,7 @@ function showResultByKey(key){
   $('friend-badge').style.display='block';
   $('friend-cta').style.display='block';
   show('screen-result');
+  if(typeof gtag==='function') gtag('event','shared_result_open',{test_name:'villain', result:resultKey});
 }
 
 function paintResult(){
@@ -406,6 +413,10 @@ function restart(){
   $('friend-cta').style.display='none';
   start();
 }
+function nadoTest(){
+  if(typeof gtag==='function') gtag('event','nado_test',{test_name:'villain'});
+  restart();
+}
 
 /* ===== SHARE ===== */
 function shareText(){
@@ -417,6 +428,7 @@ try{
 }catch(e){}
 
 function shareKakao(){
+  if(typeof gtag==='function') gtag('event','share',{method:'kakao', test_name:'villain', result:resultKey});
   try{
     if(window.Kakao && Kakao.isInitialized()){
       Kakao.Share.sendDefault({
@@ -436,6 +448,7 @@ function shareKakao(){
 }
 
 function shareNative(){
+  if(typeof gtag==='function') gtag('event','share',{method:'web', test_name:'villain', result:resultKey});
   if(navigator.share){
     navigator.share({ title:"헬스장 빌런 테스트", text:shareText(), url:shareUrl() }).catch(function(){});
   }else{
@@ -444,6 +457,7 @@ function shareNative(){
 }
 
 function copyLink(){
+  if(typeof gtag==='function') gtag('event','share',{method:'copy', test_name:'villain', result:resultKey});
   var txt=shareText();
   if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(txt).then(function(){ toast('복사 완료! 친구에게 붙여넣기 📋'); },

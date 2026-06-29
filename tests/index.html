@@ -2,15 +2,17 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S8M0M3Q0P3"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-S8M0M3Q0P3');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>운동 심리테스트 모음 | 노네임피트니스 천안두정점</title>
 <meta name="description" content="헬스장에서 즐기는 재미있는 운동 심리테스트 모음. 트레이너 궁합검사, 헬스인 유형(헬스 MBTI), 헬스장 빌런, 운동 나이 자가진단까지 — 노네임피트니스 천안두정점.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="운동 심리테스트 모음 🏋️ 나는 어떤 유형?">
 <meta property="og:description" content="트레이너 궁합 · 헬스인 유형 · 헬스장 빌런 · 운동 나이까지! 1분 테스트하고 친구랑 공유해요.">
-<meta property="og:image" content="https://nonamefitness.co.kr/images/og-tests.jpeg">
+<meta property="og:image" content="https://nonamefitness.co.kr/images/og-tests.jpeg?v=2">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-tests.jpeg">
+<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-tests.jpeg?v=2">
 <meta property="og:url" content="https://nonamefitness.co.kr/tests/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -180,5 +182,16 @@ footer a{color:var(--green); font-weight:700;}
     <a href="/">홈페이지로 돌아가기</a>
   </footer>
 </main>
+<script>
+(function(){
+  var map={'/tests/decision/':'decision','/tests/trainer/':'trainer','/tests/gym-type/':'gymtype','/tests/villain/':'villain','/tests/fit-age/':'fitage'};
+  document.querySelectorAll('.test-card').forEach(function(card){
+    card.addEventListener('click',function(){
+      var name=map[card.getAttribute('href')];
+      if(name && typeof gtag==='function'){ gtag('event','select_test',{test_name:name}); }
+    });
+  });
+})();
+</script>
 </body>
 </html>

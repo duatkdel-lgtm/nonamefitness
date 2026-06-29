@@ -6,16 +6,20 @@
 <title>결정사 — 나에게 맞는 운동 찾기 | 노네임피트니스</title>
 <meta name="description" content="뭘 할지 모르겠다면? 결정사가 정해드립니다. 7문항으로 무제한PT·프리미엄PT·스피닝·일반헬스 중 나에게 딱 맞는 프로그램을 추천해드려요. 노네임피트니스 천안두정점.">
 
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S8M0M3Q0P3"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-S8M0M3Q0P3');</script>
+
 <!-- OG / Twitter -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="결정사 — 나에게 맞는 운동 찾기 | 노네임피트니스">
 <meta property="og:description" content="운동 시작하고 싶은데 뭘 할지 모르겠다면? 결정사가 7문항으로 딱 맞는 프로그램을 정해드립니다.">
-<meta property="og:image" content="https://nonamefitness.co.kr/images/og-decision.jpeg">
+<meta property="og:image" content="https://nonamefitness.co.kr/images/og-decision.jpeg?v=2">
 <meta property="og:url" content="https://nonamefitness.co.kr/tests/decision/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="결정사 — 나에게 맞는 운동 찾기 | 노네임피트니스">
 <meta name="twitter:description" content="뭘 할지 모르겠다면? 결정사가 정해드립니다.">
-<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-decision.jpeg">
+<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-decision.jpeg?v=2">
 
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 
@@ -239,7 +243,7 @@
     <div class="result-card" id="resultCard"><!-- injected --></div>
 
     <div class="stack" id="selfTestWrap" style="display:none;margin-top:14px;">
-      <button class="btn btn-primary" type="button" onclick="restart()">🙋 나도 테스트하기</button>
+      <button class="btn btn-primary" type="button" onclick="nadoTest()">🙋 나도 테스트하기</button>
     </div>
 
     <p class="cta-title">결정사의 추천, 지금 시작해볼까요?</p>
@@ -318,6 +322,9 @@
 /* =========================================================
    결정사 — 운동 프로그램 추천
    ========================================================= */
+/* GA4 이벤트 헬퍼 (가드) */
+function ga(name, params){ if(typeof gtag==='function'){ try{ gtag('event', name, params||{}); }catch(e){} } }
+
 var SHARE_URL = "https://nonamefitness.co.kr/tests/decision/";
 var OG_IMAGE  = "https://nonamefitness.co.kr/images/og-decision.jpeg";
 var OG_IMAGE_BASE = "https://nonamefitness.co.kr/images/og-decision-";
@@ -329,7 +336,7 @@ function shareUrl(){
 }
 /* 결과별 카카오 공유 이미지 */
 function shareImage(){
-  return lastProgram ? (OG_IMAGE_BASE + lastProgram + ".jpeg") : OG_IMAGE;
+  return lastProgram ? (OG_IMAGE_BASE + lastProgram + ".jpeg?v=2") : (OG_IMAGE + "?v=2");
 }
 
 /* 추천 결과 = 노네임 실제 프로그램 4종 (up / pp / sp / gym) */
@@ -534,7 +541,7 @@ function show(id){
   window.scrollTo(0,0);
 }
 
-function start(){ idx=0; renderQ(); show('screen-quiz'); }
+function start(){ idx=0; ga('test_start',{test_name:'decision'}); renderQ(); show('screen-quiz'); }
 
 function renderQ(){
   var q=QUESTIONS[idx];
@@ -574,6 +581,7 @@ function prev(){ if(idx>0){ idx--; renderQ(); } }
 function computeAndShow(){
   lastScores=computeScores(answers);
   lastProgram=classify(lastScores);
+  ga('test_complete',{test_name:'decision', result:lastProgram});
   document.getElementById('friendBadge').style.display='none';
   document.getElementById('selfTestWrap').style.display='none';
   renderResult(lastProgram, lastScores);
@@ -627,6 +635,7 @@ function renderResult(progId, scores){
   detail.href=p.link;
   detail.style.background='linear-gradient(135deg,'+p.color+','+shade(p.color,-20)+')';
   detail.innerHTML='👉 '+p.name+' 자세히 보기';
+  detail.onclick=function(){ ga('program_detail',{test_name:'decision', result:lastProgram}); };
 
   document.querySelector('.cta-title').innerHTML=p.cta+'바로 시작해볼까요?';
 }
@@ -642,6 +651,7 @@ function shareText(){
 
 function shareKakao(){
   var p=lastProgram?PROGRAMS[lastProgram]:null;
+  ga('share',{method:'kakao', test_name:'decision', result:lastProgram});
   try{
     if(window.Kakao){
       if(!Kakao.isInitialized()) Kakao.init('2cddec8893b9498426a35fd55935b6ea');
@@ -666,6 +676,7 @@ function shareKakao(){
 }
 
 function shareNative(){
+  ga('share',{method:'web', test_name:'decision', result:lastProgram});
   if(navigator.share){
     navigator.share({ title:'결정사 — 나에게 맞는 운동 찾기', text:shareText(), url:shareUrl() })
       .catch(function(){});
@@ -675,6 +686,7 @@ function shareNative(){
 }
 
 function copyLink(){
+  ga('share',{method:'copy', test_name:'decision', result:lastProgram});
   var txt=shareText();
   if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(txt).then(function(){ toast('링크가 복사됐어요! 📋'); },
@@ -700,6 +712,7 @@ function toast(msg){
   clearTimeout(toastTimer);
   toastTimer=setTimeout(function(){ t.classList.remove('show'); },2200);
 }
+function nadoTest(){ ga('nado_test',{test_name:'decision'}); restart(); }
 function restart(){
   answers={}; idx=0;
   lastProgram=null; lastScores=null;
@@ -718,6 +731,7 @@ function initDeepLink(){
     if(m) r=decodeURIComponent(m[1]);
   }catch(e){}
   if(!r || !PROGRAMS[r]) return;
+  ga('shared_result_open',{test_name:'decision', result:r});
   lastProgram=r;
   lastScores=null;
   document.getElementById('friendBadge').style.display='block';
@@ -742,6 +756,7 @@ try{ if(window.Kakao && !Kakao.isInitialized()) Kakao.init('2cddec8893b9498426a3
    무료 상담 신청 (이름·연락처 → 텔레그램 영업알림)
    ========================================================= */
 function openConsult(){
+  ga('consult_open',{test_name:'decision', result:lastProgram});
   var p = lastProgram ? PROGRAMS[lastProgram] : null;
   var pick = document.getElementById('consultPick');
   if(p){ pick.style.display='block'; pick.innerHTML='🎯 추천 프로그램: '+p.icon+' '+p.name; }
@@ -798,6 +813,7 @@ function submitConsult(){
     + '💪 무제한PT ' + (s.up||0) + ' · 🏆 프리미엄PT ' + (s.pp||0) + ' · 🚴 스피닝 ' + (s.sp||0) + ' · 🏋️ 일반헬스 ' + (s.gym||0);
 
   window.NONAME_TG.send(msg).then(function(){
+    ga('consult_submit',{test_name:'decision', result:lastProgram});
     document.getElementById('consultForm').style.display='none';
     document.getElementById('consultDone').style.display='block';
     btn.disabled=false; btn.textContent='신청하기';

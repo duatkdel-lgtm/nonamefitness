@@ -8,12 +8,14 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="운동 나이 자가진단 | 노네임피트니스">
 <meta property="og:description" content="내 운동 나이가 실제 나이보다 많다?! 😱 1분 자가진단으로 확인해보세요.">
-<meta property="og:image" content="https://nonamefitness.co.kr/images/og-fitage.jpeg">
+<meta property="og:image" content="https://nonamefitness.co.kr/images/og-fitage.jpeg?v=2">
 <meta property="og:url" content="https://nonamefitness.co.kr/tests/fit-age/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="운동 나이 자가진단 | 노네임피트니스">
 <meta name="twitter:description" content="내 운동 나이가 실제 나이보다 많다?! 😱 1분 자가진단으로 확인해보세요.">
-<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-fitage.jpeg">
+<meta name="twitter:image" content="https://nonamefitness.co.kr/images/og-fitage.jpeg?v=2">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S8M0M3Q0P3"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-S8M0M3Q0P3');</script>
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
   :root{
@@ -197,7 +199,7 @@
   <section id="result" class="screen">
     <div id="friendBadge" style="display:none;">
       <div class="pill" style="margin-bottom:12px;background:rgba(34,197,94,.16);">👀 친구가 보낸 결과예요</div>
-      <button class="btn btn-primary" style="margin-bottom:16px;" onclick="restart()">🙋 나도 테스트하기</button>
+      <button class="btn btn-primary" style="margin-bottom:16px;" onclick="track('nado_test',{test_name:'fitage'});restart()">🙋 나도 테스트하기</button>
     </div>
 
     <div class="card" id="rcard" style="text-align:center;"></div>
@@ -231,6 +233,9 @@
 <script>
   // ---- Kakao init ----
   try{ if(window.Kakao && !Kakao.isInitialized()) Kakao.init('2cddec8893b9498426a35fd55935b6ea'); }catch(e){}
+
+  // ---- GA4 이벤트 헬퍼 ----
+  function track(name, params){ try{ if(typeof gtag==='function') gtag('event', name, params||{}); }catch(e){} }
 
   const SHARE_URL = 'https://nonamefitness.co.kr/tests/fit-age/';
   const OG_BASE = 'https://nonamefitness.co.kr/images/og-fitage';
@@ -327,7 +332,7 @@
   const $ = id => document.getElementById(id);
   function show(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); $(id).classList.add('active'); window.scrollTo(0,0); }
 
-  function start(){ step=0; show('quiz'); render(); }
+  function start(){ track('test_start',{test_name:'fitage'}); step=0; show('quiz'); render(); }
 
   function updateBar(){
     $('pfill').style.width = ((step)/(TOTAL-1)*100)+'%';
@@ -430,7 +435,9 @@
     if(fitAge < 12) fitAge = 12;
     if(fitAge > 99) fitAge = 99;
 
-    renderResultCard(gradeKeyFromDelta(delta), fitAge, delta, realAge);
+    const gradeKey = gradeKeyFromDelta(delta);
+    renderResultCard(gradeKey, fitAge, delta, realAge);
+    track('test_complete',{test_name:'fitage', result:gradeKey, fit_age:fitAge});
     show('result');
   }
 
@@ -447,7 +454,7 @@
   // 등급별 공유 카드 이미지
   function shareImage(){
     const k = resultState && resultState.gradeKey;
-    return k ? `${OG_BASE}-${k}.jpeg` : `${OG_BASE}.jpeg`;
+    return k ? `${OG_BASE}-${k}.jpeg?v=2` : `${OG_BASE}.jpeg?v=2`;
   }
   function shareText(){
     const fa = resultState ? resultState.fitAge : '';
@@ -459,6 +466,7 @@
   }
 
   function shareKakao(){
+    track('share',{method:'kakao', test_name:'fitage', result:resultState&&resultState.gradeKey});
     try{
       if(window.Kakao && Kakao.isInitialized() && Kakao.Share){
         const url = shareUrl();
@@ -479,6 +487,7 @@
   }
 
   function shareNative(){
+    track('share',{method:'web', test_name:'fitage', result:resultState&&resultState.gradeKey});
     if(navigator.share){
       navigator.share({ title:shareTitle(), text:shareText(), url:shareUrl() }).catch(()=>{});
     } else {
@@ -487,6 +496,7 @@
   }
 
   function copyLink(){
+    track('share',{method:'copy', test_name:'fitage', result:resultState&&resultState.gradeKey});
     const txt = shareText();
     if(navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(txt).then(()=>toast('결과 링크가 복사되었어요! 📋')).catch(()=>fallbackCopy(txt));
@@ -514,6 +524,7 @@
       const a = parseInt(p.get('a'),10);
       const fitAge = (a>=12 && a<=99) ? a : null;
       renderResultCard(r, fitAge, null, null);
+      track('shared_result_open',{test_name:'fitage', result:r});
       $('friendBadge').style.display='block';
       show('result');
     }catch(e){}
