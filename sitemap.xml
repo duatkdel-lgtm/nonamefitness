@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://nonamefitness.co.kr/</loc><priority>1.0</priority></url>
+  <url><loc>https://nonamefitness.co.kr/about/</loc><priority>0.8</priority></url>
+  <url><loc>https://nonamefitness.co.kr/price/</loc><priority>0.8</priority></url>
+  <url><loc>https://nonamefitness.co.kr/trainers/</loc><priority>0.8</priority></url>
   <url><loc>https://nonamefitness.co.kr/premium-pt/</loc><priority>0.7</priority></url>
   <url><loc>https://nonamefitness.co.kr/unlimited-pt/</loc><priority>0.7</priority></url>
   <url><loc>https://nonamefitness.co.kr/spinning/</loc><priority>0.7</priority></url>
