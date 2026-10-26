@@ -1268,6 +1268,20 @@ document.getElementById('partnerModal').addEventListener('click',function(e){if(
 <script src="/js/kakao-share.js"></script>
 <script src="/js/ga-events.js"></script>
 
+<!-- Event Popup: 가을 운동회 (2026-11-20까지 노출) -->
+<div class="event-popup-overlay" id="sportsDayPopup" role="dialog" aria-modal="true" aria-label="노네임 가을 운동회 참가 신청">
+    <div class="event-popup sd-popup">
+        <a href="/news/sports-day/#apply" class="event-popup-link" onclick="trackSportsDayPopupClick()">
+            <img src="/images/news-sports-day.jpg" alt="노네임피트니스 가을 운동회 11월 21일 토요일 - 회원·지인·가족 모두 참여 가능" width="1136" height="1408">
+        </a>
+        <a href="/news/sports-day/#apply" class="sd-popup-cta" onclick="trackSportsDayPopupClick()">11/21(토) 운동회 참가 신청하기 →</a>
+        <div class="event-popup-controls">
+            <button type="button" class="event-popup-dismiss" onclick="dismissSportsDayPopupToday()">오늘 하루 보지 않기</button>
+            <button type="button" class="event-popup-close" onclick="closeSportsDayPopup()" aria-label="팝업 닫기">닫기 ✕</button>
+        </div>
+    </div>
+</div>
+
 <!-- Event Popup: 500회 한정 오픈 -->
 <div class="event-popup-overlay" id="eventPopup" role="dialog" aria-modal="true" aria-label="500회 한정 오픈 이벤트">
     <div class="event-popup">
@@ -1372,6 +1386,23 @@ document.getElementById('partnerModal').addEventListener('click',function(e){if(
 }
 .event-popup-controls button:hover { background: rgba(255, 255, 255, 0.12); }
 .event-popup-dismiss { border-right: 1px solid rgba(255, 255, 255, 0.15); }
+.sd-popup .event-popup-link img {
+    filter: none;
+    max-height: calc(100vh - 170px);
+    object-fit: contain;
+    background: #1a1a1a;
+}
+.sd-popup-cta {
+    display: block;
+    background: #f5c518;
+    color: #111;
+    text-align: center;
+    font-weight: 800;
+    font-size: 16px;
+    padding: 15px 16px;
+    text-decoration: none;
+}
+.sd-popup-cta:hover { background: #ffd43b; }
 @media (max-width: 480px) {
     .event-popup-overlay { padding: 12px; }
     .event-popup-controls button {
@@ -1383,6 +1414,23 @@ document.getElementById('partnerModal').addEventListener('click',function(e){if(
 
 <script>
 (function() {
+    // 가을 운동회 팝업: 2026-11-21 00:00(KST) 전까지는 이 팝업만 띄운다
+    var SD_END = Date.parse('2026-11-21T00:00:00+09:00');
+    var sdPopup = document.getElementById('sportsDayPopup');
+    if (sdPopup && Date.now() < SD_END) {
+        var sdUntil = localStorage.getItem('sportsDayPopup_dismissedUntil');
+        if (!sdUntil || Date.now() > parseInt(sdUntil, 10)) {
+            setTimeout(function() { sdPopup.classList.add('active'); }, 600);
+        }
+        sdPopup.addEventListener('click', function(e) {
+            if (e.target === sdPopup) closeSportsDayPopup();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sdPopup.classList.contains('active')) closeSportsDayPopup();
+        });
+        return;
+    }
+
     var POPUP_KEY = 'eventPopup_500_dismissedUntil';
     var popup = document.getElementById('eventPopup');
     if (!popup) return;
@@ -1410,6 +1458,24 @@ function dismissEventPopupToday() {
     var tomorrow = Date.now() + 24 * 60 * 60 * 1000;
     localStorage.setItem('eventPopup_500_dismissedUntil', tomorrow.toString());
     closeEventPopup();
+}
+
+function closeSportsDayPopup() {
+    document.getElementById('sportsDayPopup').classList.remove('active');
+}
+
+function dismissSportsDayPopupToday() {
+    localStorage.setItem('sportsDayPopup_dismissedUntil', (Date.now() + 24 * 60 * 60 * 1000).toString());
+    closeSportsDayPopup();
+}
+
+function trackSportsDayPopupClick() {
+    if (typeof gtag === 'function') {
+        gtag('event', 'event_popup_click', {
+            event_category: 'engagement',
+            event_label: 'sports_day_2026'
+        });
+    }
 }
 
 function trackEventPopupClick() {
