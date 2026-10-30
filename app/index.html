@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>마이트레이너 앱 다운로드 | 노네임피트니스</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S8M0M3Q0P3"></script>
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','G-S8M0M3Q0P3');
+(function(){
+  var IOS='https://apps.apple.com/kr/app/id6761354709';
+  var AND='https://play.google.com/store/apps/details?id=com.nonamefitness.mytrainer';
+  var ua=navigator.userAgent||'';
+  var isIOS=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  var isAnd=/Android/i.test(ua);
+  var dest=isIOS?IOS:(isAnd?AND:null);
+  if(!dest) return;
+  var went=false;
+  function go(){ if(went) return; went=true; location.replace(dest); }
+  gtag('event','app_qr_redirect',{platform:isIOS?'ios':'android',transport_type:'beacon',event_callback:go});
+  setTimeout(go,600);
+})();
+</script>
+<style>
+body{margin:0;font-family:-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:#EDE7FF;color:#111;display:flex;min-height:100vh;align-items:center;justify-content:center}
+.box{background:#fff;border-radius:20px;padding:36px 28px;max-width:360px;width:88%;text-align:center;box-shadow:0 10px 30px rgba(60,20,160,.15)}
+h1{font-size:26px;margin:0 0 6px;color:#6D3BF5}
+p{margin:0 0 24px;color:#555;font-size:15px}
+a{display:block;padding:15px;border-radius:12px;font-weight:800;text-decoration:none;margin-bottom:10px;font-size:16px}
+.ios{background:#111;color:#fff}.and{background:#6D3BF5;color:#fff}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>마이트레이너</h1>
+  <p>노네임피트니스 회원이라면 누구나 무료</p>
+  <a class="ios" href="https://apps.apple.com/kr/app/id6761354709">아이폰 · App Store</a>
+  <a class="and" href="https://play.google.com/store/apps/details?id=com.nonamefitness.mytrainer">갤럭시 · Google Play</a>
+</div>
+</body>
+</html>
