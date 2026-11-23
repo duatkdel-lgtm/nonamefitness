@@ -229,6 +229,13 @@
         </div>
     </section>
 
+    <!-- 12월 이벤트 띠배너 (2026-12-01 ~ 12-31 자동 노출) -->
+    <a href="/news/december/" class="dec-strip" data-show-from="2026-12-01T00:00:00+09:00" data-show-until="2027-01-01T00:00:00+09:00" hidden onclick="if(window.gtag)gtag('event','dec_strip_click')">
+        <span class="dec-strip-tag">12월 이벤트</span>
+        <span class="dec-strip-text">새해다짐 헬스 <b>6+6개월 330,000원</b> · 스피닝 · PT 10회 패키지</span>
+        <span class="dec-strip-go">자세히 보기 →</span>
+    </a>
+
     <!-- 마이트레이너 앱 홍보 배너 -->
     <section class="mytrainer-banner" data-aos="fade-up">
         <div class="container">
@@ -562,7 +569,14 @@
                 <p class="section-desc">천안 두정동 헬스장 노네임피트니스의 최신 소식과 이벤트</p>
             </div>
             <div class="news-grid">
-                <a href="https://blog.naver.com/noname-fitness/224457021524" target="_blank" class="news-card" data-aos="fade-up" data-delay="0">
+                <a href="/news/december/" class="news-card" data-aos="fade-up" data-delay="0" data-show-from="2026-12-01T00:00:00+09:00" data-show-until="2027-01-01T00:00:00+09:00" hidden>
+                    <div class="news-badge">EVENT</div>
+                    <div class="news-icon"><i class="fas fa-gift"></i></div>
+                    <h3 class="news-title">12월 이벤트</h3>
+                    <p class="news-desc">새해다짐 헬스 6+6개월 330,000원, 스피닝 1개월 120,000원, 헬스+PT 10회 399,000원부터, 수능생·대학생 할인</p>
+                    <span class="news-link">자세히 보기 <i class="fas fa-arrow-right"></i></span>
+                </a>
+                <a href="https://blog.naver.com/noname-fitness/224457021524" target="_blank" class="news-card" data-aos="fade-up" data-delay="0" data-show-until="2026-12-01T00:00:00+09:00">
                     <div class="news-badge">EVENT</div>
                     <div class="news-icon"><i class="fas fa-gift"></i></div>
                     <h3 class="news-title">11월 이벤트 모음</h3>
@@ -1301,6 +1315,25 @@ document.getElementById('partnerModal').addEventListener('click',function(e){if(
 <script src="/js/kakao-share.js"></script>
 <script src="/js/ga-events.js"></script>
 
+<!-- Event Popup: 12월 이벤트 (2026-12-01 ~ 12-31) -->
+<div class="event-popup-overlay" id="decPopup" role="dialog" aria-modal="true" aria-label="노네임피트니스 12월 이벤트">
+    <div class="event-popup sd-popup">
+        <div class="dec-slider" id="decSlider">
+            <a href="/news/december/" onclick="trackDecPopupClick()"><img src="/images/dec-cover-sq.jpg" alt="노네임피트니스 12월 이벤트" width="1080" height="1080"></a>
+            <a href="/news/december/#gym" onclick="trackDecPopupClick()"><img src="/images/dec-gym-sq.jpg" alt="새해다짐 헬스 1개월 50,000원, 3개월 140,000원, 6개월 260,000원, 6+6개월 330,000원" width="1080" height="1080" loading="lazy"></a>
+            <a href="/news/december/#spinning" onclick="trackDecPopupClick()"><img src="/images/dec-spinning-sq.jpg" alt="새해다짐 스피닝 1개월 120,000원, 3개월 300,000원, 6개월 480,000원" width="1080" height="1080" loading="lazy"></a>
+            <a href="/news/december/#pt" onclick="trackDecPopupClick()"><img src="/images/dec-pt-sq.jpg" alt="PT 패키지 3개월+PT 10회 399,000원부터" width="1080" height="1080" loading="lazy"></a>
+            <a href="/news/december/#student" onclick="trackDecPopupClick()"><img src="/images/dec-student-sq.jpg" alt="수능생·대학생 이벤트 헬스 3개월 120,000원, 스피닝 3개월 270,000원" width="1080" height="1080" loading="lazy"></a>
+        </div>
+        <div class="dec-dots" id="decDots"></div>
+        <a href="/news/december/" class="sd-popup-cta dec-cta" onclick="trackDecPopupClick()">12월 이벤트 전체 보기 →</a>
+        <div class="event-popup-controls">
+            <button type="button" class="event-popup-dismiss" onclick="dismissDecPopupToday()">오늘 하루 보지 않기</button>
+            <button type="button" class="event-popup-close" onclick="closeDecPopup()" aria-label="팝업 닫기">닫기 ✕</button>
+        </div>
+    </div>
+</div>
+
 <!-- Event Popup: 수능생 특별 이벤트 (2026-11-30까지 노출) -->
 <div class="event-popup-overlay" id="suneungPopup" role="dialog" aria-modal="true" aria-label="수능생 특별 이벤트">
     <div class="event-popup sd-popup">
@@ -1436,6 +1469,20 @@ document.getElementById('partnerModal').addEventListener('click',function(e){if(
     text-decoration: none;
 }
 .sd-popup-cta:hover { background: #ffd43b; }
+.dec-slider { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; line-height:0; background:#C8102E; }
+.dec-slider::-webkit-scrollbar { display:none; }
+.dec-slider a { flex:0 0 100%; scroll-snap-align:start; }
+.dec-slider img { width:100%; height:auto; display:block; max-height:calc(100vh - 200px); object-fit:contain; }
+.dec-dots { display:flex; justify-content:center; gap:6px; padding:10px 0; background:#C8102E; }
+.dec-dots button { width:8px; height:8px; border-radius:50%; border:0; padding:0; background:rgba(255,255,255,.45); cursor:pointer; }
+.dec-dots button.on { background:#fff; width:20px; border-radius:4px; }
+.dec-cta { background:#F5C518; }
+.dec-strip { display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; padding:14px 20px; background:#C8102E; color:#fff; text-decoration:none; font-size:15px; text-align:center; }
+.dec-strip[hidden] { display:none; }
+.dec-strip-tag { background:#F5C518; color:#111; font-weight:900; padding:4px 12px; border-radius:999px; font-size:13px; }
+.dec-strip-text b { color:#FFE27A; }
+.dec-strip-go { font-weight:800; text-decoration:underline; }
+.news-card[hidden] { display:none !important; }
 @media (max-width: 480px) {
     .event-popup-overlay { padding: 12px; }
     .event-popup-controls button {
@@ -1447,10 +1494,39 @@ document.getElementById('partnerModal').addEventListener('click',function(e){if(
 
 <script>
 (function() {
+    // 미리보기: 주소 끝에 ?preview=2026-12-05 처럼 날짜를 붙이면 그 날짜 기준으로 보인다.
+    var pv = (location.search.match(/[?&]preview=(\d{4}-\d{2}-\d{2})/) || [])[1];
+    var NOW = pv ? Date.parse(pv + 'T12:00:00+09:00') : Date.now();
+    document.querySelectorAll('[data-show-from],[data-show-until]').forEach(function(el) {
+        var f = el.getAttribute('data-show-from'), u = el.getAttribute('data-show-until');
+        var on = (!f || NOW >= Date.parse(f)) && (!u || NOW < Date.parse(u));
+        if (on) el.removeAttribute('hidden'); else el.setAttribute('hidden', '');
+    });
+
+    // 12월 이벤트 팝업: 2026-12-01 ~ 12-31
+    var DEC_FROM = Date.parse('2026-12-01T00:00:00+09:00'), DEC_END = Date.parse('2027-01-01T00:00:00+09:00');
+    var decPopup = document.getElementById('decPopup');
+    if (decPopup && NOW >= DEC_FROM && NOW < DEC_END) {
+        var decUntil = localStorage.getItem('decPopup_dismissedUntil');
+        if (pv || !decUntil || Date.now() > parseInt(decUntil, 10)) {
+            setTimeout(function() { decPopup.classList.add('active'); }, 600);
+        }
+        decPopup.addEventListener('click', function(e) { if (e.target === decPopup) closeDecPopup(); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && decPopup.classList.contains('active')) closeDecPopup(); });
+        var sl = document.getElementById('decSlider'), dots = document.getElementById('decDots'), n = sl.children.length, idx = 0, timer;
+        for (var i = 0; i < n; i++) { (function(k){ var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', (k+1) + '번째 포스터'); b.onclick = function(){ go(k); restart(); }; dots.appendChild(b); })(i); }
+        function paint() { [].forEach.call(dots.children, function(b, k){ b.className = k === idx ? 'on' : ''; }); }
+        function go(k) { idx = (k + n) % n; sl.scrollTo({ left: sl.clientWidth * idx, behavior: 'smooth' }); paint(); }
+        function restart() { clearInterval(timer); timer = setInterval(function(){ go(idx + 1); }, 3500); }
+        sl.addEventListener('scroll', function(){ var k = Math.round(sl.scrollLeft / sl.clientWidth); if (k !== idx) { idx = k; paint(); } });
+        paint(); restart();
+        return;
+    }
+
     // 수능생 이벤트 팝업: 2026-12-01 00:00(KST) 전까지. 500회 오픈 팝업은 종료되어 띄우지 않는다.
     var SN_END = Date.parse('2026-12-01T00:00:00+09:00');
     var snPopup = document.getElementById('suneungPopup');
-    if (snPopup && Date.now() < SN_END) {
+    if (snPopup && NOW < SN_END) {
         var snUntil = localStorage.getItem('suneungPopup_dismissedUntil');
         if (!snUntil || Date.now() > parseInt(snUntil, 10)) {
             setTimeout(function() { snPopup.classList.add('active'); }, 600);
@@ -1487,6 +1563,21 @@ function dismissEventPopupToday() {
     var tomorrow = Date.now() + 24 * 60 * 60 * 1000;
     localStorage.setItem('eventPopup_500_dismissedUntil', tomorrow.toString());
     closeEventPopup();
+}
+
+function closeDecPopup() {
+    document.getElementById('decPopup').classList.remove('active');
+}
+
+function dismissDecPopupToday() {
+    localStorage.setItem('decPopup_dismissedUntil', (Date.now() + 24 * 60 * 60 * 1000).toString());
+    closeDecPopup();
+}
+
+function trackDecPopupClick() {
+    if (typeof gtag === 'function') {
+        gtag('event', 'event_popup_click', { event_category: 'engagement', event_label: 'december_2026' });
+    }
 }
 
 function closeSuneungPopup() {
